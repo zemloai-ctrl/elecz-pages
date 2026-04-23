@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elecz Docs — Electricity Signal API for AI Agents</title>
+  <meta name="description" content="Elecz API documentation. Real-time electricity prices, contract recommendations and cheapest hours for Europe and Oceania. MCP, REST.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    :root {
+      --bg: #080808;
+      --bg2: #0f0f0f;
+      --bg3: #141414;
+      --border: #1e1e1e;
+      --text: #d0d0d0;
+      --text-dim: #555;
+      --text-dimmer: #333;
+      --yellow: #f0c040;
+      --green: #3ddc84;
+      --blue: #60a8f8;
+      --red: #ff6b6b;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-mono);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(240,192,64,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(240,192,64,0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .container { max-width: 860px; margin: 0 auto; padding: 60px 24px 80px; position: relative; z-index: 1; }
+    h1 { color: var(--yellow); font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+    h2 { color: var(--blue); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 56px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); font-weight: 400; }
+    h3 { color: var(--yellow); font-size: 0.85rem; margin-top: 24px; margin-bottom: 10px; }
+    p { line-height: 1.7; color: var(--text-dim); font-size: 0.85rem; margin-bottom: 12px; }
+    ul { padding-left: 20px; margin-bottom: 12px; }
+    li { line-height: 1.8; color: var(--text-dim); font-size: 0.85rem; }
+    code {
+      background: var(--bg3);
+      color: var(--yellow);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+    }
+    pre {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px;
+      font-size: 0.8rem;
+      line-height: 1.7;
+      color: var(--green);
+      overflow-x: auto;
+      margin-bottom: 16px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-bottom: 16px; }
+    th { text-align: left; padding: 10px 12px; color: var(--text-dim); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid var(--border); font-weight: 400; }
+    td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; color: var(--text-dim); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg2); }
+    .deprecated { text-decoration: line-through; opacity: 0.4; }
+    .prompt {
+      background: var(--bg2);
+      border-left: 3px solid var(--green);
+      padding: 12px 16px;
+      margin: 8px 0 16px;
+      border-radius: 0 4px 4px 0;
+      color: #90c090;
+      font-size: 0.82rem;
+      font-style: italic;
+    }
+    nav { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 48px; }
+    nav a { color: var(--text-dim); text-decoration: none; font-size: 0.78rem; transition: color 0.15s; }
+    nav a:hover { color: var(--blue); }
+    .badge { background: var(--bg3); border: 1px solid var(--border); color: var(--green); padding: 3px 10px; border-radius: 3px; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; margin-right: 6px; }
+    footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--text-dimmer); font-size: 0.72rem; line-height: 1.8; }
+    footer a { color: var(--text-dimmer); text-decoration: none; }
+    footer a:hover { color: var(--text-dim); }
+    @media (max-width: 600px) { .container { padding: 40px 16px 60px; } h1 { font-size: 1.5rem; } }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <h1>⚡ Elecz Docs</h1>
+  <p>Electricity decision signal for AI agents, automation, and developers.</p>
+  <p>
+    <span class="badge">Free</span>
+    <span class="badge">No API Key</span>
+    <span class="badge">MCP-Native</span>
+  </p>
+
+  <nav>
+    <a href="/">← Home</a>
+    <a href="#connect">Connect</a>
+    <a href="#tools">MCP Tools</a>
+    <a href="#api">REST API</a>
+    <a href="#markets">Markets</a>
+    <a href="#au">Australia</a>
+    <a href="#nz">New Zealand</a>
+    <a href="#gb">United Kingdom</a>
+    <a href="#de">Germany</a>
+    <a href="/privacy">Privacy</a>
+  </nav>
+
+  <h2 id="what">What is Elecz?</h2>
+  <p>Elecz turns real-time electricity prices into actionable signals — for AI agents, home automation, and anyone whose decisions depend on when they use electricity.</p>
+  <p><strong style="color:var(--text)">Markets:</strong> Finland · Sweden · Norway · Denmark · Germany · Netherlands · Belgium · Austria · France · Italy · Poland · Czech Republic · Hungary · Romania · Spain · Portugal · Croatia · Bulgaria · Slovenia · Slovakia · Greece · Estonia · Latvia · Lithuania · Switzerland · Serbia · Bosnia · Montenegro · North Macedonia · United Kingdom · Australia · New Zealand</p>
+  <p>Elecz provides price signals. Scheduling decisions — deadlines, device constraints, priorities — remain with the caller.</p>
+
+  <h2 id="connect">Connect in 30 seconds</h2>
+
+  <h3>Claude / Claude Code / any MCP client</h3>
+  <pre>{
+  "mcpServers": {
+    "elecz": {
+      "url": "https://elecz.com/mcp"
+    }
+  }
+}</pre>
+
+  <h3>cURL</h3>
+  <pre>curl "https://elecz.com/signal/spot?zone=FI"
+curl "https://elecz.com/signal/spot?zone=GB"
+curl "https://elecz.com/signal/spot?zone=AU-NSW"
+curl "https://elecz.com/signal/spot?zone=NZ-NI"
+curl "https://elecz.com/signal/cheapest-hours?zone=FI&hours=5"
+curl "https://elecz.com/signal?zone=FI&consumption=2000"</pre>
+
+  <h2 id="tools">MCP Tools</h2>
+  <table>
+    <tr><th>Tool</th><th>When to use</th><th>Returns</th></tr>
+    <tr>
+      <td><code>spot_price</code></td>
+      <td>User asks what electricity costs right now</td>
+      <td>Current price in local unit (NZD c/kWh, AUD c/kWh, p/kWh, c/kWh, ore/kWh)</td>
+    </tr>
+    <tr>
+      <td><code>cheapest_hours</code></td>
+      <td>User asks when to run appliances, charge EV, schedule tasks</td>
+      <td>Cheapest slots + best consecutive window next 24h (not available for AU or NZ)</td>
+    </tr>
+    <tr>
+      <td><code>best_energy_contract</code></td>
+      <td>User asks which contract to choose or whether to switch provider</td>
+      <td>Best dynamic/spot contract, best fixed contract, and recommended option</td>
+    </tr>
+  </table>
+
+  <h2 id="api">REST API</h2>
+  <p><strong style="color:var(--text)">Base URL:</strong> <code>https://elecz.com</code> — No authentication. No rate limit for reasonable use.</p>
+
+  <table>
+    <tr><th>Endpoint</th><th>Description</th></tr>
+    <tr><td><code>GET /signal/spot?zone=FI</code></td><td>Current spot price only</td></tr>
+    <tr><td><code>GET /signal/cheapest-hours?zone=FI&hours=5</code></td><td>Cheapest hours next 24h</td></tr>
+    <tr><td><code>GET /signal?zone=FI&consumption=2000</code></td><td>Full signal with contract recommendations</td></tr>
+    <tr><td><code>GET /go/&lt;provider&gt;</code></td><td>Redirect to provider + analytics</td></tr>
+    <tr><td><code>GET /health</code></td><td>Health check</td></tr>
+    <tr><td class="deprecated"><code>GET /signal/optimize?zone=FI</code></td><td class="deprecated">Deprecated — use /signal</td></tr>
+  </table>
+
+  <h3><code>/signal/cheapest-hours</code> response fields (v2)</h3>
+  <table>
+    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+    <tr><td><code>cheapest_hours</code></td><td>array</td><td>Cheapest slots sorted chronologically</td></tr>
+    <tr><td><code>best_3h_window</code></td><td>object</td><td>Best consecutive 3-hour window</td></tr>
+    <tr><td><code>energy_state</code></td><td>string</td><td>cheap / normal / expensive vs daily average</td></tr>
+    <tr><td><code>current_hour_signal</code></td><td>string</td><td>low / medium / high relative to today's distribution</td></tr>
+    <tr><td><code>current_hour_is_cheap</code></td><td>bool</td><td>true if current hour is in cheapest_hours list</td></tr>
+    <tr><td><code>current_hour_rank</code></td><td>int</td><td>Rank 1–N in today's distribution (1 = cheapest)</td></tr>
+    <tr><td><code>cheap_window_ends</code></td><td>string|null</td><td>When current consecutive cheap block ends</td></tr>
+    <tr><td><code>next_cheap_hour</code></td><td>string|null</td><td>Start of next cheap hour (ISO 8601 UTC)</td></tr>
+    <tr><td><code>hours_until_next_cheap</code></td><td>int|null</td><td>Hours until next cheap hour. 0 = start now</td></tr>
+    <tr><td><code>cheap_hours_remaining_today</code></td><td>int</td><td>Cheap hours still ahead in window</td></tr>
+    <tr><td><code>includes_next_day</code></td><td>bool</td><td>true if window contains data beyond today UTC</td></tr>
+    <tr><td><code>data_complete</code></td><td>bool</td><td>true if ~24h of price data is available</td></tr>
+    <tr><td><code>avoid_hours</code></td><td>array</td><td>Hours with above-average prices</td></tr>
+  </table>
+
+  <h2 id="markets">Supported Markets</h2>
+  <table>
+    <tr><th>Zone</th><th>Spot</th><th>Cheapest Hours</th><th>Contracts</th><th>Source</th></tr>
+    <tr><td>FI, SE (SE1–SE4), NO (NO1–NO5), DK (DK1–DK2), DE</td><td>✓</td><td>✓</td><td>✓</td><td>ENTSO-E</td></tr>
+    <tr><td>GB (+ regional GB-A..GB-P)</td><td>✓</td><td>✓</td><td>✓</td><td>Octopus Agile</td></tr>
+    <tr><td>AU-NSW, AU-VIC, AU-QLD, AU-SA, AU-TAS</td><td>✓</td><td>—</td><td>✓</td><td>AEMO NEM</td></tr>
+    <tr><td>NZ-NI, NZ-SI</td><td>✓</td><td>—</td><td>✓</td><td>EM6</td></tr>
+    <tr><td>NL, BE, AT, FR, IT, PL, CZ, HU, RO</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
+    <tr><td>ES, PT, HR, BG, SI, SK, GR</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
+    <tr><td>EE, LV, LT, CH, RS, BA, ME, MK</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
+  </table>
+
+  <h2 id="examples">Usage Examples</h2>
+
+  <h3>Current price</h3>
+  <div class="prompt">"What is the current electricity price in Finland?"</div>
+
+  <h3>Cheapest hours</h3>
+  <div class="prompt">"When should I run my dishwasher today? I'm in Sweden."</div>
+
+  <h3>Contract comparison</h3>
+  <div class="prompt">"Should I switch my electricity contract? I use about 2000 kWh/year in Norway."</div>
+
+  <h2 id="au">🇦🇺 Australia</h2>
+  <p>AU spot prices sourced from <strong style="color:var(--text)">AEMO</strong> — 5-minute NEM dispatch prices, updated every 30 min. Unit: AUD c/kWh.</p>
+  <p>Zones: AU-NSW · AU-VIC · AU-QLD · AU-SA · AU-TAS</p>
+  <p>Note: <code>cheapest_hours</code> returns <code>available: false</code> — no public day-ahead data for AU.</p>
+  <pre>curl "https://elecz.com/signal/spot?zone=AU-NSW"
+curl "https://elecz.com/signal?zone=AU-VIC&consumption=4500"</pre>
+
+  <h2 id="nz">🇳🇿 New Zealand</h2>
+  <p>NZ spot prices sourced from <strong style="color:var(--text)">EM6</strong> real-time API — NZEM wholesale prices, 30-minute trading periods, updated every 30 min. Unit: NZD c/kWh.</p>
+  <p>Zones: NZ-NI (North Island) · NZ-SI (South Island)</p>
+  <p>Providers: Mercury Energy · Contact Energy · Genesis Energy · Meridian Energy · Electric Kiwi</p>
+  <p>Note: No spot pass-through retailers currently available. Flick Electric was acquired by Meridian Energy (July 2025).</p>
+  <pre>curl "https://elecz.com/signal/spot?zone=NZ-NI"
+curl "https://elecz.com/signal?zone=NZ-NI&consumption=8000"</pre>
+
+  <h2 id="gb">🇬🇧 United Kingdom</h2>
+  <p>GB spot prices sourced from <strong style="color:var(--text)">Octopus Agile API</strong> — half-hourly resolution, updated every 30 min. Unit: p/kWh incl. VAT (5%).</p>
+  <p>Default zone GB = London (region C). Regional zones: GB-A through GB-P.</p>
+  <pre>curl "https://elecz.com/signal/spot?zone=GB"
+curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
+
+  <h2 id="de">🇩🇪 Germany</h2>
+  <p>DE spot prices from <strong style="color:var(--text)">ENTSO-E</strong>. Contract comparison includes 12 providers. Unit: EUR c/kWh.</p>
+  <p>Note: Price excludes regional Netzentgelt (varies ~10–15 ct/kWh by area).</p>
+  <pre>curl "https://elecz.com/signal?zone=DE&consumption=3500"</pre>
+
+  <h2>Data Sources</h2>
+  <p>Nordic + Central + Southern Europe spot from ENTSO-E, updated hourly. GB from Octopus Agile API, every 30 min. AU from AEMO, every 30 min. NZ from EM6, every 30 min. Contract prices scraped nightly via Gemini. Currency conversion via Frankfurter API.</p>
+
+  <h2>Roadmap</h2>
+  <ul>
+    <li>✅ Nordic markets (FI, SE, NO, DK)</li>
+    <li>✅ Germany (DE)</li>
+    <li>✅ United Kingdom (GB, Octopus Agile)</li>
+    <li>✅ Australia (AEMO NEM)</li>
+    <li>✅ New Zealand (EM6)</li>
+    <li>✅ Southern Europe (ES, PT, HR, BG, SI, SK, GR)</li>
+    <li>✅ Balkans + Switzerland (CH, RS, BA, ME, MK)</li>
+    <li>✅ Baltics (EE, LV, LT)</li>
+    <li>🔜 Netherlands, Belgium — contract comparison</li>
+    <li>🔜 Ireland (SEMO)</li>
+    <li>🔜 United States (ISO/RTO)</li>
+  </ul>
+
+  <h2>Support</h2>
+  <p>Questions, integrations, or issues: <a href="mailto:sakke@zemloai.com" style="color:var(--blue)">sakke@zemloai.com</a></p>
+  <p>GitHub: <a href="https://github.com/zemloai-ctrl/elecz-api" style="color:var(--blue)" target="_blank">zemloai-ctrl/elecz-api</a></p>
+
+  <footer>
+    ⚡ Elecz.com · SKA Trading Oy / Zemlo AI · Kokkola, Finland ·
+    <a href="/">Home</a> ·
+    <a href="/privacy">Privacy Policy</a> ·
+    <a href="/terms">Terms of Service</a>
+  </footer>
+
+</div>
+</body>
+</html>

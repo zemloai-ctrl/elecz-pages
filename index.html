@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>⚡ Elecz — Electricity Signal API for AI Agents</title>
+  <meta name="description" content="Real-time electricity price signal API for AI agents. Spot prices, cheapest hours, and contract recommendations for Europe and Oceania. MCP-native. No authentication.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Elecz",
+    "description": "Real-time electricity price signal API for AI agents. Europe + Oceania.",
+    "url": "https://elecz.com",
+    "applicationCategory": "Utilities",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
+    "provider": {"@type": "Organization", "name": "Zemlo AI", "url": "https://zemloai.com"}
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #080808;
+      --bg2: #0f0f0f;
+      --bg3: #141414;
+      --border: #1e1e1e;
+      --text: #d0d0d0;
+      --text-dim: #555;
+      --text-dimmer: #333;
+      --yellow: #f0c040;
+      --green: #3ddc84;
+      --blue: #60a8f8;
+      --red: #ff6b6b;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-mono);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(240,192,64,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(240,192,64,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    .header {
+      margin-bottom: 64px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .logo {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--yellow);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .logo span { opacity: 0.6; font-weight: 400; }
+
+    .tagline {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      line-height: 1.6;
+      max-width: 480px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--green);
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .badge.yellow { color: var(--yellow); }
+    .badge.blue { color: var(--blue); }
+
+    /* Section */
+    .section {
+      margin-bottom: 56px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .section:nth-child(2) { animation-delay: 0.1s; }
+    .section:nth-child(3) { animation-delay: 0.15s; }
+    .section:nth-child(4) { animation-delay: 0.2s; }
+    .section:nth-child(5) { animation-delay: 0.25s; }
+
+    .section-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dimmer);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Price grid */
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .price-card {
+      background: var(--bg2);
+      padding: 16px;
+      transition: background 0.15s;
+    }
+
+    .price-card:hover { background: var(--bg3); }
+
+    .price-zone {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .price-flag { font-size: 1rem; }
+
+    .price-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 4px;
+      min-height: 1.4rem;
+    }
+
+    .price-value.loading {
+      color: var(--text-dimmer);
+      font-size: 0.9rem;
+      font-weight: 400;
+      padding-top: 4px;
+    }
+
+    .price-value.error { color: var(--red); font-size: 0.85rem; }
+
+    .price-unit {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+    }
+
+    .price-state {
+      display: inline-block;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 6px;
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+
+    .price-state.cheap { background: rgba(61,220,132,0.12); color: var(--green); }
+    .price-state.expensive { background: rgba(255,107,107,0.12); color: var(--red); }
+    .price-state.normal { background: rgba(96,168,248,0.1); color: var(--blue); }
+    .price-state.negative { background: rgba(240,192,64,0.12); color: var(--yellow); }
+
+    /* Code block */
+    .code-block {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: #80e880;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-block .comment { color: var(--text-dimmer); }
+    .code-block .key { color: var(--blue); }
+    .code-block .val { color: var(--yellow); }
+    .code-block .str { color: #80e880; }
+
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 10px 12px;
+      color: var(--text-dim);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      font-weight: 400;
+    }
+
+    .data-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: var(--bg2); }
+
+    .data-table code {
+      background: var(--bg3);
+      color: var(--yellow);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+    }
+
+    .data-table .dim { color: var(--text-dim); }
+    .data-table .deprecated { text-decoration: line-through; opacity: 0.4; }
+
+    /* Nav links */
+    nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+      animation: fadeUp 0.6s ease 0.05s both;
+    }
+
+    nav a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.78rem;
+      transition: color 0.15s;
+    }
+
+    nav a:hover { color: var(--blue); }
+
+    /* Footer */
+    footer {
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--text-dimmer);
+      font-size: 0.72rem;
+      line-height: 1.8;
+      animation: fadeUp 0.6s ease 0.3s both;
+    }
+
+    footer a { color: var(--text-dimmer); text-decoration: none; }
+    footer a:hover { color: var(--text-dim); }
+
+    /* Refresh indicator */
+    .refresh-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 0.7rem;
+      color: var(--text-dimmer);
+    }
+
+    .pulse {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .logo { font-size: 2rem; }
+      .price-grid { grid-template-columns: 1fr 1fr; }
+      .container { padding: 40px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header class="header">
+    <div class="logo">⚡ Elecz<span>.com</span></div>
+    <p class="tagline">Electricity price signal for AI agents and automation.<br>Spot prices · Cheapest hours · Contract recommendations.</p>
+    <div class="badges">
+      <span class="badge">Europe + Oceania</span>
+      <span class="badge yellow">MCP-Native</span>
+      <span class="badge blue">No Auth</span>
+      <span class="badge">Free</span>
+    </div>
+  </header>
+
+  <nav>
+    <a href="/docs">Documentation →</a>
+    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub →</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </nav>
+
+  <section class="section">
+    <div class="section-title">Live Spot Prices</div>
+    <div class="refresh-bar">
+      <div class="pulse"></div>
+      <span id="last-updated">fetching...</span>
+    </div>
+    <div class="price-grid" id="price-grid">
+      <!-- populated by JS -->
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Connect — MCP</div>
+    <div class="code-block"><span class="comment">// Claude / Claude Code / any MCP client</span>
+{
+  <span class="key">"mcpServers"</span>: {
+    <span class="key">"elecz"</span>: {
+      <span class="key">"url"</span>: <span class="val">"https://elecz.com/mcp"</span>
+    }
+  }
+}</div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">REST Endpoints</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Endpoint</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>GET /signal/spot?zone=FI</code></td><td class="dim">Current spot price</td></tr>
+        <tr><td><code>GET /signal/cheapest-hours?zone=FI</code></td><td class="dim">Cheapest hours next 24h</td></tr>
+        <tr><td><code>GET /signal?zone=FI&consumption=2000</code></td><td class="dim">Full signal with contract recommendations</td></tr>
+        <tr><td><code>GET /health</code></td><td class="dim">Health check</td></tr>
+        <tr><td class="deprecated"><code>GET /signal/optimize?zone=FI</code></td><td class="dim deprecated">Deprecated — use /signal</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Supported Markets</div>
+    <table class="data-table">
+      <thead>
+        <tr><th>Zone</th><th>Spot</th><th>Cheapest Hours</th><th>Contracts</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="dim">FI, SE, NO, DK, DE</td><td>✓</td><td>✓</td><td>✓</td></tr>
+        <tr><td class="dim">GB (+ regional A–P)</td><td>✓</td><td>✓</td><td>✓</td></tr>
+        <tr><td class="dim">AU (NSW/VIC/QLD/SA/TAS)</td><td>✓</td><td>—</td><td>✓</td></tr>
+        <tr><td class="dim">NZ (NI / SI)</td><td>✓</td><td>—</td><td>✓</td></tr>
+        <tr><td class="dim">NL, BE, AT, FR, IT, PL, CZ, HU, RO</td><td>✓</td><td>✓</td><td>—</td></tr>
+        <tr><td class="dim">ES, PT, HR, BG, SI, SK, GR</td><td>✓</td><td>✓</td><td>—</td></tr>
+        <tr><td class="dim">EE, LV, LT, CH, RS, BA, ME, MK</td><td>✓</td><td>✓</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>
+    ⚡ Elecz.com — Electricity Price Signal API<br>
+    Powered by ENTSO-E · Octopus Agile · AEMO · EM6<br>
+    <a href="mailto:sakke@zemloai.com">SKA Trading Oy / Zemlo AI</a> · Kokkola, Finland ·
+    <a href="/docs">Docs</a> ·
+    <a href="/privacy">Privacy</a> ·
+    <a href="/terms">Terms</a>
+  </footer>
+
+</div>
+
+<script>
+const ZONES = [
+  { zone: "FI",     label: "Finland",       flag: "🇫🇮" },
+  { zone: "SE",     label: "Sweden",        flag: "🇸🇪" },
+  { zone: "NO",     label: "Norway",        flag: "🇳🇴" },
+  { zone: "DK",     label: "Denmark",       flag: "🇩🇰" },
+  { zone: "DE",     label: "Germany",       flag: "🇩🇪" },
+  { zone: "GB",     label: "United Kingdom",flag: "🇬🇧" },
+  { zone: "ES",     label: "Spain",         flag: "🇪🇸" },
+  { zone: "FR",     label: "France",        flag: "🇫🇷" },
+  { zone: "NL",     label: "Netherlands",   flag: "🇳🇱" },
+  { zone: "AU-NSW", label: "Australia NSW", flag: "🇦🇺" },
+  { zone: "NZ-NI",  label: "New Zealand NI",flag: "🇳🇿" },
+  { zone: "GR",     label: "Greece",        flag: "🇬🇷" },
+];
+
+const API_BASE = "https://elecz.com";
+
+function stateClass(state) {
+  if (!state) return "";
+  return state.toLowerCase();
+}
+
+function formatPrice(price, unit) {
+  if (price === null || price === undefined) return null;
+  return `${Number(price).toFixed(4)} <span style="font-size:0.65rem;font-weight:400;opacity:0.7">${unit}</span>`;
+}
+
+function renderCard(z, data, error) {
+  const price = data ? data.price : null;
+  const unit = data ? data.unit : "";
+  const state = data ? data.energy_state : null;
+  const formatted = formatPrice(price, unit);
+
+  return `
+    <div class="price-card">
+      <div class="price-zone">
+        <span class="price-flag">${z.flag}</span>
+        <span>${z.label} <span style="opacity:0.5">(${z.zone})</span></span>
+      </div>
+      <div class="price-value ${error ? 'error' : (formatted ? '' : 'loading')}">
+        ${error ? 'error' : (formatted ? formatted : '...')}
+      </div>
+      ${state ? `<div class="price-state ${stateClass(state)}">${state}</div>` : ''}
+    </div>
+  `;
+}
+
+async function fetchZone(z) {
+  try {
+    const res = await fetch(`${API_BASE}/signal/spot?zone=${z.zone}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    // fetch energy_state from signal endpoint
+    const sigRes = await fetch(`${API_BASE}/signal?zone=${z.zone}&consumption=2000`);
+    let state = null;
+    if (sigRes.ok) {
+      const sig = await sigRes.json();
+      state = sig.energy_state || null;
+    }
+    return { ...data, energy_state: state };
+  } catch (e) {
+    return null;
+  }
+}
+
+async function loadPrices() {
+  const grid = document.getElementById("price-grid");
+  const updated = document.getElementById("last-updated");
+
+  // Render loading state
+  grid.innerHTML = ZONES.map(z => renderCard(z, null, false)).join("");
+
+  // Fetch all in parallel — spot only (fast), signal separately (slower)
+  const results = await Promise.all(ZONES.map(async z => {
+    try {
+      const res = await fetch(`${API_BASE}/signal/spot?zone=${z.zone}`);
+      if (!res.ok) throw new Error();
+      return await res.json();
+    } catch {
+      return null;
+    }
+  }));
+
+  // Render with prices
+  grid.innerHTML = ZONES.map((z, i) => renderCard(z, results[i], results[i] === null && false)).join("");
+
+  // Now fetch energy states asynchronously and update cards
+  ZONES.forEach(async (z, i) => {
+    if (!results[i]) return;
+    try {
+      const res = await fetch(`${API_BASE}/signal?zone=${z.zone}&consumption=2000`);
+      if (!res.ok) return;
+      const sig = await res.json();
+      if (sig.energy_state) {
+        results[i].energy_state = sig.energy_state;
+        // Re-render just this card
+        const cards = grid.querySelectorAll(".price-card");
+        if (cards[i]) {
+          cards[i].outerHTML = renderCard(z, results[i], false);
+        }
+      }
+    } catch {}
+  });
+
+  const now = new Date();
+  updated.textContent = `updated ${now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })} UTC`;
+}
+
+// Load on page init, refresh every 5 minutes
+loadPrices();
+setInterval(loadPrices, 5 * 60 * 1000);
+</script>
+</body>
+</html>
