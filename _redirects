@@ -1,14 +1,7 @@
-# Cloudflare Pages _redirects
-# Static pages are served by CF Pages
-# All API and MCP traffic is proxied to Render backend
+/docs     /docs/     301
+/privacy  /privacy/  301
+/terms    /terms/    301
 
-# Clean URL routing (HTML files without extension)
-/docs           /docs.html      200
-/privacy        /privacy.html   200
-/terms          /terms.html     200
-
-# API proxy → Render backend
-# Replace elecz-api.onrender.com with your actual Render URL
 /signal/*       https://elecz-api.onrender.com/signal/:splat  200
 /mcp/*          https://elecz-api.onrender.com/mcp/:splat     200
 /mcp            https://elecz-api.onrender.com/mcp            200
