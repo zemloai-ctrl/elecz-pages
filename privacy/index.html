@@ -6,34 +6,39 @@
   <title>Privacy Policy — Elecz.com</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <style>
-    :root { --bg:#080808; --bg2:#0f0f0f; --border:#1e1e1e; --text:#d0d0d0; --text-dim:#555; --text-dimmer:#333; --yellow:#f0c040; --green:#3ddc84; --blue:#60a8f8; --font-mono:'JetBrains Mono','Fira Code','Cascadia Code',monospace; }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    body { font-family:var(--font-mono); background:var(--bg); color:var(--text); min-height:100vh; }
-    .container { max-width:700px; margin:0 auto; padding:60px 24px 80px; }
-    h1 { color:var(--yellow); font-size:1.8rem; margin-bottom:8px; }
-    h2 { color:var(--blue); font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; margin-top:40px; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--border); font-weight:400; }
-    p { line-height:1.8; color:var(--text-dim); font-size:0.85rem; margin-bottom:10px; }
-    ul { padding-left:20px; margin-bottom:10px; }
-    li { line-height:1.8; color:var(--text-dim); font-size:0.85rem; }
-    code { background:#141414; color:var(--yellow); padding:2px 6px; border-radius:3px; font-size:0.8rem; font-family:var(--font-mono); }
-    a { color:var(--green); text-decoration:none; }
-    a:hover { color:var(--blue); }
-    nav { display:flex; gap:16px; margin-bottom:48px; flex-wrap:wrap; }
-    nav a { color:var(--text-dim); font-size:0.78rem; }
-    footer { margin-top:60px; padding-top:20px; border-top:1px solid var(--border); color:var(--text-dimmer); font-size:0.72rem; line-height:1.8; }
-    footer a { color:var(--text-dimmer); }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; background: #f5f5f0; color: #1a1a1a; min-height: 100vh; font-size: 16px; line-height: 1.6; }
+    .container { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+    .logo { font-size: 1.4rem; font-weight: 700; color: #1a1a1a; text-decoration: none; }
+    .logo .dot { color: #f0a020; }
+    nav { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; align-items: center; padding-bottom: 24px; border-bottom: 2px solid #e8e8e0; }
+    nav a { color: #555; text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+    nav a:hover { color: #1a1a1a; }
+    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 6px; }
+    h2 { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #888; margin-top: 36px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #e8e8e0; }
+    p { color: #444; font-size: 0.95rem; margin-bottom: 10px; line-height: 1.7; }
+    ul { padding-left: 20px; margin-bottom: 10px; }
+    li { color: #444; font-size: 0.95rem; line-height: 1.8; }
+    code { background: #f0ede8; color: #c0440c; padding: 2px 7px; border-radius: 4px; font-size: 0.85rem; font-family: monospace; }
+    a { color: #1a4a8a; }
+    .meta { color: #aaa; font-size: 0.8rem; margin-bottom: 32px; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e8e8e0; color: #aaa; font-size: 0.82rem; line-height: 1.9; }
+    footer a { color: #aaa; text-decoration: none; }
+    footer a:hover { color: #555; }
+    @media (max-width: 600px) { .container { padding: 32px 16px 60px; } }
   </style>
 </head>
 <body>
 <div class="container">
+
   <nav>
-    <a href="/">← Home</a>
+    <a href="/" class="logo">⚡ Elecz<span class="dot">.</span>com</a>
     <a href="/docs">Docs</a>
-    <a href="/terms">Terms of Service</a>
+    <a href="/terms">Terms</a>
   </nav>
 
-  <h1>⚡ Privacy Policy</h1>
-  <p style="color:var(--text-dimmer);font-size:0.75rem">Last updated: March 2026</p>
+  <h1>Privacy Policy</h1>
+  <p class="meta">Last updated: March 2026</p>
 
   <h2>Who we are</h2>
   <p>Elecz is operated by SKA Trading Oy / Zemlo AI, Kokkola, Finland (Y-tunnus: 1010164-9).<br>
@@ -52,7 +57,7 @@
   <p>We do not collect personal information, names, email addresses, or any data that identifies individual users. We do not store full IP addresses. We do not set cookies. We do not use tracking pixels or advertising networks.</p>
 
   <h2>How we use data</h2>
-  <p>Logged data is used solely for service monitoring, debugging, and aggregate usage analytics (e.g. which zones are most queried). Data is never sold or shared with third parties.</p>
+  <p>Logged data is used solely for service monitoring, debugging, and aggregate usage analytics. Data is never sold or shared with third parties.</p>
 
   <h2>Data storage</h2>
   <p>Request logs and price data are stored in Supabase (EU region) and cached in Upstash Redis. Electricity price data originates from ENTSO-E, Octopus Energy API, AEMO, and EM6.</p>
