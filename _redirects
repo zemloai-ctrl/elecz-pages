@@ -7,3 +7,4 @@
 /go/*           https://elecz-api.onrender.com/go/:splat      200
 /health         https://elecz-api.onrender.com/health         200
 /.well-known/*  https://elecz-api.onrender.com/.well-known/:splat  200
+/openapi.json   https://raw.githubusercontent.com/zemloai-ctrl/elecz-api/main/openapi.json   200
