@@ -1,15 +1,9 @@
 /docs     /docs/     301
 /privacy  /privacy/  301
 /terms    /terms/    301
-
 /signal/*       https://elecz-api.onrender.com/signal/:splat  200
 /mcp/*          https://elecz-api.onrender.com/mcp/:splat     200
 /mcp            https://elecz-api.onrender.com/mcp            200
 /go/*           https://elecz-api.onrender.com/go/:splat      200
 /health         https://elecz-api.onrender.com/health         200
-/openapi.json   https://elecz-api.onrender.com/openapi.json   200
-/sitemap.xml    https://elecz-api.onrender.com/sitemap.xml    200
-/robots.txt     https://elecz-api.onrender.com/robots.txt     200
 /.well-known/*  https://elecz-api.onrender.com/.well-known/:splat  200
-/favicon.svg    https://elecz-api.onrender.com/favicon.svg    200
-/favicon.ico    https://elecz-api.onrender.com/favicon.ico    200
