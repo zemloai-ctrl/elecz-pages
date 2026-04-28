@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Electricity Price API — 32 Countries, Real-Time, AI-Ready | Elecz</title>
+  <meta name="description" content="Free electricity price API for 32 countries. Real-time spot prices, cheapest hours, and contract comparison. MCP-native, no API key required. Built for AI agents.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://elecz.com/electricity-price-api">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Electricity Price API — 32 Countries, Real-Time, AI-Ready | Elecz">
+  <meta property="og:description" content="Free electricity price API. Real-time spot prices, cheapest hours, contract comparison. MCP-native, no API key required.">
+  <meta property="og:url" content="https://elecz.com/electricity-price-api">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Electricity Price API — 32 Countries | Elecz">
+  <meta name="twitter:description" content="Free real-time electricity price API. MCP-native. No API key. 32 countries.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f5f0;
+      --bg2: #eeeee8;
+      --bg3: #ffffff;
+      --border: #e0e0d8;
+      --border2: #d0d0c8;
+      --text: #1a1a1a;
+      --text2: #555550;
+      --text3: #999990;
+      --accent: #f0a020;
+      --accent2: #d88c10;
+      --accent-dim: rgba(240, 160, 32, 0.1);
+      --accent-border: rgba(240, 160, 32, 0.3);
+      --green: #1a7a40;
+      --green-dim: rgba(26, 122, 64, 0.08);
+      --green-border: rgba(26, 122, 64, 0.25);
+      --red: #c0300a;
+      --red-dim: rgba(192, 48, 10, 0.07);
+      --red-border: rgba(192, 48, 10, 0.2);
+      --mono: 'DM Mono', monospace;
+      --sans: 'DM Sans', -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--bg);
+      border-bottom: 2px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: var(--sans);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-logo .dot { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text2);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent) !important;
+      color: var(--text) !important;
+      padding: 7px 16px;
+      border-radius: 5px;
+      font-weight: 600 !important;
+      font-size: 0.85rem !important;
+    }
+    .nav-cta:hover { background: var(--accent2) !important; }
+
+    /* LAYOUT */
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    /* HERO */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 64px 24px 56px;
+      border-bottom: 2px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: clamp(24px, 4.5vw, 42px);
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 22px;
+    }
+    h1 .hl { color: var(--accent2); }
+    .hero-lead {
+      font-size: 1.08rem;
+      color: var(--text2);
+      max-width: 620px;
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      margin-bottom: 36px;
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg3);
+      max-width: 600px;
+    }
+    .stat {
+      padding: 16px 24px;
+      border-right: 1px solid var(--border);
+      flex: 1;
+      min-width: 120px;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text3);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+    .btn-secondary {
+      background: var(--bg3);
+      color: var(--text2);
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: 1px solid var(--border2);
+      transition: border-color 0.15s, color 0.15s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
+
+    /* SECTIONS */
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-of-type { border-bottom: none; }
+
+    h2 {
+      font-size: clamp(17px, 2.5vw, 24px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      font-size: 0.95rem;
+      color: var(--text2);
+      margin-bottom: 32px;
+      max-width: 580px;
+    }
+
+    /* WHY NOT LLM */
+    .llm-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .llm-box {
+      border-radius: 8px;
+      padding: 24px;
+      border: 1px solid;
+    }
+    .llm-box.bad {
+      background: var(--red-dim);
+      border-color: var(--red-border);
+    }
+    .llm-box.good {
+      background: var(--green-dim);
+      border-color: var(--green-border);
+    }
+    .llm-box-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .llm-box.bad .llm-box-label { color: var(--red); }
+    .llm-box.good .llm-box-label { color: var(--green); }
+    .llm-exchange { font-size: 0.88rem; line-height: 1.7; color: var(--text2); }
+    .llm-exchange .q { font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .llm-exchange .a { }
+    .llm-exchange code {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+    .llm-box.bad .llm-exchange code { background: rgba(192,48,10,0.08); color: var(--red); }
+    .llm-box.good .llm-exchange code { background: rgba(26,122,64,0.08); color: var(--green); }
+    .llm-verdict {
+      font-size: 0.78rem;
+      font-style: italic;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid;
+    }
+    .llm-box.bad .llm-verdict { color: var(--red); border-color: var(--red-border); }
+    .llm-box.good .llm-verdict { color: var(--green); border-color: var(--green-border); }
+
+    /* TOOLS */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg3);
+    }
+    .tool-card {
+      padding: 24px;
+      border-right: 1px solid var(--border);
+    }
+    .tool-card:last-child { border-right: none; }
+    .tool-name {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent2);
+      margin-bottom: 10px;
+      background: var(--accent-dim);
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+    .tool-desc {
+      font-size: 0.88rem;
+      color: var(--text2);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .tool-returns {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text3);
+      line-height: 1.6;
+    }
+    .tool-returns span { color: var(--text2); }
+
+    /* CODE BLOCK */
+    .code-block {
+      background: #1e1e1e;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 24px 0;
+    }
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #2a2a2a;
+      border-bottom: 1px solid #333;
+    }
+    .code-title {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: #888;
+      letter-spacing: 0.06em;
+    }
+    .code-lang {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      background: rgba(240,160,32,0.12);
+      padding: 2px 8px;
+      border-radius: 2px;
+    }
+    .code-block pre {
+      padding: 20px;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.75;
+      color: #ccc;
+    }
+    .k { color: #7ec8e3; }
+    .s { color: #a8d8a8; }
+    .n { color: #f5a623; }
+    .b { color: #4ec9b0; }
+    .c { color: #666; font-style: italic; }
+
+    /* COUNTRIES */
+    .country-groups {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 16px;
+    }
+    .country-group {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .group-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .country-list { list-style: none; }
+    .country-list li {
+      font-size: 0.85rem;
+      color: var(--text2);
+      padding: 3px 0;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .country-list li::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--border2);
+      flex-shrink: 0;
+    }
+    .country-list li.has-contract::before { background: var(--accent); }
+    .contract-note {
+      font-size: 0.72rem;
+      color: var(--text3);
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .contract-note .dot { color: var(--accent); }
+
+    /* INTEGRATION */
+    .integration-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .integration-card {
+      background: var(--bg3);
+      padding: 24px;
+    }
+    .integration-title {
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .integration-desc {
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .integration-code {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text2);
+      background: var(--bg2);
+      padding: 8px 12px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      word-break: break-all;
+    }
+
+    /* PROOF */
+    .proof-bar {
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      padding: 20px 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .proof-item {
+      font-size: 0.85rem;
+      color: var(--text2);
+    }
+    .proof-item strong { color: var(--text); font-weight: 600; }
+    .proof-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border2);
+    }
+
+    /* FAQ */
+    .faq-list { }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 22px 0;
+    }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .faq-a {
+      font-size: 0.9rem;
+      color: var(--text2);
+      line-height: 1.75;
+      max-width: 700px;
+    }
+    .faq-a code {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--accent2);
+      background: var(--accent-dim);
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+    .faq-a a { color: var(--accent2); text-decoration: none; }
+    .faq-a a:hover { text-decoration: underline; }
+
+    /* CTA BOTTOM */
+    .cta-section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 64px 24px 72px;
+      text-align: center;
+    }
+    .cta-section h2 { margin-bottom: 14px; }
+    .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer {
+      border-top: 2px solid var(--border);
+      padding: 24px;
+      text-align: center;
+    }
+    footer p {
+      font-size: 0.82rem;
+      color: var(--text3);
+      line-height: 1.9;
+    }
+    footer a { color: var(--text3); text-decoration: none; }
+    footer a:hover { color: var(--text2); }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .llm-comparison { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .tool-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .tool-card:last-child { border-bottom: none; }
+      .hero-stats { max-width: 100%; }
+      .stat { min-width: 100px; }
+    }
+  </style>
+
+  <!-- Schema: Dataset -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "Elecz Electricity Price Signal API",
+    "description": "Real-time electricity spot prices, cheapest hours, and contract comparison for 32 countries across Europe, Australia, and New Zealand. Designed for AI agents and automation.",
+    "url": "https://elecz.com/electricity-price-api",
+    "creator": { "@type": "Organization", "name": "SKA Trading Oy / Zemlo AI", "url": "https://elecz.com" },
+    "license": "https://elecz.com/terms",
+    "spatialCoverage": "Europe, Australia, New Zealand",
+    "isAccessibleForFree": true,
+    "variableMeasured": ["Spot electricity price", "Cheapest hours", "Energy contract comparison"]
+  }
+  </script>
+
+  <!-- Schema: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Elecz Electricity Price Signal API",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web/API",
+    "url": "https://elecz.com",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "Free real-time electricity price API for AI agents. Spot prices, cheapest hours, and contract comparison for 32 countries."
+  }
+  </script>
+
+  <!-- Schema: FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Elecz electricity price API free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Spot prices and cheapest hours are always free. No API key required, no account needed. Contract comparison is also free. Elecz is monetized through affiliate links when users switch energy providers." }
+      },
+      {
+        "@type": "Question",
+        "name": "Why can't I just ask ChatGPT or Claude for the electricity price?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Large language models are trained on historical data and have no access to live markets. Without a real-time tool, the model will either refuse to answer or produce a plausible-sounding estimate that may be completely wrong. The actual spot price can be 0 c/kWh during oversupply or 50+ c/kWh during a crisis. Elecz gives the AI a verified, live signal every time it is called." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which countries does Elecz cover?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Elecz covers 32 countries: all of the Nordic countries (Finland, Sweden, Norway, Denmark), Central Europe (Germany, France, Austria, Belgium, Netherlands, Switzerland, Poland, Czech Republic), UK, Baltics (Estonia, Latvia, Lithuania), Southern Europe (Spain, Portugal, Italy, Hungary, Romania, Bulgaria, Croatia, Slovenia, Slovakia, Greece, Serbia), Australia, and New Zealand." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use Elecz with Claude, ChatGPT, or other AI assistants?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz is MCP-native. Add it via the MCP URL https://elecz.com/mcp — no API key, no account. Also available on Glama, Smithery, and n8n." }
+      },
+      {
+        "@type": "Question",
+        "name": "How often is the data updated?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Spot prices are updated hourly from source operators: Nord Pool, ENTSO-E, Elexon BMRS (UK), AEMO (Australia), and EM6 (New Zealand). Next-day prices are typically published at 13:00–14:00 CET." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a free electricity price API for Finland?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — Elecz is free for Finland. Spot price, cheapest hours, and contract comparison are all available for zone FI with no API key or registration required." }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
+  <div class="nav-links">
+    <a href="/docs">Docs</a>
+    <a href="/terms">Terms</a>
+    <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a>
+    <a href="https://elecz.com/mcp" class="nav-cta">Connect via MCP</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Electricity Price API</div>
+  <h1>Your AI can now choose<br>the <span class="hl">cheapest electricity contract</span><br>— in real time</h1>
+  <p class="hero-lead">
+    Add Elecz to your AI. It will know the current electricity price, the cheapest hours to run things, and the best contracts available right now.<br><br>
+    MCP-native. 32 countries across Europe, Australia, and New Zealand. No API key required.
+  </p>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">32</div>
+      <div class="stat-label">countries</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">continents</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">8</div>
+      <div class="stat-label">contract markets</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">€0</div>
+      <div class="stat-label">no API key</div>
+    </div>
+  </div>
+
+  <div class="hero-ctas">
+    <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP (Claude, Cursor, Copilot) →</a>
+    <a href="/docs" class="btn-secondary">REST API docs</a>
+  </div>
+</div>
+
+<!-- WHY NOT LLM -->
+<div class="section">
+  <h2>Why not just ask an AI assistant?</h2>
+  <p class="section-sub">LLMs without real-time tools are blind to energy markets. The difference between a correct and hallucinated answer is not small — it can be a factor of 200×.</p>
+
+  <div class="llm-comparison">
+    <div class="llm-box bad">
+      <div class="llm-box-label">❌ Without Elecz — hallucinated answer</div>
+      <div class="llm-exchange">
+        <div class="q">User: "What is the electricity spot price in Germany right now?"</div>
+        <div class="a">AI: "The electricity price in Germany is typically around <code>8–12 c/kWh</code>, varying by season."<br><br>
+        Meanwhile, the actual market right now:<br>
+        <code>0.2 c/kWh</code> — wind oversupply, prices near zero<br>
+        <code>48 c/kWh</code> — crisis hour, gas plants at peak<br><br>
+        A historical average is useless for any real decision.</div>
+      </div>
+      <div class="llm-verdict">Plausible-sounding. Could be 240× off. No way to tell the difference.</div>
+    </div>
+    <div class="llm-box good">
+      <div class="llm-box-label">✓ With Elecz — verified real-time answer</div>
+      <div class="llm-exchange">
+        <div class="q">User: "What is the electricity spot price in Germany right now?"</div>
+        <div class="a">AI (via Elecz): "Current spot price in Germany is <code>3.84 c/kWh</code>. Today's cheapest window is <code>01:00–04:00</code>. The best available contract saves <code>€340/year</code> vs your current tariff."</div>
+      </div>
+      <div class="llm-verdict">Fetched live from ENTSO-E. Verified. Actionable. Contract-aware.</div>
+    </div>
+  </div>
+</div>
+
+<!-- THREE TOOLS -->
+<div class="section">
+  <h2>Three tools. Every use case covered.</h2>
+  <p class="section-sub">Elecz exposes three MCP tools that cover everything an AI agent needs for electricity price decisions.</p>
+
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-name">spot_price</div>
+      <div class="tool-desc">Current electricity spot price for any supported zone. Returns price, unit, timestamp, and data source.</div>
+      <div class="tool-returns">→ <span>price_cents_kwh, zone, currency, timestamp, source</span></div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">cheapest_hours</div>
+      <div class="tool-desc">Ranked cheapest hours today and tomorrow. Includes current-hour signal, cheap window end time, and next cheap period countdown.</div>
+      <div class="tool-returns">→ <span>ranked_hours, current_hour_signal, cheap_window_ends, next_cheap_hour, hours_until_next_cheap</span></div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">best_energy_contract</div>
+      <div class="tool-desc">Live contract comparison for your zone. Best spot contract, best fixed contract, and a seasonal recommendation with savings vs. median.</div>
+      <div class="tool-returns">→ <span>best_spot, best_fixed, recommended, savings_estimate, provider_url</span></div>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-title">spot_price — response example (zone: AU)</span>
+      <span class="code-lang">JSON</span>
+    </div>
+    <pre>{
+  <span class="k">"zone"</span>: <span class="s">"AU"</span>,
+  <span class="k">"price_cents_kwh"</span>: <span class="n">6.81</span>,
+  <span class="k">"currency"</span>: <span class="s">"AUD"</span>,
+  <span class="k">"unit"</span>: <span class="s">"c/kWh"</span>,
+  <span class="k">"timestamp"</span>: <span class="s">"2026-04-29T14:00:00+10:00"</span>,
+  <span class="k">"source"</span>: <span class="s">"AEMO"</span>
+}</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-title">cheapest_hours — response example (zone: GB)</span>
+      <span class="code-lang">JSON</span>
+    </div>
+    <pre>{
+  <span class="k">"zone"</span>: <span class="s">"GB"</span>,
+  <span class="k">"unit"</span>: <span class="s">"p/kWh"</span>,
+  <span class="k">"current_hour_signal"</span>: <span class="s">"CHEAP"</span>,
+  <span class="k">"current_hour_is_cheap"</span>: <span class="b">true</span>,
+  <span class="k">"current_hour_rank"</span>: <span class="n">3</span>,
+  <span class="k">"cheap_window_ends"</span>: <span class="s">"15:00"</span>,
+  <span class="k">"next_cheap_hour"</span>: <span class="s">"02:00"</span>,
+  <span class="k">"hours_until_next_cheap"</span>: <span class="n">11</span>,
+  <span class="k">"cheap_hours"</span>: [<span class="s">"01:00"</span>, <span class="s">"02:00"</span>, <span class="s">"03:00"</span>, <span class="s">"13:00"</span>, <span class="s">"14:00"</span>],
+  <span class="k">"data_complete"</span>: <span class="b">true</span>
+}</pre>
+  </div>
+</div>
+
+<!-- PROOF -->
+<div class="section">
+  <h2>Used in production</h2>
+  <p class="section-sub">Elecz is live across multiple platforms and used in AI agent workflows, home automation, and energy management.</p>
+
+  <div class="proof-bar">
+    <div class="proof-item"><strong>Hundreds</strong> of installs on ClawHub</div>
+    <div class="proof-divider"></div>
+    <div class="proof-item"><strong>Thousands</strong> of GitHub impressions</div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">Live on <strong>Glama, Smithery, LobeHub, PulseMCP, MCP Marketplace, n8n, RapidAPI</strong></div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">Used in <strong>MCP workflows</strong> and home automation agents</div>
+  </div>
+</div>
+
+<!-- USE CASES -->
+<div class="section">
+  <h2>What developers actually build with Elecz</h2>
+  <p class="section-sub">From home automation to annual contract switching — Elecz handles the energy signal so the agent can focus on the decision.</p>
+
+  <div class="integration-grid">
+    <div class="integration-card">
+      <div class="integration-title">⚡ Smart EV charging agent</div>
+      <div class="integration-desc">Agent monitors cheapest_hours and schedules charging automatically. Runs only when price is in the bottom 20% of the day. Saves €200–€600/year on charging alone.</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">📋 Annual contract switcher</div>
+      <div class="integration-desc">AI checks best_energy_contract once a month. When a better deal appears, it surfaces the recommendation with estimated savings. Average household saves €300–€1200/year on switching.</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">🏠 Home automation optimizer</div>
+      <div class="integration-desc">Heat pump, dishwasher, and washing machine all defer to cheapest hours. Agent uses current_hour_signal to decide in real time — no custom logic required.</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">🤖 Energy-aware AI assistant</div>
+      <div class="integration-desc">User asks "should I run the dryer now?" — agent calls spot_price and cheapest_hours, answers with a concrete yes/no and the next cheap window. Works via MCP in Claude, Copilot, or any MCP-compatible assistant.</div>
+    </div>
+  </div>
+</div>
+<div class="section">
+  <h2>32 countries. 3 continents.</h2>
+  <p class="section-sub">Spot prices for all of Europe, Australia, and New Zealand. Contract comparison in 8 markets — orange dot indicates contract data available.</p>
+
+  <div class="country-groups">
+    <div class="country-group">
+      <div class="group-label">Nordics</div>
+      <ul class="country-list">
+        <li class="has-contract">Finland</li>
+        <li class="has-contract">Sweden (SE1–SE4)</li>
+        <li class="has-contract">Norway (NO1–NO5)</li>
+        <li class="has-contract">Denmark (DK1, DK2)</li>
+      </ul>
+      <div class="contract-note"><span class="dot">●</span> Contract comparison live</div>
+    </div>
+    <div class="country-group">
+      <div class="group-label">Central Europe</div>
+      <ul class="country-list">
+        <li class="has-contract">Germany</li>
+        <li>Austria</li>
+        <li>France</li>
+        <li>Belgium</li>
+        <li>Netherlands</li>
+        <li>Switzerland</li>
+        <li>Poland</li>
+        <li>Czech Republic</li>
+      </ul>
+      <div class="contract-note"><span class="dot">●</span> DE contract live · NL+BE coming</div>
+    </div>
+    <div class="country-group">
+      <div class="group-label">UK & Baltics</div>
+      <ul class="country-list">
+        <li class="has-contract">United Kingdom</li>
+        <li>Estonia</li>
+        <li>Latvia</li>
+        <li>Lithuania</li>
+      </ul>
+      <div class="group-label" style="margin-top:18px">Southern Europe</div>
+      <ul class="country-list">
+        <li>Spain</li>
+        <li>Portugal</li>
+        <li>Italy</li>
+        <li>Hungary</li>
+        <li>Romania</li>
+        <li>Bulgaria</li>
+        <li>Croatia</li>
+        <li>Slovenia</li>
+        <li>Slovakia</li>
+        <li>Greece</li>
+        <li>Serbia</li>
+      </ul>
+    </div>
+    <div class="country-group">
+      <div class="group-label">Oceania</div>
+      <ul class="country-list">
+        <li class="has-contract">Australia</li>
+        <li class="has-contract">New Zealand (NI + SI)</li>
+      </ul>
+      <div class="contract-note"><span class="dot">●</span> Contract comparison live</div>
+    </div>
+  </div>
+</div>
+
+<!-- INTEGRATION -->
+<div class="section">
+  <h2>Add to your AI in minutes</h2>
+  <p class="section-sub">No API key. No account. One URL. Works with any MCP-compatible AI assistant.</p>
+
+  <div class="integration-grid">
+    <div class="integration-card">
+      <div class="integration-title">Claude (MCP)</div>
+      <div class="integration-desc">Settings → Integrations → Add MCP server. Paste the URL. Works in Claude.ai and Claude Desktop.</div>
+      <div class="integration-code">https://elecz.com/mcp</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">n8n</div>
+      <div class="integration-desc">Install the official Elecz node from n8n community nodes. Spot price, cheapest hours, and contract tools available.</div>
+      <div class="integration-code">n8n-nodes-elecz</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">REST API</div>
+      <div class="integration-desc">Direct HTTP. No authentication. Returns JSON. Any language, any platform.</div>
+      <div class="integration-code">GET /signal/spot?zone=FI</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">Glama / Smithery</div>
+      <div class="integration-desc">Listed on major MCP marketplaces. One-click install for Claude Desktop, Cursor, and VS Code.</div>
+      <div class="integration-code">search: elecz</div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="section">
+  <h2>Frequently asked questions</h2>
+  <p class="section-sub"></p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">Is the Elecz electricity price API free?</div>
+      <div class="faq-a">Yes. Spot prices and cheapest hours are always free — no API key, no account, no registration. Contract comparison is also free. Elecz is monetized through affiliate links when users switch energy providers, not through API fees.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Why can't I just ask ChatGPT or Claude for the electricity price?</div>
+      <div class="faq-a">Large language models have no access to live markets. Without a real-time tool, the model will produce a historical average that looks like an answer but is not the current price. The actual spot price can be <code>0.0 c/kWh</code> during renewable oversupply or <code>50+ c/kWh</code> during a grid crisis — a guess is useless for any real decision. Elecz gives the AI a verified signal on every call.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is there a free electricity price API for Germany or the UK?</div>
+      <div class="faq-a">Yes — Elecz is free for all supported countries including Germany (<code>DE-LU</code>) and the United Kingdom (<code>GB</code>). Spot price, cheapest hours, and contract comparison available with no API key or registration. Germany data sourced from ENTSO-E, UK from Elexon BMRS, both updated hourly.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What is MCP and why does it matter for electricity data?</div>
+      <div class="faq-a">MCP (Model Context Protocol) is an open standard for connecting AI agents to external tools. Electricity prices change every hour — an agent needs a live tool call, not training data. Elecz is built MCP-first: connect via <code>https://elecz.com/mcp</code>, no setup required.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How often is data updated?</div>
+      <div class="faq-a">Hourly, from source operators: Nord Pool (Nordics), ENTSO-E (Europe), Elexon BMRS (UK), AEMO (Australia), EM6 (New Zealand). Next-day prices are available from 13:00–14:00 CET. The <code>cheapest_hours</code> tool includes a <code>data_complete</code> flag so agents know whether tomorrow's data is already in.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Which countries have contract comparison?</div>
+      <div class="faq-a">Finland, Sweden, Norway, Denmark, Germany, United Kingdom, Australia, and New Zealand. Spot-only coverage is available for 24 additional European countries. Netherlands and Belgium are next for contract expansion.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Does it work with home automation?</div>
+      <div class="faq-a">Yes — EV charging, heat pumps, and dishwashers are primary use cases. An agent can call <code>cheapest_hours</code> to find the optimal run window and use <code>current_hour_signal</code> to decide whether to act right now. No custom logic required — the signal is already decision-ready.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Where is the full API documentation?</div>
+      <div class="faq-a">Full REST reference, MCP tool schemas, and integration guides at <a href="/docs">elecz.com/docs</a>. OpenAPI spec at <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">github.com/zemloai-ctrl/elecz-api</a>. Also compare electricity price APIs at <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a>.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Your AI should know the electricity price.</h2>
+  <p>Add Elecz in 60 seconds. No signup. No key. Just real-time energy data for 32 countries.</p>
+  <div class="cta-row">
+    <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
+    <a href="/docs" class="btn-secondary">Read the docs</a>
+  </div>
+</div>
+
+<footer>
+  <p>
+    ⚡ <a href="/">Elecz.com</a> · Built by SKA Trading Oy / Zemlo AI, Kokkola, Finland ·
+    <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
+    <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a> ·
+    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a>
+  </p>
+</footer>
+
+</body>
+</html>
