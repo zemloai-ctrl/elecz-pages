@@ -6,13 +6,13 @@
   <title>Electricity Price API — 32 Countries, Real-Time, AI-Ready | Elecz</title>
   <meta name="description" content="Free electricity price API for 32 countries. Real-time spot prices, cheapest hours, and contract comparison. MCP-native, no API key required. Built for AI agents.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://elecz.com/electricity-price-api">
+  <link rel="canonical" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Electricity Price API — 32 Countries, Real-Time, AI-Ready | Elecz">
   <meta property="og:description" content="Free electricity price API. Real-time spot prices, cheapest hours, contract comparison. MCP-native, no API key required.">
-  <meta property="og:url" content="https://elecz.com/electricity-price-api">
+  <meta property="og:url" content="https://elecz.com/electricity-price-api/">
   <meta property="og:type" content="website">
 
   <!-- Twitter Card -->
@@ -60,7 +60,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* NAV */
     nav {
       background: var(--bg);
       border-bottom: 2px solid var(--border);
@@ -73,445 +72,106 @@
       top: 0;
       z-index: 100;
     }
-    .nav-logo {
-      font-family: var(--sans);
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.01em;
-    }
+    .nav-logo { font-family: var(--sans); font-size: 1.3rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
     .nav-logo .dot { color: var(--accent); }
     .nav-links { display: flex; gap: 24px; align-items: center; }
-    .nav-links a {
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--text2);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text2); text-decoration: none; transition: color 0.15s; }
     .nav-links a:hover { color: var(--text); }
-    .nav-cta {
-      background: var(--accent) !important;
-      color: var(--text) !important;
-      padding: 7px 16px;
-      border-radius: 5px;
-      font-weight: 600 !important;
-      font-size: 0.85rem !important;
-    }
+    .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
     .nav-cta:hover { background: var(--accent2) !important; }
 
-    /* LAYOUT */
     .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
 
-    /* HERO */
-    .hero {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 64px 24px 56px;
-      border-bottom: 2px solid var(--border);
-    }
-    .hero-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      margin-bottom: 18px;
-    }
-    h1 {
-      font-size: clamp(24px, 4.5vw, 42px);
-      font-weight: 700;
-      line-height: 1.18;
-      letter-spacing: -0.025em;
-      color: var(--text);
-      margin-bottom: 22px;
-    }
+    .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 56px; border-bottom: 2px solid var(--border); }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 18px; }
+    h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; }
     h1 .hl { color: var(--accent2); }
-    .hero-lead {
-      font-size: 1.08rem;
-      color: var(--text2);
-      max-width: 620px;
-      line-height: 1.75;
-      margin-bottom: 32px;
-    }
-    .hero-stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0;
-      margin-bottom: 36px;
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--bg3);
-      max-width: 600px;
-    }
-    .stat {
-      padding: 16px 24px;
-      border-right: 1px solid var(--border);
-      flex: 1;
-      min-width: 120px;
-    }
+    .hero-lead { font-size: 1.08rem; color: var(--text2); max-width: 620px; line-height: 1.75; margin-bottom: 32px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 36px; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); max-width: 600px; }
+    .stat { padding: 16px 24px; border-right: 1px solid var(--border); flex: 1; min-width: 120px; }
     .stat:last-child { border-right: none; }
-    .stat-num {
-      font-family: var(--mono);
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: var(--text);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-    .stat-label {
-      font-size: 0.75rem;
-      color: var(--text3);
-      font-weight: 500;
-      letter-spacing: 0.02em;
-    }
+    .stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; color: var(--text); line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-size: 0.75rem; color: var(--text3); font-weight: 500; letter-spacing: 0.02em; }
     .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--accent);
-      color: var(--text);
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 12px 24px;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background 0.15s, transform 0.1s;
-      display: inline-block;
-    }
+    .btn-primary { background: var(--accent); color: var(--text); font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s, transform 0.1s; display: inline-block; }
     .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
-    .btn-secondary {
-      background: var(--bg3);
-      color: var(--text2);
-      font-weight: 500;
-      font-size: 0.9rem;
-      padding: 12px 24px;
-      border-radius: 6px;
-      text-decoration: none;
-      border: 1px solid var(--border2);
-      transition: border-color 0.15s, color 0.15s;
-      display: inline-block;
-    }
+    .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); transition: border-color 0.15s, color 0.15s; display: inline-block; }
     .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
 
-    /* SECTIONS */
-    .section {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 56px 24px;
-      border-bottom: 1px solid var(--border);
-    }
+    .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
     .section:last-of-type { border-bottom: none; }
+    h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
+    .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
 
-    h2 {
-      font-size: clamp(17px, 2.5vw, 24px);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-    .section-sub {
-      font-size: 0.95rem;
-      color: var(--text2);
-      margin-bottom: 32px;
-      max-width: 580px;
-    }
-
-    /* WHY NOT LLM */
-    .llm-comparison {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .llm-box {
-      border-radius: 8px;
-      padding: 24px;
-      border: 1px solid;
-    }
-    .llm-box.bad {
-      background: var(--red-dim);
-      border-color: var(--red-border);
-    }
-    .llm-box.good {
-      background: var(--green-dim);
-      border-color: var(--green-border);
-    }
-    .llm-box-label {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
+    .llm-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .llm-box { border-radius: 8px; padding: 24px; border: 1px solid; }
+    .llm-box.bad { background: var(--red-dim); border-color: var(--red-border); }
+    .llm-box.good { background: var(--green-dim); border-color: var(--green-border); }
+    .llm-box-label { font-family: var(--mono); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
     .llm-box.bad .llm-box-label { color: var(--red); }
     .llm-box.good .llm-box-label { color: var(--green); }
     .llm-exchange { font-size: 0.88rem; line-height: 1.7; color: var(--text2); }
     .llm-exchange .q { font-weight: 600; color: var(--text); margin-bottom: 8px; }
-    .llm-exchange .a { }
-    .llm-exchange code {
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      padding: 1px 6px;
-      border-radius: 3px;
-    }
+    .llm-exchange code { font-family: var(--mono); font-size: 0.82rem; padding: 1px 6px; border-radius: 3px; }
     .llm-box.bad .llm-exchange code { background: rgba(192,48,10,0.08); color: var(--red); }
     .llm-box.good .llm-exchange code { background: rgba(26,122,64,0.08); color: var(--green); }
-    .llm-verdict {
-      font-size: 0.78rem;
-      font-style: italic;
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid;
-    }
+    .llm-verdict { font-size: 0.78rem; font-style: italic; margin-top: 14px; padding-top: 12px; border-top: 1px solid; }
     .llm-box.bad .llm-verdict { color: var(--red); border-color: var(--red-border); }
     .llm-box.good .llm-verdict { color: var(--green); border-color: var(--green-border); }
 
-    /* TOOLS */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--bg3);
-    }
-    .tool-card {
-      padding: 24px;
-      border-right: 1px solid var(--border);
-    }
+    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); }
+    .tool-card { padding: 24px; border-right: 1px solid var(--border); }
     .tool-card:last-child { border-right: none; }
-    .tool-name {
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--accent2);
-      margin-bottom: 10px;
-      background: var(--accent-dim);
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 3px;
-    }
-    .tool-desc {
-      font-size: 0.88rem;
-      color: var(--text2);
-      line-height: 1.65;
-      margin-bottom: 14px;
-    }
-    .tool-returns {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--text3);
-      line-height: 1.6;
-    }
+    .tool-name { font-family: var(--mono); font-size: 0.82rem; font-weight: 500; color: var(--accent2); margin-bottom: 10px; background: var(--accent-dim); display: inline-block; padding: 3px 8px; border-radius: 3px; }
+    .tool-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.65; margin-bottom: 14px; }
+    .tool-returns { font-family: var(--mono); font-size: 0.72rem; color: var(--text3); line-height: 1.6; }
     .tool-returns span { color: var(--text2); }
 
-    /* CODE BLOCK */
-    .code-block {
-      background: #1e1e1e;
-      border-radius: 8px;
-      overflow: hidden;
-      margin: 24px 0;
-    }
-    .code-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      background: #2a2a2a;
-      border-bottom: 1px solid #333;
-    }
-    .code-title {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: #888;
-      letter-spacing: 0.06em;
-    }
-    .code-lang {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--accent);
-      background: rgba(240,160,32,0.12);
-      padding: 2px 8px;
-      border-radius: 2px;
-    }
-    .code-block pre {
-      padding: 20px;
-      overflow-x: auto;
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      line-height: 1.75;
-      color: #ccc;
-    }
-    .k { color: #7ec8e3; }
-    .s { color: #a8d8a8; }
-    .n { color: #f5a623; }
-    .b { color: #4ec9b0; }
-    .c { color: #666; font-style: italic; }
+    .code-block { background: #1e1e1e; border-radius: 8px; overflow: hidden; margin: 24px 0; }
+    .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #2a2a2a; border-bottom: 1px solid #333; }
+    .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; letter-spacing: 0.06em; }
+    .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
+    .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
+    .k { color: #7ec8e3; } .s { color: #a8d8a8; } .n { color: #f5a623; } .b { color: #4ec9b0; } .c { color: #666; font-style: italic; }
 
-    /* COUNTRIES */
-    .country-groups {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 16px;
-    }
-    .country-group {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px;
-    }
-    .group-label {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text3);
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
+    .country-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; }
+    .country-group { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+    .group-label { font-family: var(--mono); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
     .country-list { list-style: none; }
-    .country-list li {
-      font-size: 0.85rem;
-      color: var(--text2);
-      padding: 3px 0;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-    .country-list li::before {
-      content: '';
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--border2);
-      flex-shrink: 0;
-    }
+    .country-list li { font-size: 0.85rem; color: var(--text2); padding: 3px 0; display: flex; align-items: center; gap: 7px; }
+    .country-list li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--border2); flex-shrink: 0; }
     .country-list li.has-contract::before { background: var(--accent); }
-    .contract-note {
-      font-size: 0.72rem;
-      color: var(--text3);
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid var(--border);
-    }
+    .contract-note { font-size: 0.72rem; color: var(--text3); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
     .contract-note .dot { color: var(--accent); }
 
-    /* INTEGRATION */
-    .integration-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .integration-card {
-      background: var(--bg3);
-      padding: 24px;
-    }
-    .integration-title {
-      font-weight: 600;
-      font-size: 0.92rem;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-    .integration-desc {
-      font-size: 0.85rem;
-      color: var(--text2);
-      line-height: 1.65;
-      margin-bottom: 14px;
-    }
-    .integration-code {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--text2);
-      background: var(--bg2);
-      padding: 8px 12px;
-      border-radius: 5px;
-      border: 1px solid var(--border);
-      word-break: break-all;
-    }
+    .integration-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
+    .integration-card { background: var(--bg3); padding: 24px; }
+    .integration-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
+    .integration-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.65; margin-bottom: 14px; }
+    .integration-code { font-family: var(--mono); font-size: 0.78rem; color: var(--text2); background: var(--bg2); padding: 8px 12px; border-radius: 5px; border: 1px solid var(--border); word-break: break-all; }
+    .integration-link { display: inline-block; margin-top: 10px; font-size: 0.8rem; color: var(--accent2); text-decoration: none; font-weight: 500; }
+    .integration-link:hover { text-decoration: underline; }
 
-    /* PROOF */
-    .proof-bar {
-      background: var(--bg3);
-      border: 1px solid var(--border2);
-      border-radius: 8px;
-      padding: 20px 28px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-      align-items: center;
-      margin-bottom: 32px;
-    }
-    .proof-item {
-      font-size: 0.85rem;
-      color: var(--text2);
-    }
+    .proof-bar { background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 20px 28px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin-bottom: 32px; }
+    .proof-item { font-size: 0.85rem; color: var(--text2); }
     .proof-item strong { color: var(--text); font-weight: 600; }
-    .proof-divider {
-      width: 1px;
-      height: 20px;
-      background: var(--border2);
-    }
+    .proof-divider { width: 1px; height: 20px; background: var(--border2); }
 
-    /* FAQ */
-    .faq-list { }
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-      padding: 22px 0;
-    }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
     .faq-item:first-child { border-top: 1px solid var(--border); }
-    .faq-q {
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-    .faq-a {
-      font-size: 0.9rem;
-      color: var(--text2);
-      line-height: 1.75;
-      max-width: 700px;
-    }
-    .faq-a code {
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      color: var(--accent2);
-      background: var(--accent-dim);
-      padding: 1px 6px;
-      border-radius: 3px;
-    }
+    .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+    .faq-a { font-size: 0.9rem; color: var(--text2); line-height: 1.75; max-width: 700px; }
+    .faq-a code { font-family: var(--mono); font-size: 0.82rem; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
     .faq-a a { color: var(--accent2); text-decoration: none; }
     .faq-a a:hover { text-decoration: underline; }
 
-    /* CTA BOTTOM */
-    .cta-section {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 64px 24px 72px;
-      text-align: center;
-    }
+    .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
     .cta-section h2 { margin-bottom: 14px; }
     .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
     .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-    /* FOOTER */
-    footer {
-      border-top: 2px solid var(--border);
-      padding: 24px;
-      text-align: center;
-    }
-    footer p {
-      font-size: 0.82rem;
-      color: var(--text3);
-      line-height: 1.9;
-    }
+    footer { border-top: 2px solid var(--border); padding: 24px; text-align: center; }
+    footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
     footer a { color: var(--text3); text-decoration: none; }
     footer a:hover { color: var(--text2); }
 
@@ -533,7 +193,7 @@
     "@type": "Dataset",
     "name": "Elecz Electricity Price Signal API",
     "description": "Real-time electricity spot prices, cheapest hours, and contract comparison for 32 countries across Europe, Australia, and New Zealand. Designed for AI agents and automation.",
-    "url": "https://elecz.com/electricity-price-api",
+    "url": "https://elecz.com/electricity-price-api/",
     "creator": { "@type": "Organization", "name": "SKA Trading Oy / Zemlo AI", "url": "https://elecz.com" },
     "license": "https://elecz.com/terms",
     "spatialCoverage": "Europe, Australia, New Zealand",
@@ -608,7 +268,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-eyebrow">Electricity Price API</div>
   <h1>Your AI can now choose<br>the <span class="hl">cheapest electricity contract</span><br>— in real time</h1>
@@ -616,37 +275,21 @@
     Add Elecz to your AI. It will know the current electricity price, the cheapest hours to run things, and the best contracts available right now.<br><br>
     MCP-native. 32 countries across Europe, Australia, and New Zealand. No API key required.
   </p>
-
   <div class="hero-stats">
-    <div class="stat">
-      <div class="stat-num">32</div>
-      <div class="stat-label">countries</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">3</div>
-      <div class="stat-label">continents</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">8</div>
-      <div class="stat-label">contract markets</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">€0</div>
-      <div class="stat-label">no API key</div>
-    </div>
+    <div class="stat"><div class="stat-num">32</div><div class="stat-label">countries</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">continents</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">contract markets</div></div>
+    <div class="stat"><div class="stat-num">€0</div><div class="stat-label">no API key</div></div>
   </div>
-
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP (Claude, Cursor, Copilot) →</a>
     <a href="/docs" class="btn-secondary">REST API docs</a>
   </div>
 </div>
 
-<!-- WHY NOT LLM -->
 <div class="section">
   <h2>Why not just ask an AI assistant?</h2>
   <p class="section-sub">LLMs without real-time tools are blind to energy markets. The difference between a correct and hallucinated answer is not small — it can be a factor of 200×.</p>
-
   <div class="llm-comparison">
     <div class="llm-box bad">
       <div class="llm-box-label">❌ Without Elecz — hallucinated answer</div>
@@ -671,11 +314,9 @@
   </div>
 </div>
 
-<!-- THREE TOOLS -->
 <div class="section">
   <h2>Three tools. Every use case covered.</h2>
   <p class="section-sub">Elecz exposes three MCP tools that cover everything an AI agent needs for electricity price decisions.</p>
-
   <div class="tools-grid">
     <div class="tool-card">
       <div class="tool-name">spot_price</div>
@@ -693,12 +334,8 @@
       <div class="tool-returns">→ <span>best_spot, best_fixed, recommended, savings_estimate, provider_url</span></div>
     </div>
   </div>
-
   <div class="code-block">
-    <div class="code-header">
-      <span class="code-title">spot_price — response example (zone: AU)</span>
-      <span class="code-lang">JSON</span>
-    </div>
+    <div class="code-header"><span class="code-title">spot_price — response example (zone: AU)</span><span class="code-lang">JSON</span></div>
     <pre>{
   <span class="k">"zone"</span>: <span class="s">"AU"</span>,
   <span class="k">"price_cents_kwh"</span>: <span class="n">6.81</span>,
@@ -708,12 +345,8 @@
   <span class="k">"source"</span>: <span class="s">"AEMO"</span>
 }</pre>
   </div>
-
   <div class="code-block">
-    <div class="code-header">
-      <span class="code-title">cheapest_hours — response example (zone: GB)</span>
-      <span class="code-lang">JSON</span>
-    </div>
+    <div class="code-header"><span class="code-title">cheapest_hours — response example (zone: GB)</span><span class="code-lang">JSON</span></div>
     <pre>{
   <span class="k">"zone"</span>: <span class="s">"GB"</span>,
   <span class="k">"unit"</span>: <span class="s">"p/kWh"</span>,
@@ -729,27 +362,23 @@
   </div>
 </div>
 
-<!-- PROOF -->
 <div class="section">
   <h2>Used in production</h2>
   <p class="section-sub">Elecz is live across multiple platforms and used in AI agent workflows, home automation, and energy management.</p>
-
   <div class="proof-bar">
     <div class="proof-item"><strong>Hundreds</strong> of installs on ClawHub</div>
     <div class="proof-divider"></div>
     <div class="proof-item"><strong>Thousands</strong> of GitHub impressions</div>
     <div class="proof-divider"></div>
-    <div class="proof-item">Live on <strong>Glama, Smithery, LobeHub, PulseMCP, MCP Marketplace, n8n, RapidAPI</strong></div>
+    <div class="proof-item">Live on <strong><a href="https://glama.ai/mcp/connectors/com.elecz/elecz" target="_blank" rel="noopener" style="color:inherit">Glama</a>, <a href="https://www.pulsemcp.com/servers/elecz" target="_blank" rel="noopener" style="color:inherit">PulseMCP</a>, <a href="https://clawhub.ai/zemloai-ctrl/elecz" target="_blank" rel="noopener" style="color:inherit">ClawHub</a>, <a href="https://mcp.so/server/elecz/Zemlo%20AI" target="_blank" rel="noopener" style="color:inherit">mcp.so</a>, <a href="https://mcpmarket.com/server/elecz" target="_blank" rel="noopener" style="color:inherit">MCP Market</a>, n8n, RapidAPI</strong></div>
     <div class="proof-divider"></div>
     <div class="proof-item">Used in <strong>MCP workflows</strong> and home automation agents</div>
   </div>
 </div>
 
-<!-- USE CASES -->
 <div class="section">
   <h2>What developers actually build with Elecz</h2>
   <p class="section-sub">From home automation to annual contract switching — Elecz handles the energy signal so the agent can focus on the decision.</p>
-
   <div class="integration-grid">
     <div class="integration-card">
       <div class="integration-title">⚡ Smart EV charging agent</div>
@@ -769,10 +398,10 @@
     </div>
   </div>
 </div>
+
 <div class="section">
   <h2>32 countries. 3 continents.</h2>
   <p class="section-sub">Spot prices for all of Europe, Australia, and New Zealand. Contract comparison in 8 markets — orange dot indicates contract data available.</p>
-
   <div class="country-groups">
     <div class="country-group">
       <div class="group-label">Nordics</div>
@@ -808,17 +437,9 @@
       </ul>
       <div class="group-label" style="margin-top:18px">Southern Europe</div>
       <ul class="country-list">
-        <li>Spain</li>
-        <li>Portugal</li>
-        <li>Italy</li>
-        <li>Hungary</li>
-        <li>Romania</li>
-        <li>Bulgaria</li>
-        <li>Croatia</li>
-        <li>Slovenia</li>
-        <li>Slovakia</li>
-        <li>Greece</li>
-        <li>Serbia</li>
+        <li>Spain</li><li>Portugal</li><li>Italy</li><li>Hungary</li>
+        <li>Romania</li><li>Bulgaria</li><li>Croatia</li><li>Slovenia</li>
+        <li>Slovakia</li><li>Greece</li><li>Serbia</li>
       </ul>
     </div>
     <div class="country-group">
@@ -832,11 +453,10 @@
   </div>
 </div>
 
-<!-- INTEGRATION -->
+<!-- INTEGRATION — with direct links to directories -->
 <div class="section">
   <h2>Add to your AI in minutes</h2>
   <p class="section-sub">No API key. No account. One URL. Works with any MCP-compatible AI assistant.</p>
-
   <div class="integration-grid">
     <div class="integration-card">
       <div class="integration-title">Claude (MCP)</div>
@@ -844,28 +464,52 @@
       <div class="integration-code">https://elecz.com/mcp</div>
     </div>
     <div class="integration-card">
+      <div class="integration-title">Glama</div>
+      <div class="integration-desc">Listed on Glama's MCP registry. One-click install for Claude Desktop, Cursor, and VS Code.</div>
+      <div class="integration-code">glama.ai/mcp/connectors/com.elecz/elecz</div>
+      <a href="https://glama.ai/mcp/connectors/com.elecz/elecz" target="_blank" rel="noopener" class="integration-link">Open on Glama →</a>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">PulseMCP</div>
+      <div class="integration-desc">Listed on PulseMCP's hand-reviewed MCP server directory.</div>
+      <div class="integration-code">pulsemcp.com/servers/elecz</div>
+      <a href="https://www.pulsemcp.com/servers/elecz" target="_blank" rel="noopener" class="integration-link">Open on PulseMCP →</a>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">ClawHub</div>
+      <div class="integration-desc">Hundreds of installs on ClawHub's MCP server directory.</div>
+      <div class="integration-code">clawhub.ai/zemloai-ctrl/elecz</div>
+      <a href="https://clawhub.ai/zemloai-ctrl/elecz" target="_blank" rel="noopener" class="integration-link">Open on ClawHub →</a>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">mcp.so</div>
+      <div class="integration-desc">Listed on mcp.so, one of the largest MCP server catalogs.</div>
+      <div class="integration-code">mcp.so/server/elecz/Zemlo AI</div>
+      <a href="https://mcp.so/server/elecz/Zemlo%20AI" target="_blank" rel="noopener" class="integration-link">Open on mcp.so →</a>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">RapidAPI</div>
+      <div class="integration-desc">Available on RapidAPI for REST API access.</div>
+      <div class="integration-code">rapidapi.com/infozemloai/api/elecz</div>
+      <a href="https://rapidapi.com/infozemloai/api/elecz" target="_blank" rel="noopener" class="integration-link">Open on RapidAPI →</a>
+    </div>
+    <div class="integration-card">
       <div class="integration-title">n8n</div>
       <div class="integration-desc">Install the official Elecz node from n8n community nodes. Spot price, cheapest hours, and contract tools available.</div>
       <div class="integration-code">n8n-nodes-elecz</div>
+      <a href="https://www.npmjs.com/package/n8n-nodes-elecz" target="_blank" rel="noopener" class="integration-link">npm package →</a>
     </div>
     <div class="integration-card">
       <div class="integration-title">REST API</div>
       <div class="integration-desc">Direct HTTP. No authentication. Returns JSON. Any language, any platform.</div>
       <div class="integration-code">GET /signal/spot?zone=FI</div>
     </div>
-    <div class="integration-card">
-      <div class="integration-title">Glama / Smithery</div>
-      <div class="integration-desc">Listed on major MCP marketplaces. One-click install for Claude Desktop, Cursor, and VS Code.</div>
-      <div class="integration-code">search: elecz</div>
-    </div>
   </div>
 </div>
 
-<!-- FAQ -->
 <div class="section">
   <h2>Frequently asked questions</h2>
   <p class="section-sub"></p>
-
   <div class="faq-list">
     <div class="faq-item">
       <div class="faq-q">Is the Elecz electricity price API free?</div>
@@ -902,7 +546,6 @@
   </div>
 </div>
 
-<!-- CTA -->
 <div class="cta-section">
   <h2>Your AI should know the electricity price.</h2>
   <p>Add Elecz in 60 seconds. No signup. No key. Just real-time energy data for 32 countries.</p>
