@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "elecz": {
+      "url": "https://elecz.com/mcp",
+      "transport": "streamable-http"
+    }
+  }
+}
