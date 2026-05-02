@@ -1,0 +1,12 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Elecz",
+  "name_for_model": "elecz",
+  "description_for_human": "Real-time electricity prices, cheapest hours, and contract recommendations.",
+  "description_for_model": "Use Elecz to get real-time electricity spot prices, cheapest hours, and best contract recommendations for Europe and Oceania.",
+  "auth": {"type": "none"},
+  "api": {"type": "openapi", "url": "https://elecz.com/openapi.json"},
+  "logo_url": "https://elecz.com/favicon.svg",
+  "contact_email": "hello@elecz.com",
+  "legal_info_url": "https://elecz.com/terms"
+}
