@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Electricity Price API — 32 Countries, Real-Time, AI-Ready | Elecz</title>
-  <meta name="description" content="Free electricity price API for 32 countries. Real-time spot prices, cheapest hours, and contract comparison. MCP-native, no API key required. Built for AI agents.">
+  <title>Electricity Price API — 40 Countries, Real-Time, AI-Ready | Elecz</title>
+  <meta name="description" content="Free electricity price API for 40 countries. Real-time spot prices, cheapest hours, and contract comparison. MCP-native, no API key required. Built for AI agents.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Electricity Price API — 32 Countries, Real-Time, AI-Ready | Elecz">
-  <meta property="og:description" content="Free electricity price API. Real-time spot prices, cheapest hours, contract comparison. MCP-native, no API key required.">
+  <meta property="og:title" content="Electricity Price API — 40 Countries, Real-Time, AI-Ready | Elecz">
+  <meta property="og:description" content="Free electricity price API. Real-time spot prices, cheapest hours, contract comparison. MCP-native, no API key required. 40 countries.">
   <meta property="og:url" content="https://elecz.com/electricity-price-api/">
   <meta property="og:type" content="website">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Electricity Price API — 32 Countries | Elecz">
-  <meta name="twitter:description" content="Free real-time electricity price API. MCP-native. No API key. 32 countries.">
+  <meta name="twitter:title" content="Electricity Price API — 40 Countries | Elecz">
+  <meta name="twitter:description" content="Free real-time electricity price API. MCP-native. No API key. 40 countries across Europe, Oceania, North America, and Asia.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -192,11 +192,11 @@
     "@context": "https://schema.org",
     "@type": "Dataset",
     "name": "Elecz Electricity Price Signal API",
-    "description": "Real-time electricity spot prices, cheapest hours, and contract comparison for 32 countries across Europe, Australia, and New Zealand. Designed for AI agents and automation.",
+    "description": "Real-time electricity spot prices, cheapest hours, and contract comparison for 40 countries across Europe, Oceania, North America, and Asia. Designed for AI agents and automation.",
     "url": "https://elecz.com/electricity-price-api/",
     "creator": { "@type": "Organization", "name": "SKA Trading Oy / Zemlo AI", "url": "https://elecz.com" },
     "license": "https://elecz.com/terms",
-    "spatialCoverage": "Europe, Australia, New Zealand",
+    "spatialCoverage": "Europe, Oceania, North America, Asia",
     "isAccessibleForFree": true,
     "variableMeasured": ["Spot electricity price", "Cheapest hours", "Energy contract comparison"]
   }
@@ -212,7 +212,7 @@
     "operatingSystem": "Web/API",
     "url": "https://elecz.com",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "Free real-time electricity price API for AI agents. Spot prices, cheapest hours, and contract comparison for 32 countries."
+    "description": "Free real-time electricity price API for AI agents. Spot prices, cheapest hours, and contract comparison for 40 countries across Europe, Oceania, North America, and Asia."
   }
   </script>
 
@@ -235,22 +235,22 @@
       {
         "@type": "Question",
         "name": "Which countries does Elecz cover?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Elecz covers 32 countries: all of the Nordic countries (Finland, Sweden, Norway, Denmark), Central Europe (Germany, France, Austria, Belgium, Netherlands, Switzerland, Poland, Czech Republic), UK, Baltics (Estonia, Latvia, Lithuania), Southern Europe (Spain, Portugal, Italy, Hungary, Romania, Bulgaria, Croatia, Slovenia, Slovakia, Greece, Serbia), Australia, and New Zealand." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Elecz covers 40 countries across Europe, Oceania, North America, and Asia. Europe: all Nordic countries, Germany, UK, France, Austria, Belgium, Netherlands, Switzerland, Poland, Czech Republic, Ireland, Baltics, and Southern Europe. Oceania: Australia and New Zealand. North America: California, Texas, New York, and Ontario. Asia: South Korea and Japan (9 zones)." }
       },
       {
         "@type": "Question",
         "name": "Can I use Elecz with Claude, ChatGPT, or other AI assistants?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz is MCP-native. Add it via the MCP URL https://elecz.com/mcp — no API key, no account. Also available on Glama, Smithery, and n8n." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz is MCP-native. Add it via the MCP URL https://elecz.com/mcp — no API key, no account. Also available on Glama, ClawHub, PulseMCP, mcp.so, and n8n." }
       },
       {
         "@type": "Question",
         "name": "How often is the data updated?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Spot prices are updated hourly from source operators: Nord Pool, ENTSO-E, Elexon BMRS (UK), AEMO (Australia), and EM6 (New Zealand). Next-day prices are typically published at 13:00–14:00 CET." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Spot prices are updated hourly for ENTSO-E zones, every 30 minutes for GB and AU/NZ, every 15 minutes for ERCOT (Texas), every 5 minutes for NYISO and IESO. Japan JEPX day-ahead prices are published daily at ~10:30 JST." }
       },
       {
         "@type": "Question",
-        "name": "Is there a free electricity price API for Finland?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes — Elecz is free for Finland. Spot price, cheapest hours, and contract comparison are all available for zone FI with no API key or registration required." }
+        "name": "Is there a free electricity price API for Germany or the UK?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — Elecz is free for all supported countries including Germany and the United Kingdom. Spot price, cheapest hours, and contract comparison available with no API key or registration." }
       }
     ]
   }
@@ -269,20 +269,20 @@
 </nav>
 
 <div class="hero">
-  <div class="hero-eyebrow">Electricity Price API</div>
-  <h1>Your AI can now choose<br>the <span class="hl">cheapest electricity contract</span><br>— in real time</h1>
+  <div class="hero-eyebrow">Electricity Price API for AI Agents</div>
+  <h1>LLMs hallucinate<br>electricity prices.<br><span class="hl">Elecz doesn't.</span></h1>
   <p class="hero-lead">
-    Add Elecz to your AI. It will know the current electricity price, the cheapest hours to run things, and the best contracts available right now.<br><br>
-    MCP-native. 32 countries across Europe, Australia, and New Zealand. No API key required.
+    Real-time electricity price API built for LLMs and AI agents. MCP-native, REST-ready. One call returns the current price, the cheapest hours, and the best available contract.<br><br>
+    40 countries across Europe, Oceania, North America, and Asia. No API key required.
   </p>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">32</div><div class="stat-label">countries</div></div>
-    <div class="stat"><div class="stat-num">3</div><div class="stat-label">continents</div></div>
+    <div class="stat"><div class="stat-num">40</div><div class="stat-label">countries</div></div>
+    <div class="stat"><div class="stat-num">100+</div><div class="stat-label">zones</div></div>
     <div class="stat"><div class="stat-num">8</div><div class="stat-label">contract markets</div></div>
     <div class="stat"><div class="stat-num">€0</div><div class="stat-label">no API key</div></div>
   </div>
   <div class="hero-ctas">
-    <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP (Claude, Cursor, Copilot) →</a>
+    <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
     <a href="/docs" class="btn-secondary">REST API docs</a>
   </div>
 </div>
@@ -321,7 +321,7 @@
     <div class="tool-card">
       <div class="tool-name">spot_price</div>
       <div class="tool-desc">Current electricity spot price for any supported zone. Returns price, unit, timestamp, and data source.</div>
-      <div class="tool-returns">→ <span>price_cents_kwh, zone, currency, timestamp, source</span></div>
+      <div class="tool-returns">→ <span>price, zone, currency, unit, timestamp, source</span></div>
     </div>
     <div class="tool-card">
       <div class="tool-name">cheapest_hours</div>
@@ -335,14 +335,15 @@
     </div>
   </div>
   <div class="code-block">
-    <div class="code-header"><span class="code-title">spot_price — response example (zone: AU)</span><span class="code-lang">JSON</span></div>
+    <div class="code-header"><span class="code-title">spot_price — response example (zone: US-NY-NYC)</span><span class="code-lang">JSON</span></div>
     <pre>{
-  <span class="k">"zone"</span>: <span class="s">"AU"</span>,
-  <span class="k">"price_cents_kwh"</span>: <span class="n">6.81</span>,
-  <span class="k">"currency"</span>: <span class="s">"AUD"</span>,
+  <span class="k">"zone"</span>: <span class="s">"US-NY-NYC"</span>,
+  <span class="k">"price"</span>: <span class="n">4.312</span>,
+  <span class="k">"currency"</span>: <span class="s">"USD"</span>,
   <span class="k">"unit"</span>: <span class="s">"c/kWh"</span>,
-  <span class="k">"timestamp"</span>: <span class="s">"2026-04-29T14:00:00+10:00"</span>,
-  <span class="k">"source"</span>: <span class="s">"AEMO"</span>
+  <span class="k">"timestamp"</span>: <span class="s">"2026-05-08T14:00:00Z"</span>,
+  <span class="k">"source"</span>: <span class="s">"NYISO_RT"</span>,
+  <span class="k">"disclaimer"</span>: <span class="s">"NYISO real-time wholesale price. Retail rates include transmission, distribution and taxes on top."</span>
 }</pre>
   </div>
   <div class="code-block">
@@ -350,13 +351,17 @@
     <pre>{
   <span class="k">"zone"</span>: <span class="s">"GB"</span>,
   <span class="k">"unit"</span>: <span class="s">"p/kWh"</span>,
-  <span class="k">"current_hour_signal"</span>: <span class="s">"CHEAP"</span>,
+  <span class="k">"current_hour_signal"</span>: <span class="s">"low"</span>,
   <span class="k">"current_hour_is_cheap"</span>: <span class="b">true</span>,
   <span class="k">"current_hour_rank"</span>: <span class="n">3</span>,
-  <span class="k">"cheap_window_ends"</span>: <span class="s">"15:00"</span>,
-  <span class="k">"next_cheap_hour"</span>: <span class="s">"02:00"</span>,
+  <span class="k">"cheap_window_ends"</span>: <span class="s">"2026-05-08T15:00:00+00:00"</span>,
+  <span class="k">"next_cheap_hour"</span>: <span class="s">"2026-05-09T02:00:00+00:00"</span>,
   <span class="k">"hours_until_next_cheap"</span>: <span class="n">11</span>,
-  <span class="k">"cheap_hours"</span>: [<span class="s">"01:00"</span>, <span class="s">"02:00"</span>, <span class="s">"03:00"</span>, <span class="s">"13:00"</span>, <span class="s">"14:00"</span>],
+  <span class="k">"cheapest_hours"</span>: [
+    { <span class="k">"hour"</span>: <span class="s">"2026-05-08T13:00"</span>, <span class="k">"price"</span>: <span class="n">12.4</span>, <span class="k">"unit"</span>: <span class="s">"p/kWh"</span> },
+    { <span class="k">"hour"</span>: <span class="s">"2026-05-08T14:00"</span>, <span class="k">"price"</span>: <span class="n">13.1</span>, <span class="k">"unit"</span>: <span class="s">"p/kWh"</span> },
+    { <span class="k">"hour"</span>: <span class="s">"2026-05-09T02:00"</span>, <span class="k">"price"</span>: <span class="n">11.8</span>, <span class="k">"unit"</span>: <span class="s">"p/kWh"</span> }
+  ],
   <span class="k">"data_complete"</span>: <span class="b">true</span>
 }</pre>
   </div>
@@ -370,9 +375,9 @@
     <div class="proof-divider"></div>
     <div class="proof-item"><strong>Thousands</strong> of GitHub impressions</div>
     <div class="proof-divider"></div>
-    <div class="proof-item">Live on <strong><a href="https://glama.ai/mcp/connectors/com.elecz/elecz" target="_blank" rel="noopener" style="color:inherit">Glama</a>, <a href="https://www.pulsemcp.com/servers/elecz" target="_blank" rel="noopener" style="color:inherit">PulseMCP</a>, <a href="https://clawhub.ai/zemloai-ctrl/elecz" target="_blank" rel="noopener" style="color:inherit">ClawHub</a>, <a href="https://mcp.so/server/elecz/Zemlo%20AI" target="_blank" rel="noopener" style="color:inherit">mcp.so</a>, <a href="https://mcpmarket.com/server/elecz" target="_blank" rel="noopener" style="color:inherit">MCP Market</a>, n8n, RapidAPI</strong></div>
+    <div class="proof-item">Live on <strong><a href="https://glama.ai/mcp/connectors/com.elecz/elecz" target="_blank" rel="noopener" style="color:inherit">Glama</a>, <a href="https://www.pulsemcp.com/servers/elecz" target="_blank" rel="noopener" style="color:inherit">PulseMCP</a>, <a href="https://clawhub.ai/zemloai-ctrl/elecz" target="_blank" rel="noopener" style="color:inherit">ClawHub</a>, <a href="https://mcp.so/server/elecz/Zemlo%20AI" target="_blank" rel="noopener" style="color:inherit">mcp.so</a>, n8n, RapidAPI</strong></div>
     <div class="proof-divider"></div>
-    <div class="proof-item">Used in <strong>MCP workflows</strong> and home automation agents</div>
+    <div class="proof-item">Appearing in <strong>Google AI Overview</strong> for targeted queries</div>
   </div>
 </div>
 
@@ -400,18 +405,19 @@
 </div>
 
 <div class="section">
-  <h2>32 countries. 3 continents.</h2>
-  <p class="section-sub">Spot prices for all of Europe, Australia, and New Zealand. Contract comparison in 8 markets — orange dot indicates contract data available.</p>
+  <h2>40 countries. 4 continents.</h2>
+  <p class="section-sub">Spot prices across Europe, Oceania, North America, and Asia. Contract comparison in 8 markets — orange dot indicates contract data available.</p>
   <div class="country-groups">
     <div class="country-group">
-      <div class="group-label">Nordics</div>
+      <div class="group-label">Nordics & Ireland</div>
       <ul class="country-list">
         <li class="has-contract">Finland</li>
         <li class="has-contract">Sweden (SE1–SE4)</li>
         <li class="has-contract">Norway (NO1–NO5)</li>
         <li class="has-contract">Denmark (DK1, DK2)</li>
+        <li>Ireland</li>
       </ul>
-      <div class="contract-note"><span class="dot">●</span> Contract comparison live</div>
+      <div class="contract-note"><span class="dot">●</span> Contract comparison: FI, SE, NO, DK</div>
     </div>
     <div class="country-group">
       <div class="group-label">Central Europe</div>
@@ -424,8 +430,10 @@
         <li>Switzerland</li>
         <li>Poland</li>
         <li>Czech Republic</li>
+        <li>Hungary</li>
+        <li>Romania</li>
       </ul>
-      <div class="contract-note"><span class="dot">●</span> DE contract live · NL+BE coming</div>
+      <div class="contract-note"><span class="dot">●</span> DE contract live</div>
     </div>
     <div class="country-group">
       <div class="group-label">UK & Baltics</div>
@@ -437,23 +445,35 @@
       </ul>
       <div class="group-label" style="margin-top:18px">Southern Europe</div>
       <ul class="country-list">
-        <li>Spain</li><li>Portugal</li><li>Italy</li><li>Hungary</li>
-        <li>Romania</li><li>Bulgaria</li><li>Croatia</li><li>Slovenia</li>
+        <li>Spain</li><li>Portugal</li><li>Italy</li>
+        <li>Bulgaria</li><li>Croatia</li><li>Slovenia</li>
         <li>Slovakia</li><li>Greece</li><li>Serbia</li>
+        <li>Bosnia</li><li>Montenegro</li><li>N. Macedonia</li>
       </ul>
     </div>
     <div class="country-group">
       <div class="group-label">Oceania</div>
       <ul class="country-list">
-        <li class="has-contract">Australia</li>
+        <li class="has-contract">Australia (5 zones)</li>
         <li class="has-contract">New Zealand (NI + SI)</li>
       </ul>
-      <div class="contract-note"><span class="dot">●</span> Contract comparison live</div>
+      <div class="group-label" style="margin-top:18px">North America</div>
+      <ul class="country-list">
+        <li>USA — California (CAISO)</li>
+        <li>USA — Texas (ERCOT)</li>
+        <li>USA — New York (NYISO)</li>
+        <li>Canada — Ontario (IESO)</li>
+      </ul>
+      <div class="group-label" style="margin-top:18px">Asia</div>
+      <ul class="country-list">
+        <li>South Korea (KPX)</li>
+        <li>Japan — 9 zones (JEPX)</li>
+      </ul>
+      <div class="contract-note"><span class="dot">●</span> Contract comparison: AU, NZ</div>
     </div>
   </div>
 </div>
 
-<!-- INTEGRATION — with direct links to directories -->
 <div class="section">
   <h2>Add to your AI in minutes</h2>
   <p class="section-sub">No API key. No account. One URL. Works with any MCP-compatible AI assistant.</p>
@@ -500,16 +520,21 @@
       <a href="https://www.npmjs.com/package/n8n-nodes-elecz" target="_blank" rel="noopener" class="integration-link">npm package →</a>
     </div>
     <div class="integration-card">
+      <div class="integration-title">Perplexity</div>
+      <div class="integration-desc">Perplexity supports MCP on Mac (Settings → Connectors). Remote MCP coming soon — when available, Elecz will connect directly via URL.</div>
+      <div class="integration-code">https://elecz.com/mcp</div>
+      <a href="https://www.perplexity.ai/help-center/en/articles/11502712-local-and-remote-mcps-for-perplexity" target="_blank" rel="noopener" class="integration-link">Perplexity MCP docs →</a>
+    </div>
+    <div class="integration-card">
       <div class="integration-title">REST API</div>
       <div class="integration-desc">Direct HTTP. No authentication. Returns JSON. Any language, any platform.</div>
-      <div class="integration-code">GET /signal/spot?zone=FI</div>
+      <div class="integration-code">GET /signal/spot?zone=DE</div>
     </div>
   </div>
 </div>
 
 <div class="section">
   <h2>Frequently asked questions</h2>
-  <p class="section-sub"></p>
   <div class="faq-list">
     <div class="faq-item">
       <div class="faq-q">Is the Elecz electricity price API free?</div>
@@ -520,8 +545,12 @@
       <div class="faq-a">Large language models have no access to live markets. Without a real-time tool, the model will produce a historical average that looks like an answer but is not the current price. The actual spot price can be <code>0.0 c/kWh</code> during renewable oversupply or <code>50+ c/kWh</code> during a grid crisis — a guess is useless for any real decision. Elecz gives the AI a verified signal on every call.</div>
     </div>
     <div class="faq-item">
+      <div class="faq-q">Which countries does Elecz cover?</div>
+      <div class="faq-a">40 countries across Europe, Oceania, North America, and Asia. Europe includes all Nordic countries, Germany, UK, Ireland, France, Austria, Belgium, Netherlands, Switzerland, Poland, Czech Republic, Baltics, and Southern Europe. Oceania: Australia (5 zones) and New Zealand. North America: California (CAISO), Texas (ERCOT), New York (NYISO), and Ontario (IESO). Asia: South Korea (KPX) and Japan (JEPX, 9 zones).</div>
+    </div>
+    <div class="faq-item">
       <div class="faq-q">Is there a free electricity price API for Germany or the UK?</div>
-      <div class="faq-a">Yes — Elecz is free for all supported countries including Germany (<code>DE-LU</code>) and the United Kingdom (<code>GB</code>). Spot price, cheapest hours, and contract comparison available with no API key or registration. Germany data sourced from ENTSO-E, UK from Elexon BMRS, both updated hourly.</div>
+      <div class="faq-a">Yes — Elecz is free for all supported countries including Germany (<code>DE</code>) and the United Kingdom (<code>GB</code>). Spot price, cheapest hours, and contract comparison available with no API key or registration. Germany data from ENTSO-E, UK from Octopus Agile, both updated hourly.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">What is MCP and why does it matter for electricity data?</div>
@@ -529,11 +558,11 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">How often is data updated?</div>
-      <div class="faq-a">Hourly, from source operators: Nord Pool (Nordics), ENTSO-E (Europe), Elexon BMRS (UK), AEMO (Australia), EM6 (New Zealand). Next-day prices are available from 13:00–14:00 CET. The <code>cheapest_hours</code> tool includes a <code>data_complete</code> flag so agents know whether tomorrow's data is already in.</div>
+      <div class="faq-a">Hourly for ENTSO-E zones, every 30 minutes for GB and AU/NZ, every 15 minutes for ERCOT (Texas), every 5 minutes for NYISO and IESO. Japan JEPX day-ahead prices published daily ~10:30 JST. The <code>cheapest_hours</code> tool includes a <code>data_complete</code> flag so agents know whether tomorrow's data is already in.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Which countries have contract comparison?</div>
-      <div class="faq-a">Finland, Sweden, Norway, Denmark, Germany, United Kingdom, Australia, and New Zealand. Spot-only coverage is available for 24 additional European countries. Netherlands and Belgium are next for contract expansion.</div>
+      <div class="faq-a">Finland, Sweden, Norway, Denmark, Germany, United Kingdom, Australia, and New Zealand. Spot-only coverage for 32 additional countries. All other zones return current spot price with a note via <code>best_energy_contract</code>.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Does it work with home automation?</div>
@@ -547,8 +576,8 @@
 </div>
 
 <div class="cta-section">
-  <h2>Your AI should know the electricity price.</h2>
-  <p>Add Elecz in 60 seconds. No signup. No key. Just real-time energy data for 32 countries.</p>
+  <h2>Your AI is guessing electricity prices.<br>Stop that.</h2>
+  <p>Add Elecz in 60 seconds. No signup. No key. Real-time energy data for 40 countries.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
     <a href="/docs" class="btn-secondary">Read the docs</a>
@@ -558,6 +587,7 @@
 <footer>
   <p>
     ⚡ <a href="/">Elecz.com</a> · Built by SKA Trading Oy / Zemlo AI, Kokkola, Finland ·
+    Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX ·
     <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
     <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a>
