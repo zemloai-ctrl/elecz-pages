@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Elecz Docs — Electricity Signal API for AI Agents</title>
-  <meta name="description" content="Elecz API documentation. Real-time electricity prices, contract recommendations and cheapest hours for Europe and Oceania.">
+  <title>Elecz Docs — Electricity Price Signal API for AI Agents</title>
+  <meta name="description" content="Elecz API documentation. Real-time electricity prices, cheapest hours, and contract comparison for 40 countries across Europe, Oceania, North America, and Asia. MCP-native, no API key.">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,7 +15,9 @@
     nav { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; align-items: center; padding-bottom: 24px; border-bottom: 2px solid #e8e8e0; }
     nav a { color: #555; text-decoration: none; font-size: 0.9rem; font-weight: 500; padding-bottom: 2px; border-bottom: 2px solid transparent; transition: border-color 0.15s, color 0.15s; }
     nav a:hover { color: #1a1a1a; border-bottom-color: #f0a020; }
+    .hero { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 2px solid #e8e8e0; }
     h1 { font-size: 2rem; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .slogan { font-size: 1.1rem; color: #555; font-style: italic; margin-bottom: 16px; }
     h2 { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #888; margin-top: 48px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #e8e8e0; }
     h3 { font-size: 1rem; font-weight: 600; color: #1a1a1a; margin-top: 24px; margin-bottom: 8px; }
     p { color: #444; font-size: 0.95rem; margin-bottom: 12px; line-height: 1.7; }
@@ -47,22 +49,29 @@
   <nav>
     <a href="/" class="logo">⚡ Elecz<span class="dot">.</span>com</a>
     <a href="/docs">Docs</a>
+    <a href="/electricity-price-api/">API Guide</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
     <a href="/privacy">Privacy</a>
     <a href="/terms">Terms</a>
   </nav>
 
-  <h1>⚡ Elecz Docs</h1>
-  <p>Electricity decision signal for AI agents, automation, and developers.</p>
-  <p>
-    <span class="badge green">Free</span>
-    <span class="badge blue">No API Key</span>
-    <span class="badge">MCP-Native</span>
-  </p>
+  <div class="hero">
+    <h1>⚡ Elecz Docs</h1>
+    <p class="slogan">"Electricity price is not content. It's an input."</p>
+    <p>Real-time electricity price signal for LLMs and AI agents. 40 countries, 100+ zones, no API key.</p>
+    <p style="margin-top:12px">
+      <span class="badge green">Free</span>
+      <span class="badge blue">No API Key</span>
+      <span class="badge">MCP-Native</span>
+      <span class="badge">REST</span>
+    </p>
+  </div>
 
   <h2 id="what">What is Elecz?</h2>
   <p>Elecz turns real-time electricity prices into actionable signals — for AI agents, home automation, and anyone whose decisions depend on when they use electricity.</p>
-  <p><strong>Markets:</strong> Finland · Sweden · Norway · Denmark · Germany · Netherlands · Belgium · Austria · France · Italy · Poland · Czech Republic · Hungary · Romania · Spain · Portugal · Croatia · Bulgaria · Slovenia · Slovakia · Greece · Estonia · Latvia · Lithuania · Switzerland · Serbia · Bosnia · Montenegro · North Macedonia · United Kingdom · Australia · New Zealand</p>
+  <p>A language model cannot know the current electricity price. It was trained on historical data. Without a real-time API call, any answer it gives is a guess. Elecz is that call.</p>
+  <p><strong>Contract comparison:</strong> FI · SE · NO · DK · DE · GB · AU · NZ</p>
+  <p><strong>Spot price + cheapest hours:</strong> All of the above + NL · BE · AT · FR · IT · PL · CZ · HU · RO · ES · PT · HR · BG · SI · SK · GR · EE · LV · LT · CH · RS · BA · ME · MK · IE · US-CA · US-TX · US-NY · CA-ON · KR · JP (9 zones)</p>
 
   <h2 id="connect">Connect in 30 seconds</h2>
   <h3>Claude / Claude Code / any MCP client</h3>
@@ -75,11 +84,12 @@
 }</pre>
 
   <h3>cURL</h3>
-  <pre>curl "https://elecz.com/signal/spot?zone=FI"
-curl "https://elecz.com/signal/spot?zone=GB"
+  <pre>curl "https://elecz.com/signal/spot?zone=DE"
+curl "https://elecz.com/signal/spot?zone=US-NY-NYC"
+curl "https://elecz.com/signal/spot?zone=JP-TKY"
 curl "https://elecz.com/signal/spot?zone=AU-NSW"
-curl "https://elecz.com/signal/cheapest-hours?zone=FI&hours=5"
-curl "https://elecz.com/signal?zone=FI&consumption=2000"</pre>
+curl "https://elecz.com/signal/cheapest-hours?zone=DE&hours=5"
+curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
 
   <h2 id="tools">MCP Tools</h2>
   <table>
@@ -93,12 +103,12 @@ curl "https://elecz.com/signal?zone=FI&consumption=2000"</pre>
   <p><strong>Base URL:</strong> <code>https://elecz.com</code> — No authentication. No rate limit for reasonable use.</p>
   <table>
     <tr><th>Endpoint</th><th>Description</th></tr>
-    <tr><td><code>GET /signal/spot?zone=FI</code></td><td>Current spot price only</td></tr>
-    <tr><td><code>GET /signal/cheapest-hours?zone=FI&hours=5</code></td><td>Cheapest hours next 24h</td></tr>
-    <tr><td><code>GET /signal?zone=FI&consumption=2000</code></td><td>Full signal with contract recommendations</td></tr>
+    <tr><td><code>GET /signal/spot?zone=DE</code></td><td>Current spot price only</td></tr>
+    <tr><td><code>GET /signal/cheapest-hours?zone=DE&hours=5</code></td><td>Cheapest hours next 24h</td></tr>
+    <tr><td><code>GET /signal?zone=DE&consumption=3500</code></td><td>Full signal with contract recommendations</td></tr>
     <tr><td><code>GET /go/&lt;provider&gt;</code></td><td>Redirect to provider</td></tr>
     <tr><td><code>GET /health</code></td><td>Health check</td></tr>
-    <tr><td class="deprecated"><code>GET /signal/optimize?zone=FI</code></td><td class="deprecated">Deprecated — use /signal</td></tr>
+    <tr><td class="deprecated"><code>GET /signal/optimize?zone=DE</code></td><td class="deprecated">Deprecated — use /signal</td></tr>
   </table>
 
   <h2 id="markets">Supported Markets</h2>
@@ -108,18 +118,39 @@ curl "https://elecz.com/signal?zone=FI&consumption=2000"</pre>
     <tr><td>GB (+ regional GB-A..GB-P)</td><td>✓</td><td>✓</td><td>✓</td><td>Octopus Agile</td></tr>
     <tr><td>AU-NSW, AU-VIC, AU-QLD, AU-SA, AU-TAS</td><td>✓</td><td>—</td><td>✓</td><td>AEMO NEM</td></tr>
     <tr><td>NZ-NI, NZ-SI</td><td>✓</td><td>—</td><td>✓</td><td>EM6</td></tr>
-    <tr><td>NL, BE, AT, FR, IT, PL, CZ, HU, RO</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
+    <tr><td>NL, BE, AT, FR, IT, PL, CZ, HU, RO, IE</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
     <tr><td>ES, PT, HR, BG, SI, SK, GR</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
     <tr><td>EE, LV, LT, CH, RS, BA, ME, MK</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
+    <tr><td>US-CA-NP15, US-CA-SP15, US-CA-ZP26</td><td>✓</td><td>✓</td><td>—</td><td>CAISO OASIS</td></tr>
+    <tr><td>US-TX-HB_NORTH/HOUSTON/SOUTH/WEST/HUBAVG, US-TX-LZ_*</td><td>✓</td><td>✓</td><td>—</td><td>ERCOT CDR</td></tr>
+    <tr><td>US-NY-WEST/GENESE/CENTRL/NORTH/MHK_VL/CAPITL/HUD_VL/MILLWD/DUNWOD/NYC/LONGIL</td><td>✓</td><td>✓</td><td>—</td><td>NYISO MIS</td></tr>
+    <tr><td>CA-ON</td><td>✓</td><td>✓</td><td>—</td><td>IESO</td></tr>
+    <tr><td>KR, KR-JEJU</td><td>✓</td><td>—</td><td>—</td><td>KPX EPSIS</td></tr>
+    <tr><td>JP-HKD, JP-THK, JP-TKY, JP-CBU, JP-HKR, JP-KNS, JP-CGK, JP-SKK, JP-KYS</td><td>✓</td><td>✓</td><td>—</td><td>JEPX</td></tr>
   </table>
 
   <h2 id="examples">Examples</h2>
   <h3>Current price</h3>
-  <div class="prompt">"What is the current electricity price in Finland?"</div>
+  <div class="prompt">"What is the current electricity price in Germany?"</div>
   <h3>Cheapest hours</h3>
-  <div class="prompt">"When should I run my dishwasher today? I'm in Sweden."</div>
+  <div class="prompt">"When should I charge my EV tonight? I'm in Texas."</div>
   <h3>Contract comparison</h3>
-  <div class="prompt">"Should I switch my electricity contract? I use about 2000 kWh/year in Norway."</div>
+  <div class="prompt">"Should I switch my electricity contract? I use about 2700 kWh/year in the UK."</div>
+  <h3>Japan</h3>
+  <div class="prompt">"What is the electricity price in Tokyo right now?"</div>
+  <h3>South Korea</h3>
+  <div class="prompt">"What is the current electricity price in Seoul?"</div>
+
+  <h2 id="gb">United Kingdom</h2>
+  <p>Spot prices from Octopus Agile API — half-hourly resolution, updated every 30 min. Unit: p/kWh incl. VAT (5%).</p>
+  <p>Default zone <code>GB</code> = London (region C). Regional zones: GB-A through GB-P.</p>
+
+  <h2 id="de">Germany</h2>
+  <p>Spot prices from ENTSO-E. Contract comparison includes major providers. Unit: EUR c/kWh.</p>
+  <p>Note: Price excludes regional Netzentgelt (varies ~10–15 ct/kWh by area).</p>
+
+  <h2 id="ie">Ireland</h2>
+  <p>SEM (Single Electricity Market). ENTSO-E zone <code>IE</code>. Spot price and cheapest hours available. Unit: EUR c/kWh.</p>
 
   <h2 id="au">Australia</h2>
   <p>Spot prices from AEMO — 5-minute NEM dispatch prices, updated every 30 min. Unit: AUD c/kWh.</p>
@@ -131,13 +162,32 @@ curl "https://elecz.com/signal?zone=FI&consumption=2000"</pre>
   <p>Zones: NZ-NI (North Island) · NZ-SI (South Island)</p>
   <p>Note: No spot pass-through retailers currently available. Flick Electric was acquired by Meridian Energy (July 2025).</p>
 
-  <h2 id="gb">United Kingdom</h2>
-  <p>Spot prices from Octopus Agile API — half-hourly resolution, updated every 30 min. Unit: p/kWh incl. VAT (5%).</p>
-  <p>Default zone GB = London (region C). Regional zones: GB-A through GB-P.</p>
+  <h2 id="us">United States</h2>
+  <p>Three ISOs supported. All prices are wholesale — retail rates include transmission, distribution, and taxes on top.</p>
+  <h3>California — CAISO</h3>
+  <p>Day-ahead market (DAM), updated daily after 22:00 UTC. Unit: USD c/kWh.</p>
+  <p>Zones: <code>US-CA-NP15</code> (NorCal/PG&E) · <code>US-CA-SP15</code> (SoCal/SCE+SDG&E) · <code>US-CA-ZP26</code> (Desert/Central)</p>
+  <h3>Texas — ERCOT</h3>
+  <p>Real-time 15-min data from public CDR. <code>cheapest_hours</code> uses DAM data (updated 18:30 UTC). Unit: USD c/kWh.</p>
+  <p>HB_WEST is the wind zone — prices can go negative.</p>
+  <p>Hubs: <code>US-TX-HB_NORTH/HOUSTON/SOUTH/WEST/HUBAVG</code> · Load zones: <code>US-TX-LZ_NORTH/HOUSTON/SOUTH/WEST</code></p>
+  <h3>New York — NYISO</h3>
+  <p>Real-time 5-min data. <code>cheapest_hours</code> uses DAM data (updated 17:00 UTC). Unit: USD c/kWh.</p>
+  <p>11 zones: WEST · GENESE · CENTRL · NORTH · MHK_VL · CAPITL · HUD_VL · MILLWD · DUNWOD · NYC · LONGIL</p>
 
-  <h2 id="de">Germany</h2>
-  <p>Spot prices from ENTSO-E. Contract comparison includes 12 providers. Unit: EUR c/kWh.</p>
-  <p>Note: Price excludes regional Netzentgelt (varies ~10–15 ct/kWh by area).</p>
+  <h2 id="ca">Canada — Ontario</h2>
+  <p>IESO real-time 5-min Ontario Zonal Price. <code>cheapest_hours</code> uses DAM data (updated 19:00 UTC). Unit: CAD c/kWh.</p>
+  <p>Zone: <code>CA-ON</code></p>
+
+  <h2 id="kr">South Korea</h2>
+  <p>SMP (System Marginal Price) from KPX EPSIS — ex-post actual hourly price (~1h lag). Unit: KRW/kWh.</p>
+  <p>Zones: <code>KR</code> (mainland) · <code>KR-JEJU</code> (Jeju Island)</p>
+  <p>Note: <code>cheapest_hours</code> returns <code>available: false</code> — no public day-ahead data. Regulated KEPCO retail market — no contract comparison.</p>
+
+  <h2 id="jp">Japan</h2>
+  <p>JEPX day-ahead spot prices via japanesepower.org. Published daily ~10:30 JST. Unit: JPY/kWh.</p>
+  <p>9 zones: <code>JP-HKD</code> (Hokkaido) · <code>JP-THK</code> (Tohoku) · <code>JP-TKY</code> (Tokyo) · <code>JP-CBU</code> (Chubu) · <code>JP-HKR</code> (Hokuriku) · <code>JP-KNS</code> (Kansai) · <code>JP-CGK</code> (Chugoku) · <code>JP-SKK</code> (Shikoku) · <code>JP-KYS</code> (Kyushu)</p>
+  <p>Note: <code>cheapest_hours</code> available. No contract comparison.</p>
 
   <h2>Roadmap</h2>
   <ul>
@@ -149,17 +199,21 @@ curl "https://elecz.com/signal?zone=FI&consumption=2000"</pre>
     <li>✅ Southern Europe (ES, PT, HR, BG, SI, SK, GR)</li>
     <li>✅ Balkans + Switzerland (CH, RS, BA, ME, MK)</li>
     <li>✅ Baltics (EE, LV, LT)</li>
+    <li>✅ Ireland (IE — SEM)</li>
+    <li>✅ United States — CAISO, ERCOT, NYISO</li>
+    <li>✅ Canada — Ontario (IESO)</li>
+    <li>✅ South Korea (KPX EPSIS)</li>
+    <li>✅ Japan — 9 zones (JEPX)</li>
     <li>🔜 Netherlands, Belgium — contract comparison</li>
-    <li>🔜 Ireland (SEMO)</li>
-    <li>🔜 United States (ISO/RTO)</li>
+    <li>🔜 German-language landing page (/de/)</li>
   </ul>
 
   <h2>Support</h2>
-  <p>Questions or integrations: <a href="mailto:sakke@zemloai.com">sakke@zemloai.com</a> · <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a></p>
+  <p>Questions or integrations: <a href="mailto:sakke@elecz.com">sakke@elecz.com</a> · <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a></p>
 
   <footer>
     ⚡ Elecz.com · SKA Trading Oy / Zemlo AI · Kokkola, Finland ·
-    <a href="/">Home</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a>
+    <a href="/">Home</a> · <a href="/electricity-price-api/">API Guide</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a>
   </footer>
 
 </div>
