@@ -98,7 +98,7 @@
 <div class="container">
 
   <header class="header">
-    <div class="logo">⚡ Elecz<span class="dot">.</span>com</div>
+    <h1 class="logo">⚡ Elecz<span class="dot">.</span>com</h1>
     <p class="hero">Add Elecz to your AI. It will know the <strong>current electricity price</strong>, the <strong>cheapest hours</strong> to run things, and the <strong>best contracts</strong> available right now.</p>
     <div class="badges">
       <span class="badge amber">Global · 100+ Zones</span>
@@ -182,7 +182,7 @@
     <a href="mailto:hello@elecz.com">SKA Trading Oy / Zemlo AI</a> · Kokkola, Finland ·
     <a href="/docs/">Docs</a> ·
     <a href="/electricity-price-api/">API Guide</a> ·
-    <a href="/de/">🇩🇪 Deutsch</a>
+    <a href="/de/">🇩🇪 Deutsch</a> ·
     <a href="/privacy/">Privacy</a> ·
     <a href="/terms/">Terms</a>
   </footer>
@@ -190,19 +190,19 @@
 </div>
 <script>
 const ZONES = [
-  { zone: "DE",          label: "Germany",        flag: "🇩🇪" },
-  { zone: "GB",          label: "United Kingdom",  flag: "🇬🇧" },
-  { zone: "US-TX-HB_HUBAVG", label: "Texas",       flag: "🇺🇸" },
-  { zone: "JP-TKY",      label: "Japan Tokyo",     flag: "🇯🇵" },
-  { zone: "AU-NSW",      label: "Australia NSW",   flag: "🇦🇺" },
-  { zone: "KR",          label: "South Korea",     flag: "🇰🇷" },
-  { zone: "AT",          label: "Austria",         flag: "🇦🇹" },
-  { zone: "ES",          label: "Spain",           flag: "🇪🇸" },
+  { zone: "DE",              label: "Germany",        flag: "🇩🇪" },
+  { zone: "GB",              label: "United Kingdom",  flag: "🇬🇧" },
+  { zone: "US-TX-HB_HUBAVG", label: "Texas",           flag: "🇺🇸" },
+  { zone: "JP-TKY",          label: "Japan Tokyo",     flag: "🇯🇵" },
+  { zone: "AU-NSW",          label: "Australia NSW",   flag: "🇦🇺" },
+  { zone: "KR",              label: "South Korea",     flag: "🇰🇷" },
+  { zone: "AT",              label: "Austria",         flag: "🇦🇹" },
+  { zone: "ES",              label: "Spain",           flag: "🇪🇸" },
 ];
 const API_BASE = "https://elecz-api.onrender.com";
 
 function renderCard(z, data) {
-  const price = data ? data.price : null;
+  const price = data ? data.spot_price?.value : null;
   const unit = data ? data.unit : "";
   const state = data ? data.energy_state : null;
   let valueHtml;
@@ -226,25 +226,12 @@ async function loadPrices() {
   grid.innerHTML = ZONES.map(z => renderCard(z, null)).join("");
   const results = await Promise.all(ZONES.map(async z => {
     try {
-      const res = await fetch(`${API_BASE}/signal/spot?zone=${z.zone}`);
+      const res = await fetch(`${API_BASE}/signal?zone=${z.zone}&consumption=2000`);
       if (!res.ok) throw new Error();
       return await res.json();
     } catch { return undefined; }
   }));
   grid.innerHTML = ZONES.map((z, i) => renderCard(z, results[i] !== undefined ? results[i] : null)).join("");
-  ZONES.forEach(async (z, i) => {
-    if (!results[i]) return;
-    try {
-      const res = await fetch(`${API_BASE}/signal?zone=${z.zone}&consumption=2000`);
-      if (!res.ok) return;
-      const sig = await res.json();
-      if (sig.energy_state) {
-        results[i].energy_state = sig.energy_state;
-        const cards = grid.querySelectorAll(".price-card");
-        if (cards[i]) cards[i].outerHTML = renderCard(z, results[i]);
-      }
-    } catch {}
-  });
   const now = new Date();
   updated.textContent = `updated ${now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })} UTC`;
 }
