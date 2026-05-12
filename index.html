@@ -69,7 +69,7 @@
     .price-card { background: #fff; border: 1px solid #e0e0d8; border-radius: 10px; padding: 16px; transition: box-shadow 0.15s; }
     .price-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
     .price-zone { font-size: 0.78rem; color: #888; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-    .price-flag { font-size: 1.1rem; }
+    .price-flag { display: inline-block; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
     .price-value { font-size: 1.5rem; font-weight: 700; color: #1a1a1a; line-height: 1; margin-bottom: 6px; min-height: 1.5rem; }
     .price-value .unit { font-size: 0.75rem; font-weight: 400; color: #888; }
     .price-value.loading { color: #ccc; font-size: 1rem; font-weight: 400; padding-top: 4px; }
@@ -201,17 +201,12 @@
 </div>
 <script>
 const ZONES = [
-  { zone: "DE",              label: "Germany",        flag: "🇩🇪" },
-  { zone: "FR",              label: "France",         flag: "🇫🇷" },
-  { zone: "ES",              label: "Spain",          flag: "🇪🇸" },
-  { zone: "GB",              label: "United Kingdom", flag: "🇬🇧" },
-  { zone: "US-TX-HB_HUBAVG", label: "Texas",          flag: "🇺🇸" },
-  { zone: "JP-TKY",          label: "Japan Tokyo",    flag: "🇯🇵" },
-  { zone: "NZ-NI",           label: "New Zealand",    flag: "🇳🇿" },
-  { zone: "KR",              label: "South Korea",    flag: "🇰🇷" },
-  { zone: "AT",              label: "Austria",        flag: "🇦🇹" },
+  { zone: "DE",               label: "Germany",     cc: "de" },
+  { zone: "JP-TKY",           label: "Japan Tokyo", cc: "jp" },
+  { zone: "US-TX-HB_HUBAVG",  label: "Texas",       cc: "us" },
+  { zone: "NZ-NI",            label: "New Zealand", cc: "nz" },
 ];
-const API_BASE = "https://elecz-api.onrender.com";
+const API_BASE = "";
 
 function renderCard(z, data) {
   const price = data ? data.spot_price?.value : null;
@@ -226,7 +221,7 @@ function renderCard(z, data) {
     valueHtml = `<div class="price-value">${Number(price).toFixed(4)} <span class="unit">${unit}</span></div>`;
   }
   return `<div class="price-card">
-    <div class="price-zone"><span class="price-flag">${z.flag}</span><span>${z.label} <span style="opacity:0.6">(${z.zone})</span></span></div>
+    <div class="price-zone"><img class="price-flag" src="https://flagcdn.com/24x18/${z.cc}.png" width="24" height="18" alt="${z.label}"><span>${z.label} <span style="opacity:0.6">(${z.zone})</span></span></div>
     ${valueHtml}
     ${state ? `<div class="price-state ${state.toLowerCase()}">${state}</div>` : ''}
   </div>`;
