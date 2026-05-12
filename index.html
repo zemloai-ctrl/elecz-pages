@@ -12,6 +12,13 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://elecz.com/">
 
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="en" href="https://elecz.com/">
+  <link rel="alternate" hreflang="de" href="https://elecz.com/de/">
+  <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
+  <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
+  <link rel="alternate" hreflang="x-default" href="https://elecz.com/">
+
   <!-- Open Graph (Facebook, LinkedIn, Slack, iMessage) -->
   <meta property="og:title" content="Elecz — Global Electricity Price Signals for AI">
   <meta property="og:description" content="Real-time electricity price signals, cheapest hours and contract insights for 100+ global zones. MCP-native, free, no authentication.">
@@ -113,6 +120,8 @@
     <a href="/docs/">Documentation →</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub →</a>
     <a href="/de/">🇩🇪 Deutsch</a>
+    <a href="/fr/">🇫🇷 Français</a>
+    <a href="/es/">🇪🇸 Español</a>
     <a href="/privacy/">Privacy</a>
     <a href="/terms/">Terms</a>
   </nav>
@@ -183,6 +192,8 @@
     <a href="/docs/">Docs</a> ·
     <a href="/electricity-price-api/">API Guide</a> ·
     <a href="/de/">🇩🇪 Deutsch</a> ·
+    <a href="/fr/">🇫🇷 Français</a> ·
+    <a href="/es/">🇪🇸 Español</a> ·
     <a href="/privacy/">Privacy</a> ·
     <a href="/terms/">Terms</a>
   </footer>
@@ -191,13 +202,14 @@
 <script>
 const ZONES = [
   { zone: "DE",              label: "Germany",        flag: "🇩🇪" },
-  { zone: "GB",              label: "United Kingdom",  flag: "🇬🇧" },
-  { zone: "US-TX-HB_HUBAVG", label: "Texas",           flag: "🇺🇸" },
-  { zone: "JP-TKY",          label: "Japan Tokyo",     flag: "🇯🇵" },
-  { zone: "AU-NSW",          label: "Australia NSW",   flag: "🇦🇺" },
-  { zone: "KR",              label: "South Korea",     flag: "🇰🇷" },
-  { zone: "AT",              label: "Austria",         flag: "🇦🇹" },
-  { zone: "ES",              label: "Spain",           flag: "🇪🇸" },
+  { zone: "FR",              label: "France",         flag: "🇫🇷" },
+  { zone: "ES",              label: "Spain",          flag: "🇪🇸" },
+  { zone: "GB",              label: "United Kingdom", flag: "🇬🇧" },
+  { zone: "US-TX-HB_HUBAVG", label: "Texas",          flag: "🇺🇸" },
+  { zone: "JP-TKY",          label: "Japan Tokyo",    flag: "🇯🇵" },
+  { zone: "NZ-NI",           label: "New Zealand",    flag: "🇳🇿" },
+  { zone: "KR",              label: "South Korea",    flag: "🇰🇷" },
+  { zone: "AT",              label: "Austria",        flag: "🇦🇹" },
 ];
 const API_BASE = "https://elecz-api.onrender.com";
 
