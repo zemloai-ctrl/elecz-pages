@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Electricity Price API — 40 Countries, Real-Time, AI-Ready | Elecz</title>
-  <meta name="description" content="Free electricity price API for 40 countries. Real-time spot prices, cheapest hours, and contract comparison. MCP-native, no API key required. Built for AI agents.">
+  <title>Electricity Price API — 40 Countries, Real-Time, Day-Ahead | No API Key | Elecz</title>
+  <meta name="description" content="Free electricity price API for 40 countries. Real-time spot prices, day-ahead prices, cheapest hours, contract comparison. MCP-native, no API key.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Electricity Price API — 40 Countries, Real-Time, AI-Ready | Elecz">
-  <meta property="og:description" content="Free electricity price API. Real-time spot prices, cheapest hours, contract comparison. MCP-native, no API key required. 40 countries.">
+  <meta property="og:title" content="Electricity Price API — 40 Countries, Real-Time, Day-Ahead | No API Key | Elecz">
+  <meta property="og:description" content="Free electricity price API. Real-time spot prices, day-ahead prices, cheapest hours, contract comparison. MCP-native, no API key. 40 countries.">
   <meta property="og:url" content="https://elecz.com/electricity-price-api/">
   <meta property="og:type" content="website">
 
@@ -165,6 +165,9 @@
     .faq-a a { color: var(--accent2); text-decoration: none; }
     .faq-a a:hover { text-decoration: underline; }
 
+    .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--border); }
+    .kw { font-family: var(--mono); font-size: 0.78rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
+
     .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
     .cta-section h2 { margin-bottom: 14px; }
     .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
@@ -192,13 +195,13 @@
     "@context": "https://schema.org",
     "@type": "Dataset",
     "name": "Elecz Electricity Price Signal API",
-    "description": "Real-time electricity spot prices, cheapest hours, and contract comparison for 40 countries across Europe, Oceania, North America, and Asia. Designed for AI agents and automation.",
+    "description": "Real-time electricity spot prices, day-ahead prices, cheapest hours, and contract comparison for 40 countries across Europe, Oceania, North America, and Asia. Designed for AI agents and automation.",
     "url": "https://elecz.com/electricity-price-api/",
     "creator": { "@type": "Organization", "name": "SKA Trading Oy / Zemlo AI", "url": "https://elecz.com" },
     "license": "https://elecz.com/terms",
     "spatialCoverage": "Europe, Oceania, North America, Asia",
     "isAccessibleForFree": true,
-    "variableMeasured": ["Spot electricity price", "Cheapest hours", "Energy contract comparison"]
+    "variableMeasured": ["Spot electricity price", "Day-ahead electricity price", "Cheapest hours", "Energy contract comparison"]
   }
   </script>
 
@@ -212,7 +215,7 @@
     "operatingSystem": "Web/API",
     "url": "https://elecz.com",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "Free real-time electricity price API for AI agents. Spot prices, cheapest hours, and contract comparison for 40 countries across Europe, Oceania, North America, and Asia."
+    "description": "Free real-time electricity price API for AI agents. Spot prices, day-ahead prices, cheapest hours, and contract comparison for 40 countries. No API key required."
   }
   </script>
 
@@ -226,6 +229,11 @@
         "@type": "Question",
         "name": "Is the Elecz electricity price API free?",
         "acceptedAnswer": { "@type": "Answer", "text": "Yes. Spot prices and cheapest hours are always free. No API key required, no account needed. Contract comparison is also free." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a free day-ahead electricity price API?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — Elecz provides day-ahead spot prices for all 40 supported countries. Next-day prices are available from 13:00–14:00 CET for ENTSO-E zones, ~10:30 JST for Japan (JEPX). No API key or registration required." }
       },
       {
         "@type": "Question",
@@ -541,6 +549,10 @@
       <div class="faq-a">Yes. Spot prices and cheapest hours are always free — no API key, no account, no registration. Contract comparison is also free.</div>
     </div>
     <div class="faq-item">
+      <div class="faq-q">Is there a free day-ahead electricity price API?</div>
+      <div class="faq-a">Yes — Elecz provides day-ahead spot prices for all 40 supported countries. Next-day prices are available from 13:00–14:00 CET for ENTSO-E zones, ~10:30 JST for Japan (JEPX). The <code>cheapest_hours</code> tool includes a <code>data_complete</code> flag so agents know whether tomorrow's data is already in. No API key or registration required.</div>
+    </div>
+    <div class="faq-item">
       <div class="faq-q">Why can't I just ask ChatGPT or Claude for the electricity price?</div>
       <div class="faq-a">Large language models have no access to live markets. Without a real-time tool, the model will produce a historical average that looks like an answer but is not the current price. The actual spot price can be <code>0.0 c/kWh</code> during renewable oversupply or <code>50+ c/kWh</code> during a grid crisis — a guess is useless for any real decision. Elecz gives the AI a verified signal on every call.</div>
     </div>
@@ -572,6 +584,21 @@
       <div class="faq-q">Where is the full API documentation?</div>
       <div class="faq-a">Full REST reference, MCP tool schemas, and integration guides at <a href="/docs">elecz.com/docs</a>. OpenAPI spec at <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">github.com/zemloai-ctrl/elecz-api</a>. Also compare electricity price APIs at <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a>.</div>
     </div>
+  </div>
+
+  <div class="keyword-cloud">
+    <span class="kw">real-time electricity price API</span>
+    <span class="kw">electricity spot price API</span>
+    <span class="kw">day-ahead electricity price API</span>
+    <span class="kw">cheapest electricity hours API</span>
+    <span class="kw">electricity price API no auth</span>
+    <span class="kw">electricity price MCP server</span>
+    <span class="kw">electricity price API for AI agents</span>
+    <span class="kw">hourly electricity price API</span>
+    <span class="kw">dynamic electricity tariff API</span>
+    <span class="kw">electricity price API no registration</span>
+    <span class="kw">EV charging price API</span>
+    <span class="kw">electricity price API Europe</span>
   </div>
 </div>
 
