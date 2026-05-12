@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>API precio electricidad en tiempo real para agentes IA | Elecz</title>
-  <meta name="description" content="API precio electricidad gratuita para agentes IA. Precios spot tiempo real, horas más baratas y comparación de contratos. MCP-nativo, sin clave API.">
+  <title>API precio electricidad tiempo real — sin clave API, MCP-nativo | Elecz</title>
+  <meta name="description" content="API precio electricidad gratuita para España y Europa. Precio spot tiempo real, horas más baratas, tarifa dinámica electricidad. MCP-nativo, sin clave API, sin registro.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/es/">
   <link rel="alternate" hreflang="en" href="https://elecz.com/">
@@ -14,8 +14,8 @@
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <meta property="og:title" content="API precio electricidad en tiempo real para agentes IA | Elecz">
-  <meta property="og:description" content="API precio electricidad gratuita. Precios spot tiempo real, horas más baratas, comparación de contratos. MCP-nativo, sin clave API.">
+  <meta property="og:title" content="API precio electricidad tiempo real — sin clave API, MCP-nativo | Elecz">
+  <meta property="og:description" content="API precio electricidad gratuita. Precio spot tiempo real, horas más baratas, tarifa dinámica. MCP-nativo, sin clave API.">
   <meta property="og:url" content="https://elecz.com/es/">
   <meta property="og:type" content="website">
 
@@ -24,29 +24,15 @@
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #f5f5f0;
-      --bg2: #eeeee8;
-      --bg3: #ffffff;
-      --border: #e0e0d8;
-      --border2: #d0d0c8;
-      --text: #1a1a1a;
-      --text2: #555550;
-      --text3: #999990;
-      --accent: #f0a020;
-      --accent2: #d88c10;
-      --accent-dim: rgba(240, 160, 32, 0.1);
-      --green: #1a7a40;
-      --green-dim: rgba(26, 122, 64, 0.08);
-      --green-border: rgba(26, 122, 64, 0.25);
-      --red: #c0300a;
-      --red-dim: rgba(192, 48, 10, 0.07);
-      --red-border: rgba(192, 48, 10, 0.2);
-      --mono: 'DM Mono', monospace;
-      --sans: 'DM Sans', -apple-system, sans-serif;
+      --bg: #f5f5f0; --bg2: #eeeee8; --bg3: #ffffff;
+      --border: #e0e0d8; --border2: #d0d0c8;
+      --text: #1a1a1a; --text2: #555550; --text3: #999990;
+      --accent: #f0a020; --accent2: #d88c10; --accent-dim: rgba(240,160,32,0.1);
+      --green: #1a7a40; --green-dim: rgba(26,122,64,0.08); --green-border: rgba(26,122,64,0.25);
+      --red: #c0300a; --red-dim: rgba(192,48,10,0.07); --red-border: rgba(192,48,10,0.2);
+      --mono: 'DM Mono', monospace; --sans: 'DM Sans', -apple-system, sans-serif;
     }
-
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
 
@@ -82,22 +68,6 @@
     h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
     .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
 
-    .llm-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .llm-box { border-radius: 8px; padding: 24px; border: 1px solid; }
-    .llm-box.bad { background: var(--red-dim); border-color: var(--red-border); }
-    .llm-box.good { background: var(--green-dim); border-color: var(--green-border); }
-    .llm-box-label { font-family: var(--mono); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
-    .llm-box.bad .llm-box-label { color: var(--red); }
-    .llm-box.good .llm-box-label { color: var(--green); }
-    .llm-exchange { font-size: 0.88rem; line-height: 1.7; color: var(--text2); }
-    .llm-exchange .q { font-weight: 600; color: var(--text); margin-bottom: 8px; }
-    .llm-exchange code { font-family: var(--mono); font-size: 0.82rem; padding: 1px 6px; border-radius: 3px; }
-    .llm-box.bad .llm-exchange code { background: rgba(192,48,10,0.08); color: var(--red); }
-    .llm-box.good .llm-exchange code { background: rgba(26,122,64,0.08); color: var(--green); }
-    .llm-verdict { font-size: 0.78rem; font-style: italic; margin-top: 14px; padding-top: 12px; border-top: 1px solid; }
-    .llm-box.bad .llm-verdict { color: var(--red); border-color: var(--red-border); }
-    .llm-box.good .llm-verdict { color: var(--green); border-color: var(--green-border); }
-
     .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); }
     .tool-card { padding: 24px; border-right: 1px solid var(--border); }
     .tool-card:last-child { border-right: none; }
@@ -109,26 +79,16 @@
     .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
     .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
     .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
-    .k { color: #7ec8e3; } .s { color: #a8d8a8; } .n { color: #f5a623; }
-
-    .market-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-    .market-table th { text-align: left; padding: 12px 16px; color: var(--text3); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; background: var(--bg2); border-bottom: 1px solid var(--border); font-weight: 600; }
-    .market-table td { padding: 12px 16px; border-bottom: 1px solid #f0f0e8; color: var(--text2); }
-    .market-table tr:last-child td { border-bottom: none; }
-
-    .integration-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
-    .integration-card { background: var(--bg3); padding: 24px; }
-    .integration-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
-    .integration-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.65; margin-bottom: 14px; }
-    .integration-code { font-family: var(--mono); font-size: 0.78rem; color: var(--text2); background: var(--bg2); padding: 8px 12px; border-radius: 5px; border: 1px solid var(--border); }
-    .integration-link { display: inline-block; margin-top: 10px; font-size: 0.8rem; color: var(--accent2); text-decoration: none; font-weight: 500; }
-    .integration-link:hover { text-decoration: underline; }
+    .k { color: #7ec8e3; } .s { color: #a8d8a8; }
 
     .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
     .faq-item:first-child { border-top: 1px solid var(--border); }
     .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
     .faq-a { font-size: 0.9rem; color: var(--text2); line-height: 1.75; max-width: 700px; }
     .faq-a code { font-family: var(--mono); font-size: 0.82rem; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
+
+    .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .kw { font-family: var(--mono); font-size: 0.78rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
 
     .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
     .cta-section h2 { margin-bottom: 14px; }
@@ -142,7 +102,6 @@
 
     @media (max-width: 680px) {
       .nav-links { display: none; }
-      .llm-comparison { grid-template-columns: 1fr; }
       .tools-grid { grid-template-columns: 1fr; }
       .tool-card { border-right: none; border-bottom: 1px solid var(--border); }
       .tool-card:last-child { border-bottom: none; }
@@ -156,9 +115,9 @@
     "name": "Elecz API precio electricidad",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web/API",
-    "url": "https://elecz.com",
+    "url": "https://elecz.com/es/",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "API gratuita de precio de electricidad en tiempo real para agentes IA. Precios spot, horas más baratas y comparación de contratos para España y 39 países más.",
+    "description": "API gratuita de precio de electricidad en tiempo real. Precio spot, horas más baratas, tarifa dinámica electricidad. MCP-nativo, sin clave API.",
     "inLanguage": "es"
   }
   </script>
@@ -177,17 +136,16 @@
 </nav>
 
 <div class="hero">
-  <div class="hero-eyebrow">API precio electricidad para agentes IA</div>
-  <h1>Los modelos IA alucinan<br>los precios de electricidad.<br><span class="hl">Elecz no.</span></h1>
+  <div class="hero-eyebrow">API precio electricidad — España &amp; Europa</div>
+  <h1>API precio electricidad tiempo real.<br><span class="hl">Sin clave API. MCP-nativo.</span></h1>
   <p class="hero-lead">
-    API de precio de electricidad en tiempo real para LLMs y agentes IA. MCP-nativo, compatible REST. Una sola llamada API devuelve el precio actual, las horas más baratas y el mejor contrato disponible.<br><br>
-    40 países en Europa, Oceanía, América del Norte y Asia. Sin clave API requerida.
+    Elecz proporciona el precio spot actual de la electricidad, las horas más baratas y la comparación de tarifas dinámicas — para agentes IA, domótica y carga de vehículos eléctricos. Sin clave API, sin registro, sin configuración.
   </p>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">40</div><div class="stat-label">Países</div></div>
     <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Zonas</div></div>
-    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Mercados contratos</div></div>
-    <div class="stat"><div class="stat-num">€0</div><div class="stat-label">Sin clave API</div></div>
+    <div class="stat"><div class="stat-num">horaria</div><div class="stat-label">actualización</div></div>
+    <div class="stat"><div class="stat-num">OMIE</div><div class="stat-label">mercado ES vía ENTSO-E</div></div>
+    <div class="stat"><div class="stat-num">€0</div><div class="stat-label">sin clave API</div></div>
   </div>
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Conectar vía MCP →</a>
@@ -196,57 +154,25 @@
 </div>
 
 <div class="section">
-  <h2>El precio de la electricidad no es contenido. Es un dato de entrada.</h2>
-  <p class="section-sub">El precio se comporta como una cotización bursátil o una previsión meteorológica — tiene un valor preciso ahora mismo, y ese valor cambia cada hora. Un modelo de lenguaje devuelve una media histórica. Una búsqueda web puede encontrar el precio del día, pero no se puede construir una automatización fiable sobre eso. Se necesita una llamada API estructurada con un resultado legible por máquina — cada vez, con un esquema conocido.</p>
-</div>
-
-<div class="section">
-  <h2>¿Por qué no simplemente preguntarle a una IA?</h2>
-  <p class="section-sub">Los modelos de lenguaje sin herramientas en tiempo real son ciegos a los mercados energéticos. La diferencia entre una respuesta correcta y una alucinada puede alcanzar un factor 200.</p>
-  <div class="llm-comparison">
-    <div class="llm-box bad">
-      <div class="llm-box-label">❌ Sin Elecz — respuesta alucinada</div>
-      <div class="llm-exchange">
-        <div class="q">Usuario: «¿Cuánto cuesta la electricidad en España ahora mismo?»</div>
-        <div class="a">IA: «El precio de la electricidad en España suele estar entre <code>8–12 ct/kWh</code>, según la temporada.»<br><br>
-        Precio de mercado real ahora mismo:<br>
-        <code>0,3 ct/kWh</code> — excedente eólico, precio cercano a cero<br>
-        <code>48 ct/kWh</code> — hora punta, centrales de gas al límite<br><br>
-        Una media histórica no tiene valor para ninguna decisión real.</div>
-      </div>
-      <div class="llm-verdict">Suena plausible. Puede estar 160× equivocado. Ninguna diferencia visible.</div>
-    </div>
-    <div class="llm-box good">
-      <div class="llm-box-label">✓ Con Elecz — respuesta verificada tiempo real</div>
-      <div class="llm-exchange">
-        <div class="q">Usuario: «¿Cuánto cuesta la electricidad en España ahora mismo?»</div>
-        <div class="a">IA (vía Elecz): «Precio spot actual en España: <code>3,84 ct/kWh</code>. Ventana más barata hoy: <code>01:00–04:00</code>. El mejor contrato disponible ahorra <code>340 €/año</code> respecto al proveedor mediano.»</div>
-      </div>
-      <div class="llm-verdict">En directo desde ENTSO-E. Verificado. Accionable. Comparación de contratos incluida.</div>
-    </div>
-  </div>
-</div>
-
-<div class="section">
   <h2>Tres herramientas. Todos los casos de uso cubiertos.</h2>
-  <p class="section-sub">Elecz expone tres herramientas MCP que cubren todo lo que un agente IA necesita para tomar decisiones sobre precios de electricidad.</p>
+  <p class="section-sub">Elecz expone tres herramientas MCP que cubren todo lo que un agente IA necesita para decisiones sobre precios de electricidad.</p>
   <div class="tools-grid">
     <div class="tool-card">
       <div class="tool-name">spot_price</div>
-      <div class="tool-desc">Precio spot actual de electricidad para cualquier zona soportada. Devuelve precio, unidad, marca de tiempo y fuente de datos.</div>
+      <div class="tool-desc">Precio spot actual para la zona <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">ES</code> y todas las zonas soportadas. Precio, unidad, marca de tiempo, fuente.</div>
     </div>
     <div class="tool-card">
       <div class="tool-name">cheapest_hours</div>
-      <div class="tool-desc">Horas más baratas hoy y mañana. Con señal tiempo real: ¿es barato ahora? ¿Cuándo termina la ventana barata? ¿Cuánto tiempo hasta la próxima hora barata?</div>
+      <div class="tool-desc">Horas más baratas en 24h con señal tiempo real. Ideal para bomba de calor, lavavajillas, carga VE. Devuelve directamente <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">low / medium / high</code> — sin lógica propia.</div>
     </div>
     <div class="tool-card">
       <div class="tool-name">best_energy_contract</div>
-      <div class="tool-desc">Comparación de contratos en vivo para Finlandia, Suecia, Noruega, Dinamarca, Alemania y GB. Mejor contrato spot, mejor precio fijo, recomendación estacional con ahorro frente al proveedor mediano.</div>
+      <div class="tool-desc">Comparación de tarifas dinámicas de electricidad en vivo. Mejor contrato spot vs. precio fijo, recomendación estacional, ahorro estimado frente al proveedor mediano.</div>
     </div>
   </div>
 
   <div class="code-block">
-    <div class="code-header"><span class="code-title">Conexión — MCP (Claude, Cursor, Copilot)</span><span class="code-lang">JSON</span></div>
+    <div class="code-header"><span class="code-title">Conexión MCP — Claude, Cursor, Copilot</span><span class="code-lang">JSON</span></div>
     <pre>{
   <span class="k">"mcpServers"</span>: {
     <span class="k">"elecz"</span>: {
@@ -265,62 +191,25 @@ curl "https://elecz.com/signal?zone=ES&consumption=3500"</pre>
 </div>
 
 <div class="section">
-  <h2>España — lo que hay que saber</h2>
-  <p class="section-sub">Elecz proporciona el precio mayorista ENTSO-E para España (zona ES) en EUR ct/kWh.</p>
-  <p style="margin-top: 16px; padding: 14px 18px; background: var(--accent-dim); border: 1px solid rgba(240,160,32,0.3); border-radius: 8px; font-size: 0.88rem; color: var(--text2);">
-    Esta página describe principalmente el mercado español (zona <code>ES</code>). Portugal (<code>PT</code>) también está soportado — precios spot y horas más baratas disponibles. La comparación de contratos está actualmente disponible solo para FI, SE, NO, DK, DE y GB.
-  </p>
-  <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 1.9; margin-top: 16px;">
+  <h2>España — lo que los desarrolladores deben saber</h2>
+  <p class="section-sub">Elecz proporciona el precio mayorista ENTSO-E para la zona ES en EUR ct/kWh. Datos actualizados cada hora, precios del día siguiente disponibles a partir de las 13:00–14:00 CET.</p>
+  <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
     <li>Precio <strong>sin incluir</strong> peajes de acceso y cargos de red</li>
-    <li>Precio <strong>sin incluir</strong> impuestos (IVA, impuesto eléctrico etc.)</li>
-    <li>Precio spot mayorista — diferente a la tarifa regulada PVPC</li>
-    <li>Precios horarios desde ENTSO-E, actualizados cada hora</li>
-    <li>Precios del día siguiente disponibles a partir de las 13:00–14:00 CET</li>
+    <li>Precio <strong>sin incluir</strong> impuestos — IVA, impuesto eléctrico no incluidos</li>
+    <li>Precio mayorista spot — diferente a la tarifa regulada PVPC</li>
+    <li>Mercado gestionado por OMIE, datos via ENTSO-E Transparency Platform</li>
+    <li>Portugal (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">PT</code>) también soportado — mismo mercado ibérico MIBEL</li>
   </ul>
-</div>
-
-<div class="section">
-  <h2>Mercados soportados</h2>
-  <p class="section-sub">Precios spot y horas más baratas para todas las zonas ENTSO-E. Comparación de contratos para 8 mercados.</p>
-  <table class="market-table">
-    <thead><tr><th>Zona</th><th>Precio spot</th><th>Horas más baratas</th><th>Comparación contratos</th></tr></thead>
-    <tbody>
-      <tr><td>DE, FI, SE, NO, DK</td><td>✓</td><td>✓</td><td>✓</td></tr>
-      <tr><td>GB (+ GB-A..GB-P)</td><td>✓</td><td>✓</td><td>✓</td></tr>
-      <tr><td>AU, NZ</td><td>✓</td><td>—</td><td>✓</td></tr>
-      <tr><td>ES, FR, NL, BE, AT, IT, PL, CZ, HU, RO, IE y otros</td><td>✓</td><td>✓</td><td>—</td></tr>
-      <tr><td>US-CA (CAISO), US-TX (ERCOT), US-NY (NYISO), CA-ON (IESO)</td><td>✓</td><td>✓</td><td>—</td></tr>
-      <tr><td>KR (KPX), JP — 9 zonas (JEPX)</td><td>✓</td><td>parcial</td><td>—</td></tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="section">
-  <h2>Integración en minutos</h2>
-  <p class="section-sub">Sin clave API. Sin cuenta. Una URL. Funciona con cualquier asistente IA compatible con MCP.</p>
-  <div class="integration-grid">
-    <div class="integration-card">
-      <div class="integration-title">Claude (MCP)</div>
-      <div class="integration-desc">Configuración → Integraciones → Añadir servidor MCP. Pegar la URL. Funciona en Claude.ai y Claude Desktop.</div>
-      <div class="integration-code">https://elecz.com/mcp</div>
-    </div>
-    <div class="integration-card">
-      <div class="integration-title">Glama</div>
-      <div class="integration-desc">Listado en el directorio MCP de Glama. Instalación en un clic para Claude Desktop, Cursor y VS Code.</div>
-      <div class="integration-code">glama.ai/mcp/connectors/com.elecz/elecz</div>
-      <a href="https://glama.ai/mcp/connectors/com.elecz/elecz" target="_blank" rel="noopener" class="integration-link">Abrir en Glama →</a>
-    </div>
-    <div class="integration-card">
-      <div class="integration-title">n8n</div>
-      <div class="integration-desc">Node Elecz oficial para n8n Community Nodes. Herramientas de precio spot, horas más baratas y contratos disponibles.</div>
-      <div class="integration-code">n8n-nodes-elecz</div>
-      <a href="https://www.npmjs.com/package/n8n-nodes-elecz" target="_blank" rel="noopener" class="integration-link">Paquete npm →</a>
-    </div>
-    <div class="integration-card">
-      <div class="integration-title">REST API</div>
-      <div class="integration-desc">HTTP directo. Sin autenticación. Respuesta JSON. Cualquier lenguaje, cualquier plataforma.</div>
-      <div class="integration-code">GET /signal/spot?zone=ES</div>
-    </div>
+  <p style="font-size: 0.88rem; color: var(--text2);">Los desarrolladores en España también buscan:</p>
+  <div class="keyword-cloud">
+    <span class="kw">API precio electricidad España</span>
+    <span class="kw">OMIE API precio electricidad</span>
+    <span class="kw">precio spot electricidad API</span>
+    <span class="kw">tarifa dinámica electricidad API</span>
+    <span class="kw">PVPC precio tiempo real API</span>
+    <span class="kw">horas baratas electricidad API</span>
+    <span class="kw">precio luz hoy API JSON</span>
+    <span class="kw">API electricidad sin registro</span>
   </div>
 </div>
 
@@ -328,35 +217,31 @@ curl "https://elecz.com/signal?zone=ES&consumption=3500"</pre>
   <h2>Preguntas frecuentes</h2>
   <div class="faq-list">
     <div class="faq-item">
-      <div class="faq-q">¿Es gratuita la API de precio de electricidad de Elecz?</div>
-      <div class="faq-a">Sí. Los precios spot y las horas más baratas son siempre gratuitos — sin clave API, sin cuenta, sin registro. La comparación de contratos también es gratuita.</div>
+      <div class="faq-q">¿Existe una API gratuita de precio de electricidad para España sin clave API?</div>
+      <div class="faq-a">Sí. Elecz es completamente gratuito para España — precio spot y horas más baratas disponibles para la zona <code>ES</code> sin clave API, cuenta ni registro. Basta con llamar a <code>GET /signal/spot?zone=ES</code>.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">¿Por qué no simplemente preguntarle el precio a ChatGPT o Claude?</div>
-      <div class="faq-a">Los modelos de lenguaje no tienen acceso a los mercados en vivo. Sin herramienta en tiempo real, el modelo devuelve una media histórica — no el precio actual. El precio spot real puede ser <code>0,0 ct/kWh</code> con excedente de renovables o <code>50+ ct/kWh</code> durante una crisis de red. Una estimación no tiene valor para ninguna decisión real.</div>
+      <div class="faq-q">¿Cómo obtengo el precio spot de la electricidad en España vía API?</div>
+      <div class="faq-a">Elecz proporciona los precios mayoristas ENTSO-E para la zona ES, basados en las subastas del mercado ibérico OMIE. Sin necesidad de acceso directo a OMIE o ENTSO-E — Elecz normaliza los datos y los devuelve en ct/kWh sin autenticación. Precios del día siguiente disponibles a partir de las 13:00 CET.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">¿Existe una API gratuita de precio de electricidad para España?</div>
-      <div class="faq-a">Sí — Elecz es gratuita para España. Precio spot y horas más baratas disponibles para la zona <code>ES</code> sin clave API ni registro. Datos desde ENTSO-E, actualizados cada hora.</div>
+      <div class="faq-q">¿Qué es una tarifa dinámica de electricidad y cómo las compara Elecz?</div>
+      <div class="faq-a">Una tarifa dinámica indexa el precio del consumo al precio horario del mercado mayorista. La herramienta <code>best_energy_contract</code> compara los mejores contratos dinámicos y de precio fijo disponibles, con el ahorro anual estimado. Actualmente disponible para FI, SE, NO, DK, DE, GB, AU, NZ — España en desarrollo.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">¿Qué es MCP y por qué es relevante para datos de electricidad?</div>
-      <div class="faq-a">MCP (Model Context Protocol) es un estándar abierto para conectar agentes IA con herramientas externas. Los precios de electricidad cambian cada hora — un agente necesita una llamada API en vivo, no datos de entrenamiento. Elecz es MCP-first: conexión vía <code>https://elecz.com/mcp</code>, sin configuración requerida.</div>
+      <div class="faq-q">¿Funciona Elecz con Home Assistant o n8n?</div>
+      <div class="faq-a">Sí. A través de la REST API o el node oficial n8n (<code>n8n-nodes-elecz</code>), Elecz se integra en cualquier plataforma de automatización. El campo <code>current_hour_signal</code> devuelve directamente <code>low</code>, <code>medium</code> o <code>high</code> — sin lógica personalizada necesaria.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">¿Con qué frecuencia se actualizan los datos?</div>
-      <div class="faq-a">Cada hora desde ENTSO-E para zonas españolas y europeas. GB cada 30 minutos (Octopus Agile). Los precios del día siguiente están disponibles a partir de las 13:00–14:00 CET aproximadamente.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">¿Funciona Elecz con Home Assistant u otros sistemas de automatización?</div>
-      <div class="faq-a">Sí — a través de la REST API o el node n8n, Elecz se integra en cualquier plataforma de automatización. Bomba de calor, lavavajillas y carga de vehículo eléctrico son casos de uso típicos. El campo <code>current_hour_signal</code> devuelve directamente <code>low</code>, <code>medium</code> o <code>high</code> — no se necesita lógica propia.</div>
+      <div class="faq-q">¿Qué es MCP y por qué es útil para datos de electricidad?</div>
+      <div class="faq-a">MCP (Model Context Protocol) es un estándar abierto para conectar agentes IA con herramientas externas. Los precios cambian cada hora — un agente necesita una llamada API en vivo, no datos de entrenamiento. Conectar vía <code>https://elecz.com/mcp</code>, sin configuración requerida.</div>
     </div>
   </div>
 </div>
 
 <div class="cta-section">
-  <h2>Tu IA estima los precios de electricidad.<br>Para eso.</h2>
-  <p>Conecta Elecz en 60 segundos. Sin registro. Sin clave. Datos de energía en tiempo real para 40 países.</p>
+  <h2>Precio de electricidad en tiempo real<br>para tu IA — en 60 segundos.</h2>
+  <p>Sin clave API. Sin registro. MCP-nativo. Gratuito para España y 39 países más.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Conectar vía MCP →</a>
     <a href="/docs" class="btn-secondary">Leer la documentación</a>
@@ -366,10 +251,10 @@ curl "https://elecz.com/signal?zone=ES&consumption=3500"</pre>
 <footer>
   <p>
     ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Finlandia ·
-    Datos: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX ·
+    Datos: ENTSO-E · OMIE · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX ·
     <a href="/terms">Términos de uso</a> · <a href="/docs">Docs</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
-    <a href="/de/">Deutsch</a> · <a href="/fr/">Français</a>
+    <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a>
   </p>
 </footer>
 
