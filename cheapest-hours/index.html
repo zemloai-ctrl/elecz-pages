@@ -1,69 +1,381 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://elecz.com/</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://elecz.com/electricity-price-api/</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://elecz.com/electricity-price-mcp/</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://elecz.com/cheapest-hours/</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://elecz.com/for-agents/</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://elecz.com/docs/</loc>
-    <lastmod>2026-05-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://elecz.com/de/</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://elecz.com/fr/</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://elecz.com/es/</loc>
-    <lastmod>2026-05-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://elecz.com/privacy/</loc>
-    <lastmod>2026-05-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://elecz.com/terms/</loc>
-    <lastmod>2026-05-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-</urlset>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cheapest Electricity Hours API — Real-Time Scheduling Signal | Elecz</title>
+  <meta name="description" content="API that returns the cheapest electricity hours for the next 24h. Decision-ready signal for EV charging, heat pumps, home automation. No API key required.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://elecz.com/cheapest-hours/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:title" content="Cheapest Electricity Hours API — Real-Time Scheduling Signal | Elecz">
+  <meta property="og:description" content="API that returns the cheapest electricity hours for the next 24h. No API key. Works with Claude, Grok, Cursor, n8n, Home Assistant.">
+  <meta property="og:url" content="https://elecz.com/cheapest-hours/">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f5f0; --bg2: #eeeee8; --bg3: #ffffff;
+      --border: #e0e0d8; --border2: #d0d0c8;
+      --text: #1a1a1a; --text2: #555550; --text3: #999990;
+      --accent: #f0a020; --accent2: #d88c10; --accent-dim: rgba(240,160,32,0.1);
+      --green: #1a7a40; --green-dim: rgba(26,122,64,0.08); --green-border: rgba(26,122,64,0.25);
+      --mono: 'DM Mono', monospace; --sans: 'DM Sans', -apple-system, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+    nav { background: var(--bg); border-bottom: 2px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 58px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-size: 1.3rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
+    .nav-logo .dot { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text2); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
+    .nav-cta:hover { background: var(--accent2) !important; }
+
+    .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 56px; border-bottom: 2px solid var(--border); }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 18px; }
+    h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; }
+    h1 .hl { color: var(--accent2); }
+    .hero-lead { font-size: 1.08rem; color: var(--text2); max-width: 620px; line-height: 1.75; margin-bottom: 32px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 36px; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); max-width: 600px; }
+    .stat { padding: 16px 24px; border-right: 1px solid var(--border); flex: 1; min-width: 120px; }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; color: var(--text); line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-size: 0.75rem; color: var(--text3); font-weight: 500; }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { background: var(--accent); color: var(--text); font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
+    .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
+
+    .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
+    h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
+    .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
+
+    .signal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); margin-bottom: 32px; }
+    .signal-card { padding: 24px; border-right: 1px solid var(--border); }
+    .signal-card:last-child { border-right: none; }
+    .signal-label { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; margin-bottom: 8px; display: inline-block; padding: 3px 10px; border-radius: 3px; }
+    .signal-label.low { background: rgba(26,122,64,0.1); color: var(--green); }
+    .signal-label.medium { background: rgba(240,160,32,0.12); color: var(--accent2); }
+    .signal-label.high { background: rgba(192,48,10,0.08); color: #c0300a; }
+    .signal-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.65; }
+
+    .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
+    .usecase-card { background: var(--bg3); padding: 22px 24px; }
+    .usecase-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
+    .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.65; }
+
+    .code-block { background: #1e1e1e; border-radius: 8px; overflow: hidden; margin: 24px 0; }
+    .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #2a2a2a; border-bottom: 1px solid #333; }
+    .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
+    .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
+    .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
+    .k { color: #7ec8e3; } .s { color: #a8d8a8; } .n { color: #f5a623; } .b { color: #4ec9b0; } .c { color: #666; font-style: italic; }
+
+    .fields-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .fields-table th { text-align: left; padding: 10px 16px; color: var(--text3); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; background: var(--bg2); border-bottom: 1px solid var(--border); font-weight: 600; }
+    .fields-table td { padding: 11px 16px; border-bottom: 1px solid #f0f0e8; color: var(--text2); vertical-align: top; }
+    .fields-table tr:last-child td { border-bottom: none; }
+    .fields-table td:first-child { font-family: var(--mono); font-size: 0.8rem; color: var(--accent2); white-space: nowrap; }
+    .fields-table td:nth-child(2) { font-family: var(--mono); font-size: 0.78rem; color: var(--text3); white-space: nowrap; }
+
+    .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+    .faq-a { font-size: 0.9rem; color: var(--text2); line-height: 1.75; max-width: 700px; }
+    .faq-a code { font-family: var(--mono); font-size: 0.82rem; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
+    .faq-a a { color: var(--accent2); text-decoration: none; }
+    .faq-a a:hover { text-decoration: underline; }
+
+    .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--border); }
+    .kw { font-family: var(--mono); font-size: 0.78rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
+
+    .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
+    .cta-section h2 { margin-bottom: 14px; }
+    .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    footer { border-top: 2px solid var(--border); padding: 24px; text-align: center; }
+    footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
+    footer a { color: var(--text3); text-decoration: none; }
+    footer a:hover { color: var(--text2); }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .signal-grid { grid-template-columns: 1fr; }
+      .signal-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .signal-card:last-child { border-bottom: none; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Elecz Cheapest Hours API",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web/API",
+    "url": "https://elecz.com/cheapest-hours-api/",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "API that returns the cheapest electricity hours for the next 24h. Decision-ready signal for EV charging, heat pumps, dishwashers, and batch jobs. No API key required."
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is there a free API for finding the cheapest electricity hours?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — Elecz provides a free cheapest_hours API for 40 countries. No API key or registration required. Returns ranked hours for today and tomorrow with scheduling signals." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the cheapest hours API work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Call GET /signal/cheapest-hours?zone=FI (or any supported zone). The response includes ranked hours by price, a current_hour_signal (low/medium/high), the time the cheap window ends, and when the next cheap period starts. No post-processing needed." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can an AI agent use the cheapest hours API?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz exposes cheapest_hours as an MCP tool. Any MCP-compatible AI client (Claude, Grok, Cursor, Copilot) can call it directly. The response is structured for immediate decision-making — no custom logic needed." }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
+  <div class="nav-links">
+    <a href="/docs">Docs</a>
+    <a href="/electricity-price-api/">API Guide</a>
+    <a href="/electricity-price-mcp/">MCP</a>
+    <a href="https://elecz.com/mcp" class="nav-cta">Connect via MCP</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Cheapest Electricity Hours API</div>
+  <h1>Which hours are cheapest<br>to run things today?<br><span class="hl">Ask the API.</span></h1>
+  <p class="hero-lead">
+    The <code style="font-family:'DM Mono',monospace;font-size:0.9em;color:var(--accent2);background:var(--accent-dim);padding:2px 8px;border-radius:3px">cheapest_hours</code> API returns ranked electricity hours for the next 24h — built on day-ahead market data, with a ready-to-use scheduling signal. No math, no custom logic. Just call it and act on the answer.
+  </p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">40</div><div class="stat-label">countries</div></div>
+    <div class="stat"><div class="stat-num">24h</div><div class="stat-label">look-ahead</div></div>
+    <div class="stat"><div class="stat-num">hourly</div><div class="stat-label">updated</div></div>
+    <div class="stat"><div class="stat-num">€0</div><div class="stat-label">no API key</div></div>
+  </div>
+  <div class="hero-ctas">
+    <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
+    <a href="/docs" class="btn-secondary">REST API docs</a>
+  </div>
+</div>
+
+<div class="section">
+  <h2>The response tells you what to do — not just what the price is</h2>
+  <p class="section-sub">Most APIs return a list of prices and leave the scheduling logic to you. Elecz returns a decision-ready signal so an agent or automation can act immediately.</p>
+  <div class="signal-grid">
+    <div class="signal-card">
+      <div class="signal-label low">low</div>
+      <div class="signal-desc">Current hour is among the cheapest of the day. Good time to run high-consumption devices — EV charging, heat pump, dishwasher, batch jobs.</div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-label medium">medium</div>
+      <div class="signal-desc">Price is average. Acceptable to run if needed, but a cheaper window is likely coming. Defer if possible.</div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-label high">high</div>
+      <div class="signal-desc">Current hour is expensive. Avoid running non-essential loads. Check <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">next_cheap_hour</code> for when to resume.</div>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">REST — GET /signal/cheapest-hours</span><span class="code-lang">cURL</span></div>
+    <pre>curl "https://elecz.com/signal/cheapest-hours?zone=GB&hours=5"</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">Response example (zone: GB)</span><span class="code-lang">JSON</span></div>
+    <pre>{
+  <span class="k">"zone"</span>: <span class="s">"GB"</span>,
+  <span class="k">"currency"</span>: <span class="s">"GBP"</span>,
+  <span class="k">"unit"</span>: <span class="s">"p/kWh"</span>,
+  <span class="k">"current_hour_signal"</span>: <span class="s">"low"</span>,
+  <span class="k">"current_hour_is_cheap"</span>: <span class="b">true</span>,
+  <span class="k">"current_hour_rank"</span>: <span class="n">2</span>,
+  <span class="k">"cheap_window_ends"</span>: <span class="s">"2026-05-12T06:00:00+01:00"</span>,
+  <span class="k">"next_cheap_hour"</span>: <span class="s">"2026-05-12T23:00:00+01:00"</span>,
+  <span class="k">"hours_until_next_cheap"</span>: <span class="n">17</span>,
+  <span class="k">"data_complete"</span>: <span class="b">true</span>,
+  <span class="k">"cheapest_hours"</span>: [
+    { <span class="k">"rank"</span>: <span class="n">1</span>, <span class="k">"hour"</span>: <span class="s">"2026-05-12T04:00"</span>, <span class="k">"price"</span>: <span class="n">8.3</span> },
+    { <span class="k">"rank"</span>: <span class="n">2</span>, <span class="k">"hour"</span>: <span class="s">"2026-05-12T05:00"</span>, <span class="k">"price"</span>: <span class="n">9.1</span> },
+    { <span class="k">"rank"</span>: <span class="n">3</span>, <span class="k">"hour"</span>: <span class="s">"2026-05-12T03:00"</span>, <span class="k">"price"</span>: <span class="n">9.7</span> },
+    { <span class="k">"rank"</span>: <span class="n">4</span>, <span class="k">"hour"</span>: <span class="s">"2026-05-12T23:00"</span>, <span class="k">"price"</span>: <span class="n">10.2</span> },
+    { <span class="k">"rank"</span>: <span class="n">5</span>, <span class="k">"hour"</span>: <span class="s">"2026-05-12T02:00"</span>, <span class="k">"price"</span>: <span class="n">11.4</span> }
+  ]
+}</pre>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Response fields</h2>
+  <p class="section-sub">Every field is designed to be actionable — no post-processing required.</p>
+  <table class="fields-table">
+    <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>current_hour_signal</td><td>string</td><td><code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">low</code> / <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">medium</code> / <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">high</code> — ready to use as a run/wait/stop signal</td></tr>
+      <tr><td>current_hour_is_cheap</td><td>boolean</td><td>True if current hour is within the requested cheapest window</td></tr>
+      <tr><td>current_hour_rank</td><td>integer</td><td>Rank of current hour by price (1 = cheapest of the day)</td></tr>
+      <tr><td>cheap_window_ends</td><td>ISO 8601</td><td>When the current cheap window ends — useful for scheduling a stop time</td></tr>
+      <tr><td>next_cheap_hour</td><td>ISO 8601</td><td>Start of the next cheap period — useful for scheduling a delayed start</td></tr>
+      <tr><td>hours_until_next_cheap</td><td>integer</td><td>Hours until the next cheap period — useful for natural language responses</td></tr>
+      <tr><td>data_complete</td><td>boolean</td><td>True if tomorrow's day-ahead prices are already published and included in the ranking. Day-ahead data typically available from ~13:00 CET for ENTSO-E zones, ~10:30 JST for Japan.</td></tr>
+      <tr><td>cheapest_hours</td><td>array</td><td>Ranked list of cheapest hours with price and timestamp</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>What developers build with it</h2>
+  <p class="section-sub">The cheapest hours API is the core signal for any energy-aware automation.</p>
+  <div class="usecase-grid">
+    <div class="usecase-card">
+      <div class="usecase-title">⚡ EV charging scheduler</div>
+      <div class="usecase-desc">Check <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">current_hour_signal</code> — if <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">low</code>, start charging now. Otherwise delay to <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">next_cheap_hour</code>. No custom price comparison needed.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">🌡️ Heat pump control</div>
+      <div class="usecase-desc">Pre-heat when electricity is cheap. Use <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">cheap_window_ends</code> to know how long the cheap period lasts before switching to stored heat.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">🍽️ Appliance automation</div>
+      <div class="usecase-desc">Dishwasher, washing machine, tumble dryer — schedule to run during the top 3–5 cheapest hours. Use <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">cheapest_hours</code> array directly.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">🤖 AI agent scheduling</div>
+      <div class="usecase-desc">User asks "when should I run the dryer?" — agent calls <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">cheapest_hours</code>, answers with a concrete time and estimated saving. Works via MCP in Claude, Grok, Cursor.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">💻 Batch job scheduler</div>
+      <div class="usecase-desc">Run compute-heavy or GPU-intensive jobs during the cheapest hours. Useful for data centers, ML training runs, or any workload with flexible timing.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">🔋 Battery storage</div>
+      <div class="usecase-desc">Charge battery storage during cheapest hours, discharge during expensive ones. Use the full ranked list to build a charge/discharge schedule for the day.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Via MCP — one line of config</h2>
+  <p class="section-sub">The <code style="font-family:var(--mono);font-size:0.88rem;color:var(--accent2)">cheapest_hours</code> tool is available via the Elecz MCP server. Any MCP-compatible AI client can call it directly.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">MCP config — Claude Desktop / Cursor / Grok</span><span class="code-lang">JSON</span></div>
+    <pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"elecz"</span>: {
+      <span class="k">"url"</span>: <span class="s">"https://elecz.com/mcp"</span>
+    }
+  }
+}</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">Example — agent response using cheapest_hours</span><span class="code-lang">natural language</span></div>
+    <pre><span class="c">User: "Should I start the dishwasher now?"</span>
+
+<span class="c">Agent (via Elecz MCP):</span>
+<span class="s">"Now is actually a good time — you're in the 2nd cheapest hour of
+the day at 9.1 p/kWh. The cheap window runs until 06:00, so you
+have about 50 minutes. If you miss it, the next cheap period
+starts at 23:00 tonight."</span></pre>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">Is there a free day-ahead electricity price API?</div>
+      <div class="faq-a">Yes — Elecz provides day-ahead prices as the foundation for <code>cheapest_hours</code>. Next-day prices are published daily (~13:00 CET for ENTSO-E zones, ~10:30 JST for Japan) and automatically included in the ranking when available. The <code>data_complete</code> flag tells you whether tomorrow's data is already in. No API key or registration required.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is there a free API for finding the cheapest electricity hours?</div>
+      <div class="faq-a">Yes — Elecz provides a free <code>cheapest_hours</code> API for 40 countries. No API key, no account, no registration. Call <code>GET /signal/cheapest-hours?zone=GB</code> and you get a ranked list of cheapest hours plus scheduling signals.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How many hours ahead does it look?</div>
+      <div class="faq-a">Up to 24h ahead, spanning today and tomorrow. The <code>data_complete</code> flag tells you whether tomorrow's prices are already published (typically from ~13:00 CET). When both days are available, the ranking covers the full 24h window ahead.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How do I choose how many cheapest hours to return?</div>
+      <div class="faq-a">Pass the <code>hours</code> parameter — for example <code>?zone=FI&hours=3</code> returns the 3 cheapest hours. Default is 5. The <code>current_hour_signal</code> is calculated relative to your requested window.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Which countries are supported?</div>
+      <div class="faq-a">40 countries across Europe (all ENTSO-E zones), UK, USA (CAISO, ERCOT, NYISO), Canada (Ontario), Australia, New Zealand, South Korea, and Japan. Note: AU, NZ, and KR do not publish day-ahead data, so <code>cheapest_hours</code> is not available for those zones.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can I use this with Home Assistant or n8n?</div>
+      <div class="faq-a">Yes. Via the REST API or the official n8n node (<code>n8n-nodes-elecz</code>), <code>cheapest_hours</code> integrates into any automation platform. The <code>current_hour_signal</code> field returns <code>low</code>, <code>medium</code>, or <code>high</code> — ready to use as a trigger condition without any custom logic.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How is this different from just fetching spot prices and sorting them myself?</div>
+      <div class="faq-a">You could — but <code>cheapest_hours</code> also returns <code>current_hour_signal</code>, <code>cheap_window_ends</code>, <code>next_cheap_hour</code>, and <code>hours_until_next_cheap</code>. These context fields are what make the response actionable for agents and automations without additional logic.</div>
+    </div>
+  </div>
+
+  <div class="keyword-cloud">
+    <span class="kw">cheapest electricity hours API</span>
+    <span class="kw">cheapest hours electricity API free</span>
+    <span class="kw">day-ahead electricity price API</span>
+    <span class="kw">day-ahead cheapest hours API</span>
+    <span class="kw">off-peak electricity hours API</span>
+    <span class="kw">electricity scheduling API</span>
+    <span class="kw">EV charging cheapest hours API</span>
+    <span class="kw">electricity price signal API</span>
+    <span class="kw">cheapest electricity time API</span>
+    <span class="kw">hourly electricity price API</span>
+    <span class="kw">energy price scheduling API no auth</span>
+    <span class="kw">electricity price API home automation</span>
+    <span class="kw">smart home electricity API</span>
+    <span class="kw">heat pump electricity price API</span>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Find the cheapest hours.<br>Act on them automatically.</h2>
+  <p>Free. No API key. 40 countries. Works via MCP or REST.</p>
+  <div class="cta-row">
+    <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
+    <a href="/electricity-price-api/" class="btn-secondary">Full API overview</a>
+  </div>
+</div>
+
+<footer>
+  <p>
+    ⚡ <a href="/">Elecz.com</a> · Built by SKA Trading Oy / Zemlo AI, Kokkola, Finland ·
+    Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX ·
+    <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
+    <a href="/electricity-price-api/">API overview</a> ·
+    <a href="/electricity-price-mcp/">MCP server</a> ·
+    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a>
+  </p>
+</footer>
+
+</body>
+</html>
