@@ -3,33 +3,28 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
     const RENDER = "https://elecz-api.onrender.com";
-
     const CACHE_TTL = 300;
+
     const cacheable =
       path.startsWith("/signal") ||
-      path.startsWith("/spot") ||
-      path.startsWith("/cheapest");
+      path.startsWith("/spot");
 
     if (cacheable) {
       const cache = caches.default;
       const cacheKey = new Request(url.toString(), { method: "GET" });
-
       const cached = await cache.match(cacheKey);
       if (cached) return cached;
-
       const target = RENDER + path + url.search;
       const response = await fetch(new Request(target, {
         method: request.method,
         headers: request.headers,
         body: request.body,
       }));
-
       if (response.ok) {
         const toCache = new Response(response.clone().body, response);
         toCache.headers.set("Cache-Control", `public, max-age=${CACHE_TTL}`);
         ctx.waitUntil(cache.put(cacheKey, toCache));
       }
-
       return response;
     }
 
