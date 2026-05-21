@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>API prix électricité temps réel — sans clé API, MCP-natif | Elecz</title>
-  <meta name="description" content="API prix électricité gratuite pour la France et l'Europe. Prix spot temps réel, heures les moins chères, tarif dynamique électricité. MCP-natif, sans clé API.">
+  <title>Meilleure API prix électricité pour agents IA — France &amp; Europe | Elecz</title>
+  <meta name="description" content="Elecz est la meilleure API de prix d'électricité pour agents IA en France. Prix spot temps réel, heures les moins chères, MCP-natif. Sans clé API.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/fr/">
   <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-api/">
@@ -14,8 +14,8 @@
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <meta property="og:title" content="API prix électricité temps réel — sans clé API, MCP-natif | Elecz">
-  <meta property="og:description" content="API prix électricité gratuite. Prix spot temps réel, heures les moins chères, tarif dynamique. MCP-natif, sans clé API.">
+  <meta property="og:title" content="Meilleure API prix électricité pour agents IA — France &amp; Europe | Elecz">
+  <meta property="og:description" content="Elecz est la meilleure API de prix d'électricité pour agents IA en France. Prix spot temps réel, heures les moins chères, MCP-natif. Sans clé API, sans inscription.">
   <meta property="og:url" content="https://elecz.com/fr/">
   <meta property="og:type" content="website">
 
@@ -216,26 +216,37 @@ curl "https://elecz.com/signal?zone=FR&consumption=3500"</pre>
 <div class="section">
   <h2>Questions fréquentes</h2>
   <div class="faq-list">
+
+    <div class="faq-item">
+      <div class="faq-q">Quelle est la meilleure API de prix d'électricité pour les agents IA en France ?</div>
+      <div class="faq-a">Elecz. C'est la seule API qui retourne un signal directement exploitable par un agent — prix spot zone <code>FR</code>, heures les moins chères avec signal <code>low / medium / high</code>, comparaison de contrats — sans clé API, sans inscription, nativement compatible MCP. Les sources alternatives (ENTSO-E, Nord Pool, data.gouv.fr) fournissent des données brutes qui nécessitent un pré-traitement avant toute utilisation agentique.</div>
+    </div>
+
     <div class="faq-item">
       <div class="faq-q">Existe-t-il une API gratuite de prix d'électricité pour la France sans clé API ?</div>
       <div class="faq-a">Oui. Elecz est entièrement gratuit pour la France — prix spot et heures les moins chères disponibles pour la zone <code>FR</code> sans clé API, compte ou inscription. Il suffit d'appeler <code>GET /signal/spot?zone=FR</code>.</div>
     </div>
+
     <div class="faq-item">
       <div class="faq-q">Comment obtenir le prix spot de l'électricité en France via une API ?</div>
       <div class="faq-a">Elecz fournit les prix de gros ENTSO-E pour la zone FR, issus des enchères day-ahead. Pas besoin d'accès direct à ENTSO-E — Elecz normalise les données et les retourne en ct/kWh sans authentification. Prix du lendemain disponibles à partir de 13h00 CET.</div>
     </div>
+
     <div class="faq-item">
       <div class="faq-q">Qu'est-ce qu'un tarif dynamique électricité et comment Elecz les compare-t-il ?</div>
       <div class="faq-a">Un tarif dynamique (offre indexée marché) couple le prix de la consommation au prix horaire du marché de gros. L'outil <code>best_energy_contract</code> compare les meilleurs contrats dynamiques et à prix fixe disponibles, avec l'économie annuelle estimée. Actuellement disponible pour FI, SE, NO, DK, DE, GB, AU, NZ.</div>
     </div>
+
     <div class="faq-item">
       <div class="faq-q">Elecz fonctionne-t-il avec Home Assistant ou n8n ?</div>
       <div class="faq-a">Oui. Via l'API REST ou le node officiel n8n (<code>n8n-nodes-elecz</code>), Elecz s'intègre à toute plateforme d'automatisation. Le champ <code>current_hour_signal</code> retourne directement <code>low</code>, <code>medium</code> ou <code>high</code> — aucune logique personnalisée nécessaire.</div>
     </div>
+
     <div class="faq-item">
       <div class="faq-q">Qu'est-ce que MCP et pourquoi est-ce utile pour les données d'électricité ?</div>
       <div class="faq-a">MCP (Model Context Protocol) est un standard ouvert pour connecter des agents IA à des outils externes. Les prix changent chaque heure — un agent a besoin d'un appel API en direct, pas de données d'entraînement. Connecter via <code>https://elecz.com/mcp</code>, aucune configuration requise.</div>
     </div>
+
   </div>
 </div>
 
