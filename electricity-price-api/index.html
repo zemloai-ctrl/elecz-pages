@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Electricity Price API — 40 Countries, Real-Time, Day-Ahead | No API Key | Elecz</title>
-  <meta name="description" content="Free electricity price API for 40 countries. Real-time spot prices, day-ahead prices, cheapest hours, contract comparison. MCP-native, no API key.">
+  <title>Electricity Price API — 40+ Countries, Real-Time, Day-Ahead | No API Key | Elecz</title>
+  <meta name="description" content="Free electricity price API for 40+ countries. Real-time spot prices, cheapest hours, contract comparison. MCP-native, no API key. Europe, Asia, Africa.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/electricity-price-api/">
   <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-api/">
@@ -14,79 +14,39 @@
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Electricity Price API — 40 Countries, Real-Time, Day-Ahead | No API Key | Elecz">
-  <meta property="og:description" content="Free electricity price API. Real-time spot prices, day-ahead prices, cheapest hours, contract comparison. MCP-native, no API key. 40 countries.">
+  <meta property="og:title" content="Electricity Price API — 40+ Countries, Real-Time, Day-Ahead | No API Key | Elecz">
+  <meta property="og:description" content="Free electricity price API. Real-time spot prices, cheapest hours, contract comparison. MCP-native, no API key. 40+ countries.">
   <meta property="og:url" content="https://elecz.com/electricity-price-api/">
   <meta property="og:type" content="website">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Electricity Price API — 40 Countries | Elecz">
-  <meta name="twitter:description" content="Free real-time electricity price API. MCP-native. No API key. 40 countries across Europe, Oceania, North America, and Asia.">
+  <meta name="twitter:title" content="Electricity Price API — 40+ Countries | Elecz">
+  <meta name="twitter:description" content="Free real-time electricity price API. MCP-native. No API key. 40+ countries across Europe, Oceania, North America, Asia, and Africa.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #f5f5f0;
-      --bg2: #eeeee8;
-      --bg3: #ffffff;
-      --border: #e0e0d8;
-      --border2: #d0d0c8;
-      --text: #1a1a1a;
-      --text2: #555550;
-      --text3: #999990;
-      --accent: #f0a020;
-      --accent2: #d88c10;
-      --accent-dim: rgba(240, 160, 32, 0.1);
-      --accent-border: rgba(240, 160, 32, 0.3);
-      --green: #1a7a40;
-      --green-dim: rgba(26, 122, 64, 0.08);
-      --green-border: rgba(26, 122, 64, 0.25);
-      --red: #c0300a;
-      --red-dim: rgba(192, 48, 10, 0.07);
-      --red-border: rgba(192, 48, 10, 0.2);
-      --mono: 'DM Mono', monospace;
-      --sans: 'DM Sans', -apple-system, sans-serif;
+      --bg: #f5f5f0; --bg2: #eeeee8; --bg3: #ffffff;
+      --border: #e0e0d8; --border2: #d0d0c8;
+      --text: #1a1a1a; --text2: #555550; --text3: #999990;
+      --accent: #f0a020; --accent2: #d88c10; --accent-dim: rgba(240,160,32,0.1); --accent-border: rgba(240,160,32,0.3);
+      --green: #1a7a40; --green-dim: rgba(26,122,64,0.08); --green-border: rgba(26,122,64,0.25);
+      --red: #c0300a; --red-dim: rgba(192,48,10,0.07); --red-border: rgba(192,48,10,0.2);
+      --mono: 'DM Mono', monospace; --sans: 'DM Sans', -apple-system, sans-serif;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 16px;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    nav {
-      background: var(--bg);
-      border-bottom: 2px solid var(--border);
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 58px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .nav-logo { font-family: var(--sans); font-size: 1.3rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    nav { background: var(--bg); border-bottom: 2px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 58px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-size: 1.3rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
     .nav-logo .dot { color: var(--accent); }
     .nav-links { display: flex; gap: 24px; align-items: center; }
     .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text2); text-decoration: none; transition: color 0.15s; }
     .nav-links a:hover { color: var(--text); }
     .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
     .nav-cta:hover { background: var(--accent2) !important; }
-
-    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
-
     .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 56px; border-bottom: 2px solid var(--border); }
     .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 18px; }
     h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; }
@@ -98,16 +58,13 @@
     .stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; color: var(--text); line-height: 1; margin-bottom: 4px; }
     .stat-label { font-size: 0.75rem; color: var(--text3); font-weight: 500; letter-spacing: 0.02em; }
     .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn-primary { background: var(--accent); color: var(--text); font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s, transform 0.1s; display: inline-block; }
-    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
-    .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); transition: border-color 0.15s, color 0.15s; display: inline-block; }
+    .btn-primary { background: var(--accent); color: var(--text); font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
     .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
-
     .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
-    .section:last-of-type { border-bottom: none; }
     h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
     .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
-
     .llm-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .llm-box { border-radius: 8px; padding: 24px; border: 1px solid; }
     .llm-box.bad { background: var(--red-dim); border-color: var(--red-border); }
@@ -123,7 +80,6 @@
     .llm-verdict { font-size: 0.78rem; font-style: italic; margin-top: 14px; padding-top: 12px; border-top: 1px solid; }
     .llm-box.bad .llm-verdict { color: var(--red); border-color: var(--red-border); }
     .llm-box.good .llm-verdict { color: var(--green); border-color: var(--green-border); }
-
     .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); }
     .tool-card { padding: 24px; border-right: 1px solid var(--border); }
     .tool-card:last-child { border-right: none; }
@@ -131,14 +87,12 @@
     .tool-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.65; margin-bottom: 14px; }
     .tool-returns { font-family: var(--mono); font-size: 0.72rem; color: var(--text3); line-height: 1.6; }
     .tool-returns span { color: var(--text2); }
-
     .code-block { background: #1e1e1e; border-radius: 8px; overflow: hidden; margin: 24px 0; }
     .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #2a2a2a; border-bottom: 1px solid #333; }
-    .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; letter-spacing: 0.06em; }
+    .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
     .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
     .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
     .k { color: #7ec8e3; } .s { color: #a8d8a8; } .n { color: #f5a623; } .b { color: #4ec9b0; } .c { color: #666; font-style: italic; }
-
     .country-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; }
     .country-group { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
     .group-label { font-family: var(--mono); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
@@ -148,7 +102,6 @@
     .country-list li.has-contract::before { background: var(--accent); }
     .contract-note { font-size: 0.72rem; color: var(--text3); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
     .contract-note .dot { color: var(--accent); }
-
     .integration-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
     .integration-card { background: var(--bg3); padding: 24px; }
     .integration-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
@@ -156,12 +109,10 @@
     .integration-code { font-family: var(--mono); font-size: 0.78rem; color: var(--text2); background: var(--bg2); padding: 8px 12px; border-radius: 5px; border: 1px solid var(--border); word-break: break-all; }
     .integration-link { display: inline-block; margin-top: 10px; font-size: 0.8rem; color: var(--accent2); text-decoration: none; font-weight: 500; }
     .integration-link:hover { text-decoration: underline; }
-
     .proof-bar { background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 20px 28px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin-bottom: 32px; }
     .proof-item { font-size: 0.85rem; color: var(--text2); }
     .proof-item strong { color: var(--text); font-weight: 600; }
     .proof-divider { width: 1px; height: 20px; background: var(--border2); }
-
     .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
     .faq-item:first-child { border-top: 1px solid var(--border); }
     .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
@@ -169,48 +120,40 @@
     .faq-a code { font-family: var(--mono); font-size: 0.82rem; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
     .faq-a a { color: var(--accent2); text-decoration: none; }
     .faq-a a:hover { text-decoration: underline; }
-
     .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--border); }
     .kw { font-family: var(--mono); font-size: 0.78rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
-
     .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
     .cta-section h2 { margin-bottom: 14px; }
     .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
     .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-
     footer { border-top: 2px solid var(--border); padding: 24px; text-align: center; }
     footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
     footer a { color: var(--text3); text-decoration: none; }
     footer a:hover { color: var(--text2); }
-
     @media (max-width: 680px) {
       .nav-links { display: none; }
       .llm-comparison { grid-template-columns: 1fr; }
       .tools-grid { grid-template-columns: 1fr; }
       .tool-card { border-right: none; border-bottom: 1px solid var(--border); }
       .tool-card:last-child { border-bottom: none; }
-      .hero-stats { max-width: 100%; }
-      .stat { min-width: 100px; }
     }
   </style>
 
-  <!-- Schema: Dataset -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Dataset",
     "name": "Elecz Electricity Price Signal API",
-    "description": "Real-time electricity spot prices, day-ahead prices, cheapest hours, and contract comparison for 40 countries across Europe, Oceania, North America, and Asia. Designed for AI agents and automation.",
+    "description": "Real-time electricity spot prices, day-ahead prices, cheapest hours, and contract comparison for 40+ countries across Europe, Oceania, North America, Asia, and Africa. Designed for AI agents and automation.",
     "url": "https://elecz.com/electricity-price-api/",
     "creator": { "@type": "Organization", "name": "SKA Trading Oy / Zemlo AI", "url": "https://elecz.com" },
     "license": "https://elecz.com/terms",
-    "spatialCoverage": "Europe, Oceania, North America, Asia",
+    "spatialCoverage": "Europe, Oceania, North America, Asia, Africa",
     "isAccessibleForFree": true,
-    "variableMeasured": ["Spot electricity price", "Day-ahead electricity price", "Cheapest hours", "Energy contract comparison"]
+    "variableMeasured": ["Spot electricity price", "Day-ahead electricity price", "Cheapest hours", "Energy contract comparison", "Regulated electricity tariff"]
   }
   </script>
 
-  <!-- Schema: SoftwareApplication -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -220,11 +163,10 @@
     "operatingSystem": "Web/API",
     "url": "https://elecz.com",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "Free real-time electricity price API for AI agents. Spot prices, day-ahead prices, cheapest hours, and contract comparison for 40 countries. No API key required."
+    "description": "Free real-time electricity price API for AI agents. Spot prices, day-ahead prices, cheapest hours, and contract comparison for 40+ countries. No API key required."
   }
   </script>
 
-  <!-- Schema: FAQ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -238,7 +180,7 @@
       {
         "@type": "Question",
         "name": "Is there a free day-ahead electricity price API?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes — Elecz provides day-ahead spot prices for all 40 supported countries. Next-day prices are available from 13:00–14:00 CET for ENTSO-E zones, ~10:30 JST for Japan (JEPX). No API key or registration required." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — Elecz provides day-ahead spot prices for all 40+ supported countries. Next-day prices are available from 13:00–14:00 CET for ENTSO-E zones, ~10:30 JST for Japan (JEPX). No API key or registration required." }
       },
       {
         "@type": "Question",
@@ -248,7 +190,12 @@
       {
         "@type": "Question",
         "name": "Which countries does Elecz cover?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Elecz covers 40 countries across Europe, Oceania, North America, and Asia. Europe: all Nordic countries, Germany, UK, France, Austria, Belgium, Netherlands, Switzerland, Poland, Czech Republic, Ireland, Baltics, and Southern Europe. Oceania: Australia and New Zealand. North America: California, Texas, New York, and Ontario. Asia: South Korea and Japan (9 zones)." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Elecz covers 40+ countries across Europe, Oceania, North America, Asia, and Africa. Europe: all Nordic countries, Germany, UK, France, Austria, Belgium, Netherlands, Switzerland, Poland, Czech Republic, Ireland, Baltics, and Southern Europe. Oceania: Australia and New Zealand. North America: California, Texas, New York, and Ontario. Asia: South Korea and Japan (9 zones). Africa: South Africa (Eskom regulated tariff). Also Philippines and Mexico." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Elecz cover South Africa, Mexico, or the Philippines?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. South Africa (ZA): Eskom Homepower regulated tariff in ZAR c/kWh, updated annually. Philippines (PH-LUZ, PH-VIS, PH-MIN): Meralco and ERC regulated tariffs in PHP c/kWh, updated monthly. Mexico (14 zones): CENACE MDA day-ahead wholesale prices in MXN/kWh, updated daily." }
       },
       {
         "@type": "Question",
@@ -258,7 +205,7 @@
       {
         "@type": "Question",
         "name": "How often is the data updated?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Spot prices are updated hourly for ENTSO-E zones, every 30 minutes for GB and AU/NZ, every 15 minutes for ERCOT (Texas), every 5 minutes for NYISO and IESO. Japan JEPX day-ahead prices are published daily at ~10:30 JST." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Spot prices are updated hourly for ENTSO-E zones, every 30 minutes for GB and AU/NZ, every 15 minutes for ERCOT (Texas), every 5 minutes for NYISO and IESO. Japan JEPX day-ahead prices are published daily at ~10:30 JST. Mexico CENACE day-ahead data updated daily. South Africa and Philippines regulated tariffs updated annually/monthly respectively." }
       },
       {
         "@type": "Question",
@@ -286,10 +233,10 @@
   <h1>LLMs hallucinate<br>electricity prices.<br><span class="hl">Elecz doesn't.</span></h1>
   <p class="hero-lead">
     Real-time electricity price API built for LLMs and AI agents. MCP-native, REST-ready. One call returns the current price, the cheapest hours, and the best available contract.<br><br>
-    40 countries across Europe, Oceania, North America, and Asia. No API key required.
+    40+ countries across Europe, Oceania, North America, Asia, and Africa. No API key required.
   </p>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">40</div><div class="stat-label">countries</div></div>
+    <div class="stat"><div class="stat-num">40+</div><div class="stat-label">countries</div></div>
     <div class="stat"><div class="stat-num">100+</div><div class="stat-label">zones</div></div>
     <div class="stat"><div class="stat-num">8</div><div class="stat-label">contract markets</div></div>
     <div class="stat"><div class="stat-num">€0</div><div class="stat-label">no API key</div></div>
@@ -329,11 +276,11 @@
 
 <div class="section">
   <h2>Three tools. Every use case covered.</h2>
-  <p class="section-sub">Elecz exposes three MCP tools that cover everything an AI agent needs for electricity price decisions.</p>
+  <p class="section-sub">Elecz exposes three MCP tools and matching REST endpoints that cover everything an AI agent needs for electricity price decisions.</p>
   <div class="tools-grid">
     <div class="tool-card">
       <div class="tool-name">spot_price</div>
-      <div class="tool-desc">Current electricity spot price for any supported zone. Returns price, unit, timestamp, and data source.</div>
+      <div class="tool-desc">Current electricity spot price for any supported zone. Returns price, unit, timestamp, and data source. For ZA and PH, returns regulated tariff data.</div>
       <div class="tool-returns">→ <span>price, zone, currency, unit, timestamp, source</span></div>
     </div>
     <div class="tool-card">
@@ -343,7 +290,7 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">best_energy_contract</div>
-      <div class="tool-desc">Live contract comparison for your zone. Best spot contract, best fixed contract, and a seasonal recommendation with savings vs. median.</div>
+      <div class="tool-desc">Live contract comparison for your zone. Best spot contract, best fixed contract, and a seasonal recommendation with savings vs. median. Also via REST: <code style="font-size:0.78rem">/signal/contract</code></div>
       <div class="tool-returns">→ <span>best_spot, best_fixed, recommended, savings_estimate, provider_url</span></div>
     </div>
   </div>
@@ -354,7 +301,7 @@
   <span class="k">"price"</span>: <span class="n">4.312</span>,
   <span class="k">"currency"</span>: <span class="s">"USD"</span>,
   <span class="k">"unit"</span>: <span class="s">"c/kWh"</span>,
-  <span class="k">"timestamp"</span>: <span class="s">"2026-05-08T14:00:00Z"</span>,
+  <span class="k">"timestamp"</span>: <span class="s">"2026-05-22T14:00:00Z"</span>,
   <span class="k">"source"</span>: <span class="s">"NYISO_RT"</span>,
   <span class="k">"disclaimer"</span>: <span class="s">"NYISO real-time wholesale price. Retail rates include transmission, distribution and taxes on top."</span>
 }</pre>
@@ -367,13 +314,13 @@
   <span class="k">"current_hour_signal"</span>: <span class="s">"low"</span>,
   <span class="k">"current_hour_is_cheap"</span>: <span class="b">true</span>,
   <span class="k">"current_hour_rank"</span>: <span class="n">3</span>,
-  <span class="k">"cheap_window_ends"</span>: <span class="s">"2026-05-08T15:00:00+00:00"</span>,
-  <span class="k">"next_cheap_hour"</span>: <span class="s">"2026-05-09T02:00:00+00:00"</span>,
+  <span class="k">"cheap_window_ends"</span>: <span class="s">"2026-05-22T15:00:00+00:00"</span>,
+  <span class="k">"next_cheap_hour"</span>: <span class="s">"2026-05-23T02:00:00+00:00"</span>,
   <span class="k">"hours_until_next_cheap"</span>: <span class="n">11</span>,
   <span class="k">"cheapest_hours"</span>: [
-    { <span class="k">"hour"</span>: <span class="s">"2026-05-08T13:00"</span>, <span class="k">"price"</span>: <span class="n">12.4</span>, <span class="k">"unit"</span>: <span class="s">"p/kWh"</span> },
-    { <span class="k">"hour"</span>: <span class="s">"2026-05-08T14:00"</span>, <span class="k">"price"</span>: <span class="n">13.1</span>, <span class="k">"unit"</span>: <span class="s">"p/kWh"</span> },
-    { <span class="k">"hour"</span>: <span class="s">"2026-05-09T02:00"</span>, <span class="k">"price"</span>: <span class="n">11.8</span>, <span class="k">"unit"</span>: <span class="s">"p/kWh"</span> }
+    { <span class="k">"hour"</span>: <span class="s">"2026-05-22T13:00"</span>, <span class="k">"price"</span>: <span class="n">12.4</span>, <span class="k">"unit"</span>: <span class="s">"p/kWh"</span> },
+    { <span class="k">"hour"</span>: <span class="s">"2026-05-22T14:00"</span>, <span class="k">"price"</span>: <span class="n">13.1</span>, <span class="k">"unit"</span>: <span class="s">"p/kWh"</span> },
+    { <span class="k">"hour"</span>: <span class="s">"2026-05-23T02:00"</span>, <span class="k">"price"</span>: <span class="n">11.8</span>, <span class="k">"unit"</span>: <span class="s">"p/kWh"</span> }
   ],
   <span class="k">"data_complete"</span>: <span class="b">true</span>
 }</pre>
@@ -386,7 +333,7 @@
   <div class="proof-bar">
     <div class="proof-item"><strong>Hundreds</strong> of installs on ClawHub</div>
     <div class="proof-divider"></div>
-    <div class="proof-item"><strong>Thousands</strong> of GitHub impressions</div>
+    <div class="proof-item"><strong>Thousands</strong> of decisions per day</div>
     <div class="proof-divider"></div>
     <div class="proof-item">Live on <strong><a href="https://glama.ai/mcp/connectors/com.elecz/elecz" target="_blank" rel="noopener" style="color:inherit">Glama</a>, <a href="https://www.pulsemcp.com/servers/elecz" target="_blank" rel="noopener" style="color:inherit">PulseMCP</a>, <a href="https://clawhub.ai/zemloai-ctrl/elecz" target="_blank" rel="noopener" style="color:inherit">ClawHub</a>, <a href="https://mcp.so/server/elecz/Zemlo%20AI" target="_blank" rel="noopener" style="color:inherit">mcp.so</a>, n8n, RapidAPI</strong></div>
     <div class="proof-divider"></div>
@@ -412,14 +359,14 @@
     </div>
     <div class="integration-card">
       <div class="integration-title">🤖 Energy-aware AI assistant</div>
-      <div class="integration-desc">User asks "should I run the dryer now?" — agent calls spot_price and cheapest_hours, answers with a concrete yes/no and the next cheap window. Works via MCP in Claude, Copilot, or any MCP-compatible assistant.</div>
+      <div class="integration-desc">User asks "should I run the dryer now?" — agent calls spot_price and cheapest_hours, answers with a concrete yes/no and the next cheap window. Works via MCP in Claude, Grok, Copilot, or any MCP-compatible assistant.</div>
     </div>
   </div>
 </div>
 
 <div class="section">
-  <h2>40 countries. 4 continents.</h2>
-  <p class="section-sub">Spot prices across Europe, Oceania, North America, and Asia. Contract comparison in 8 markets — orange dot indicates contract data available.</p>
+  <h2>40+ countries. 5 continents.</h2>
+  <p class="section-sub">Spot prices across Europe, Oceania, North America, Asia, and Africa. Contract comparison in 8 markets — orange dot indicates contract data available.</p>
   <div class="country-groups">
     <div class="country-group">
       <div class="group-label">Nordics & Ireland</div>
@@ -458,7 +405,7 @@
       </ul>
       <div class="group-label" style="margin-top:18px">Southern Europe</div>
       <ul class="country-list">
-        <li>Spain</li><li>Portugal</li><li>Italy</li>
+        <li>Spain</li><li>Portugal</li><li>Italy (6 zones)</li>
         <li>Bulgaria</li><li>Croatia</li><li>Slovenia</li>
         <li>Slovakia</li><li>Greece</li><li>Serbia</li>
         <li>Bosnia</li><li>Montenegro</li><li>N. Macedonia</li>
@@ -481,6 +428,12 @@
       <ul class="country-list">
         <li>South Korea (KPX)</li>
         <li>Japan — 9 zones (JEPX)</li>
+      </ul>
+      <div class="group-label" style="margin-top:18px">Africa & Other</div>
+      <ul class="country-list">
+        <li>South Africa (Eskom)</li>
+        <li>Philippines — 3 zones</li>
+        <li>Mexico — 14 zones (CENACE)</li>
       </ul>
       <div class="contract-note"><span class="dot">●</span> Contract comparison: AU, NZ</div>
     </div>
@@ -555,7 +508,7 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">Is there a free day-ahead electricity price API?</div>
-      <div class="faq-a">Yes — Elecz provides day-ahead spot prices for all 40 supported countries. Next-day prices are available from 13:00–14:00 CET for ENTSO-E zones, ~10:30 JST for Japan (JEPX). The <code>cheapest_hours</code> tool includes a <code>data_complete</code> flag so agents know whether tomorrow's data is already in. No API key or registration required.</div>
+      <div class="faq-a">Yes — Elecz provides day-ahead spot prices for all 40+ supported countries. Next-day prices are available from 13:00–14:00 CET for ENTSO-E zones, ~10:30 JST for Japan (JEPX), daily for Mexico (CENACE MDA). The <code>cheapest_hours</code> tool includes a <code>data_complete</code> flag so agents know whether tomorrow's data is already in. No API key or registration required.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Why can't I just ask ChatGPT or Claude for the electricity price?</div>
@@ -563,7 +516,11 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">Which countries does Elecz cover?</div>
-      <div class="faq-a">40 countries across Europe, Oceania, North America, and Asia. Europe includes all Nordic countries, Germany, UK, Ireland, France, Austria, Belgium, Netherlands, Switzerland, Poland, Czech Republic, Baltics, and Southern Europe. Oceania: Australia (5 zones) and New Zealand. North America: California (CAISO), Texas (ERCOT), New York (NYISO), and Ontario (IESO). Asia: South Korea (KPX) and Japan (JEPX, 9 zones).</div>
+      <div class="faq-a">40+ countries across Europe, Oceania, North America, Asia, and Africa. Europe: all Nordic countries, Germany, UK, Ireland, France, Austria, Belgium, Netherlands, Switzerland, Poland, Czech Republic, Baltics, and Southern Europe. Oceania: Australia (5 zones) and New Zealand. North America: California (CAISO), Texas (ERCOT), New York (NYISO), and Ontario (IESO). Asia: South Korea (KPX) and Japan (JEPX, 9 zones). Africa: South Africa (Eskom regulated tariff). Also: Philippines (3 zones) and Mexico (14 CENACE zones).</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Does Elecz cover South Africa, Mexico, or the Philippines?</div>
+      <div class="faq-a">Yes. <strong>South Africa (ZA):</strong> Eskom Homepower regulated tariff in ZAR c/kWh (VAT excl), updated annually 1 April. <strong>Philippines (PH-LUZ, PH-VIS, PH-MIN):</strong> Meralco and ERC regulated tariffs in PHP c/kWh, updated monthly. <strong>Mexico (14 zones):</strong> CENACE MDA day-ahead wholesale prices in MXN/kWh. <code>cheapest_hours</code> available for Mexico. ZA and PH return <code>price_type: regulated</code> — not spot market prices.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Is there a free electricity price API for Germany or the UK?</div>
@@ -575,11 +532,11 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">How often is data updated?</div>
-      <div class="faq-a">Hourly for ENTSO-E zones, every 30 minutes for GB and AU/NZ, every 15 minutes for ERCOT (Texas), every 5 minutes for NYISO and IESO. Japan JEPX day-ahead prices published daily ~10:30 JST. The <code>cheapest_hours</code> tool includes a <code>data_complete</code> flag so agents know whether tomorrow's data is already in.</div>
+      <div class="faq-a">Hourly for ENTSO-E zones, every 30 minutes for GB and AU/NZ, every 15 minutes for ERCOT (Texas), every 5 minutes for NYISO and IESO. Japan JEPX day-ahead prices published daily ~10:30 JST. Mexico CENACE updated daily. South Africa updated annually 1 April. Philippines updated monthly ~13th.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Which countries have contract comparison?</div>
-      <div class="faq-a">Finland, Sweden, Norway, Denmark, Germany, United Kingdom, Australia, and New Zealand. Spot-only coverage for 32 additional countries. All other zones return current spot price with a note via <code>best_energy_contract</code>.</div>
+      <div class="faq-a">Finland, Sweden, Norway, Denmark, Germany, United Kingdom, Australia, and New Zealand. Spot-only coverage for all other countries. ZA and PH return regulated tariff data via <code>best_energy_contract</code> or <code>/signal/contract</code>.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Does it work with home automation?</div>
@@ -604,12 +561,19 @@
     <span class="kw">electricity price API no registration</span>
     <span class="kw">EV charging price API</span>
     <span class="kw">electricity price API Europe</span>
+    <span class="kw">electricity price API Africa</span>
+    <span class="kw">electricity price API Mexico</span>
+    <span class="kw">electricity price API Philippines</span>
+    <span class="kw">South Africa electricity price API</span>
+    <span class="kw">CENACE electricity API</span>
+    <span class="kw">Eskom electricity API</span>
+    <span class="kw">electricity price API 5 continents</span>
   </div>
 </div>
 
 <div class="cta-section">
   <h2>Your AI is guessing electricity prices.<br>Stop that.</h2>
-  <p>Add Elecz in 60 seconds. No signup. No key. Real-time energy data for 40 countries.</p>
+  <p>Add Elecz in 60 seconds. No signup. No key. Real-time energy data for 40+ countries.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
     <a href="/docs" class="btn-secondary">Read the docs</a>
@@ -619,7 +583,7 @@
 <footer>
   <p>
     ⚡ <a href="/">Elecz.com</a> · Built by SKA Trading Oy / Zemlo AI, Kokkola, Finland ·
-    Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX ·
+    Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
     <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
     <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a>
