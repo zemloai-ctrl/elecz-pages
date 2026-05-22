@@ -4,41 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>⚡ Elecz — Global Electricity Price Signal API for AI Agents</title>
+  <title>Elecz — Real-Time Electricity Price API for AI Agents</title>
 
-  <!-- SEO: Meta Description -->
   <meta name="description" content="Global real-time electricity price signals for AI: live prices, cheapest hours and contract insights for 100+ zones. MCP-native, free, no auth.">
 
-  <!-- Canonical URL -->
   <link rel="canonical" href="https://elecz.com/">
-
-  <!-- Hreflang -->
   <link rel="alternate" hreflang="en" href="https://elecz.com/">
   <link rel="alternate" hreflang="de" href="https://elecz.com/de/">
   <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
   <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/">
 
-  <!-- Open Graph (Facebook, LinkedIn, Slack, iMessage) -->
   <meta property="og:title" content="Elecz — Global Electricity Price Signals for AI">
   <meta property="og:description" content="Real-time electricity price signals, cheapest hours and contract insights for 100+ global zones. MCP-native, free, no authentication.">
   <meta property="og:url" content="https://elecz.com/">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://elecz.com/og-image.png">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Elecz — Global Electricity Price Signals for AI">
   <meta name="twitter:description" content="Real-time electricity price signals, cheapest hours and contract insights for 100+ global zones.">
   <meta name="twitter:image" content="https://elecz.com/og-image.png">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <!-- Bing Webmaster Tools -->
   <meta name="msvalidate.01" content="31E793F288B7FF8BDE7C40B1F7E593A9" />
 
-  <!-- Styles -->
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -108,7 +99,7 @@
     <h1 class="logo">⚡ Elecz<span class="dot">.</span>com — Electricity Price API for AI</h1>
     <p class="hero">Add Elecz to your AI. It will know the <strong>current electricity price</strong>, the <strong>cheapest hours</strong> to run things, and the <strong>best contracts</strong> available right now.</p>
     <div class="badges">
-      <span class="badge amber">Global · 100+ Zones</span>
+      <span class="badge amber">5 Continents · 100+ Zones</span>
       <span class="badge blue">MCP-Native</span>
       <span class="badge green">No Auth Required</span>
       <span class="badge">Free</span>
@@ -141,7 +132,7 @@
   <section class="section">
     <div class="section-title">Connect — MCP</div>
     <div class="code-block">
-<span style="color:#999">// Claude / Grok / Cursor / Copilot / any MCP client</span>
+<span style="color:#999">// Claude / Grok / Cursor / Copilot / Mistral / any MCP client</span>
 {
   <span style="color:#1a4a8a">"mcpServers"</span>: {
     <span style="color:#1a4a8a">"elecz"</span>: {
@@ -159,7 +150,8 @@
       <tbody>
         <tr><td><code>GET /signal/spot?zone=DE</code></td><td class="dim">Current spot price</td></tr>
         <tr><td><code>GET /signal/cheapest-hours?zone=DE</code></td><td class="dim">Cheapest hours next 24h</td></tr>
-        <tr><td><code>GET /signal?zone=DE&consumption=3500</code></td><td class="dim">Full signal with contract recommendations</td></tr>
+        <tr><td><code>GET /signal/contract?zone=GB&amp;consumption=2700</code></td><td class="dim">Contract comparison and switching recommendation</td></tr>
+        <tr><td><code>GET /signal?zone=DE&amp;consumption=3500</code></td><td class="dim">Full signal with contract recommendations</td></tr>
         <tr><td><code>GET /health</code></td><td class="dim">Health check</td></tr>
         <tr><td class="deprecated"><code>GET /signal/optimize?zone=DE</code></td><td class="dim deprecated">Deprecated — use /signal</td></tr>
       </tbody>
@@ -175,7 +167,7 @@
         <tr><td class="dim">GB (+ regional A–P)</td><td>✓</td><td>✓</td><td>✓</td></tr>
         <tr><td class="dim">AU (NSW / VIC / QLD / SA / TAS)</td><td>✓</td><td>—</td><td>✓</td></tr>
         <tr><td class="dim">NZ (NI / SI)</td><td>✓</td><td>—</td><td>✓</td></tr>
-        <tr><td class="dim">NL, BE, AT, FR, IT, PL, CZ, HU, RO, IE</td><td>✓</td><td>✓</td><td>—</td></tr>
+        <tr><td class="dim">NL, BE, AT, FR, IT (6 zones), PL, CZ, HU, RO, IE</td><td>✓</td><td>✓</td><td>—</td></tr>
         <tr><td class="dim">ES, PT, HR, BG, SI, SK, GR</td><td>✓</td><td>✓</td><td>—</td></tr>
         <tr><td class="dim">EE, LV, LT, CH, RS, BA, ME, MK</td><td>✓</td><td>✓</td><td>—</td></tr>
         <tr><td class="dim">US-CA (NP15 / SP15 / ZP26) — CAISO</td><td>✓</td><td>✓</td><td>—</td></tr>
@@ -184,13 +176,17 @@
         <tr><td class="dim">CA-ON — Ontario IESO</td><td>✓</td><td>✓</td><td>—</td></tr>
         <tr><td class="dim">KR, KR-JEJU — South Korea KPX</td><td>✓</td><td>—</td><td>—</td></tr>
         <tr><td class="dim">JP (9 zones) — Japan JEPX</td><td>✓</td><td>✓</td><td>—</td></tr>
+        <tr><td class="dim">ZA — South Africa Eskom (regulated)</td><td>✓</td><td>—</td><td>—</td></tr>
+        <tr><td class="dim">PH-LUZ, PH-VIS, PH-MIN — Philippines (regulated)</td><td>✓</td><td>—</td><td>—</td></tr>
+        <tr><td class="dim">MX (14 zones) — Mexico CENACE</td><td>✓</td><td>✓</td><td>—</td></tr>
       </tbody>
     </table>
   </section>
 
   <footer>
     ⚡ Elecz.com — Electricity Price Signal API<br>
-    ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX<br>
+    ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco<br>
+    <span id="call-count"></span>
     <a href="mailto:hello@elecz.com">SKA Trading Oy / Zemlo AI</a> · Kokkola, Finland ·
     <a href="/docs/">Docs</a> ·
     <a href="/electricity-price-api/">API Guide</a> ·
@@ -208,10 +204,10 @@
 </div>
 <script>
 const ZONES = [
-  { zone: "DE",               label: "Germany",     cc: "de" },
-  { zone: "JP-TKY",           label: "Japan Tokyo", cc: "jp" },
-  { zone: "US-TX-HB_HUBAVG",  label: "Texas",       cc: "us" },
-  { zone: "NZ-NI",            label: "New Zealand", cc: "nz" },
+  { zone: "DE",               label: "Germany",       cc: "de" },
+  { zone: "JP-TKY",           label: "Japan Tokyo",   cc: "jp" },
+  { zone: "US-TX-HB_HUBAVG",  label: "Texas",         cc: "us" },
+  { zone: "NZ-NI",            label: "New Zealand",   cc: "nz" },
 ];
 const API_BASE = "";
 
@@ -251,6 +247,19 @@ async function loadPrices() {
 }
 loadPrices();
 setInterval(loadPrices, 5 * 60 * 1000);
+
+async function loadCount() {
+  try {
+    const res = await fetch("/signal/count");
+    if (!res.ok) return;
+    const data = await res.json();
+    const el = document.getElementById("call-count");
+    if (el && data.count) {
+      el.textContent = data.count.toLocaleString("en") + " electricity decisions served · ";
+    }
+  } catch {}
+}
+loadCount();
 </script>
 </body>
 </html>
