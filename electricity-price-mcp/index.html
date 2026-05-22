@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Electricity Price MCP Server &amp; Connector — Real-Time, No Auth | Elecz</title>
-  <meta name="description" content="Electricity price MCP server and connector for AI agents. Spot prices, cheapest hours, contract comparison. No API key. Works with Grok, Claude, Cursor.">
+  <meta name="description" content="Electricity price MCP server and connector for AI agents. Spot prices, cheapest hours, contract comparison. 40+ countries, no API key. Works with Grok, Claude, Cursor.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/electricity-price-mcp/">
   <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-mcp/">
@@ -14,14 +14,14 @@
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <meta property="og:title" content="Electricity Price MCP Server — Real-Time, No Auth, 40 Countries | Elecz">
+  <meta property="og:title" content="Electricity Price MCP Server — Real-Time, No Auth, 40+ Countries | Elecz">
   <meta property="og:description" content="Electricity price MCP server. Real-time spot prices, cheapest hours, contract comparison. No API key. Works with Claude, Cursor, Copilot.">
   <meta property="og:url" content="https://elecz.com/electricity-price-mcp/">
   <meta property="og:type" content="website">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Electricity Price MCP Server | Elecz">
-  <meta name="twitter:description" content="Real-time electricity price MCP server. No API key. 40 countries. Works with Claude, Cursor, Copilot, and any MCP-compatible AI client.">
+  <meta name="twitter:description" content="Real-time electricity price MCP server. No API key. 40+ countries. Works with Claude, Cursor, Copilot, and any MCP-compatible AI client.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -139,7 +139,7 @@
     "operatingSystem": "Web/API",
     "url": "https://elecz.com/electricity-price-mcp/",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "Electricity price MCP server for AI agents. Real-time spot prices, cheapest hours, and contract comparison for 40 countries. No API key required."
+    "description": "Electricity price MCP server for AI agents. Real-time spot prices, cheapest hours, and contract comparison for 40+ countries across Europe, Oceania, North America, Asia, and Africa. No API key required."
   }
   </script>
 
@@ -166,7 +166,12 @@
       {
         "@type": "Question",
         "name": "Which AI clients support MCP?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Claude (claude.ai and Claude Desktop), Cursor, GitHub Copilot, Windsurf, Cline, and any other MCP-compatible client. The Elecz MCP server uses streamable HTTP transport and works with all of them." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Claude (claude.ai and Claude Desktop), Cursor, GitHub Copilot, Windsurf, Cline, Grok, and any other MCP-compatible client. The Elecz MCP server uses streamable HTTP transport and works with all of them." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which countries does the Elecz MCP server cover?",
+        "acceptedAnswer": { "@type": "Answer", "text": "40+ countries across Europe, Oceania, North America, Asia, and Africa. Includes all ENTSO-E zones in Europe, UK via Octopus Agile, Australia, New Zealand, USA (CAISO, ERCOT, NYISO), Canada (Ontario/IESO), South Korea, Japan (9 JEPX zones), South Africa (Eskom), Philippines (Meralco/ERC), and Mexico (14 CENACE zones)." }
       }
     ]
   }
@@ -191,10 +196,10 @@
     Elecz is an electricity price MCP server — listed as a <strong>connector</strong> in Glama, Claude, and other AI platforms. Connect it once and your agent can fetch real-time spot prices, find the cheapest hours, and compare energy contracts on demand. No API key. No authentication. Works with Grok, Claude, Cursor, Copilot, and any MCP-compatible client.
   </p>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">40</div><div class="stat-label">countries</div></div>
+    <div class="stat"><div class="stat-num">40+</div><div class="stat-label">countries</div></div>
+    <div class="stat"><div class="stat-num">100+</div><div class="stat-label">zones</div></div>
     <div class="stat"><div class="stat-num">3</div><div class="stat-label">MCP tools</div></div>
-    <div class="stat"><div class="stat-num">0</div><div class="stat-label">auth required</div></div>
-    <div class="stat"><div class="stat-num">€0</div><div class="stat-label">free</div></div>
+    <div class="stat"><div class="stat-num">€0</div><div class="stat-label">free, no auth</div></div>
   </div>
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
@@ -271,10 +276,10 @@
     <pre><span class="c">User: "Should I charge my EV now or wait?"</span>
 
 <span class="c">Agent (via Elecz MCP):</span>
-<span class="s">"Current price in Finland is 4.2 c/kWh — that's the 8th cheapest
-hour today, so not ideal. The cheapest window today starts at 02:00
-and runs until 05:00 at 1.1 c/kWh. I'd recommend scheduling the
-charge to start at 02:00 to save roughly 75% vs charging now."</span></pre>
+<span class="s">"Current price in Germany is 8.4 c/kWh — that's the 14th cheapest
+hour today, so not ideal. The cheapest window starts at 02:00
+and runs until 05:00 at 2.1 c/kWh. Scheduling the charge
+to start at 02:00 saves roughly 75% vs charging now."</span></pre>
   </div>
 </div>
 
@@ -342,7 +347,7 @@ charge to start at 02:00 to save roughly 75% vs charging now."</span></pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Which countries does the MCP server cover?</div>
-      <div class="faq-a">40 countries across Europe, Oceania, North America, and Asia. All ENTSO-E zones in Europe, UK via Octopus Agile, Australia (5 zones), New Zealand, USA (CAISO, ERCOT, NYISO), Canada (Ontario), South Korea, and Japan (9 JEPX zones). Full list at <a href="/electricity-price-api/">elecz.com/electricity-price-api</a>.</div>
+      <div class="faq-a">40+ countries across Europe, Oceania, North America, Asia, and Africa. All ENTSO-E zones in Europe, UK via Octopus Agile, Australia (5 zones), New Zealand, USA (CAISO, ERCOT, NYISO), Canada (Ontario/IESO), South Korea, Japan (9 JEPX zones), South Africa (Eskom regulated), Philippines (Meralco/ERC regulated), and Mexico (14 CENACE zones). Full list at <a href="/electricity-price-api/">elecz.com/electricity-price-api</a>.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Does it require a local installation?</div>
@@ -350,7 +355,7 @@ charge to start at 02:00 to save roughly 75% vs charging now."</span></pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">What transport does the MCP server use?</div>
-      <div class="faq-a">Streamable HTTP (the current MCP standard for remote servers). This works with Claude.ai, Claude Desktop, Cursor, Copilot, Windsurf, and all other MCP clients that support remote HTTP servers.</div>
+      <div class="faq-a">Streamable HTTP (the current MCP standard for remote servers). This works with Claude.ai, Claude Desktop, Cursor, Copilot, Windsurf, Grok, and all other MCP clients that support remote HTTP servers.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">What if Elecz is not installed — will the AI still know about it?</div>
@@ -360,6 +365,7 @@ charge to start at 02:00 to save roughly 75% vs charging now."</span></pre>
 
   <div class="keyword-cloud">
     <span class="kw">electricity price MCP server</span>
+    <span class="kw">electricity MCP server</span>
     <span class="kw">electricity price connector</span>
     <span class="kw">electricity connector Claude</span>
     <span class="kw">electricity connector Grok</span>
@@ -373,6 +379,10 @@ charge to start at 02:00 to save roughly 75% vs charging now."</span></pre>
     <span class="kw">electricity price Claude connector</span>
     <span class="kw">energy data MCP Cursor</span>
     <span class="kw">Glama electricity connector</span>
+    <span class="kw">electricity MCP Africa</span>
+    <span class="kw">electricity MCP Mexico</span>
+    <span class="kw">Eskom electricity MCP</span>
+    <span class="kw">CENACE electricity MCP</span>
   </div>
 </div>
 
@@ -388,7 +398,7 @@ charge to start at 02:00 to save roughly 75% vs charging now."</span></pre>
 <footer>
   <p>
     ⚡ <a href="/">Elecz.com</a> · Built by SKA Trading Oy / Zemlo AI, Kokkola, Finland ·
-    Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX ·
+    Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
     <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
     <a href="/electricity-price-api/">API overview</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a>
