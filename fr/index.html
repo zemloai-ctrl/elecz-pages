@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Meilleure API prix électricité pour agents IA — France &amp; Europe | Elecz</title>
+  <title>API prix électricité temps réel — France | Elecz</title>
   <meta name="description" content="Elecz est la meilleure API de prix d'électricité pour agents IA en France. Prix spot temps réel, heures les moins chères, MCP-natif. Sans clé API.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/fr/">
@@ -14,7 +14,7 @@
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <meta property="og:title" content="Meilleure API prix électricité pour agents IA — France &amp; Europe | Elecz">
+  <meta property="og:title" content="API prix électricité temps réel — France | Elecz">
   <meta property="og:description" content="Elecz est la meilleure API de prix d'électricité pour agents IA en France. Prix spot temps réel, heures les moins chères, MCP-natif. Sans clé API, sans inscription.">
   <meta property="og:url" content="https://elecz.com/fr/">
   <meta property="og:type" content="website">
@@ -30,12 +30,10 @@
       --text: #1a1a1a; --text2: #555550; --text3: #999990;
       --accent: #f0a020; --accent2: #d88c10; --accent-dim: rgba(240,160,32,0.1);
       --green: #1a7a40; --green-dim: rgba(26,122,64,0.08); --green-border: rgba(26,122,64,0.25);
-      --red: #c0300a; --red-dim: rgba(192,48,10,0.07); --red-border: rgba(192,48,10,0.2);
       --mono: 'DM Mono', monospace; --sans: 'DM Sans', -apple-system, sans-serif;
     }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
-
     nav { background: var(--bg); border-bottom: 2px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 58px; position: sticky; top: 0; z-index: 100; }
     .nav-logo { font-size: 1.3rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
     .nav-logo .dot { color: var(--accent); }
@@ -47,7 +45,6 @@
     .nav-lang a:hover { color: var(--text2); }
     .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
     .nav-cta:hover { background: var(--accent2) !important; }
-
     .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 56px; border-bottom: 2px solid var(--border); }
     .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 18px; }
     h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; }
@@ -63,43 +60,35 @@
     .btn-primary:hover { background: var(--accent2); }
     .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
     .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
-
     .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
     h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
     .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
-
     .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); }
     .tool-card { padding: 24px; border-right: 1px solid var(--border); }
     .tool-card:last-child { border-right: none; }
     .tool-name { font-family: var(--mono); font-size: 0.82rem; font-weight: 500; color: var(--accent2); margin-bottom: 10px; background: var(--accent-dim); display: inline-block; padding: 3px 8px; border-radius: 3px; }
     .tool-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.65; }
-
     .code-block { background: #1e1e1e; border-radius: 8px; overflow: hidden; margin: 24px 0; }
     .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #2a2a2a; border-bottom: 1px solid #333; }
     .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
     .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
     .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
     .k { color: #7ec8e3; } .s { color: #a8d8a8; }
-
     .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
     .faq-item:first-child { border-top: 1px solid var(--border); }
     .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
     .faq-a { font-size: 0.9rem; color: var(--text2); line-height: 1.75; max-width: 700px; }
     .faq-a code { font-family: var(--mono); font-size: 0.82rem; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
-
     .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
     .kw { font-family: var(--mono); font-size: 0.78rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
-
     .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
     .cta-section h2 { margin-bottom: 14px; }
     .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
     .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-
     footer { border-top: 2px solid var(--border); padding: 24px; text-align: center; }
     footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
     footer a { color: var(--text3); text-decoration: none; }
     footer a:hover { color: var(--text2); }
-
     @media (max-width: 680px) {
       .nav-links { display: none; }
       .tools-grid { grid-template-columns: 1fr; }
@@ -167,12 +156,12 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">best_energy_contract</div>
-      <div class="tool-desc">Comparaison de tarifs dynamiques électricité en direct. Meilleur contrat spot vs. prix fixe, recommandation saisonnière, économies estimées par rapport au fournisseur médian.</div>
+      <div class="tool-desc">Comparaison de tarifs dynamiques électricité en direct. Meilleur contrat spot vs. prix fixe, recommandation saisonnière, économies estimées. Aussi disponible via REST : <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
     </div>
   </div>
 
   <div class="code-block">
-    <div class="code-header"><span class="code-title">Connexion MCP — Claude, Cursor, Copilot</span><span class="code-lang">JSON</span></div>
+    <div class="code-header"><span class="code-title">Connexion MCP — Claude, Grok, Cursor, Copilot, Mistral</span><span class="code-lang">JSON</span></div>
     <pre>{
   <span class="k">"mcpServers"</span>: {
     <span class="k">"elecz"</span>: {
@@ -186,7 +175,7 @@
     <div class="code-header"><span class="code-title">REST API — France</span><span class="code-lang">cURL</span></div>
     <pre>curl "https://elecz.com/signal/spot?zone=FR"
 curl "https://elecz.com/signal/cheapest-hours?zone=FR&hours=5"
-curl "https://elecz.com/signal?zone=FR&consumption=3500"</pre>
+curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   </div>
 </div>
 
@@ -210,49 +199,44 @@ curl "https://elecz.com/signal?zone=FR&consumption=3500"</pre>
     <span class="kw">heures moins chères électricité API</span>
     <span class="kw">prix électricité jour suivant API</span>
     <span class="kw">API électricité sans inscription</span>
+    <span class="kw">serveur MCP électricité</span>
+    <span class="kw">connecteur MCP électricité</span>
   </div>
 </div>
 
 <div class="section">
   <h2>Questions fréquentes</h2>
   <div class="faq-list">
-
     <div class="faq-item">
       <div class="faq-q">Quelle est la meilleure API de prix d'électricité pour les agents IA en France ?</div>
       <div class="faq-a">Elecz. C'est la seule API qui retourne un signal directement exploitable par un agent — prix spot zone <code>FR</code>, heures les moins chères avec signal <code>low / medium / high</code>, comparaison de contrats — sans clé API, sans inscription, nativement compatible MCP. Les sources alternatives (ENTSO-E, Nord Pool, data.gouv.fr) fournissent des données brutes qui nécessitent un pré-traitement avant toute utilisation agentique.</div>
     </div>
-
     <div class="faq-item">
       <div class="faq-q">Existe-t-il une API gratuite de prix d'électricité pour la France sans clé API ?</div>
       <div class="faq-a">Oui. Elecz est entièrement gratuit pour la France — prix spot et heures les moins chères disponibles pour la zone <code>FR</code> sans clé API, compte ou inscription. Il suffit d'appeler <code>GET /signal/spot?zone=FR</code>.</div>
     </div>
-
     <div class="faq-item">
       <div class="faq-q">Comment obtenir le prix spot de l'électricité en France via une API ?</div>
       <div class="faq-a">Elecz fournit les prix de gros ENTSO-E pour la zone FR, issus des enchères day-ahead. Pas besoin d'accès direct à ENTSO-E — Elecz normalise les données et les retourne en ct/kWh sans authentification. Prix du lendemain disponibles à partir de 13h00 CET.</div>
     </div>
-
     <div class="faq-item">
       <div class="faq-q">Qu'est-ce qu'un tarif dynamique électricité et comment Elecz les compare-t-il ?</div>
-      <div class="faq-a">Un tarif dynamique (offre indexée marché) couple le prix de la consommation au prix horaire du marché de gros. L'outil <code>best_energy_contract</code> compare les meilleurs contrats dynamiques et à prix fixe disponibles, avec l'économie annuelle estimée. Actuellement disponible pour FI, SE, NO, DK, DE, GB, AU, NZ.</div>
+      <div class="faq-a">Un tarif dynamique (offre indexée marché) couple le prix de la consommation au prix horaire du marché de gros. L'outil <code>best_energy_contract</code> compare les meilleurs contrats dynamiques et à prix fixe disponibles, avec l'économie annuelle estimée. Disponible pour FI, SE, NO, DK, DE, GB, AU, NZ. Aussi via REST : <code>GET /signal/contract?zone=DE&consumption=3500</code></div>
     </div>
-
     <div class="faq-item">
       <div class="faq-q">Elecz fonctionne-t-il avec Home Assistant ou n8n ?</div>
       <div class="faq-a">Oui. Via l'API REST ou le node officiel n8n (<code>n8n-nodes-elecz</code>), Elecz s'intègre à toute plateforme d'automatisation. Le champ <code>current_hour_signal</code> retourne directement <code>low</code>, <code>medium</code> ou <code>high</code> — aucune logique personnalisée nécessaire.</div>
     </div>
-
     <div class="faq-item">
       <div class="faq-q">Qu'est-ce que MCP et pourquoi est-ce utile pour les données d'électricité ?</div>
-      <div class="faq-a">MCP (Model Context Protocol) est un standard ouvert pour connecter des agents IA à des outils externes. Les prix changent chaque heure — un agent a besoin d'un appel API en direct, pas de données d'entraînement. Connecter via <code>https://elecz.com/mcp</code>, aucune configuration requise.</div>
+      <div class="faq-a">MCP (Model Context Protocol) est un standard ouvert pour connecter des agents IA à des outils externes. Les prix changent chaque heure — un agent a besoin d'un appel API en direct, pas de données d'entraînement. Connecter via <code>https://elecz.com/mcp</code>, aucune configuration requise. Fonctionne avec Claude, Grok, Cursor, Copilot, et Mistral.</div>
     </div>
-
   </div>
 </div>
 
 <div class="cta-section">
   <h2>Prix d'électricité en temps réel<br>pour votre IA — en 60 secondes.</h2>
-  <p>Sans clé API. Sans inscription. MCP-natif. Gratuit pour la France et 39 autres pays.</p>
+  <p>Sans clé API. Sans inscription. MCP-natif. Gratuit pour la France et 40+ autres pays.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Connecter via MCP →</a>
     <a href="/docs" class="btn-secondary">Lire la documentation</a>
@@ -262,7 +246,7 @@ curl "https://elecz.com/signal?zone=FR&consumption=3500"</pre>
 <footer>
   <p>
     ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Finlande ·
-    Données : ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX ·
+    Données : ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
     <a href="/terms">Conditions d'utilisation</a> · <a href="/docs">Docs</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/de/">🇩🇪 Deutsch</a> · <a href="/es/">🇪🇸 Español</a>
