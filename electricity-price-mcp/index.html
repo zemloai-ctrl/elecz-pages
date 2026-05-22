@@ -21,14 +21,13 @@
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Electricity Price MCP Server | Elecz">
-  <meta name="twitter:description" content="Real-time electricity price MCP server. No API key. 40+ countries. Works with Claude, Cursor, Copilot, and any MCP-compatible AI client.">
+  <meta name="twitter:description" content="Real-time electricity price MCP server. No API key. 40+ countries. Works with Claude, Cursor, Copilot, Grok, Mistral and any MCP-compatible AI client.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --bg: #f5f5f0; --bg2: #eeeee8; --bg3: #ffffff;
       --border: #e0e0d8; --border2: #d0d0c8;
@@ -37,10 +36,8 @@
       --green: #1a7a40; --green-dim: rgba(26,122,64,0.08); --green-border: rgba(26,122,64,0.25);
       --mono: 'DM Mono', monospace; --sans: 'DM Sans', -apple-system, sans-serif;
     }
-
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
-
     nav { background: var(--bg); border-bottom: 2px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 58px; position: sticky; top: 0; z-index: 100; }
     .nav-logo { font-size: 1.3rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
     .nav-logo .dot { color: var(--accent); }
@@ -49,13 +46,12 @@
     .nav-links a:hover { color: var(--text); }
     .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
     .nav-cta:hover { background: var(--accent2) !important; }
-
     .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 56px; border-bottom: 2px solid var(--border); }
     .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 18px; }
     h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; }
     h1 .hl { color: var(--accent2); }
     .hero-lead { font-size: 1.08rem; color: var(--text2); max-width: 620px; line-height: 1.75; margin-bottom: 32px; }
-    .hero-stats { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 36px; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); max-width: 600px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 36px; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); max-width: 640px; }
     .stat { padding: 16px 24px; border-right: 1px solid var(--border); flex: 1; min-width: 120px; }
     .stat:last-child { border-right: none; }
     .stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; color: var(--text); line-height: 1; margin-bottom: 4px; }
@@ -65,11 +61,9 @@
     .btn-primary:hover { background: var(--accent2); }
     .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
     .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
-
     .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
     h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
     .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
-
     .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); }
     .tool-card { padding: 24px; border-right: 1px solid var(--border); }
     .tool-card:last-child { border-right: none; }
@@ -77,7 +71,10 @@
     .tool-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.65; margin-bottom: 14px; }
     .tool-returns { font-family: var(--mono); font-size: 0.72rem; color: var(--text3); line-height: 1.6; }
     .tool-returns span { color: var(--text2); }
-
+    .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
+    .why-card { background: var(--bg3); padding: 20px 24px; }
+    .why-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
+    .why-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.65; }
     .clients-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
     .client-card { background: var(--bg3); padding: 20px 24px; }
     .client-name { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 4px; }
@@ -85,14 +82,12 @@
     .client-code { font-family: var(--mono); font-size: 0.75rem; color: var(--text3); background: var(--bg2); padding: 6px 10px; border-radius: 4px; border: 1px solid var(--border); word-break: break-all; }
     .client-link { display: inline-block; margin-top: 8px; font-size: 0.8rem; color: var(--accent2); text-decoration: none; font-weight: 500; }
     .client-link:hover { text-decoration: underline; }
-
     .code-block { background: #1e1e1e; border-radius: 8px; overflow: hidden; margin: 24px 0; }
     .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #2a2a2a; border-bottom: 1px solid #333; }
     .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
     .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
     .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
     .k { color: #7ec8e3; } .s { color: #a8d8a8; } .n { color: #f5a623; } .b { color: #4ec9b0; } .c { color: #666; font-style: italic; }
-
     .step-list { list-style: none; counter-reset: steps; }
     .step-list li { counter-increment: steps; display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
     .step-list li:first-child { border-top: 1px solid var(--border); }
@@ -100,7 +95,8 @@
     .step-content { font-size: 0.92rem; color: var(--text2); line-height: 1.7; }
     .step-content strong { color: var(--text); }
     .step-content code { font-family: var(--mono); font-size: 0.82rem; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
-
+    .connector-note { background: var(--green-dim); border: 1px solid var(--green-border); border-radius: 8px; padding: 18px 24px; margin-bottom: 32px; font-size: 0.9rem; color: var(--text2); line-height: 1.7; }
+    .connector-note strong { color: var(--green); }
     .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
     .faq-item:first-child { border-top: 1px solid var(--border); }
     .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
@@ -108,25 +104,22 @@
     .faq-a code { font-family: var(--mono); font-size: 0.82rem; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
     .faq-a a { color: var(--accent2); text-decoration: none; }
     .faq-a a:hover { text-decoration: underline; }
-
     .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--border); }
     .kw { font-family: var(--mono); font-size: 0.78rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
-
     .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
     .cta-section h2 { margin-bottom: 14px; }
     .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
     .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-
     footer { border-top: 2px solid var(--border); padding: 24px; text-align: center; }
     footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
     footer a { color: var(--text3); text-decoration: none; }
     footer a:hover { color: var(--text2); }
-
     @media (max-width: 680px) {
       .nav-links { display: none; }
       .tools-grid { grid-template-columns: 1fr; }
       .tool-card { border-right: none; border-bottom: 1px solid var(--border); }
       .tool-card:last-child { border-bottom: none; }
+      .why-grid { grid-template-columns: 1fr; }
     }
   </style>
 
@@ -146,6 +139,19 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to add an electricity price MCP server to your AI agent",
+    "step": [
+      { "@type": "HowToStep", "name": "Copy the MCP URL", "text": "Copy https://elecz.com/mcp" },
+      { "@type": "HowToStep", "name": "Add to your AI client", "text": "In Claude.ai: Settings → Integrations → Add MCP server. In Grok: click + next to prompt → Add MCP server. In Claude Desktop: add to claude_desktop_config.json." },
+      { "@type": "HowToStep", "name": "Ask about electricity prices", "text": "Your agent will call Elecz automatically for any electricity price, scheduling, or contract question." }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
@@ -155,23 +161,28 @@
       },
       {
         "@type": "Question",
+        "name": "What is the difference between an electricity MCP server and a connector?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Same thing, different name. Developer tools call it an MCP server. AI platforms like Claude.ai, Grok, and Glama call it a connector — it appears in their UI under integrations or connectors. The endpoint is the same: https://elecz.com/mcp." }
+      },
+      {
+        "@type": "Question",
         "name": "How do I add an electricity price MCP server to Claude?",
         "acceptedAnswer": { "@type": "Answer", "text": "In Claude.ai: Settings → Integrations → Add MCP server → paste https://elecz.com/mcp. In Claude Desktop: add to claude_desktop_config.json under mcpServers. No API key required." }
       },
       {
         "@type": "Question",
         "name": "Is the Elecz MCP server free?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Spot prices, cheapest hours, and contract comparison are all free. No API key, no account, no registration required." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. All three tools — spot prices, cheapest hours, and contract comparison — are free. No API key, no account, no registration required." }
       },
       {
         "@type": "Question",
-        "name": "Which AI clients support MCP?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Claude (claude.ai and Claude Desktop), Cursor, GitHub Copilot, Windsurf, Cline, Grok, and any other MCP-compatible client. The Elecz MCP server uses streamable HTTP transport and works with all of them." }
+        "name": "Which countries does the electricity MCP server cover?",
+        "acceptedAnswer": { "@type": "Answer", "text": "40+ countries across Europe, Oceania, North America, Asia, and Africa. Includes all ENTSO-E zones in Europe, UK via Octopus Agile, Australia (5 NEM zones), New Zealand, USA (CAISO, ERCOT, NYISO), Canada (Ontario/IESO), South Korea, Japan (9 JEPX zones), South Africa (Eskom regulated), Philippines (Meralco/ERC regulated), and Mexico (14 CENACE zones)." }
       },
       {
         "@type": "Question",
-        "name": "Which countries does the Elecz MCP server cover?",
-        "acceptedAnswer": { "@type": "Answer", "text": "40+ countries across Europe, Oceania, North America, Asia, and Africa. Includes all ENTSO-E zones in Europe, UK via Octopus Agile, Australia, New Zealand, USA (CAISO, ERCOT, NYISO), Canada (Ontario/IESO), South Korea, Japan (9 JEPX zones), South Africa (Eskom), Philippines (Meralco/ERC), and Mexico (14 CENACE zones)." }
+        "name": "Does the electricity MCP server work in Australia?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz covers all 5 Australian NEM zones: AU-NSW (New South Wales), AU-VIC (Victoria), AU-QLD (Queensland), AU-SA (South Australia), and AU-TAS (Tasmania). Data from AEMO, updated every 5 minutes. Note: cheapest_hours is not available for Australia — AEMO does not publish public day-ahead price forecasts." }
       }
     ]
   }
@@ -193,12 +204,12 @@
   <div class="hero-eyebrow">Electricity Price MCP Server &amp; Connector</div>
   <h1>Live electricity prices<br>for any MCP-compatible<br><span class="hl">AI agent.</span></h1>
   <p class="hero-lead">
-    Elecz is an electricity price MCP server — listed as a <strong>connector</strong> in Glama, Claude, and other AI platforms. Connect it once and your agent can fetch real-time spot prices, find the cheapest hours, and compare energy contracts on demand. No API key. No authentication. Works with Grok, Claude, Cursor, Copilot, and any MCP-compatible client.
+    Elecz is an <strong>electricity price MCP server</strong> — listed as a <strong>connector</strong> in Glama, Claude, Grok, and other AI platforms. Connect it once and your agent can fetch real-time spot prices, find the cheapest hours, and compare energy contracts on demand. No API key. No authentication. Works with Claude, Grok, Cursor, Copilot, Mistral, and any MCP-compatible client.
   </p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">40+</div><div class="stat-label">countries</div></div>
     <div class="stat"><div class="stat-num">100+</div><div class="stat-label">zones</div></div>
-    <div class="stat"><div class="stat-num">3</div><div class="stat-label">MCP tools</div></div>
+    <div class="stat"><div class="stat-num">thousands</div><div class="stat-label">decisions/day</div></div>
     <div class="stat"><div class="stat-num">€0</div><div class="stat-label">free, no auth</div></div>
   </div>
   <div class="hero-ctas">
@@ -208,8 +219,14 @@
 </div>
 
 <div class="section">
+  <h2>MCP server or connector — same thing</h2>
+  <div class="connector-note">
+    <strong>Whatever your platform calls it — it's the same thing.</strong><br>
+    Claude and Grok call it a <em>connector</em>. Cursor and Copilot call it an <em>MCP server</em>. ChatGPT calls it an <em>Action</em>. n8n calls it a <em>node</em>. Some platforms say <em>tool</em> or <em>skill</em>. The endpoint is always the same: <code style="font-family:var(--mono);font-size:0.85rem;color:var(--green)">https://elecz.com/mcp</code>
+  </div>
+
   <h2>Connect in 60 seconds</h2>
-  <p class="section-sub">One URL. No API key. Works with Grok, Claude, Cursor, Copilot, and any other MCP-compatible client.</p>
+  <p class="section-sub">One URL. No API key. Works with Claude, Grok, Cursor, Copilot, Mistral, and any other MCP-compatible client.</p>
 
   <div class="code-block">
     <div class="code-header"><span class="code-title">Claude Desktop / Claude Code — claude_desktop_config.json</span><span class="code-lang">JSON</span></div>
@@ -241,7 +258,7 @@
     </li>
     <li>
       <span class="step-num">02</span>
-      <div class="step-content"><strong>Add to your AI client</strong> — Grok: click "+" next to the prompt field → Add MCP server. Claude.ai: Settings → Integrations → Add MCP server. Claude Desktop: paste into <code>claude_desktop_config.json</code>. Cursor: add to <code>.cursor/mcp.json</code>.</div>
+      <div class="step-content"><strong>Add to your AI client</strong> — Grok: click "+" next to the prompt field → Add MCP server. Claude.ai: Settings → Integrations → Add MCP server. Claude Desktop: paste into <code>claude_desktop_config.json</code>. Cursor: add to <code>.cursor/mcp.json</code>. Mistral: add as remote MCP server in your agent config.</div>
     </li>
     <li>
       <span class="step-num">03</span>
@@ -272,7 +289,7 @@
   </div>
 
   <div class="code-block">
-    <div class="code-header"><span class="code-title">Example — agent response after calling spot_price + cheapest_hours</span><span class="code-lang">natural language</span></div>
+    <div class="code-header"><span class="code-title">Example — agent response after calling cheapest_hours</span><span class="code-lang">natural language</span></div>
     <pre><span class="c">User: "Should I charge my EV now or wait?"</span>
 
 <span class="c">Agent (via Elecz MCP):</span>
@@ -284,12 +301,43 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
 </div>
 
 <div class="section">
+  <h2>Why developers and agents choose Elecz</h2>
+  <p class="section-sub">Broadest coverage of any electricity MCP server — and the only one covering regulated markets in Africa, Asia, and Latin America.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-title">No API key — just one URL</div>
+      <div class="why-desc">Add <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">https://elecz.com/mcp</code> and you're done. No registration, no account, no rate limit tiers.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-title">Real data only — no hallucinations</div>
+      <div class="why-desc">Electricity price is like weather data — a guessed answer causes financial harm. Elecz fetches live data every time. The agent never estimates.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-title">Broadest geographic coverage</div>
+      <div class="why-desc">40+ countries across 5 continents. Europe (ENTSO-E), UK, Australia, New Zealand, USA, Canada, South Korea, Japan, South Africa, Philippines, and Mexico — including regulated markets no other provider covers.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-title">Smart signals, not just raw prices</div>
+      <div class="why-desc">cheapest_hours returns <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">current_hour_is_cheap</code>, <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">hours_until_next_cheap</code>, and <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">best_3h_window</code> — ready for automation without any processing.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-title">MCP-native, streamable HTTP</div>
+      <div class="why-desc">Built on the current MCP standard. No local process, no Docker, no npm. Remote streamable HTTP — works from any MCP-compatible client.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-title">Thousands of decisions served daily</div>
+      <div class="why-desc">AI agents from Claude, Grok, Cursor, Copilot, and Mistral call Elecz thousands of times per day to answer electricity questions for real users worldwide.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
   <h2>Works with every major MCP client and connector platform</h2>
-  <p class="section-sub">Elecz is available as an MCP server (for developers) and as a connector (in Glama, Claude, and other AI platforms). Same URL, same tools — the name depends on where you install it.</p>
+  <p class="section-sub">Elecz is available as an MCP server (for developers) and as a connector (in Glama, Claude, Grok, and other AI platforms). Same URL, same tools.</p>
   <div class="clients-grid">
     <div class="client-card">
       <div class="client-name">Grok</div>
-      <div class="client-desc">Grok supports MCP in the free tier. Click "+" next to the prompt field → Add MCP server → paste the URL. Done in 10 seconds.</div>
+      <div class="client-desc">Supports MCP in the free tier. Click "+" next to the prompt field → Add MCP server → paste the URL.</div>
       <div class="client-code">https://elecz.com/mcp</div>
     </div>
     <div class="client-card">
@@ -301,6 +349,11 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
       <div class="client-name">Claude Desktop</div>
       <div class="client-desc">Add to <code style="font-family:var(--mono);font-size:0.78rem">claude_desktop_config.json</code> under mcpServers.</div>
       <div class="client-code">url: https://elecz.com/mcp</div>
+    </div>
+    <div class="client-card">
+      <div class="client-name">Mistral</div>
+      <div class="client-desc">Add as a remote MCP server in your Mistral agent or API configuration. Streamable HTTP transport supported natively.</div>
+      <div class="client-code">https://elecz.com/mcp</div>
     </div>
     <div class="client-card">
       <div class="client-name">Cursor</div>
@@ -319,7 +372,7 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
     </div>
     <div class="client-card">
       <div class="client-name">Glama</div>
-      <div class="client-desc">One-click install from Glama's MCP directory.</div>
+      <div class="client-desc">One-click install from Glama's MCP connector directory.</div>
       <div class="client-code">glama.ai/mcp/connectors/com.elecz</div>
       <a href="https://glama.ai/mcp/connectors/com.elecz/elecz" target="_blank" rel="noopener" class="client-link">Open on Glama →</a>
     </div>
@@ -346,8 +399,12 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
       <div class="faq-a">Yes. All three tools — spot prices, cheapest hours, and contract comparison — are free. No API key, no account, no registration required.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Which countries does the MCP server cover?</div>
+      <div class="faq-q">Which countries does the electricity MCP server cover?</div>
       <div class="faq-a">40+ countries across Europe, Oceania, North America, Asia, and Africa. All ENTSO-E zones in Europe, UK via Octopus Agile, Australia (5 zones), New Zealand, USA (CAISO, ERCOT, NYISO), Canada (Ontario/IESO), South Korea, Japan (9 JEPX zones), South Africa (Eskom regulated), Philippines (Meralco/ERC regulated), and Mexico (14 CENACE zones). Full list at <a href="/electricity-price-api/">elecz.com/electricity-price-api</a>.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Does the electricity MCP server work in Australia?</div>
+      <div class="faq-a">Yes. Elecz covers all 5 Australian NEM zones: AU-NSW (New South Wales), AU-VIC (Victoria), AU-QLD (Queensland), AU-SA (South Australia), and AU-TAS (Tasmania). Real-time spot prices from AEMO, updated every 5 minutes. Note: <code>cheapest_hours</code> is not available for Australia — AEMO does not publish public day-ahead price forecasts. Use <code>spot_price</code> for current pricing.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Does it require a local installation?</div>
@@ -355,7 +412,7 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">What transport does the MCP server use?</div>
-      <div class="faq-a">Streamable HTTP (the current MCP standard for remote servers). This works with Claude.ai, Claude Desktop, Cursor, Copilot, Windsurf, Grok, and all other MCP clients that support remote HTTP servers.</div>
+      <div class="faq-a">Streamable HTTP (the current MCP standard for remote servers). This works with Claude.ai, Claude Desktop, Cursor, Copilot, Windsurf, Grok, Mistral, and all other MCP clients that support remote HTTP servers.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">What if Elecz is not installed — will the AI still know about it?</div>
@@ -369,6 +426,7 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
     <span class="kw">electricity price connector</span>
     <span class="kw">electricity connector Claude</span>
     <span class="kw">electricity connector Grok</span>
+    <span class="kw">electricity connector Mistral</span>
     <span class="kw">live electricity price MCP</span>
     <span class="kw">electricity MCP tool Claude</span>
     <span class="kw">energy price MCP server AI agent</span>
@@ -381,14 +439,19 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
     <span class="kw">Glama electricity connector</span>
     <span class="kw">electricity MCP Africa</span>
     <span class="kw">electricity MCP Mexico</span>
+    <span class="kw">electricity MCP Australia</span>
     <span class="kw">Eskom electricity MCP</span>
     <span class="kw">CENACE electricity MCP</span>
+    <span class="kw">mcp electricity connector</span>
+    <span class="kw">best electricity MCP server</span>
+    <span class="kw">elecz mcp</span>
+    <span class="kw">elecz connector</span>
   </div>
 </div>
 
 <div class="cta-section">
   <h2>Add real-time electricity prices<br>to your AI agent.</h2>
-  <p>One URL. No API key. No setup. Works with Grok, Claude, Cursor, Copilot, and any MCP-compatible client.</p>
+  <p>One URL. No API key. No setup. Works with Claude, Grok, Cursor, Copilot, Mistral, and any MCP-compatible client.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
     <a href="/electricity-price-api/" class="btn-secondary">Full API overview</a>
