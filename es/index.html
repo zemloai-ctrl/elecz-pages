@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>API precio electricidad tiempo real — sin clave API, MCP-nativo | Elecz</title>
-  <meta name="description" content="API precio electricidad gratuita para España y Europa. Precio spot tiempo real, horas más baratas, tarifa dinámica electricidad. MCP-nativo, sin clave API.">
+  <title>API precio electricidad tiempo real — España | Elecz</title>
+  <meta name="description" content="API precio electricidad España. Precio spot tiempo real, horas más baratas. MCP-nativo, sin clave API.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/es/">
   <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-api/">
@@ -14,7 +14,7 @@
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <meta property="og:title" content="API precio electricidad tiempo real — sin clave API, MCP-nativo | Elecz">
+  <meta property="og:title" content="API precio electricidad tiempo real — España | Elecz">
   <meta property="og:description" content="API precio electricidad gratuita. Precio spot tiempo real, horas más baratas, tarifa dinámica. MCP-nativo, sin clave API.">
   <meta property="og:url" content="https://elecz.com/es/">
   <meta property="og:type" content="website">
@@ -30,12 +30,10 @@
       --text: #1a1a1a; --text2: #555550; --text3: #999990;
       --accent: #f0a020; --accent2: #d88c10; --accent-dim: rgba(240,160,32,0.1);
       --green: #1a7a40; --green-dim: rgba(26,122,64,0.08); --green-border: rgba(26,122,64,0.25);
-      --red: #c0300a; --red-dim: rgba(192,48,10,0.07); --red-border: rgba(192,48,10,0.2);
       --mono: 'DM Mono', monospace; --sans: 'DM Sans', -apple-system, sans-serif;
     }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
-
     nav { background: var(--bg); border-bottom: 2px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 58px; position: sticky; top: 0; z-index: 100; }
     .nav-logo { font-size: 1.3rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
     .nav-logo .dot { color: var(--accent); }
@@ -47,7 +45,6 @@
     .nav-lang a:hover { color: var(--text2); }
     .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
     .nav-cta:hover { background: var(--accent2) !important; }
-
     .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 56px; border-bottom: 2px solid var(--border); }
     .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 18px; }
     h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; }
@@ -63,43 +60,35 @@
     .btn-primary:hover { background: var(--accent2); }
     .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
     .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
-
     .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
     h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
     .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
-
     .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); }
     .tool-card { padding: 24px; border-right: 1px solid var(--border); }
     .tool-card:last-child { border-right: none; }
     .tool-name { font-family: var(--mono); font-size: 0.82rem; font-weight: 500; color: var(--accent2); margin-bottom: 10px; background: var(--accent-dim); display: inline-block; padding: 3px 8px; border-radius: 3px; }
     .tool-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.65; }
-
     .code-block { background: #1e1e1e; border-radius: 8px; overflow: hidden; margin: 24px 0; }
     .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #2a2a2a; border-bottom: 1px solid #333; }
     .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
     .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
     .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
     .k { color: #7ec8e3; } .s { color: #a8d8a8; }
-
     .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
     .faq-item:first-child { border-top: 1px solid var(--border); }
     .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
     .faq-a { font-size: 0.9rem; color: var(--text2); line-height: 1.75; max-width: 700px; }
     .faq-a code { font-family: var(--mono); font-size: 0.82rem; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
-
     .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
     .kw { font-family: var(--mono); font-size: 0.78rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
-
     .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
     .cta-section h2 { margin-bottom: 14px; }
     .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
     .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-
     footer { border-top: 2px solid var(--border); padding: 24px; text-align: center; }
     footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
     footer a { color: var(--text3); text-decoration: none; }
     footer a:hover { color: var(--text2); }
-
     @media (max-width: 680px) {
       .nav-links { display: none; }
       .tools-grid { grid-template-columns: 1fr; }
@@ -167,12 +156,12 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">best_energy_contract</div>
-      <div class="tool-desc">Comparación de tarifas dinámicas de electricidad en vivo. Mejor contrato spot vs. precio fijo, recomendación estacional, ahorro estimado frente al proveedor mediano.</div>
+      <div class="tool-desc">Comparación de tarifas dinámicas en vivo. Mejor contrato spot vs. precio fijo, recomendación estacional, ahorro estimado. También vía REST: <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
     </div>
   </div>
 
   <div class="code-block">
-    <div class="code-header"><span class="code-title">Conexión MCP — Claude, Cursor, Copilot</span><span class="code-lang">JSON</span></div>
+    <div class="code-header"><span class="code-title">Conexión MCP — Claude, Grok, Cursor, Copilot, Mistral</span><span class="code-lang">JSON</span></div>
     <pre>{
   <span class="k">"mcpServers"</span>: {
     <span class="k">"elecz"</span>: {
@@ -186,7 +175,7 @@
     <div class="code-header"><span class="code-title">REST API — España</span><span class="code-lang">cURL</span></div>
     <pre>curl "https://elecz.com/signal/spot?zone=ES"
 curl "https://elecz.com/signal/cheapest-hours?zone=ES&hours=5"
-curl "https://elecz.com/signal?zone=ES&consumption=3500"</pre>
+curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   </div>
 </div>
 
@@ -210,6 +199,8 @@ curl "https://elecz.com/signal?zone=ES&consumption=3500"</pre>
     <span class="kw">horas baratas electricidad API</span>
     <span class="kw">precio luz hoy API JSON</span>
     <span class="kw">API electricidad sin registro</span>
+    <span class="kw">servidor MCP electricidad</span>
+    <span class="kw">conector MCP electricidad</span>
   </div>
 </div>
 
@@ -226,7 +217,7 @@ curl "https://elecz.com/signal?zone=ES&consumption=3500"</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">¿Qué es una tarifa dinámica de electricidad y cómo las compara Elecz?</div>
-      <div class="faq-a">Una tarifa dinámica indexa el precio del consumo al precio horario del mercado mayorista. La herramienta <code>best_energy_contract</code> compara los mejores contratos dinámicos y de precio fijo disponibles, con el ahorro anual estimado. Actualmente disponible para FI, SE, NO, DK, DE, GB, AU, NZ — España en desarrollo.</div>
+      <div class="faq-a">Una tarifa dinámica indexa el precio del consumo al precio horario del mercado mayorista. La herramienta <code>best_energy_contract</code> compara los mejores contratos dinámicos y de precio fijo disponibles, con el ahorro anual estimado. Disponible para FI, SE, NO, DK, DE, GB, AU, NZ. También vía REST: <code>GET /signal/contract?zone=DE&consumption=3500</code></div>
     </div>
     <div class="faq-item">
       <div class="faq-q">¿Funciona Elecz con Home Assistant o n8n?</div>
@@ -234,14 +225,14 @@ curl "https://elecz.com/signal?zone=ES&consumption=3500"</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">¿Qué es MCP y por qué es útil para datos de electricidad?</div>
-      <div class="faq-a">MCP (Model Context Protocol) es un estándar abierto para conectar agentes IA con herramientas externas. Los precios cambian cada hora — un agente necesita una llamada API en vivo, no datos de entrenamiento. Conectar vía <code>https://elecz.com/mcp</code>, sin configuración requerida.</div>
+      <div class="faq-a">MCP (Model Context Protocol) es un estándar abierto para conectar agentes IA con herramientas externas. Los precios cambian cada hora — un agente necesita una llamada API en vivo, no datos de entrenamiento. Conectar vía <code>https://elecz.com/mcp</code>, sin configuración requerida. Compatible con Claude, Grok, Cursor, Copilot y Mistral.</div>
     </div>
   </div>
 </div>
 
 <div class="cta-section">
   <h2>Precio de electricidad en tiempo real<br>para tu IA — en 60 segundos.</h2>
-  <p>Sin clave API. Sin registro. MCP-nativo. Gratuito para España y 39 países más.</p>
+  <p>Sin clave API. Sin registro. MCP-nativo. Gratuito para España y 40+ países más.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Conectar vía MCP →</a>
     <a href="/docs" class="btn-secondary">Leer la documentación</a>
@@ -251,7 +242,7 @@ curl "https://elecz.com/signal?zone=ES&consumption=3500"</pre>
 <footer>
   <p>
     ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Finlandia ·
-    Datos: ENTSO-E · OMIE · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX ·
+    Datos: ENTSO-E · OMIE · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
     <a href="/terms">Términos de uso</a> · <a href="/docs">Docs</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a>
