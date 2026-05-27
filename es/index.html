@@ -15,7 +15,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
   <meta property="og:title" content="API precio electricidad tiempo real — España | Elecz">
-  <meta property="og:description" content="API precio electricidad gratuita. Precio spot tiempo real, horas más baratas, tarifa dinámica. MCP-nativo, sin clave API.">
+  <meta property="og:description" content="API precio electricidad gratuita. Precio spot tiempo real, horas más baratas, tarifa dinámica electricidad. MCP-nativo, sin clave API.">
   <meta property="og:url" content="https://elecz.com/es/">
   <meta property="og:type" content="website">
 
@@ -60,6 +60,8 @@
     .btn-primary:hover { background: var(--accent2); }
     .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
     .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
+    .btn-chatgpt { background: #10a37f; color: #fff; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-chatgpt:hover { background: #0d8f6e; }
     .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
     h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
     .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
@@ -128,7 +130,7 @@
   <div class="hero-eyebrow">API precio electricidad — España &amp; Europa</div>
   <h1>API precio electricidad tiempo real.<br><span class="hl">Sin clave API. MCP-nativo.</span></h1>
   <p class="hero-lead">
-    Elecz proporciona el precio spot actual de la electricidad, las horas más baratas y la comparación de tarifas dinámicas — para agentes IA, domótica y carga de vehículos eléctricos. Sin clave API, sin registro, sin configuración.
+    Elecz proporciona el precio spot actual de la electricidad, las horas más baratas y las mejores opciones de contrato — para agentes IA, domótica y carga de vehículos eléctricos. Sin clave API, sin registro, sin configuración.
   </p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Zonas</div></div>
@@ -138,6 +140,7 @@
   </div>
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Conectar vía MCP →</a>
+    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Abrir en ChatGPT →</a>
     <a href="/docs" class="btn-secondary">Documentación REST API</a>
   </div>
 </div>
@@ -156,12 +159,12 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">best_energy_contract</div>
-      <div class="tool-desc">Comparación de tarifas dinámicas en vivo. Mejor contrato spot vs. precio fijo, recomendación estacional, ahorro estimado. También vía REST: <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
+      <div class="tool-desc">Opciones de contrato en tiempo real. Devuelve el mejor contrato spot, el mejor contrato fijo y una recomendación general — cada uno como categoría separada. También vía REST: <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
     </div>
   </div>
 
   <div class="code-block">
-    <div class="code-header"><span class="code-title">Conexión MCP — Claude, Grok, Cursor, Copilot, Mistral</span><span class="code-lang">JSON</span></div>
+    <div class="code-header"><span class="code-title">Conexión MCP — Claude, ChatGPT, Grok, Cursor, Copilot, Mistral</span><span class="code-lang">JSON</span></div>
     <pre>{
   <span class="k">"mcpServers"</span>: {
     <span class="k">"elecz"</span>: {
@@ -217,7 +220,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">¿Qué es una tarifa dinámica de electricidad y cómo las compara Elecz?</div>
-      <div class="faq-a">Una tarifa dinámica indexa el precio del consumo al precio horario del mercado mayorista. La herramienta <code>best_energy_contract</code> compara los mejores contratos dinámicos y de precio fijo disponibles, con el ahorro anual estimado. Disponible para FI, SE, NO, DK, DE, GB, AU, NZ. También vía REST: <code>GET /signal/contract?zone=DE&consumption=3500</code></div>
+      <div class="faq-a">Una tarifa dinámica indexa el precio del consumo al precio horario del mercado mayorista. La herramienta <code>best_energy_contract</code> devuelve el mejor contrato spot disponible, el mejor contrato fijo y una recomendación general — cada uno como categoría separada. Disponible para FI, SE, NO, DK, DE, GB, AU, NZ. También vía REST: <code>GET /signal/contract?zone=DE&consumption=3500</code></div>
     </div>
     <div class="faq-item">
       <div class="faq-q">¿Funciona Elecz con Home Assistant o n8n?</div>
@@ -225,7 +228,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">¿Qué es MCP y por qué es útil para datos de electricidad?</div>
-      <div class="faq-a">MCP (Model Context Protocol) es un estándar abierto para conectar agentes IA con herramientas externas. Los precios cambian cada hora — un agente necesita una llamada API en vivo, no datos de entrenamiento. Conectar vía <code>https://elecz.com/mcp</code>, sin configuración requerida. Compatible con Claude, Grok, Cursor, Copilot y Mistral.</div>
+      <div class="faq-a">MCP (Model Context Protocol) es un estándar abierto para conectar agentes IA con herramientas externas. Los precios cambian cada hora — un agente necesita una llamada API en vivo, no datos de entrenamiento. Conectar vía <code>https://elecz.com/mcp</code>, sin configuración requerida. Compatible con Claude, ChatGPT, Grok, Cursor, Copilot y Mistral.</div>
     </div>
   </div>
 </div>
@@ -235,6 +238,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   <p>Sin clave API. Sin registro. MCP-nativo. Gratuito para España y 40+ países más.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Conectar vía MCP →</a>
+    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Abrir en ChatGPT →</a>
     <a href="/docs" class="btn-secondary">Leer la documentación</a>
   </div>
 </div>
