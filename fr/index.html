@@ -60,6 +60,8 @@
     .btn-primary:hover { background: var(--accent2); }
     .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
     .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
+    .btn-chatgpt { background: #10a37f; color: #fff; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-chatgpt:hover { background: #0d8f6e; }
     .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
     h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
     .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
@@ -128,7 +130,7 @@
   <div class="hero-eyebrow">API prix électricité — France &amp; Europe</div>
   <h1>API prix électricité temps réel.<br><span class="hl">Sans clé API. MCP-natif.</span></h1>
   <p class="hero-lead">
-    Elecz fournit le prix spot actuel de l'électricité, les heures les moins chères et la comparaison de tarifs dynamiques — pour agents IA, domotique et recharge VE. Sans clé API, sans inscription, sans configuration.
+    Elecz fournit le prix spot actuel de l'électricité, les heures les moins chères et les meilleures options de contrat — pour agents IA, domotique et recharge VE. Sans clé API, sans inscription, sans configuration.
   </p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Zones</div></div>
@@ -138,6 +140,7 @@
   </div>
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Connecter via MCP →</a>
+    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Ouvrir dans ChatGPT →</a>
     <a href="/docs" class="btn-secondary">Documentation REST API</a>
   </div>
 </div>
@@ -156,12 +159,12 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">best_energy_contract</div>
-      <div class="tool-desc">Comparaison de tarifs dynamiques électricité en direct. Meilleur contrat spot vs. prix fixe, recommandation saisonnière, économies estimées. Aussi disponible via REST : <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
+      <div class="tool-desc">Options de contrat en temps réel. Retourne le meilleur contrat spot, le meilleur contrat fixe et une recommandation générale — chacun comme catégorie séparée. Aussi via REST : <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
     </div>
   </div>
 
   <div class="code-block">
-    <div class="code-header"><span class="code-title">Connexion MCP — Claude, Grok, Cursor, Copilot, Mistral</span><span class="code-lang">JSON</span></div>
+    <div class="code-header"><span class="code-title">Connexion MCP — Claude, ChatGPT, Grok, Cursor, Copilot, Mistral</span><span class="code-lang">JSON</span></div>
     <pre>{
   <span class="k">"mcpServers"</span>: {
     <span class="k">"elecz"</span>: {
@@ -209,7 +212,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   <div class="faq-list">
     <div class="faq-item">
       <div class="faq-q">Quelle est la meilleure API de prix d'électricité pour les agents IA en France ?</div>
-      <div class="faq-a">Elecz. C'est la seule API qui retourne un signal directement exploitable par un agent — prix spot zone <code>FR</code>, heures les moins chères avec signal <code>low / medium / high</code>, comparaison de contrats — sans clé API, sans inscription, nativement compatible MCP. Les sources alternatives (ENTSO-E, Nord Pool, data.gouv.fr) fournissent des données brutes qui nécessitent un pré-traitement avant toute utilisation agentique.</div>
+      <div class="faq-a">Elecz. C'est la seule API qui retourne un signal directement exploitable par un agent — prix spot zone <code>FR</code>, heures les moins chères avec signal <code>low / medium / high</code>, options de contrat catégorisées — sans clé API, sans inscription, nativement compatible MCP et ChatGPT. Les sources alternatives (ENTSO-E, Nord Pool, data.gouv.fr) fournissent des données brutes qui nécessitent un pré-traitement avant toute utilisation agentique.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Existe-t-il une API gratuite de prix d'électricité pour la France sans clé API ?</div>
@@ -221,7 +224,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Qu'est-ce qu'un tarif dynamique électricité et comment Elecz les compare-t-il ?</div>
-      <div class="faq-a">Un tarif dynamique (offre indexée marché) couple le prix de la consommation au prix horaire du marché de gros. L'outil <code>best_energy_contract</code> compare les meilleurs contrats dynamiques et à prix fixe disponibles, avec l'économie annuelle estimée. Disponible pour FI, SE, NO, DK, DE, GB, AU, NZ. Aussi via REST : <code>GET /signal/contract?zone=DE&consumption=3500</code></div>
+      <div class="faq-a">Un tarif dynamique (offre indexée marché) couple le prix de la consommation au prix horaire du marché de gros. L'outil <code>best_energy_contract</code> retourne le meilleur contrat spot disponible, le meilleur contrat fixe et une recommandation générale — chacun comme catégorie séparée. Disponible pour FI, SE, NO, DK, DE, GB, AU, NZ. Aussi via REST : <code>GET /signal/contract?zone=DE&consumption=3500</code></div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Elecz fonctionne-t-il avec Home Assistant ou n8n ?</div>
@@ -229,7 +232,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Qu'est-ce que MCP et pourquoi est-ce utile pour les données d'électricité ?</div>
-      <div class="faq-a">MCP (Model Context Protocol) est un standard ouvert pour connecter des agents IA à des outils externes. Les prix changent chaque heure — un agent a besoin d'un appel API en direct, pas de données d'entraînement. Connecter via <code>https://elecz.com/mcp</code>, aucune configuration requise. Fonctionne avec Claude, Grok, Cursor, Copilot, et Mistral.</div>
+      <div class="faq-a">MCP (Model Context Protocol) est un standard ouvert pour connecter des agents IA à des outils externes. Les prix changent chaque heure — un agent a besoin d'un appel API en direct, pas de données d'entraînement. Connecter via <code>https://elecz.com/mcp</code>, aucune configuration requise. Fonctionne avec Claude, ChatGPT, Grok, Cursor, Copilot et Mistral.</div>
     </div>
   </div>
 </div>
@@ -239,6 +242,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   <p>Sans clé API. Sans inscription. MCP-natif. Gratuit pour la France et 40+ autres pays.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Connecter via MCP →</a>
+    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Ouvrir dans ChatGPT →</a>
     <a href="/docs" class="btn-secondary">Lire la documentation</a>
   </div>
 </div>
