@@ -60,6 +60,8 @@
     .btn-primary:hover { background: var(--accent2); }
     .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
     .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
+    .btn-chatgpt { background: #10a37f; color: #fff; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-chatgpt:hover { background: #0d8f6e; }
     .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
     h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
     .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
@@ -128,7 +130,7 @@
   <div class="hero-eyebrow">Strompreis API — Deutschland &amp; Europa</div>
   <h1>Echtzeit Strompreis API.<br><span class="hl">Kein API-Key. MCP-nativ.</span></h1>
   <p class="hero-lead">
-    Elecz liefert den aktuellen Börsenstrompreis, die günstigsten Stunden und einen dynamischen Stromtarif-Vergleich — für KI-Agenten, Home Automation und EV-Ladung. Kein API-Key, keine Registrierung, kein Setup.
+    Elecz liefert den aktuellen Börsenstrompreis, die günstigsten Stunden und die besten Stromvertrag-Optionen — für KI-Agenten, Home Automation und EV-Ladung. Kein API-Key, keine Registrierung, kein Setup.
   </p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Zonen</div></div>
@@ -138,6 +140,7 @@
   </div>
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Via MCP verbinden →</a>
+    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">In ChatGPT öffnen →</a>
     <a href="/docs" class="btn-secondary">REST API Dokumentation</a>
   </div>
 </div>
@@ -156,12 +159,12 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">best_energy_contract</div>
-      <div class="tool-desc">Dynamischer Stromtarif Vergleich für Deutschland. Bester Spotvertrag vs. Festpreis, saisonale Empfehlung, Ersparnis gegenüber Median-Anbieter. Auch via REST: <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
+      <div class="tool-desc">Stromvertrag-Optionen in Echtzeit. Gibt den besten Spot-Vertrag, den besten Festpreisvertrag und eine Gesamtempfehlung zurück — jeweils als separate Kategorie. Auch via REST: <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
     </div>
   </div>
 
   <div class="code-block">
-    <div class="code-header"><span class="code-title">MCP verbinden — Claude, Grok, Cursor, Copilot, Mistral</span><span class="code-lang">JSON</span></div>
+    <div class="code-header"><span class="code-title">MCP verbinden — Claude, ChatGPT, Grok, Cursor, Copilot, Mistral</span><span class="code-lang">JSON</span></div>
     <pre>{
   <span class="k">"mcpServers"</span>: {
     <span class="k">"elecz"</span>: {
@@ -209,7 +212,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   <div class="faq-list">
     <div class="faq-item">
       <div class="faq-q">Gibt es eine kostenlose Strompreis API für Deutschland ohne API-Key?</div>
-      <div class="faq-a">Ja. Elecz ist für Deutschland vollständig kostenlos — Spotpreis, günstigste Stunden und dynamischer Stromtarif Vergleich, alles ohne API-Key, Account oder Registrierung. Einfach <code>GET /signal/spot?zone=DE</code> aufrufen.</div>
+      <div class="faq-a">Ja. Elecz ist für Deutschland vollständig kostenlos — Spotpreis, günstigste Stunden und Stromvertrag-Optionen, alles ohne API-Key, Account oder Registrierung. Einfach <code>GET /signal/spot?zone=DE</code> aufrufen.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Wie bekomme ich den EPEX SPOT Preis für Deutschland über eine API?</div>
@@ -217,7 +220,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Was ist ein dynamischer Stromtarif und wie vergleicht Elecz diese?</div>
-      <div class="faq-a">Dynamische Stromtarife (z. B. Tibber, Octopus Energy DE) koppeln den Verbrauchspreis direkt an den stündlichen Börsenstrompreis. Das Tool <code>best_energy_contract</code> vergleicht die besten verfügbaren dynamischen Tarife und Festpreisverträge für Deutschland und gibt die erwartete Jahresersparnis zurück. Auch via REST: <code>GET /signal/contract?zone=DE&consumption=3500</code></div>
+      <div class="faq-a">Dynamische Stromtarife (z. B. Tibber, Octopus Energy DE) koppeln den Verbrauchspreis direkt an den stündlichen Börsenstrompreis. Das Tool <code>best_energy_contract</code> gibt den besten verfügbaren Spot-Vertrag, den besten Festpreisvertrag und eine Gesamtempfehlung zurück — jeweils als separate Kategorie. Auch via REST: <code>GET /signal/contract?zone=DE&consumption=3500</code></div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Funktioniert Elecz mit Home Assistant oder n8n?</div>
@@ -225,7 +228,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Was ist MCP und warum brauche ich es für Strompreisdaten?</div>
-      <div class="faq-a">MCP (Model Context Protocol) ist ein offener Standard, über den KI-Agenten externe Tools aufrufen können. Strompreise ändern sich stündlich — ein Agent braucht einen Live-API-Aufruf, keine Trainingsdaten. Elecz über <code>https://elecz.com/mcp</code> einbinden, kein Setup erforderlich. Funktioniert mit Claude, Grok, Cursor, Copilot und Mistral.</div>
+      <div class="faq-a">MCP (Model Context Protocol) ist ein offener Standard, über den KI-Agenten externe Tools aufrufen können. Strompreise ändern sich stündlich — ein Agent braucht einen Live-API-Aufruf, keine Trainingsdaten. Elecz über <code>https://elecz.com/mcp</code> einbinden, kein Setup erforderlich. Funktioniert mit Claude, ChatGPT, Grok, Cursor, Copilot und Mistral.</div>
     </div>
   </div>
 </div>
@@ -235,6 +238,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   <p>Kein API-Key. Keine Registrierung. MCP-nativ. Kostenlos für Deutschland und 40+ weitere Länder.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Via MCP verbinden →</a>
+    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">In ChatGPT öffnen →</a>
     <a href="/docs" class="btn-secondary">Dokumentation lesen</a>
   </div>
 </div>
