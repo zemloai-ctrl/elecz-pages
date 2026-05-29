@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Elecz Docs — Electricity Price Signal API for AI Agents</title>
-  <meta name="description" content="Elecz API documentation. Real-time electricity prices, cheapest hours, and contract comparison for 40 countries across Europe, Oceania, North America, and Asia. MCP-native, no API key.">
+  <meta name="description" content="Elecz API docs. Real-time electricity prices, cheapest hours, contract comparison for 40+ countries. MCP-native, no API key. Europe, Americas, Asia, Africa.">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -58,7 +58,7 @@
   <div class="hero">
     <h1>⚡ Elecz Docs</h1>
     <p class="slogan">"Electricity price is not content. It's an input."</p>
-    <p>Real-time electricity price signal for LLMs and AI agents. 40 countries, 100+ zones, no API key.</p>
+    <p>Real-time electricity price signal for LLMs and AI agents. 40+ countries, 100+ zones, no API key.</p>
     <p style="margin-top:12px">
       <span class="badge green">Free</span>
       <span class="badge blue">No API Key</span>
@@ -71,7 +71,8 @@
   <p>Elecz turns real-time electricity prices into actionable signals — for AI agents, home automation, and anyone whose decisions depend on when they use electricity.</p>
   <p>A language model cannot know the current electricity price. It was trained on historical data. Without a real-time API call, any answer it gives is a guess. Elecz is that call.</p>
   <p><strong>Contract comparison:</strong> FI · SE · NO · DK · DE · GB · AU · NZ</p>
-  <p><strong>Spot price + cheapest hours:</strong> All of the above + NL · BE · AT · FR · IT · PL · CZ · HU · RO · ES · PT · HR · BG · SI · SK · GR · EE · LV · LT · CH · RS · BA · ME · MK · IE · US-CA · US-TX · US-NY · CA-ON · KR · JP (9 zones)</p>
+  <p><strong>Spot price + cheapest hours:</strong> All of the above + NL · BE · AT · FR · IT · PL · CZ · HU · RO · ES · PT · HR · BG · SI · SK · GR · EE · LV · LT · CH · RS · BA · ME · MK · IE · US-CA · US-TX · US-NY · CA-ON · JP (9 zones) · MX (14 zones)</p>
+  <p><strong>Spot price only:</strong> KR · KR-JEJU · ZA (regulated) · PH-LUZ · PH-VIS · PH-MIN (regulated)</p>
 
   <h2 id="connect">Connect in 30 seconds</h2>
   <h3>Claude / Claude Code / any MCP client</h3>
@@ -88,6 +89,8 @@
 curl "https://elecz.com/signal/spot?zone=US-NY-NYC"
 curl "https://elecz.com/signal/spot?zone=JP-TKY"
 curl "https://elecz.com/signal/spot?zone=AU-NSW"
+curl "https://elecz.com/signal/spot?zone=ZA"
+curl "https://elecz.com/signal/spot?zone=MX-MTY"
 curl "https://elecz.com/signal/cheapest-hours?zone=DE&hours=5"
 curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
 
@@ -96,7 +99,7 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
     <tr><th>Tool</th><th>When to use</th><th>Returns</th></tr>
     <tr><td><code>spot_price</code></td><td>User asks what electricity costs right now</td><td>Current price in local unit</td></tr>
     <tr><td><code>cheapest_hours</code></td><td>When to run appliances, charge EV, schedule tasks</td><td>Cheapest slots + best window next 24h</td></tr>
-    <tr><td><code>best_energy_contract</code></td><td>Which contract to choose or whether to switch</td><td>Best spot + fixed contract + recommendation</td></tr>
+    <tr><td><code>best_energy_contract</code></td><td>Which contract options are available, savings estimate</td><td>Best spot + best fixed + recommendation</td></tr>
   </table>
 
   <h2 id="api">REST API</h2>
@@ -105,6 +108,7 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
     <tr><th>Endpoint</th><th>Description</th></tr>
     <tr><td><code>GET /signal/spot?zone=DE</code></td><td>Current spot price only</td></tr>
     <tr><td><code>GET /signal/cheapest-hours?zone=DE&hours=5</code></td><td>Cheapest hours next 24h</td></tr>
+    <tr><td><code>GET /signal/contract?zone=DE&consumption=3500</code></td><td>Contract options and switching recommendation</td></tr>
     <tr><td><code>GET /signal?zone=DE&consumption=3500</code></td><td>Full signal with contract recommendations</td></tr>
     <tr><td><code>GET /go/&lt;provider&gt;</code></td><td>Redirect to provider</td></tr>
     <tr><td><code>GET /health</code></td><td>Health check</td></tr>
@@ -118,15 +122,18 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
     <tr><td>GB (+ regional GB-A..GB-P)</td><td>✓</td><td>✓</td><td>✓</td><td>Octopus Agile</td></tr>
     <tr><td>AU-NSW, AU-VIC, AU-QLD, AU-SA, AU-TAS</td><td>✓</td><td>—</td><td>✓</td><td>AEMO NEM</td></tr>
     <tr><td>NZ-NI, NZ-SI</td><td>✓</td><td>—</td><td>✓</td><td>EM6</td></tr>
-    <tr><td>NL, BE, AT, FR, IT, PL, CZ, HU, RO, IE</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
+    <tr><td>NL, BE, AT, FR, IT (6 zones), PL, CZ, HU, RO, IE</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
     <tr><td>ES, PT, HR, BG, SI, SK, GR</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
     <tr><td>EE, LV, LT, CH, RS, BA, ME, MK</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
     <tr><td>US-CA-NP15, US-CA-SP15, US-CA-ZP26</td><td>✓</td><td>✓</td><td>—</td><td>CAISO OASIS</td></tr>
     <tr><td>US-TX-HB_NORTH/HOUSTON/SOUTH/WEST/HUBAVG, US-TX-LZ_*</td><td>✓</td><td>✓</td><td>—</td><td>ERCOT CDR</td></tr>
-    <tr><td>US-NY-WEST/GENESE/CENTRL/NORTH/MHK_VL/CAPITL/HUD_VL/MILLWD/DUNWOD/NYC/LONGIL</td><td>✓</td><td>✓</td><td>—</td><td>NYISO MIS</td></tr>
+    <tr><td>US-NY-* (11 zones)</td><td>✓</td><td>✓</td><td>—</td><td>NYISO MIS</td></tr>
     <tr><td>CA-ON</td><td>✓</td><td>✓</td><td>—</td><td>IESO</td></tr>
     <tr><td>KR, KR-JEJU</td><td>✓</td><td>—</td><td>—</td><td>KPX EPSIS</td></tr>
     <tr><td>JP-HKD, JP-THK, JP-TKY, JP-CBU, JP-HKR, JP-KNS, JP-CGK, JP-SKK, JP-KYS</td><td>✓</td><td>✓</td><td>—</td><td>JEPX</td></tr>
+    <tr><td>ZA (South Africa)</td><td>✓</td><td>—</td><td>—</td><td>Eskom regulated</td></tr>
+    <tr><td>PH-LUZ, PH-VIS, PH-MIN (Philippines)</td><td>✓</td><td>—</td><td>—</td><td>Meralco/ERC regulated</td></tr>
+    <tr><td>MX-AGS, MX-MTY, MX-GDL, MX-PUE, MX-VER, MX-CHH, MX-HMO, MX-MID, MX-CUL, MX-LEO, MX-QRO, MX-MLM, MX-OAX, MX-CUN</td><td>✓</td><td>✓</td><td>—</td><td>CENACE MDA</td></tr>
   </table>
 
   <h2 id="examples">Examples</h2>
@@ -134,12 +141,14 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
   <div class="prompt">"What is the current electricity price in Germany?"</div>
   <h3>Cheapest hours</h3>
   <div class="prompt">"When should I charge my EV tonight? I'm in Texas."</div>
-  <h3>Contract comparison</h3>
-  <div class="prompt">"Should I switch my electricity contract? I use about 2700 kWh/year in the UK."</div>
+  <h3>Contract options</h3>
+  <div class="prompt">"What are the best electricity contract options for a household using 2700 kWh/year in the UK?"</div>
   <h3>Japan</h3>
   <div class="prompt">"What is the electricity price in Tokyo right now?"</div>
-  <h3>South Korea</h3>
-  <div class="prompt">"What is the current electricity price in Seoul?"</div>
+  <h3>South Africa</h3>
+  <div class="prompt">"What is the electricity tariff in Cape Town?"</div>
+  <h3>Mexico</h3>
+  <div class="prompt">"When is electricity cheapest in Monterrey today?"</div>
 
   <h2 id="gb">United Kingdom</h2>
   <p>Spot prices from Octopus Agile API — half-hourly resolution, updated every 30 min. Unit: p/kWh incl. VAT (5%).</p>
@@ -160,7 +169,6 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
   <h2 id="nz">New Zealand</h2>
   <p>Spot prices from EM6 real-time API — NZEM wholesale prices, 30-min trading periods. Unit: NZD c/kWh.</p>
   <p>Zones: NZ-NI (North Island) · NZ-SI (South Island)</p>
-  <p>Note: No spot pass-through retailers currently available. Flick Electric was acquired by Meridian Energy (July 2025).</p>
 
   <h2 id="us">United States</h2>
   <p>Three ISOs supported. All prices are wholesale — retail rates include transmission, distribution, and taxes on top.</p>
@@ -189,6 +197,20 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
   <p>9 zones: <code>JP-HKD</code> (Hokkaido) · <code>JP-THK</code> (Tohoku) · <code>JP-TKY</code> (Tokyo) · <code>JP-CBU</code> (Chubu) · <code>JP-HKR</code> (Hokuriku) · <code>JP-KNS</code> (Kansai) · <code>JP-CGK</code> (Chugoku) · <code>JP-SKK</code> (Shikoku) · <code>JP-KYS</code> (Kyushu)</p>
   <p>Note: <code>cheapest_hours</code> available. No contract comparison.</p>
 
+  <h2 id="za">South Africa</h2>
+  <p>Eskom Homepower regulated tariff. Unit: ZAR c/kWh (VAT excl). NERSA-approved, updated annually 1 April.</p>
+  <p>Zone: <code>ZA</code> · <code>price_type: regulated</code> — not a spot market price. <code>cheapest_hours</code> not available — fixed tariff.</p>
+
+  <h2 id="ph">Philippines</h2>
+  <p>Meralco regulated tariff (PH-LUZ) and ERC representative rates (PH-VIS, PH-MIN). Unit: PHP c/kWh (VAT incl). Updated monthly ~13th.</p>
+  <p>Zones: <code>PH-LUZ</code> (Luzon/Metro Manila) · <code>PH-VIS</code> (Visayas) · <code>PH-MIN</code> (Mindanao)</p>
+  <p>Note: <code>price_type: regulated</code>. <code>cheapest_hours</code> not available.</p>
+
+  <h2 id="mx">Mexico</h2>
+  <p>CENACE MDA (day-ahead) wholesale prices. Unit: MXN/kWh. Updated daily. <code>cheapest_hours</code> available.</p>
+  <p>14 zones: MX-AGS · MX-MTY · MX-GDL · MX-PUE · MX-VER · MX-CHH · MX-HMO · MX-MID · MX-CUL · MX-LEO · MX-QRO · MX-MLM · MX-OAX · MX-CUN</p>
+  <p>Note: Wholesale prices only. Retail via CFE includes distribution charges and subsidies.</p>
+
   <h2>Roadmap</h2>
   <ul>
     <li>✅ Nordic markets (FI, SE, NO, DK)</li>
@@ -204,8 +226,10 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
     <li>✅ Canada — Ontario (IESO)</li>
     <li>✅ South Korea (KPX EPSIS)</li>
     <li>✅ Japan — 9 zones (JEPX)</li>
+    <li>✅ South Africa (Eskom regulated)</li>
+    <li>✅ Philippines (Meralco/ERC regulated)</li>
+    <li>✅ Mexico — 14 zones (CENACE MDA)</li>
     <li>🔜 Netherlands, Belgium — contract comparison</li>
-    <li>🔜 German-language landing page (/de/)</li>
   </ul>
 
   <h2>Support</h2>
