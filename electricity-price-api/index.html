@@ -232,6 +232,7 @@
     <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Open in ChatGPT →</a>
     <a href="/docs" class="btn-secondary">REST API docs</a>
+    <a href="https://raw.githubusercontent.com/zemloai-ctrl/elecz-api/main/openapi.json" target="_blank" rel="noopener" class="btn-secondary">OpenAPI spec →</a>
   </div>
 </div>
 
@@ -311,6 +312,25 @@
     { <span class="k">"hour"</span>: <span class="s">"2026-05-23T02:00"</span>, <span class="k">"price"</span>: <span class="n">11.8</span>, <span class="k">"unit"</span>: <span class="s">"p/kWh"</span> }
   ],
   <span class="k">"data_complete"</span>: <span class="b">true</span>
+}</pre>
+    <div class="code-block">
+    <div class="code-header"><span class="code-title">best_energy_contract — response example (zone: FI)</span><span class="code-lang">JSON</span></div>
+    <pre>{
+  <span class="k">"signal"</span>: <span class="s">"elecz_contract"</span>,
+  <span class="k">"zone"</span>: <span class="s">"FI"</span>,
+  <span class="k">"currency"</span>: <span class="s">"EUR"</span>,
+  <span class="k">"unit"</span>: <span class="s">"c/kWh"</span>,
+  <span class="k">"spot_price"</span>: { <span class="k">"value"</span>: <span class="n">3.84</span>, <span class="k">"unit"</span>: <span class="s">"c/kWh"</span> },
+  <span class="k">"best_spot"</span>: { <span class="k">"provider"</span>: <span class="s">"tibber"</span>, <span class="k">"type"</span>: <span class="s">"dynamic"</span>, <span class="k">"annual_cost_estimate"</span>: <span class="n">412</span> },
+  <span class="k">"best_fixed"</span>: { <span class="k">"provider"</span>: <span class="s">"helen"</span>, <span class="k">"type"</span>: <span class="s">"fixed"</span>, <span class="k">"annual_cost_estimate"</span>: <span class="n">580</span> },
+  <span class="k">"recommended"</span>: { <span class="k">"contract"</span>: { <span class="k">"provider"</span>: <span class="s">"tibber"</span> }, <span class="k">"reason"</span>: <span class="s">"Dynamic pricing cheaper given current market conditions."</span> },
+  <span class="k">"switch_recommended"</span>: <span class="b">true</span>,
+  <span class="k">"action"</span>: {
+    <span class="k">"expected_savings_local_year"</span>: <span class="n">168</span>,
+    <span class="k">"savings_currency"</span>: <span class="s">"EUR"</span>,
+    <span class="k">"action_link"</span>: <span class="s">"https://elecz.com/go/tibber"</span>
+  },
+  <span class="k">"powered_by"</span>: <span class="s">"Elecz.com"</span>
 }</pre>
   </div>
 </div>
@@ -529,6 +549,10 @@
     <div class="faq-item">
       <div class="faq-q">Does it work with home automation?</div>
       <div class="faq-a">Yes — EV charging, heat pumps, and dishwashers are primary use cases. An agent can call <code>cheapest_hours</code> to find the optimal run window and use <code>current_hour_signal</code> to decide whether to act right now. No custom logic required — the signal is already decision-ready.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Why not just fetch ENTSO-E or AEMO directly?</div>
+      <div class="faq-a">You can — but it takes significant work. Each market uses a different API format, authentication method, time zone, currency, and data structure. ENTSO-E alone requires XML parsing, token management, and zone mapping. AEMO, ERCOT, NYISO, JEPX, and others are all different again. Elecz normalizes 13+ data sources into a single consistent JSON schema across 100+ zones — so an agent can call one endpoint regardless of country. The contract layer and cheapest-hours signals are not available from raw market feeds at all.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Where is the full API documentation?</div>
