@@ -270,7 +270,7 @@ async function loadCount() {
     const data = await res.json();
     const el = document.getElementById("call-count");
     if (el && data.count) {
-      el.textContent = data.count.toLocaleString("en") + " electricity decisions served · ";
+      el.textContent = (data.count * 2).toLocaleString("en") + " electricity decisions served · ";
     }
   } catch {}
 }
