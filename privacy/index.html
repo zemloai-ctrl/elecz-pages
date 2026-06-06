@@ -40,38 +40,81 @@
   </nav>
 
   <h1>Privacy Policy</h1>
-  <p class="meta">Last updated: May 2026</p>
+  <p class="meta">Last updated: June 2026</p>
 
   <h2>Who we are</h2>
-  <p>Elecz is operated by SKA Trading Oy / Zemlo AI, Kokkola, Finland (Y-tunnus: 1010164-9).<br>
+  <p>Elecz is operated by Sakari Korkia-Aho (SKA Trading Oy / Zemlo AI), Finland.<br>
   Contact: <a href="mailto:sakke@elecz.com">sakke@elecz.com</a></p>
 
   <h2>What data we collect</h2>
-  <p>When you use the Elecz API or MCP server, we may log:</p>
+  <p>When you use the Elecz API, website, or MCP server, we may process limited technical information required to operate and secure the service, including:</p>
   <ul>
-    <li>The API endpoint and query parameters (e.g. zone=DE)</li>
+    <li>Requested endpoint and query parameters (for example: <code>zone=DE</code>)</li>
     <li>Timestamp of the request</li>
-    <li>IP address prefix (first 3 octets only, e.g. 160.79.106)</li>
-    <li>User-agent string</li>
+    <li>Truncated IP address information used for security and abuse prevention</li>
+    <li>User-agent information</li>
+    <li>Error and diagnostic information related to service operation</li>
   </ul>
 
   <h2>What we do not collect</h2>
-  <p>We do not collect personal information, names, email addresses, or any data that identifies individual users. We do not store full IP addresses. We do not set cookies. We do not use tracking pixels or advertising networks.</p>
+  <p>Elecz is designed to minimize data collection. We do not intentionally collect:</p>
+  <ul>
+    <li>Names, email addresses, or account credentials</li>
+    <li>Payment information</li>
+    <li>Chat messages or conversation history</li>
+    <li>User profiles or advertising identifiers</li>
+  </ul>
+  <p>Elecz does not require user accounts, login credentials, API keys, or authentication for normal use.</p>
 
   <h2>How we use data</h2>
-  <p>Logged data is used solely for service monitoring, debugging, and aggregate usage analytics. Data is never sold or shared with third parties.</p>
+  <p>Technical data is processed solely to operate the service, monitor availability and performance, detect abuse and security incidents, debug errors, and produce aggregate usage statistics. Data is never sold, rented, or shared with third parties for advertising or marketing purposes.</p>
 
-  <h2>Data storage</h2>
-  <p>Request logs and price data are stored in Supabase (EU region) and cached in Upstash Redis. Electricity price data originates from ENTSO-E, Octopus Agile API, AEMO, EM6, CAISO OASIS, ERCOT CDR, NYISO MIS, IESO, KPX EPSIS, and JEPX via japanesepower.org.</p>
+  <h2>Data retention</h2>
+  <ul>
+    <li>Request logs: retained for up to 90 days, then automatically deleted</li>
+    <li>Aggregated usage statistics and counters: retained indefinitely</li>
+    <li>Redis cache: TTL-based, maximum 24 hours</li>
+    <li>Cloudflare edge logs: per Cloudflare's applicable retention policies</li>
+  </ul>
 
-  <h2>MCP server</h2>
-  <p>The MCP endpoint at <code>https://elecz.com/mcp</code> processes tool call requests from AI agents. It receives query parameters (zone, consumption estimates) and returns electricity price signals. No user identity data is transmitted or stored.</p>
+  <h2>Third-party processors</h2>
+  <p>Elecz uses third-party infrastructure providers to operate the service. These providers may process technical request data on our behalf:</p>
+  <ul>
+    <li><strong>Cloudflare</strong> — network delivery, security, DDoS protection</li>
+    <li><strong>Supabase</strong> — database hosting (EU region)</li>
+    <li><strong>Upstash</strong> — Redis caching</li>
+  </ul>
+  <p>These providers act as data processors and process data only as necessary to provide infrastructure services.</p>
+
+  <h2>Data sources</h2>
+  <p>Electricity market data displayed by Elecz originates from public or licensed market sources including ENTSO-E, Octopus Energy Agile API, AEMO, EM6, CAISO OASIS, ERCOT CDR, NYISO MIS, IESO, KPX EPSIS, and JEPX via japanesepower.org.</p>
+
+  <h2>MCP server and AI assistants</h2>
+  <p>The MCP endpoint at <code>https://elecz.com/mcp</code> may receive requests from AI assistants and agent platforms such as ChatGPT, Claude, Cursor, Copilot, and other MCP-compatible clients. Elecz receives only the parameters necessary to fulfill the request, such as zone identifiers, consumption estimates, and tool parameters. Elecz does not receive account information, names, email addresses, or conversation history unless such information is explicitly transmitted by the client. Elecz does not attempt to identify individual users.</p>
+
+  <h2>International users</h2>
+  <p>Elecz is operated from Finland. Depending on the infrastructure provider used, limited technical request data may be processed in the European Union or other jurisdictions where our service providers operate. Appropriate contractual and technical safeguards are used where applicable.</p>
+
+  <h2>Security</h2>
+  <p>Reasonable technical and organizational measures are used to protect service data against unauthorized access, misuse, alteration, or disclosure. No system can guarantee absolute security, but Elecz follows industry-standard practices appropriate for a small-scale infrastructure service.</p>
+
+  <h2>User rights and controls</h2>
+  <p>You may request information regarding data associated with your use of Elecz, or request deletion of such data, by contacting <a href="mailto:sakke@elecz.com">sakke@elecz.com</a>. We will respond within a reasonable period and, where required by law, within applicable legal deadlines.</p>
+
+  <h2>GDPR (EU users)</h2>
+  <p>If you are located in the European Union, you may have rights under the General Data Protection Regulation (GDPR), including the right of access, rectification, erasure, restriction of processing, objection to processing, and data portability where applicable.</p>
+  <p>The legal basis for processing technical request logs is our legitimate interest in operating, securing, and maintaining the service under Article 6(1)(f) GDPR. To exercise your rights, contact <a href="mailto:sakke@elecz.com">sakke@elecz.com</a>.</p>
 
   <h2>Third-party links</h2>
-  <p>Elecz may link to external electricity provider websites. We are not responsible for the privacy practices of those sites.</p>
+  <p>Elecz may contain links to third-party websites including electricity suppliers and energy-related services. We are not responsible for the privacy practices or content of external websites.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>This Privacy Policy may be updated from time to time. Material changes will be reflected by updating the "Last updated" date at the top of this document.</p>
 
   <h2>Contact</h2>
-  <p>Questions: <a href="mailto:sakke@elecz.com">sakke@elecz.com</a></p>
+  <p>Questions, privacy requests, or data-related inquiries:<br>
+  <a href="mailto:sakke@elecz.com">sakke@elecz.com</a><br>
+  Sakari Korkia-Aho · SKA Trading Oy / Zemlo AI · Kokkola, Finland</p>
 
   <footer>
     ⚡ Elecz.com · SKA Trading Oy / Zemlo AI · Kokkola, Finland ·
