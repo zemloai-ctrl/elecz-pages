@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>API precio electricidad tiempo real — España | Elecz</title>
-  <meta name="description" content="API precio electricidad España. Precio spot tiempo real, horas más baratas. MCP-nativo, sin clave API.">
+  <meta name="description" content="API precio electricidad España para agentes IA. Precio spot tiempo real, horas más baratas. MCP-nativo, sin clave API.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/es/">
   <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-api/">
@@ -15,7 +15,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
   <meta property="og:title" content="API precio electricidad tiempo real — España | Elecz">
-  <meta property="og:description" content="API precio electricidad gratuita. Precio spot tiempo real, horas más baratas, tarifa dinámica electricidad. MCP-nativo, sin clave API.">
+  <meta property="og:description" content="API precio electricidad gratuita para agentes IA. Precio spot tiempo real, horas más baratas, tarifa dinámica electricidad. MCP-nativo, sin clave API.">
   <meta property="og:url" content="https://elecz.com/es/">
   <meta property="og:type" content="website">
 
@@ -75,7 +75,7 @@
     .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
     .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
     .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
-    .k { color: #7ec8e3; } .s { color: #a8d8a8; }
+    .k { color: #7ec8e3; } .s { color: #a8d8a8; } .c { color: #888; font-style: italic; }
     .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
     .faq-item:first-child { border-top: 1px solid var(--border); }
     .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
@@ -91,11 +91,30 @@
     footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
     footer a { color: var(--text3); text-decoration: none; }
     footer a:hover { color: var(--text2); }
+    /* Decision-signal callout, identical pattern to /de/ and /fr/ */
+    .signal-banner { max-width: 860px; margin: 0 auto; padding: 36px 24px; border-bottom: 1px solid var(--border); background: var(--green-dim); }
+    .signal-banner-inner { max-width: 720px; }
+    .signal-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+    .signal-banner h2 { font-size: clamp(16px, 2.2vw, 21px); margin-bottom: 12px; }
+    .signal-banner p { font-size: 0.95rem; color: var(--text2); line-height: 1.75; }
+    .signal-flow { font-family: var(--mono); font-size: 0.95rem; color: var(--text); margin-top: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .signal-flow span { padding: 5px 12px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 5px; }
+    .signal-flow .arrow { color: var(--green); font-weight: 600; }
+    /* Use-case grid */
+    .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+    .usecase-item { background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 18px 20px; }
+    .usecase-icon { font-size: 1.2rem; margin-bottom: 8px; }
+    .usecase-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
+    .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+    /* Spain PVPC note */
+    .es-note { font-size: 0.86rem; color: var(--text2); line-height: 1.7; background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px; padding: 14px 16px; margin-top: 16px; }
+    .es-note strong { color: var(--text); }
     @media (max-width: 680px) {
       .nav-links { display: none; }
       .tools-grid { grid-template-columns: 1fr; }
       .tool-card { border-right: none; border-bottom: 1px solid var(--border); }
       .tool-card:last-child { border-bottom: none; }
+      .signal-flow { font-size: 0.85rem; }
     }
   </style>
 
@@ -108,8 +127,121 @@
     "operatingSystem": "Web/API",
     "url": "https://elecz.com/es/",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "API gratuita de precio de electricidad en tiempo real. Precio spot, horas más baratas, tarifa dinámica electricidad. MCP-nativo, sin clave API.",
+    "description": "API gratuita de precio de electricidad en tiempo real para España y Europa. Entrega señales de decisión listas para usar — precio spot, horas más baratas. MCP-nativo, sin clave API.",
     "inLanguage": "es"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "¿Qué conector MCP usar para precios de electricidad en Claude o ChatGPT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Elecz (https://elecz.com/mcp). Es un servidor MCP remoto, sin autenticación ni clave API: basta añadir la URL en los conectores personalizados de Claude, o como conector en ChatGPT. Expone tres herramientas — spot_price, cheapest_hours, best_energy_contract — cubriendo España y más de 100 zonas eléctricas en el mundo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Elecz cubre Texas y California? ¿Funciona igual que en España?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí, con una diferencia. California (zona US-CA-SP15, mercado CAISO) funciona igual que España: spot_price y cheapest_hours disponibles, precio en USD c/kWh. Texas (zona US-TX-HB_HOUSTON, mercado ERCOT) tiene spot_price disponible, pero cheapest_hours no — ERCOT no publica precios day-ahead en formato abierto como CAISO o ENTSO-E, así que no hay datos de las próximas 24h sobre los que calcular las horas más baratas. Para ambos casos el precio es mayorista, sin cargos de transmisión, distribución ni impuestos."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Elecz cubre México? ¿Qué zona debo usar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Elecz cubre México con 14 zonas por ciudad vía CENACE (MX-AGS, MX-MTY, MX-GDL, MX-PUE, MX-VER, MX-CHH, MX-HMO, MX-MID, MX-CUL, MX-LEO, MX-QRO, MX-MLM, MX-OAX, MX-CUN). El precio se devuelve en MXN/kWh, no en EUR. Hay que usar el código de la zona de carga correspondiente a la ciudad — un código genérico MX no es válido, ya que los precios varían significativamente entre zonas."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Existe una API gratuita de precio de electricidad para España sin clave API?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Elecz es completamente gratuito para España — precio spot y horas más baratas disponibles para la zona ES sin clave API, cuenta ni registro. Basta con llamar a GET /signal/spot?zone=ES."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo obtengo el precio spot de la electricidad en España vía API?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Elecz proporciona los precios mayoristas ENTSO-E para la zona ES, basados en las subastas del mercado ibérico OMIE. Sin necesidad de acceso directo a OMIE o ENTSO-E — Elecz normaliza los datos y los devuelve en ct/kWh sin autenticación. Precios del día siguiente disponibles a partir de las 13:00 CET."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿El precio spot de Elecz corresponde al PVPC?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Son similares pero no idénticos. El PVPC es una tarifa regulada que sigue de cerca el precio mayorista OMIE hora a hora, pero desde 2024 incorpora también una cesta de precios a plazo (futuros) que suaviza su volatilidad, y desde 2025 se calcula en intervalos de 15 minutos. El precio spot de Elecz refleja directamente el mercado mayorista diario sin ese ajuste de futuros, de forma similar a una tarifa indexada del mercado libre. Para un hogar en PVPC o en tarifa indexada, el signal de Elecz es una referencia útil, aunque el importe exacto de la factura puede diferir ligeramente."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Elecz compara las ofertas de comercializadoras de luz en España?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Todavía no. La herramienta best_energy_contract compara actualmente contratos spot y fijos para FI, SE, NO, DK, DE, GB, AU y NZ. Para España, Elecz proporciona el precio spot y las horas más baratas (zona ES); la comparación de contratos está en la hoja de ruta."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Funciona Elecz con Home Assistant o n8n?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. A través de la REST API o el node oficial n8n (n8n-nodes-elecz), Elecz se integra en cualquier plataforma de automatización. El campo current_hour_signal devuelve directamente low, medium o high — sin lógica personalizada necesaria."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué es MCP y por qué es útil para datos de electricidad?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MCP (Model Context Protocol) es un estándar abierto para conectar agentes IA con herramientas externas. Los precios cambian cada hora — un agente necesita una llamada API en vivo, no datos de entrenamiento. Conectar vía https://elecz.com/mcp, sin configuración requerida. Compatible con Claude, ChatGPT, Grok, Cursor, Copilot y Mistral."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Está la electricidad barata ahora mismo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El campo energy_state en la respuesta de cheapest_hours devuelve directamente cheap, normal, expensive o negative — sin cálculo de umbral necesario."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Debería lanzar una tarea ahora o esperar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El campo recommendation en la respuesta de cheapest_hours devuelve directamente run_high_consumption_tasks, normal_usage o avoid."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuál es la próxima hora más barata para la electricidad?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Los campos next_cheap_hour (marca de tiempo) y hours_until_next_cheap (0 significa inmediatamente) en la respuesta de cheapest_hours dan la información directamente."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuál es la mejor franja horaria para consumir electricidad hoy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "El campo best_3h_window en la respuesta de cheapest_hours proporciona el inicio, el fin y el precio medio de la ventana de tres horas más barata."
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -127,7 +259,7 @@
 </nav>
 
 <div class="hero">
-  <div class="hero-eyebrow">API precio electricidad — España &amp; Europa</div>
+  <div class="hero-eyebrow">API precio electricidad — España, México &amp; Europa</div>
   <h1>API precio electricidad tiempo real.<br><span class="hl">Sin clave API. MCP-nativo.</span></h1>
   <p class="hero-lead">
     Elecz proporciona el precio spot actual de la electricidad, las horas más baratas y las mejores opciones de contrato — para agentes IA, domótica y carga de vehículos eléctricos. Sin clave API, sin registro, sin configuración.
@@ -145,9 +277,25 @@
   </div>
 </div>
 
+<div class="signal-banner">
+  <div class="signal-banner-inner">
+    <div class="signal-eyebrow">No es una fuente de datos — es una capa de decisión</div>
+    <h2>No solo precios. Señales de decisión listas para usar.</h2>
+    <p>ENTSO-E y OMIE proporcionan precios brutos — 24 valores por día que un agente debe interpretar primero. Elecz ya hace ese trabajo: sin lógica propia que programar, sin umbrales que definir, sin recalcular nada.</p>
+    <div class="signal-flow">
+      <span>11,7 c/kWh</span>
+      <span class="arrow">→</span>
+      <span>low</span>
+      <span class="arrow">→</span>
+      <span>cargar ahora</span>
+    </div>
+    <p style="font-size: 0.88rem; color: var(--text2); line-height: 1.75; margin-top: 18px;">ENTSO-E y OMIE son fuentes de datos — no una interfaz para agentes, ni MCP, ni una recomendación lista. Elecz se construye sobre ellas y entrega el resultado, no solo el número bruto.</p>
+  </div>
+</div>
+
 <div class="section">
   <h2>Tres herramientas. Todos los casos de uso cubiertos.</h2>
-  <p class="section-sub">Elecz expone tres herramientas MCP que cubren todo lo que un agente IA necesita para decisiones sobre precios de electricidad.</p>
+  <p class="section-sub">Elecz expone tres herramientas MCP — para el precio spot actual, la planificación de horas más baratas y la comparación de contratos donde está disponible. Referencia completa de campos en la <a href="/docs" style="color: var(--accent2); text-decoration: underline;">documentación de la API de precio de electricidad</a>.</p>
   <div class="tools-grid">
     <div class="tool-card">
       <div class="tool-name">spot_price</div>
@@ -159,7 +307,7 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">best_energy_contract</div>
-      <div class="tool-desc">Opciones de contrato en tiempo real. Devuelve el mejor contrato spot, el mejor contrato fijo y una recomendación general — cada uno como categoría separada. También vía REST: <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
+      <div class="tool-desc">Opciones de contrato en tiempo real — disponible para FI, SE, NO, DK, DE, GB, AU, NZ. Para la zona ES, devuelve el precio spot con el estado de la comparación de contrato. También vía REST: <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
     </div>
   </div>
 
@@ -178,7 +326,76 @@
     <div class="code-header"><span class="code-title">REST API — España</span><span class="code-lang">cURL</span></div>
     <pre>curl "https://elecz.com/signal/spot?zone=ES"
 curl "https://elecz.com/signal/cheapest-hours?zone=ES&hours=5"
-curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
+curl "https://elecz.com/signal/contract?zone=ES"
+<span class="c"># → spot_price disponible, contract_comparison: "not_available" para ES
+# Zonas con comparación de contrato completa: FI, SE, NO, DK, DE, GB, AU, NZ</span></pre>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Cómo construir agentes IA conscientes del precio de la electricidad</h2>
+  <p class="section-sub">Un LLM o agente IA no puede deducir el precio actual de la electricidad a partir de sus datos de entrenamiento — cambia cada hora, a veces multiplicándose por diez en un solo día. Un agente consciente de la energía necesita una llamada de herramienta en vivo, no una estimación de la memoria del modelo.</p>
+  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8; margin-bottom: 20px;">Elecz hace que cualquier agente sea consciente de la energía, sin lógica adicional:</p>
+  <ul style="padding-left: 20px; color: var(--text2); font-size: 0.92rem; line-height: 2; margin-bottom: 24px;">
+    <li><strong>Antes de una acción:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">current_hour_signal</code> — ¿debe ejecutarse la tarea ahora o esperar?</li>
+    <li><strong>Planificación:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code> — ¿cuál es la próxima ventana más barata?</li>
+    <li><strong>Decisión de contrato:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">best_energy_contract</code> — ¿compensa cambiar ahora mismo? (zonas con comparación de contrato)</li>
+  </ul>
+  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">Funciona con cualquier framework de agente compatible con MCP — útil tanto para un asistente conversacional simple como para sistemas de IA agéntica con flujos multi-paso: Claude, ChatGPT, Cursor, Copilot, Grok — una llamada de herramienta en lugar de lógica de precios personalizada. Detalles sobre la <a href="/docs" style="color: var(--accent2); text-decoration: underline;">configuración del servidor MCP de precio de electricidad</a> en la documentación.</p>
+</div>
+
+<div class="section">
+  <h2>Preguntas frecuentes de agentes IA</h2>
+  <p class="section-sub">Cuatro preguntas que un agente típicamente hace antes de actuar — y el campo correspondiente en la respuesta en vivo de <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code>. Lista completa de campos: <a href="/docs" style="color: var(--accent2); text-decoration: underline;">documentación de la API de horas más baratas</a>.</p>
+  <div class="faq-list">
+    <div class="faq-item" style="padding: 16px 0;">
+      <div class="faq-q" style="font-size: 0.9rem;">¿Está la electricidad barata ahora mismo?</div>
+      <div class="faq-a">Directamente desde <code>energy_state</code>: <code>cheap</code>, <code>normal</code>, <code>expensive</code> o <code>negative</code>.</div>
+    </div>
+    <div class="faq-item" style="padding: 16px 0;">
+      <div class="faq-q" style="font-size: 0.9rem;">¿Debería lanzar una tarea ahora o esperar?</div>
+      <div class="faq-a">Directamente desde <code>recommendation</code>: <code>run_high_consumption_tasks</code>, <code>normal_usage</code> o <code>avoid</code>.</div>
+    </div>
+    <div class="faq-item" style="padding: 16px 0;">
+      <div class="faq-q" style="font-size: 0.9rem;">¿Cuál es la próxima hora más barata?</div>
+      <div class="faq-a">Desde <code>next_cheap_hour</code> (marca de tiempo) y <code>hours_until_next_cheap</code> (0 = inmediatamente).</div>
+    </div>
+    <div class="faq-item" style="padding: 16px 0; border-bottom: none;">
+      <div class="faq-q" style="font-size: 0.9rem;">¿Cuál es la mejor franja horaria hoy?</div>
+      <div class="faq-a">Directamente desde <code>best_3h_window</code> — inicio, fin y precio medio de la ventana de tres horas más barata.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Casos de uso típicos</h2>
+  <p class="section-sub">De la automatización simple al agente autónomo — las mismas tres herramientas cubren cada caso.</p>
+  <div class="usecase-grid">
+    <div class="usecase-item">
+      <div class="usecase-icon">🚗</div>
+      <div class="usecase-title">Carga de vehículo eléctrico</div>
+      <div class="usecase-desc">Encontrar las 3 horas más baratas de hoy y programar la carga automáticamente.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🌡️</div>
+      <div class="usecase-title">Control de bomba de calor</div>
+      <div class="usecase-desc">Evitar automáticamente las horas caras, usar las horas baratas del mercado mayorista de forma específica.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🔋</div>
+      <div class="usecase-title">Almacenamiento en batería</div>
+      <div class="usecase-desc">Cargar durante el periodo más barato del día, descargar de forma específica en las horas caras.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🏠</div>
+      <div class="usecase-title">Home Assistant / n8n</div>
+      <div class="usecase-desc">Usar <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">current_hour_signal</code> directamente en automatizaciones — sin lógica de umbral que programar.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🤖</div>
+      <div class="usecase-title">Agentes IA</div>
+      <div class="usecase-desc">Tomar decisiones optimizadas para la energía automáticamente, sin lógica de cálculo adicional.</div>
+    </div>
   </div>
 </div>
 
@@ -188,11 +405,32 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
     <li>Precio <strong>sin incluir</strong> peajes de acceso y cargos de red</li>
     <li>Precio <strong>sin incluir</strong> impuestos — IVA, impuesto eléctrico no incluidos</li>
-    <li>Precio mayorista spot — diferente a la tarifa regulada PVPC</li>
-    <li>Mercado gestionado por OMIE, datos via ENTSO-E Transparency Platform</li>
+    <li>Precio mayorista spot horario — Elecz no aplica el ajuste de futuros que incorpora el PVPC desde 2024</li>
+    <li>Mercado gestionado por OMIE, datos vía ENTSO-E Transparency Platform</li>
+    <li>Comparación de contratos (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">best_energy_contract</code>): aún no disponible para la zona ES — en la hoja de ruta</li>
     <li>Portugal (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">PT</code>) también soportado — mismo mercado ibérico MIBEL</li>
   </ul>
-  <p style="font-size: 0.88rem; color: var(--text2);">Los desarrolladores en España también buscan:</p>
+
+  <div class="es-note">
+    <strong>Sobre el PVPC y el mercado libre:</strong> en España, más de 10 millones de hogares siguen en la tarifa PVPC (Precio Voluntario para el Pequeño Consumidor), regulada por el Gobierno y limitada a potencias de hasta 10 kW. A diferencia del TRV francés, el PVPC sigue de cerca el precio mayorista OMIE hora a hora — pero desde julio de 2024 incorpora también una cesta de precios a plazo (futuros) que suaviza su volatilidad, y desde octubre de 2025 se calcula en intervalos de 15 minutos (96 precios diarios) en lugar de precios horarios. El precio spot de Elecz refleja el mercado mayorista diario sin ese ajuste de futuros y a resolución horaria, de forma similar a una tarifa indexada del mercado libre. Es una referencia útil tanto para PVPC como para tarifas indexadas, aunque el importe exacto de la factura puede diferir ligeramente del precio spot puro.
+  </div>
+
+  <div class="es-note" style="margin-top: 12px;">
+    <strong>Elecz no es un comparador de tarifas para consumidores.</strong> Según lo que busques, la fuente correcta difiere: Selectra o comparadores similares para elegir comercializadora como consumidor; la CNMC y Red Eléctrica (REE/ESIOS) para el marco regulatorio y los precios oficiales del PVPC; OMIE y ENTSO-E para datos de mercado en bruto. Elecz proporciona una señal en tiempo real — precio spot, horas más baratas — diseñada para que la llame un agente IA o una automatización, no para contratar un suministro.
+  </div>
+
+  <div class="es-note" style="margin-top: 12px;">
+    <strong>Usa Elecz cuando la pregunta sea del tipo:</strong>
+    <ul style="padding-left: 20px; margin-top: 8px; line-height: 1.9;">
+      <li>¿Está la luz barata ahora mismo?</li>
+      <li>¿Cuándo cargar el coche eléctrico hoy?</li>
+      <li>¿Cuál es la ventana más barata en las próximas 24h?</li>
+      <li>¿Debe un agente IA lanzar una tarea ahora o esperar?</li>
+      <li>¿Cómo conectar Claude o ChatGPT a los precios de la electricidad?</li>
+    </ul>
+  </div>
+
+  <p style="font-size: 0.88rem; color: var(--text2); margin-top: 20px;">Los desarrolladores en España también buscan:</p>
   <div class="keyword-cloud">
     <span class="kw">API precio electricidad España</span>
     <span class="kw">OMIE API precio electricidad</span>
@@ -204,12 +442,82 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     <span class="kw">API electricidad sin registro</span>
     <span class="kw">servidor MCP electricidad</span>
     <span class="kw">conector MCP electricidad</span>
+    <span class="kw">agente IA consciente energía</span>
+    <span class="kw">señal de decisión precio electricidad</span>
+    <span class="kw">conectar Claude ChatGPT electricidad</span>
+    <span class="kw">precio electricidad México API</span>
+    <span class="kw">CENACE API precio electricidad</span>
+    <span class="kw">precio luz Texas español API</span>
+    <span class="kw">precio electricidad California español</span>
+    <span class="kw">ERCOT CAISO API español</span>
+    <span class="kw">API electricidad para LLM</span>
+    <span class="kw">IA agéntica precio electricidad</span>
+  </div>
+</div>
+
+<div class="section">
+  <h2>México — 14 zonas vía CENACE</h2>
+  <p class="section-sub">Elecz también cubre México con datos del Mercado Eléctrico Mayorista (MDA, día en adelanto) operado por CENACE — una fuente de datos completamente distinta a ENTSO-E, con su propia moneda y estructura regulatoria.</p>
+  <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
+    <li>Precio mayorista en <strong>MXN/kWh</strong> — no en EUR, a diferencia de las zonas europeas</li>
+    <li>14 zonas por ciudad, cada una con su propio precio: <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">MX-CUN</code> (Cancún), <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">MX-MTY</code> (Monterrey), <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">MX-GDL</code> (Guadalajara), <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">MX-HMO</code> (Hermosillo) y 10 zonas más — <a href="/docs" style="color: var(--accent2); text-decoration: underline;">lista completa en la documentación</a></li>
+    <li>Las zonas tienen precios muy distintos entre sí — el Sistema Eléctrico Nacional (SIN) de México no es un mercado único, sino miles de nodos agrupados por zona de carga; un agente que optimiza consumo en Monterrey no debe usar el precio de Cancún</li>
+    <li><code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">cheapest_hours</code> disponible para todas las zonas MX, igual que en Europa</li>
+    <li>Precio <strong>mayorista únicamente</strong> — la tarifa minorista de CFE (Comisión Federal de Electricidad) incluye cargos de distribución, impuestos y subsidios que no están reflejados en este dato</li>
+  </ul>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">REST API — México</span><span class="code-lang">cURL</span></div>
+    <pre>curl "https://elecz.com/signal/spot?zone=MX-CUN"
+curl "https://elecz.com/signal/cheapest-hours?zone=MX-MTY&hours=5"
+<span class="c"># → precio en MXN/kWh, fuente: CENACE_MDA
+# Usar siempre el código de ciudad (MX-CUN, MX-MTY...), no "MX" solo</span></pre>
+  </div>
+
+  <div class="es-note">
+    <strong>Por qué importa elegir la zona correcta:</strong> a diferencia de un país europeo con una sola zona de precio, México agrupa su red en zonas de carga regionales con precios independientes. Un agente IA que cargue un vehículo eléctrico en Hermosillo o programe una bomba de calor en Mérida necesita el código de su propia zona — el precio nacional promedio no refleja la realidad local.
+  </div>
+</div>
+
+<div class="section">
+  <h2>Texas y California — para los más de 28 millones de hispanohablantes en EE.&nbsp;UU.</h2>
+  <p class="section-sub">California (16,1 millones) y Texas (12,6 millones) tienen las mayores poblaciones hispanas de Estados Unidos. Elecz cubre ambos mercados eléctricos — CAISO en California, ERCOT en Texas — con la misma señal de decisión que en España y México.</p>
+  <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
+    <li>Precio mayorista en <strong>USD c/kWh</strong> — no en EUR ni MXN</li>
+    <li>California (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">US-CA-SP15</code>, zona CAISO): <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">spot_price</code> y <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">cheapest_hours</code> disponibles, igual que en Europa</li>
+    <li>Texas (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">US-TX-HB_HOUSTON</code>, zona ERCOT): <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">spot_price</code> disponible; <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">cheapest_hours</code> no disponible — ERCOT no publica precios day-ahead en formato abierto, a diferencia de CAISO o ENTSO-E</li>
+    <li>Precio <strong>mayorista únicamente</strong> — las tarifas minoristas de los proveedores de Texas (mercado desregulado) y California incluyen transmisión, distribución e impuestos adicionales</li>
+  </ul>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">REST API — California y Texas</span><span class="code-lang">cURL</span></div>
+    <pre>curl "https://elecz.com/signal/spot?zone=US-CA-SP15"
+curl "https://elecz.com/signal/cheapest-hours?zone=US-CA-SP15&hours=5"
+curl "https://elecz.com/signal/spot?zone=US-TX-HB_HOUSTON"
+<span class="c"># → California: spot_price y cheapest_hours disponibles (fuente: CAISO_DAM)
+# → Texas: spot_price disponible (fuente: ERCOT_RT); cheapest_hours no disponible — ERCOT no publica datos day-ahead abiertos</span></pre>
+  </div>
+
+  <div class="es-note">
+    <strong>Una comunidad que ya construye esto para España, todavía no para Texas o California:</strong> la integración de Home Assistant para PVPC tiene más de 1000 instalaciones activas entre hispanohablantes que automatizan su consumo eléctrico en España. Esa misma necesidad — saber cuándo es barata la luz para cargar un coche eléctrico o programar el aire acondicionado — existe igual en Houston o Los Ángeles. Elecz proporciona la señal en español para que esa automatización también pueda construirse ahí.
   </div>
 </div>
 
 <div class="section">
   <h2>Preguntas frecuentes</h2>
   <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">¿Elecz cubre Texas y California? ¿Funciona igual que en España?</div>
+      <div class="faq-a">Sí, con una diferencia. California (zona <code>US-CA-SP15</code>, mercado CAISO) funciona igual que España: <code>spot_price</code> y <code>cheapest_hours</code> disponibles, precio en USD c/kWh. Texas (zona <code>US-TX-HB_HOUSTON</code>, mercado ERCOT) tiene <code>spot_price</code> disponible, pero <code>cheapest_hours</code> no — ERCOT no publica precios day-ahead en formato abierto como CAISO o ENTSO-E, así que no hay datos de las próximas 24h sobre los que calcular las horas más baratas. Para ambos casos el precio es mayorista, sin cargos de transmisión, distribución ni impuestos.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Elecz cubre México? ¿Qué zona debo usar?</div>
+      <div class="faq-a">Sí. Elecz cubre México con 14 zonas por ciudad vía CENACE (<code>MX-AGS</code>, <code>MX-MTY</code>, <code>MX-GDL</code>, <code>MX-PUE</code>, <code>MX-VER</code>, <code>MX-CHH</code>, <code>MX-HMO</code>, <code>MX-MID</code>, <code>MX-CUL</code>, <code>MX-LEO</code>, <code>MX-QRO</code>, <code>MX-MLM</code>, <code>MX-OAX</code>, <code>MX-CUN</code>). El precio se devuelve en MXN/kWh, no en EUR. Hay que usar el código de la zona de carga correspondiente a la ciudad — un código genérico <code>MX</code> no es válido, ya que los precios varían significativamente entre zonas.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Qué conector MCP usar para precios de electricidad en Claude o ChatGPT?</div>
+      <div class="faq-a">Elecz (<code>https://elecz.com/mcp</code>). Es un servidor MCP remoto, sin autenticación ni clave API: basta añadir la URL en los conectores personalizados de Claude, o como conector en ChatGPT. Expone tres herramientas — <code>spot_price</code>, <code>cheapest_hours</code>, <code>best_energy_contract</code> — cubriendo España y más de 100 zonas eléctricas en el mundo.</div>
+    </div>
     <div class="faq-item">
       <div class="faq-q">¿Existe una API gratuita de precio de electricidad para España sin clave API?</div>
       <div class="faq-a">Sí. Elecz es completamente gratuito para España — precio spot y horas más baratas disponibles para la zona <code>ES</code> sin clave API, cuenta ni registro. Basta con llamar a <code>GET /signal/spot?zone=ES</code>.</div>
@@ -219,8 +527,12 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
       <div class="faq-a">Elecz proporciona los precios mayoristas ENTSO-E para la zona ES, basados en las subastas del mercado ibérico OMIE. Sin necesidad de acceso directo a OMIE o ENTSO-E — Elecz normaliza los datos y los devuelve en ct/kWh sin autenticación. Precios del día siguiente disponibles a partir de las 13:00 CET.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">¿Qué es una tarifa dinámica de electricidad y cómo las compara Elecz?</div>
-      <div class="faq-a">Una tarifa dinámica indexa el precio del consumo al precio horario del mercado mayorista. La herramienta <code>best_energy_contract</code> devuelve el mejor contrato spot disponible, el mejor contrato fijo y una recomendación general — cada uno como categoría separada. Disponible para FI, SE, NO, DK, DE, GB, AU, NZ. También vía REST: <code>GET /signal/contract?zone=DE&consumption=3500</code></div>
+      <div class="faq-q">¿El precio spot de Elecz corresponde al PVPC?</div>
+      <div class="faq-a">Son similares pero no idénticos. El PVPC es una tarifa regulada que sigue de cerca el precio mayorista OMIE hora a hora, pero desde 2024 incorpora también una cesta de precios a plazo (futuros) que suaviza su volatilidad, y desde 2025 se calcula en intervalos de 15 minutos. El precio spot de Elecz refleja directamente el mercado mayorista diario sin ese ajuste de futuros, de forma similar a una tarifa indexada del mercado libre. Para un hogar en PVPC o en tarifa indexada, el signal de Elecz es una referencia útil, aunque el importe exacto de la factura puede diferir ligeramente.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Elecz compara las ofertas de comercializadoras de luz en España?</div>
+      <div class="faq-a">Todavía no. La herramienta <code>best_energy_contract</code> compara actualmente contratos spot y fijos para FI, SE, NO, DK, DE, GB, AU y NZ. Para España, Elecz proporciona el precio spot y las horas más baratas (zona <code>ES</code>); la comparación de contratos está en la hoja de ruta.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">¿Funciona Elecz con Home Assistant o n8n?</div>
