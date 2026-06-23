@@ -75,7 +75,7 @@
     .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
     .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
     .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
-    .k { color: #7ec8e3; } .s { color: #a8d8a8; }
+    .k { color: #7ec8e3; } .s { color: #a8d8a8; } .c { color: #888; font-style: italic; }
     .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
     .faq-item:first-child { border-top: 1px solid var(--border); }
     .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
@@ -91,11 +91,30 @@
     footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
     footer a { color: var(--text3); text-decoration: none; }
     footer a:hover { color: var(--text2); }
+    /* Decision-signal callout, identical pattern to /de/ */
+    .signal-banner { max-width: 860px; margin: 0 auto; padding: 36px 24px; border-bottom: 1px solid var(--border); background: var(--green-dim); }
+    .signal-banner-inner { max-width: 720px; }
+    .signal-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+    .signal-banner h2 { font-size: clamp(16px, 2.2vw, 21px); margin-bottom: 12px; }
+    .signal-banner p { font-size: 0.95rem; color: var(--text2); line-height: 1.75; }
+    .signal-flow { font-family: var(--mono); font-size: 0.95rem; color: var(--text); margin-top: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .signal-flow span { padding: 5px 12px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 5px; }
+    .signal-flow .arrow { color: var(--green); font-weight: 600; }
+    /* Use-case grid */
+    .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+    .usecase-item { background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 18px 20px; }
+    .usecase-icon { font-size: 1.2rem; margin-bottom: 8px; }
+    .usecase-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
+    .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+    /* France dual-system note (replaces DACH-style grid — France doesn't split into 3 comparable sub-zones) */
+    .fr-note { font-size: 0.86rem; color: var(--text2); line-height: 1.7; background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px; padding: 14px 16px; margin-top: 16px; }
+    .fr-note strong { color: var(--text); }
     @media (max-width: 680px) {
       .nav-links { display: none; }
       .tools-grid { grid-template-columns: 1fr; }
       .tool-card { border-right: none; border-bottom: 1px solid var(--border); }
       .tool-card:last-child { border-bottom: none; }
+      .signal-flow { font-size: 0.85rem; }
     }
   </style>
 
@@ -108,8 +127,105 @@
     "operatingSystem": "Web/API",
     "url": "https://elecz.com/fr/",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "API gratuite de prix d'électricité en temps réel. Prix spot, heures les moins chères, tarif dynamique électricité. MCP-natif, sans clé API.",
+    "description": "API gratuite de prix d'électricité en temps réel pour la France et l'Europe. Livre des signaux de décision prêts à l'emploi — prix spot, heures les moins chères. MCP-natif, sans clé API.",
     "inLanguage": "fr"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Quel connecteur MCP utiliser pour les prix de l'électricité dans Claude ou ChatGPT ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Elecz (https://elecz.com/mcp). C'est un serveur MCP distant, sans authentification ni clé API : il suffit d'ajouter l'URL dans les connecteurs personnalisés de Claude, ou comme connecteur dans ChatGPT. Il expose trois outils — spot_price, cheapest_hours, best_energy_contract — couvrant la France et plus de 100 zones électriques dans le monde."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Existe-t-il une API gratuite de prix d'électricité pour la France sans clé API ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui. Elecz est entièrement gratuit pour la France — prix spot et heures les moins chères disponibles pour la zone FR sans clé API, compte ou inscription. Il suffit d'appeler GET /signal/spot?zone=FR."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Comment obtenir le prix spot de l'électricité en France via une API ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Elecz fournit les prix de gros ENTSO-E pour la zone FR, issus des enchères day-ahead. Pas besoin d'accès direct à ENTSO-E — Elecz normalise les données et les retourne en ct/kWh sans authentification. Prix du lendemain disponibles à partir de 13h00 CET."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Le prix spot Elecz correspond-il au tarif réglementé (TRV) d'EDF ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Non, ce sont deux mécanismes différents. Le TRV (Tarif Bleu) est fixé par la CRE sur la base des coûts de production, transport et distribution, révisé deux fois par an. Le prix spot Elecz est le prix de gros horaire du marché, issu d'ENTSO-E. Un foyer au TRV ne paie pas directement ce prix spot. Le signal est surtout utile pour les foyers en offre de marché indexée, ou pour la recharge VE et le pilotage d'appareils, où le moment de consommation a un impact réel."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Elecz compare-t-il les offres de fournisseurs d'électricité en France ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pas encore. L'outil best_energy_contract compare actuellement les contrats spot et fixes pour FI, SE, NO, DK, DE, GB, AU et NZ. Pour la France, Elecz fournit le prix spot et les heures les moins chères (zone FR) ; la comparaison de contrats est sur la feuille de route."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Elecz fonctionne-t-il avec Home Assistant ou n8n ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui. Via l'API REST ou le node officiel n8n (n8n-nodes-elecz), Elecz s'intègre à toute plateforme d'automatisation. Le champ current_hour_signal retourne directement low, medium ou high — aucune logique personnalisée nécessaire."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qu'est-ce que MCP et pourquoi est-ce utile pour les données d'électricité ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MCP (Model Context Protocol) est un standard ouvert pour connecter des agents IA à des outils externes. Les prix changent chaque heure — un agent a besoin d'un appel API en direct, pas de données d'entraînement. Connecter via https://elecz.com/mcp, aucune configuration requise. Fonctionne avec Claude, ChatGPT, Grok, Cursor, Copilot et Mistral."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "L'électricité est-elle bon marché actuellement ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Le champ energy_state dans la réponse de cheapest_hours retourne directement cheap, normal, expensive ou negative — aucun calcul de seuil nécessaire."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Faut-il lancer une tâche maintenant ou attendre ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Le champ recommendation dans la réponse de cheapest_hours retourne directement run_high_consumption_tasks, normal_usage ou avoid."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelle est la prochaine heure la moins chère pour l'électricité ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Les champs next_cheap_hour (horodatage) et hours_until_next_cheap (0 signifie immédiatement) dans la réponse de cheapest_hours donnent directement l'information."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelle est la meilleure plage horaire pour consommer de l'électricité aujourd'hui ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Le champ best_3h_window dans la réponse de cheapest_hours fournit le début, la fin et le prix moyen de la fenêtre de trois heures la moins chère."
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -145,9 +261,25 @@
   </div>
 </div>
 
+<div class="signal-banner">
+  <div class="signal-banner-inner">
+    <div class="signal-eyebrow">Pas une source de données — une couche de décision</div>
+    <h2>Pas seulement des prix. Des signaux de décision prêts à l'emploi.</h2>
+    <p>ENTSO-E fournit des prix bruts — 24 valeurs par jour qu'un agent doit encore interpréter. Elecz fait déjà ce travail : aucune logique à coder, aucun seuil à définir, aucun recalcul.</p>
+    <div class="signal-flow">
+      <span>11,6 c/kWh</span>
+      <span class="arrow">→</span>
+      <span>low</span>
+      <span class="arrow">→</span>
+      <span>charger maintenant</span>
+    </div>
+    <p style="font-size: 0.88rem; color: var(--text2); line-height: 1.75; margin-top: 18px;">ENTSO-E est une source de données — pas une interface agent, pas de MCP, pas de recommandation prête à l'emploi. Elecz s'appuie dessus et livre le résultat, pas seulement la valeur brute.</p>
+  </div>
+</div>
+
 <div class="section">
   <h2>Trois outils. Tous les cas d'usage couverts.</h2>
-  <p class="section-sub">Elecz expose trois outils MCP qui couvrent tout ce dont un agent IA a besoin pour les décisions sur les prix de l'électricité.</p>
+  <p class="section-sub">Elecz expose trois outils MCP — pour le prix spot actuel, la planification des heures les moins chères et la comparaison de contrats là où elle est disponible. Référence complète des champs dans la <a href="/docs" style="color: var(--accent2); text-decoration: underline;">documentation API prix électricité</a>.</p>
   <div class="tools-grid">
     <div class="tool-card">
       <div class="tool-name">spot_price</div>
@@ -159,7 +291,7 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">best_energy_contract</div>
-      <div class="tool-desc">Options de contrat en temps réel. Retourne le meilleur contrat spot, le meilleur contrat fixe et une recommandation générale — chacun comme catégorie séparée. Aussi via REST : <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
+      <div class="tool-desc">Options de contrat en temps réel — disponible pour FI, SE, NO, DK, DE, GB, AU, NZ. Pour la zone FR, retourne le prix spot avec le statut de comparaison de contrat. Aussi via REST : <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
     </div>
   </div>
 
@@ -178,7 +310,76 @@
     <div class="code-header"><span class="code-title">REST API — France</span><span class="code-lang">cURL</span></div>
     <pre>curl "https://elecz.com/signal/spot?zone=FR"
 curl "https://elecz.com/signal/cheapest-hours?zone=FR&hours=5"
-curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
+curl "https://elecz.com/signal/contract?zone=FR"
+<span class="c"># → spot_price disponible, contract_comparison: "not_available" pour FR
+# Zones avec comparaison de contrat complète : FI, SE, NO, DK, DE, GB, AU, NZ</span></pre>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Construire des agents IA conscients du prix de l'électricité</h2>
+  <p class="section-sub">Un agent IA ne peut pas déduire le prix actuel de l'électricité à partir de ses données d'entraînement — il change chaque heure, parfois du simple au décuple en une journée. Un agent conscient de l'énergie a besoin d'un appel d'outil en direct, pas d'une estimation tirée de sa mémoire.</p>
+  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8; margin-bottom: 20px;">Elecz rend n'importe quel agent conscient de l'énergie, sans logique supplémentaire :</p>
+  <ul style="padding-left: 20px; color: var(--text2); font-size: 0.92rem; line-height: 2; margin-bottom: 24px;">
+    <li><strong>Avant une action :</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">current_hour_signal</code> — la tâche doit-elle s'exécuter maintenant ou attendre ?</li>
+    <li><strong>Planification :</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code> — quelle est la prochaine fenêtre la moins chère ?</li>
+    <li><strong>Décision de contrat :</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">best_energy_contract</code> — un changement vaut-il le coup actuellement ? (zones avec comparaison de contrat)</li>
+  </ul>
+  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">Fonctionne avec tout framework d'agent compatible MCP : Claude, ChatGPT, Cursor, Copilot, Grok — un appel d'outil au lieu d'une logique de prix personnalisée. Détails sur la <a href="/docs" style="color: var(--accent2); text-decoration: underline;">configuration du serveur MCP prix électricité</a> dans les docs.</p>
+</div>
+
+<div class="section">
+  <h2>Questions fréquentes des agents IA</h2>
+  <p class="section-sub">Quatre questions qu'un agent pose typiquement avant d'agir — et le champ correspondant dans la réponse en direct de <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code>. Liste complète des champs : <a href="/docs" style="color: var(--accent2); text-decoration: underline;">documentation API heures les moins chères</a>.</p>
+  <div class="faq-list">
+    <div class="faq-item" style="padding: 16px 0;">
+      <div class="faq-q" style="font-size: 0.9rem;">L'électricité est-elle bon marché actuellement ?</div>
+      <div class="faq-a">Directement depuis <code>energy_state</code> : <code>cheap</code>, <code>normal</code>, <code>expensive</code> ou <code>negative</code>.</div>
+    </div>
+    <div class="faq-item" style="padding: 16px 0;">
+      <div class="faq-q" style="font-size: 0.9rem;">Faut-il lancer une tâche maintenant ou attendre ?</div>
+      <div class="faq-a">Directement depuis <code>recommendation</code> : <code>run_high_consumption_tasks</code>, <code>normal_usage</code> ou <code>avoid</code>.</div>
+    </div>
+    <div class="faq-item" style="padding: 16px 0;">
+      <div class="faq-q" style="font-size: 0.9rem;">Quelle est la prochaine heure la moins chère ?</div>
+      <div class="faq-a">Depuis <code>next_cheap_hour</code> (horodatage) et <code>hours_until_next_cheap</code> (0 = immédiatement).</div>
+    </div>
+    <div class="faq-item" style="padding: 16px 0; border-bottom: none;">
+      <div class="faq-q" style="font-size: 0.9rem;">Quelle est la meilleure fenêtre horaire aujourd'hui ?</div>
+      <div class="faq-a">Directement depuis <code>best_3h_window</code> — début, fin et prix moyen de la fenêtre de trois heures la moins chère.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Cas d'usage typiques</h2>
+  <p class="section-sub">De l'automatisation simple à l'agent autonome — les mêmes trois outils couvrent chaque cas.</p>
+  <div class="usecase-grid">
+    <div class="usecase-item">
+      <div class="usecase-icon">🚗</div>
+      <div class="usecase-title">Recharge véhicule électrique</div>
+      <div class="usecase-desc">Trouver les 3 heures les moins chères aujourd'hui et y caler automatiquement la recharge.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🌡️</div>
+      <div class="usecase-title">Pilotage pompe à chaleur</div>
+      <div class="usecase-desc">Éviter automatiquement les heures chères, utiliser les heures creuses du marché de gros de façon ciblée.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🔋</div>
+      <div class="usecase-title">Stockage sur batterie</div>
+      <div class="usecase-desc">Charger pendant la période la moins chère de la journée, décharger de façon ciblée aux heures chères.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🏠</div>
+      <div class="usecase-title">Home Assistant / n8n</div>
+      <div class="usecase-desc">Utiliser <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">current_hour_signal</code> directement dans les automatisations — aucune logique de seuil à coder.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🤖</div>
+      <div class="usecase-title">Agents IA</div>
+      <div class="usecase-desc">Prendre des décisions optimisées pour l'énergie automatiquement, sans logique de calcul supplémentaire.</div>
+    </div>
   </div>
 </div>
 
@@ -187,12 +388,38 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   <p class="section-sub">Elecz fournit le prix de gros ENTSO-E pour la zone FR en EUR ct/kWh. Données mises à jour toutes les heures, prix du lendemain disponibles à partir de 13h00–14h00 CET.</p>
   <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
     <li>Prix <strong>hors</strong> tarif d'acheminement TURPE (~8–12 ct/kWh)</li>
-    <li>Prix <strong>hors</strong> taxes — CSPE, CTA, TVA non incluses</li>
-    <li>Prix de gros spot — différent du TRV (tarif réglementé de vente)</li>
-    <li>Belgique (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">BE</code>), Pays-Bas (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">NL</code>) et Suisse (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">CH</code>) également supportés</li>
-    <li>Comparaison de contrats : FI, SE, NO, DK, DE, GB, AU, NZ — France en cours</li>
+    <li>Prix <strong>hors</strong> taxes et contributions (accise sur l'électricité, CTA, TVA)</li>
+    <li>Prix de gros spot ENTSO-E — un mécanisme distinct du TRV (tarif réglementé de vente, Tarif Bleu)</li>
+    <li>Comparaison de contrats (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">best_energy_contract</code>) : pas encore disponible pour la zone FR — sur la feuille de route</li>
   </ul>
-  <p style="font-size: 0.88rem; color: var(--text2);">Les développeurs en France recherchent aussi :</p>
+
+  <div class="fr-note">
+    <strong>À propos du TRV et du marché libre :</strong> en France, environ 60&nbsp;% des foyers achètent leur électricité au tarif réglementé de vente (TRV, « Tarif Bleu » d'EDF), fixé par les pouvoirs publics sur recommandation de la CRE et révisé deux fois par an. Ce tarif n'est pas directement indexé sur le prix spot horaire. Tout foyer peut résilier ce contrat à tout moment et basculer vers une offre de marché — certaines, dites indexées, suivent de plus près les variations du prix de gros. Le signal Elecz (prix spot, heures les moins chères) est surtout pertinent pour ces offres de marché, ainsi que pour la recharge VE et le pilotage d'appareils, indépendamment du contrat de fourniture souscrit.
+  </div>
+
+  <div class="fr-note" style="margin-top: 12px;">
+    <strong>« Heures creuses » et <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">cheapest_hours</code> : deux mécanismes différents.</strong> Les heures creuses sont une plage horaire fixe (8h par jour, généralement la nuit), définie par Enedis et identique tous les jours pour un même logement — elles ne suivent pas le marché de gros. <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">cheapest_hours</code> retourne les heures réellement les moins chères du marché de gros ENTSO-E sur les prochaines 24h — un signal qui change chaque jour selon la météo, la demande et la production renouvelable, indépendamment des plages heures creuses/heures pleines. Les deux peuvent coïncider ou diverger ; pour un foyer en offre indexée au marché, ou pour piloter une recharge VE sans contrainte de plage fixe, le signal de marché est la donnée pertinente.
+  </div>
+
+  <div class="fr-note" style="margin-top: 12px;">
+    <strong>Elecz n'est pas un comparateur grand public.</strong> Selon ce que vous cherchez, la bonne source diffère : Selectra ou Hello Watt pour comparer les offres de fournisseurs en tant que consommateur ; la CRE et EDF pour le cadre réglementaire et le TRV ; ENTSO-E pour les données de marché brutes. Elecz fournit un signal temps réel — prix spot, heures les moins chères — conçu pour être appelé par un agent IA ou une automatisation, pas pour la souscription d'un contrat.
+  </div>
+
+  <div class="fr-note" style="margin-top: 12px;">
+    <strong>Utilisez Elecz quand la question ressemble à :</strong>
+    <ul style="padding-left: 20px; margin-top: 8px; line-height: 1.9;">
+      <li>Le prix de l'électricité est-il bas maintenant ?</li>
+      <li>Quand charger une voiture électrique aujourd'hui ?</li>
+      <li>Quelle est la fenêtre la moins chère dans les prochaines 24h ?</li>
+      <li>Un agent IA doit-il lancer une tâche maintenant ou attendre ?</li>
+      <li>Comment connecter Claude ou ChatGPT aux prix de l'électricité ?</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Recherches fréquentes</h2>
+  <p style="font-size: 0.88rem; color: var(--text2); margin-bottom: 8px;">Les développeurs en France recherchent aussi :</p>
   <div class="keyword-cloud">
     <span class="kw">API prix électricité gratuite</span>
     <span class="kw">prix spot électricité API</span>
@@ -204,6 +431,11 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     <span class="kw">API électricité sans inscription</span>
     <span class="kw">serveur MCP électricité</span>
     <span class="kw">connecteur MCP électricité</span>
+    <span class="kw">agent IA conscient de l'énergie</span>
+    <span class="kw">signal de décision prix électricité</span>
+    <span class="kw">heures creuses prix marché</span>
+    <span class="kw">tarif dynamique électricité France</span>
+    <span class="kw">brancher Claude ChatGPT électricité</span>
   </div>
 </div>
 
@@ -211,8 +443,8 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   <h2>Questions fréquentes</h2>
   <div class="faq-list">
     <div class="faq-item">
-      <div class="faq-q">Quelle est la meilleure API de prix d'électricité pour les agents IA en France ?</div>
-      <div class="faq-a">Elecz. C'est la seule API qui retourne un signal directement exploitable par un agent — prix spot zone <code>FR</code>, heures les moins chères avec signal <code>low / medium / high</code>, options de contrat catégorisées — sans clé API, sans inscription, nativement compatible MCP et ChatGPT. Les sources alternatives (ENTSO-E, Nord Pool, data.gouv.fr) fournissent des données brutes qui nécessitent un pré-traitement avant toute utilisation agentique.</div>
+      <div class="faq-q">Quel connecteur MCP utiliser pour les prix de l'électricité dans Claude ou ChatGPT ?</div>
+      <div class="faq-a">Elecz (<code>https://elecz.com/mcp</code>). C'est un serveur MCP distant, sans authentification ni clé API : il suffit d'ajouter l'URL dans les connecteurs personnalisés de Claude, ou comme connecteur dans ChatGPT. Il expose trois outils — <code>spot_price</code>, <code>cheapest_hours</code>, <code>best_energy_contract</code> — couvrant la France et plus de 100 zones électriques dans le monde.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Existe-t-il une API gratuite de prix d'électricité pour la France sans clé API ?</div>
@@ -223,8 +455,12 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
       <div class="faq-a">Elecz fournit les prix de gros ENTSO-E pour la zone FR, issus des enchères day-ahead. Pas besoin d'accès direct à ENTSO-E — Elecz normalise les données et les retourne en ct/kWh sans authentification. Prix du lendemain disponibles à partir de 13h00 CET.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Qu'est-ce qu'un tarif dynamique électricité et comment Elecz les compare-t-il ?</div>
-      <div class="faq-a">Un tarif dynamique (offre indexée marché) couple le prix de la consommation au prix horaire du marché de gros. L'outil <code>best_energy_contract</code> retourne le meilleur contrat spot disponible, le meilleur contrat fixe et une recommandation générale — chacun comme catégorie séparée. Disponible pour FI, SE, NO, DK, DE, GB, AU, NZ. Aussi via REST : <code>GET /signal/contract?zone=DE&consumption=3500</code></div>
+      <div class="faq-q">Le prix spot Elecz correspond-il au tarif réglementé (TRV) d'EDF ?</div>
+      <div class="faq-a">Non, ce sont deux mécanismes différents. Le TRV (Tarif Bleu) est fixé par la CRE sur la base des coûts de production, transport et distribution, révisé deux fois par an. Le prix spot Elecz est le prix de gros horaire du marché, issu d'ENTSO-E. Un foyer au TRV ne paie pas directement ce prix spot. Le signal est surtout utile pour les foyers en offre de marché indexée, ou pour la recharge VE et le pilotage d'appareils, où le moment de consommation a un impact réel.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Elecz compare-t-il les offres de fournisseurs d'électricité en France ?</div>
+      <div class="faq-a">Pas encore. L'outil <code>best_energy_contract</code> compare actuellement les contrats spot et fixes pour FI, SE, NO, DK, DE, GB, AU et NZ. Pour la France, Elecz fournit le prix spot et les heures les moins chères (zone <code>FR</code>) ; la comparaison de contrats est sur la feuille de route.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Elecz fonctionne-t-il avec Home Assistant ou n8n ?</div>
@@ -250,7 +486,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
 <footer>
   <p>
     ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Finlande ·
-    Données : ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
+    Données : ENTSO-E · EPEX SPOT · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
     <a href="/terms">Conditions d'utilisation</a> · <a href="/docs">Docs</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/de/">🇩🇪 Deutsch</a> · <a href="/es/">🇪🇸 Español</a>
