@@ -7,6 +7,11 @@
   <meta name="description" content="Electricity price MCP server for AI agents. Spot prices, cheapest hours, contract comparison. 40+ countries, no API key. Works with Claude, Grok, Cursor.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/electricity-price-mcp/">
+  <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-mcp/">
+  <link rel="alternate" hreflang="de" href="https://elecz.com/de/">
+  <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
+  <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
+  <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -28,6 +33,9 @@
     .nav-links { display: flex; gap: 24px; align-items: center; }
     .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text2); text-decoration: none; transition: color 0.15s; }
     .nav-links a:hover { color: var(--text); }
+    .nav-lang { font-size: 0.8rem; color: var(--text3); }
+    .nav-lang a { color: var(--text3); text-decoration: none; }
+    .nav-lang a:hover { color: var(--text2); }
     .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
     .nav-cta:hover { background: var(--accent2) !important; }
     .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 56px; border-bottom: 2px solid var(--border); }
@@ -117,6 +125,7 @@
     <a href="/docs">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
+    <span class="nav-lang"><a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a></span>
     <a href="https://elecz.com/mcp" class="nav-cta">Connect via MCP</a>
   </div>
 </nav>
@@ -139,6 +148,13 @@
     <a href="https://raw.githubusercontent.com/zemloai-ctrl/elecz-api/main/openapi.json" target="_blank" rel="noopener" class="btn-secondary">OpenAPI spec →</a>
     <a href="/docs" class="btn-secondary">View docs</a>
   </div>
+  <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
+    Jump to: <a href="#tools" style="color: var(--text2);">Tools</a> ·
+    <a href="#clients" style="color: var(--text2);">Clients</a> ·
+    <a href="#faq" style="color: var(--text2);">FAQ</a> ·
+    <a href="/cheapest-hours/" style="color: var(--text2);">cheapest_hours reference</a> ·
+    <a href="/for-agents/" style="color: var(--text2);">Agent integration guide</a>
+  </p>
 </div>
 
 <div class="section">
@@ -185,12 +201,12 @@
     </li>
     <li>
       <span class="step-num">03</span>
-      <div class="step-content"><strong>Ask about electricity prices</strong> — your agent will call Elecz automatically whenever a price, scheduling, or contract question comes up.</div>
+      <div class="step-content"><strong>Ask about electricity prices</strong> — your agent will call Elecz automatically whenever a price, scheduling, or contract question comes up. See the <a href="/for-agents/">AI agent integration guide</a> for worked examples and prompt patterns.</div>
     </li>
   </ul>
 </div>
 
-<div class="section">
+<div class="section" id="tools">
   <h2>Three MCP tools. Every electricity use case covered.</h2>
   <p class="section-sub">Elecz exposes three tools over the Model Context Protocol. The agent picks the right one based on the user's question — no prompt engineering needed.</p>
   <div class="tools-grid">
@@ -201,7 +217,7 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">cheapest_hours</div>
-      <div class="tool-desc">Ranked cheapest hours today and tomorrow. Includes current-hour signal and next cheap window. Called for scheduling questions — EV charging, heat pump, dishwasher, batch jobs.</div>
+      <div class="tool-desc">Ranked cheapest hours today and tomorrow. Includes current-hour signal and next cheap window. Called for scheduling questions — EV charging, heat pump, dishwasher, batch jobs. <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline; font-size: 0.82rem;">Full field reference →</a></div>
       <div class="tool-returns">→ <span>ranked_hours, current_hour_signal, cheap_window_ends, next_cheap_hour</span></div>
     </div>
     <div class="tool-card">
@@ -254,7 +270,7 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="clients">
   <h2>Works with every major MCP client and connector platform</h2>
   <p class="section-sub">Elecz is available as an MCP server (for developers) and as a connector (in Glama, Claude, Grok, and other AI platforms). Same URL, same tools.</p>
   <div class="clients-grid">
@@ -308,7 +324,7 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="faq">
   <h2>Frequently asked questions</h2>
   <div class="faq-list">
     <div class="faq-item">
@@ -389,7 +405,8 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
     Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
     <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
     <a href="/electricity-price-api/">API overview</a> ·
-    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
+    <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a>
   </p>
 </footer>
 
