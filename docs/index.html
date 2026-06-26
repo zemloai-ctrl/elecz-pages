@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Elecz Docs — Electricity Price Signal API for AI Agents</title>
   <meta name="description" content="Elecz API docs. Real-time electricity prices, cheapest hours, contract comparison for 40+ countries. MCP-native, no API key. Europe, Americas, Asia, Africa.">
+  <link rel="canonical" href="https://elecz.com/docs/">
+  <link rel="alternate" hreflang="en" href="https://elecz.com/docs/">
+  <link rel="alternate" hreflang="de" href="https://elecz.com/de/">
+  <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
+  <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
+  <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,6 +21,9 @@
     nav { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; align-items: center; padding-bottom: 24px; border-bottom: 2px solid #e8e8e0; }
     nav a { color: #555; text-decoration: none; font-size: 0.9rem; font-weight: 500; padding-bottom: 2px; border-bottom: 2px solid transparent; transition: border-color 0.15s, color 0.15s; }
     nav a:hover { color: #1a1a1a; border-bottom-color: #f0a020; }
+    .nav-lang { font-size: 0.85rem; color: #999; }
+    .nav-lang a { color: #999; }
+    .nav-lang a:hover { color: #555; border-bottom-color: transparent; }
     .hero { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 2px solid #e8e8e0; }
     h1 { font-size: 2rem; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; letter-spacing: -0.02em; }
     .slogan { font-size: 1.1rem; color: #555; font-style: italic; margin-bottom: 16px; }
@@ -50,9 +59,13 @@
     <a href="/" class="logo">⚡ Elecz<span class="dot">.</span>com</a>
     <a href="/docs">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
+    <a href="/electricity-price-mcp/">MCP Server</a>
+    <a href="/cheapest-hours/">Cheapest Hours</a>
+    <a href="/for-agents/">For AI Agents</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
     <a href="/privacy">Privacy</a>
     <a href="/terms">Terms</a>
+    <span class="nav-lang"><a href="/de/">DE</a> · <a href="/fr/">FR</a> · <a href="/es/">ES</a></span>
   </nav>
 
   <div class="hero">
@@ -83,6 +96,7 @@
     }
   }
 }</pre>
+  <p>Full setup guide for every MCP client: <a href="/electricity-price-mcp/">elecz.com/electricity-price-mcp</a></p>
 
   <h3>cURL</h3>
   <pre>curl "https://elecz.com/signal/spot?zone=DE"
@@ -98,7 +112,7 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
   <table>
     <tr><th>Tool</th><th>When to use</th><th>Returns</th></tr>
     <tr><td><code>spot_price</code></td><td>User asks what electricity costs right now</td><td>Current price in local unit</td></tr>
-    <tr><td><code>cheapest_hours</code></td><td>When to run appliances, charge EV, schedule tasks</td><td>Cheapest slots + best window next 24h</td></tr>
+    <tr><td><code>cheapest_hours</code></td><td>When to run appliances, charge EV, schedule tasks</td><td>Cheapest slots + best window next 24h. <a href="/cheapest-hours/">Full field reference →</a></td></tr>
     <tr><td><code>best_energy_contract</code></td><td>Which contract options are available, savings estimate</td><td>Best spot + best fixed + recommendation</td></tr>
   </table>
 
@@ -149,9 +163,10 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
   <div class="prompt">"What is the electricity tariff in Cape Town?"</div>
   <h3>Mexico</h3>
   <div class="prompt">"When is electricity cheapest in Monterrey today?"</div>
+  <p>More worked examples and prompt patterns: <a href="/for-agents/">elecz.com/for-agents</a></p>
 
   <h2 id="gb">United Kingdom</h2>
-  <p>Spot prices from Octopus Agile API — half-hourly resolution, updated every 30 min. Unit: p/kWh incl. VAT (5%).</p>
+  <p>Spot prices from Octopus Agile — based on day-ahead wholesale auctions. The full set of 48 half-hourly rates for the next day is published once, typically around 16:00 UK time; Elecz refreshes its data shortly after. Within a day, the published rate changes every 30 minutes by design — but no new data is published intraday. Unit: p/kWh incl. VAT (5%).</p>
   <p>Default zone <code>GB</code> = London (region C). Regional zones: GB-A through GB-P.</p>
 
   <h2 id="de">Germany</h2>
@@ -162,7 +177,7 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
   <p>SEM (Single Electricity Market). ENTSO-E zone <code>IE</code>. Spot price and cheapest hours available. Unit: EUR c/kWh.</p>
 
   <h2 id="au">Australia</h2>
-  <p>Spot prices from AEMO — 5-minute NEM dispatch prices, updated every 30 min. Unit: AUD c/kWh.</p>
+  <p>Spot prices from AEMO. The NEM dispatches and prices the market every 5 minutes (DISPATCHPRICE) — Elecz fetches this data on the same 5-minute cadence. Unit: AUD c/kWh.</p>
   <p>Zones: AU-NSW · AU-VIC · AU-QLD · AU-SA · AU-TAS</p>
   <p>Note: <code>cheapest_hours</code> returns <code>available: false</code> — no public day-ahead data for AU.</p>
 
@@ -237,7 +252,8 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
 
   <footer>
     ⚡ Elecz.com · SKA Trading Oy / Zemlo AI · Kokkola, Finland ·
-    <a href="/">Home</a> · <a href="/electricity-price-api/">API Guide</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a>
+    <a href="/">Home</a> · <a href="/electricity-price-api/">API Guide</a> · <a href="/electricity-price-mcp/">MCP Server</a> · <a href="/cheapest-hours/">Cheapest Hours</a> · <a href="/for-agents/">For Agents</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a> ·
+    <a href="/de/">Deutsch</a> · <a href="/fr/">Français</a> · <a href="/es/">Español</a>
   </footer>
 
 </div>
