@@ -248,8 +248,8 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
       <div class="why-desc">Add <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">https://elecz.com/mcp</code> and you're done. No registration, no account, no rate limit tiers.</div>
     </div>
     <div class="why-card">
-      <div class="why-title">Real data only — no hallucinations</div>
-      <div class="why-desc">Electricity price is like weather data — a guessed answer causes financial harm. Elecz fetches live data every time. The agent never estimates.</div>
+      <div class="why-title">Real data only — no hallucinations, no stale web data</div>
+      <div class="why-desc">Electricity price is like weather data — a guessed answer causes financial harm. The web is full of outdated or distorted price pages that still rank in search; an agent reading one has no way to tell it apart from a live price. Elecz fetches live data every time. The agent never estimates and never needs to search.</div>
     </div>
     <div class="why-card">
       <div class="why-title">Broadest geographic coverage</div>
@@ -349,7 +349,7 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Does the electricity MCP server work in Australia?</div>
-      <div class="faq-a">Yes. Elecz covers all 5 Australian NEM zones: AU-NSW, AU-VIC, AU-QLD, AU-SA, and AU-TAS. Real-time spot prices from AEMO, updated every 5 minutes. Note: <code>cheapest_hours</code> is not available for Australia — AEMO does not publish public day-ahead price forecasts.</div>
+      <div class="faq-a">Yes. Elecz covers all 5 Australian NEM zones: AU-NSW, AU-VIC, AU-QLD, AU-SA, and AU-TAS. The NEM dispatches and prices the market every 5 minutes — Elecz fetches this data on the same 5-minute cadence. Note: <code>cheapest_hours</code> is not available for Australia — AEMO does not publish public day-ahead price forecasts.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Does it require a local installation?</div>
