@@ -45,6 +45,9 @@
     .nav-links { display: flex; gap: 24px; align-items: center; }
     .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text2); text-decoration: none; transition: color 0.15s; }
     .nav-links a:hover { color: var(--text); }
+    .nav-lang { font-size: 0.8rem; color: var(--text3); }
+    .nav-lang a { color: var(--text3); text-decoration: none; }
+    .nav-lang a:hover { color: var(--text2); }
     .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
     .nav-cta:hover { background: var(--accent2) !important; }
     .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 56px; border-bottom: 2px solid var(--border); }
@@ -210,6 +213,7 @@
   <div class="nav-links">
     <a href="/docs">Docs</a>
     <a href="/terms">Terms</a>
+    <span class="nav-lang"><a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a></span>
     <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a>
     <a href="https://elecz.com/mcp" class="nav-cta">Connect via MCP</a>
   </div>
@@ -234,6 +238,12 @@
     <a href="/docs" class="btn-secondary">REST API docs</a>
     <a href="https://raw.githubusercontent.com/zemloai-ctrl/elecz-api/main/openapi.json" target="_blank" rel="noopener" class="btn-secondary">OpenAPI spec →</a>
   </div>
+  <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
+    Jump to: <a href="#tools" style="color: var(--text2);">Tools</a> ·
+    <a href="#countries" style="color: var(--text2);">Countries</a> ·
+    <a href="#integrations" style="color: var(--text2);">Integrations</a> ·
+    <a href="#faq" style="color: var(--text2);">FAQ</a>
+  </p>
 </div>
 
 <div class="section">
@@ -263,9 +273,9 @@
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="tools">
   <h2>Three tools. Every use case covered.</h2>
-  <p class="section-sub">Elecz exposes three MCP tools and matching REST endpoints that cover everything an AI agent needs for electricity price decisions.</p>
+  <p class="section-sub">Elecz exposes three MCP tools and matching REST endpoints that cover everything an AI agent needs for electricity price decisions. Full schemas and setup in the <a href="/electricity-price-mcp/" style="color: var(--accent2); text-decoration: underline;">MCP server guide</a> and the <a href="/for-agents/" style="color: var(--accent2); text-decoration: underline;">AI agent integration guide</a>.</p>
   <div class="tools-grid">
     <div class="tool-card">
       <div class="tool-name">spot_price</div>
@@ -274,7 +284,7 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">cheapest_hours</div>
-      <div class="tool-desc">Ranked cheapest hours today and tomorrow. Includes current-hour signal, cheap window end time, and next cheap period countdown.</div>
+      <div class="tool-desc">Ranked cheapest hours today and tomorrow. Includes current-hour signal, cheap window end time, and next cheap period countdown. <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline; font-size: 0.82rem;">Full field reference →</a></div>
       <div class="tool-returns">→ <span>ranked_hours, current_hour_signal, cheap_window_ends, next_cheap_hour, hours_until_next_cheap</span></div>
     </div>
     <div class="tool-card">
@@ -372,7 +382,7 @@
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="countries">
   <h2>40+ countries. 5 continents.</h2>
   <p class="section-sub">Spot prices across Europe, Oceania, North America, Asia, and Africa. Contract comparison in 8 markets — orange dot indicates contract data available.</p>
   <div class="country-groups">
@@ -448,7 +458,7 @@
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="integrations">
   <h2>Add to your AI in minutes</h2>
   <p class="section-sub">No API key. No account. One URL. Works with any MCP-compatible AI assistant.</p>
   <div class="integration-grid">
@@ -507,7 +517,7 @@
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="faq">
   <h2>Frequently asked questions</h2>
   <div class="faq-list">
     <div class="faq-item">
@@ -536,7 +546,7 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">What is MCP and why does it matter for electricity data?</div>
-      <div class="faq-a">MCP (Model Context Protocol) is an open standard for connecting AI agents to external tools. Electricity prices change every hour — an agent needs a live tool call, not training data. Elecz is built MCP-first: connect via <code>https://elecz.com/mcp</code>, no setup required.</div>
+      <div class="faq-a">MCP (Model Context Protocol) is an open standard for connecting AI agents to external tools. Electricity prices change every hour — an agent needs a live tool call, not training data. Elecz is built MCP-first: connect via <code>https://elecz.com/mcp</code>, no setup required. Full setup details in the <a href="/electricity-price-mcp/">MCP server guide</a>.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">How often is data updated?</div>
@@ -548,7 +558,7 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">Does it work with home automation?</div>
-      <div class="faq-a">Yes — EV charging, heat pumps, and dishwashers are primary use cases. An agent can call <code>cheapest_hours</code> to find the optimal run window and use <code>current_hour_signal</code> to decide whether to act right now. No custom logic required — the signal is already decision-ready.</div>
+      <div class="faq-a">Yes — EV charging, heat pumps, and dishwashers are primary use cases. An agent can call <code>cheapest_hours</code> to find the optimal run window and use <code>current_hour_signal</code> to decide whether to act right now. No custom logic required — the signal is already decision-ready. See the <a href="/for-agents/">AI agent integration guide</a> for worked examples.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Why not just fetch ENTSO-E or AEMO directly?</div>
@@ -556,7 +566,7 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">Where is the full API documentation?</div>
-      <div class="faq-a">Full REST reference, MCP tool schemas, and integration guides at <a href="/docs">elecz.com/docs</a>. OpenAPI spec at <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">github.com/zemloai-ctrl/elecz-api</a>. Also compare electricity price APIs at <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a>.</div>
+      <div class="faq-a">Full REST reference, MCP tool schemas, and integration guides at <a href="/docs">elecz.com/docs</a>. Dedicated guides: <a href="/cheapest-hours/">cheapest_hours field reference</a>, <a href="/electricity-price-mcp/">MCP server setup</a>, <a href="/for-agents/">AI agent integration</a>. OpenAPI spec at <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">github.com/zemloai-ctrl/elecz-api</a>. Also compare electricity price APIs at <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a>.</div>
     </div>
   </div>
 
@@ -600,7 +610,8 @@
     Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
     <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
     <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a> ·
-    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
+    <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a>
   </p>
 </footer>
 
