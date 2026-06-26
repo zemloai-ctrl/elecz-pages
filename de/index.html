@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Strompreis API Echtzeit — kein API-Key, MCP-nativ | Elecz</title>
-  <meta name="description" content="Echtzeit-Strompreise für KI-Agenten: Spotpreis, günstigste Stunden und Vertragsvergleich für Deutschland und 100+ Zonen weltweit. MCP-nativ, kostenlos.">
+  <meta name="description" content="Echtzeit-Strompreis API für KI-Agenten: Spotpreise, günstigste Stunden, Vertragsvergleich für DE, AT, CH und 40+ Länder. MCP-nativ, kostenlos.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/de/">
   <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-api/">
@@ -91,7 +91,6 @@
     footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
     footer a { color: var(--text3); text-decoration: none; }
     footer a:hover { color: var(--text2); }
-    /* DACH market grid — reuses the tools-grid pattern for visual consistency */
     .dach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); margin-bottom: 24px; }
     .dach-card { padding: 22px 22px 24px; border-right: 1px solid var(--border); }
     .dach-card:last-child { border-right: none; }
@@ -102,7 +101,6 @@
     .dach-status.partial { color: var(--accent2); }
     .dach-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.65; }
     .dach-note { font-size: 0.86rem; color: var(--text2); line-height: 1.7; background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px; padding: 14px 16px; margin-top: 4px; }
-    /* Decision-signal callout, right after hero */
     .signal-banner { max-width: 860px; margin: 0 auto; padding: 36px 24px; border-bottom: 1px solid var(--border); background: var(--green-dim); }
     .signal-banner-inner { max-width: 720px; }
     .signal-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
@@ -111,7 +109,6 @@
     .signal-flow { font-family: var(--mono); font-size: 0.95rem; color: var(--text); margin-top: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .signal-flow span { padding: 5px 12px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 5px; }
     .signal-flow .arrow { color: var(--green); font-weight: 600; }
-    /* Use-case grid — flexible column count, unlike the fixed 3-col tools-grid */
     .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
     .usecase-item { background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 18px 20px; }
     .usecase-icon { font-size: 1.2rem; margin-bottom: 8px; }
@@ -190,7 +187,7 @@
         "name": "Funktioniert Elecz auch in Österreich und der Schweiz?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja. Österreich (AT) ist wie Deutschland vollständig liberalisiert und hat einen etablierten Markt für dynamische Tarife — cheapest_hours und best_energy_contract funktionieren identisch zu Deutschland. Die Schweiz (CH) ist aktuell teilliberalisiert: nur Großverbraucher ab 100.000 kWh pro Jahr können den Anbieter frei wählen. Elecz liefert den Spotpreis trotzdem in Echtzeit in Euro-Cent (Abrechnung erfolgt meist in CHF) — nützlich als Referenzsignal und für die Ladeplanung von Elektroautos. Mit dem geplanten Stromabkommen zwischen der Schweiz und der EU könnten große Lieferanten künftig zu dynamischen Tarifen verpflichtet werden; Elecz deckt die CH-Zone schon heute ab."
+          "text": "Ja. Österreich (AT) ist wie Deutschland vollständig liberalisiert und hat einen etablierten Markt für dynamische Tarife — cheapest_hours und best_energy_contract funktionieren identisch zu Deutschland. Die Schweiz (CH) öffnet ihren Strommarkt im Zuge des im März 2026 unterzeichneten Stromabkommens mit der EU: künftig können grundsätzlich alle Verbraucherinnen und Verbraucher ihren Lieferanten frei wählen, wer das nicht möchte, bleibt in der regulierten Grundversorgung. Zusätzlich müssen Schweizer Energieversorger ab 2026 zeitvariable Tarife anbieten, sobald ein Smart Meter installiert ist — einzelne Anbieter wie EKZ haben bereits dynamische Tarife mit 15-Minuten-Auflösung lanciert. Elecz liefert den Spotpreis schon heute in Echtzeit in Euro-Cent (Abrechnung erfolgt meist in CHF) — nützlich als Referenzsignal und für die Ladeplanung von Elektroautos, unabhängig vom Tempo der weiteren Marktöffnung."
         }
       },
       {
@@ -259,6 +256,11 @@
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">In ChatGPT öffnen →</a>
     <a href="/docs" class="btn-secondary">REST API Dokumentation</a>
   </div>
+  <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
+    Direkt zu: <a href="#dach" style="color: var(--text2);">DACH-Übersicht</a> ·
+    <a href="#deutschland" style="color: var(--text2);">Deutschland</a> ·
+    <a href="#faq" style="color: var(--text2);">Häufige Fragen</a>
+  </p>
 </div>
 
 <div class="signal-banner">
@@ -277,7 +279,7 @@
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="tools">
   <h2>Drei Tools. Alle Anwendungsfälle abgedeckt.</h2>
   <p class="section-sub">Elecz stellt drei MCP-Tools bereit — für den aktuellen Spotpreis, die Planung günstiger Stunden und den Vergleich dynamischer Stromtarife in Deutschland, Österreich und der Schweiz. Vollständige Feldreferenz in der <a href="/docs" style="color: var(--accent2); text-decoration: underline;">REST API Dokumentation</a>.</p>
   <div class="tools-grid">
@@ -287,7 +289,7 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">cheapest_hours</div>
-      <div class="tool-desc">Günstigste Stunden der nächsten 24h mit Echtzeitsignal. Ideal für Wärmepumpe, Geschirrspüler, EV-Laden und Batch-Jobs. Gibt direkt <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">low / medium / high</code> zurück — keine eigene Logik nötig.</div>
+      <div class="tool-desc">Günstigste Stunden der nächsten 24h mit Echtzeitsignal. Ideal für Wärmepumpe, Geschirrspüler, EV-Laden und Batch-Jobs. Gibt direkt <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">low / medium / high</code> zurück — keine eigene Logik nötig. <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline; font-size: 0.85rem;">Mehr Details →</a></div>
     </div>
     <div class="tool-card">
       <div class="tool-name">best_energy_contract</div>
@@ -325,12 +327,12 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     <li><strong>Planung:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code> — wann ist das nächste günstige Zeitfenster?</li>
     <li><strong>Vertragsentscheidung:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">best_energy_contract</code> — lohnt sich ein Wechsel gerade?</li>
   </ul>
-  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">Funktioniert mit jedem MCP-kompatiblen Agenten-Framework: Claude, ChatGPT, Cursor, Copilot, Grok — ein Tool-Call statt eigener Preislogik. Details zum <a href="/docs" style="color: var(--accent2); text-decoration: underline;">MCP-Server Strompreis Setup</a> in den Docs.</p>
+  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">Funktioniert mit jedem MCP-kompatiblen Agenten-Framework: Claude, ChatGPT, Cursor, Copilot, Grok — ein Tool-Call statt eigener Preislogik. Details zum <a href="/electricity-price-mcp/" style="color: var(--accent2); text-decoration: underline;">MCP-Server Strompreis Setup</a> und der <a href="/for-agents/" style="color: var(--accent2); text-decoration: underline;">vollständigen Anleitung für KI-Agenten</a>.</p>
 </div>
 
 <div class="section">
   <h2>Häufige Fragen von KI-Agenten</h2>
-  <p class="section-sub">Vier Fragen, die ein Agent typischerweise vor einer Aktion stellt — und das jeweilige Feld aus der Live-Antwort von <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code>. Vollständige Feldliste: <a href="/docs" style="color: var(--accent2); text-decoration: underline;">günstigste Stromstunden API Dokumentation</a>.</p>
+  <p class="section-sub">Vier Fragen, die ein Agent typischerweise vor einer Aktion stellt — und das jeweilige Feld aus der Live-Antwort von <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code>. Vollständige Feldliste: <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline;">günstigste Stromstunden API Dokumentation</a>.</p>
   <div class="faq-list">
     <div class="faq-item" style="padding: 16px 0;">
       <div class="faq-q" style="font-size: 0.9rem;">Ist Strom gerade günstig?</div>
@@ -383,7 +385,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="dach">
   <h2>DACH — Deutschland, Österreich, Schweiz</h2>
   <p class="section-sub">Drei Länder, drei unterschiedliche Marktrealitäten. Elecz deckt alle drei ENTSO-E-Zonen ab — aber was die Daten praktisch bedeuten, unterscheidet sich. DACH ist der regionale Fokus dieser Seite, nicht die Grenze des Dienstes: Elecz deckt über 100 Strommärkte weltweit ab, von Texas (ERCOT) über Tokio (JEPX) bis Sydney (AEMO).</p>
 
@@ -403,17 +405,17 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     <div class="dach-card">
       <div class="dach-flag">🇨🇭</div>
       <div class="dach-zone">CH</div>
-      <div class="dach-status partial">Teilliberalisiert</div>
-      <div class="dach-desc">Nur Großverbraucher ab 100.000 kWh/Jahr können den Anbieter frei wählen — Haushalte bleiben beim lokalen Grundversorger. <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">spot_price</code> liefert trotzdem ein Echtzeit-Referenzsignal, z. B. für EV-Ladeplanung.</div>
+      <div class="dach-status partial">Markt öffnet sich 2026</div>
+      <div class="dach-desc">Die Schweiz und die EU haben im März 2026 ein Stromabkommen unterzeichnet, das den Strommarkt schrittweise für alle Verbraucher öffnet — Details siehe Hinweis unten. Zusätzlich müssen Energieversorger ab 2026 zeitvariable Tarife anbieten, sobald ein Smart Meter vorhanden ist. <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">spot_price</code> liefert schon heute ein Echtzeit-Referenzsignal, z. B. für EV-Ladeplanung.</div>
     </div>
   </div>
 
   <div class="dach-note">
-    <strong>Hinweis zur Schweiz:</strong> Der Preis wird über ENTSO-E in Euro-Cent (ct/kWh) geliefert, auch für die CH-Zone — die Abrechnung der meisten Schweizer Stromanbieter erfolgt jedoch in CHF. Mit dem geplanten Stromabkommen zwischen der Schweiz und der EU würden Lieferanten mit über 50.000 Kundinnen und Kunden verpflichtet, dynamische Tarife anzubieten. Bis das in Kraft tritt, ist die CH-Zone bei Elecz bereits abgedeckt — Großverbraucher und EV-Ladeplanung können das Signal schon heute nutzen.
+    <strong>Hinweis zur Schweiz:</strong> Der Bundesrat hat das Stromabkommen mit der EU im März 2026 unterzeichnet (Ratifizierung durch das Parlament steht noch aus). Die im Alltag wichtigste Änderung ist die Öffnung des Strommarkts: grundsätzlich können künftig alle Verbraucherinnen und Verbraucher ihren Stromlieferanten frei wählen — wer das nicht möchte, bleibt in der Grundversorgung beim lokalen Energieversorger mit regulierten Preisen. Unabhängig vom Abkommen gilt ab 2026 bereits: Energieversorger müssen zeitvariable Tarife anbieten, sobald ein Smart Meter installiert ist, und einzelne Netzbetreiber wie EKZ haben bereits dynamische Tarife mit 15-Minuten-Auflösung lanciert. Der Preis wird über ENTSO-E in Euro-Cent (ct/kWh) geliefert, auch für die CH-Zone — die Abrechnung der meisten Schweizer Stromanbieter erfolgt jedoch weiterhin in CHF.
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="deutschland">
   <h2>Deutschland — was Entwickler wissen müssen</h2>
   <p class="section-sub">Elecz liefert den ENTSO-E-Großhandelspreis für die DE-LU Zone in EUR ct/kWh. Die Daten werden stündlich aktualisiert, Folgetagespreise ab ca. 13:00–14:00 Uhr MEZ.</p>
   <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
@@ -421,7 +423,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     <li>Preis <strong>ohne</strong> Steuern und Abgaben (EEG-Umlage, Konzessionsabgabe, MwSt.)</li>
     <li>EPEX SPOT-Preise via ENTSO-E Transparency Platform</li>
     <li>Dynamischer Stromtarif Vergleich: Tibber, Octopus Energy, E wie Einfach, Vattenfall, EnBW</li>
-    <li>Österreich (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">AT</code>) und Schweiz (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">CH</code>) ebenfalls unterstützt — Details siehe DACH-Übersicht oben</li>
+    <li>Österreich (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">AT</code>) und Schweiz (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">CH</code>) ebenfalls unterstützt — Details siehe <a href="#dach" style="color: var(--accent2); text-decoration: underline;">DACH-Übersicht oben</a></li>
   </ul>
   <p style="font-size: 0.88rem; color: var(--text2);">Entwickler in Deutschland, Österreich und der Schweiz suchen häufig auch nach:</p>
   <div class="keyword-cloud">
@@ -444,7 +446,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="faq">
   <h2>Häufig gestellte Fragen</h2>
   <div class="faq-list">
     <div class="faq-item">
@@ -469,7 +471,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Funktioniert Elecz auch in Österreich und der Schweiz?</div>
-      <div class="faq-a">Ja. Österreich (<code>AT</code>) ist wie Deutschland vollständig liberalisiert und hat einen etablierten Markt für dynamische Tarife — <code>cheapest_hours</code> und <code>best_energy_contract</code> funktionieren identisch zu Deutschland. Die Schweiz (<code>CH</code>) ist aktuell teilliberalisiert: nur Großverbraucher ab 100.000 kWh pro Jahr können den Anbieter frei wählen. Elecz liefert den Spotpreis trotzdem in Echtzeit in Euro-Cent (Abrechnung erfolgt meist in CHF) — nützlich als Referenzsignal und für die Ladeplanung von Elektroautos. Mit dem geplanten Stromabkommen zwischen der Schweiz und der EU könnten große Lieferanten künftig zu dynamischen Tarifen verpflichtet werden; Elecz deckt die CH-Zone schon heute ab.</div>
+      <div class="faq-a">Ja. Österreich (<code>AT</code>) ist wie Deutschland vollständig liberalisiert und hat einen etablierten Markt für dynamische Tarife — <code>cheapest_hours</code> und <code>best_energy_contract</code> funktionieren identisch zu Deutschland. Die Schweiz (<code>CH</code>) öffnet ihren Strommarkt im Zuge des im März 2026 unterzeichneten Stromabkommens mit der EU: künftig können grundsätzlich alle Verbraucherinnen und Verbraucher ihren Lieferanten frei wählen, wer das nicht möchte, bleibt in der regulierten Grundversorgung. Zusätzlich müssen Schweizer Energieversorger ab 2026 zeitvariable Tarife anbieten, sobald ein Smart Meter installiert ist — einzelne Anbieter wie EKZ haben bereits dynamische Tarife mit 15-Minuten-Auflösung lanciert. Elecz liefert den Spotpreis schon heute in Echtzeit in Euro-Cent (Abrechnung erfolgt meist in CHF) — nützlich als Referenzsignal und für die Ladeplanung von Elektroautos, unabhängig vom Tempo der weiteren Marktöffnung.</div>
     </div>
   </div>
 </div>
