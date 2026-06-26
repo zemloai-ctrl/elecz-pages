@@ -91,7 +91,6 @@
     footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
     footer a { color: var(--text3); text-decoration: none; }
     footer a:hover { color: var(--text2); }
-    /* Decision-signal callout, identical pattern to /de/ and /fr/ */
     .signal-banner { max-width: 860px; margin: 0 auto; padding: 36px 24px; border-bottom: 1px solid var(--border); background: var(--green-dim); }
     .signal-banner-inner { max-width: 720px; }
     .signal-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
@@ -100,13 +99,11 @@
     .signal-flow { font-family: var(--mono); font-size: 0.95rem; color: var(--text); margin-top: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .signal-flow span { padding: 5px 12px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 5px; }
     .signal-flow .arrow { color: var(--green); font-weight: 600; }
-    /* Use-case grid */
     .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
     .usecase-item { background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 18px 20px; }
     .usecase-icon { font-size: 1.2rem; margin-bottom: 8px; }
     .usecase-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
     .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
-    /* Spain PVPC note */
     .es-note { font-size: 0.86rem; color: var(--text2); line-height: 1.7; background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px; padding: 14px 16px; margin-top: 16px; }
     .es-note strong { color: var(--text); }
     @media (max-width: 680px) {
@@ -275,6 +272,12 @@
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Abrir en ChatGPT →</a>
     <a href="/docs" class="btn-secondary">Documentación REST API</a>
   </div>
+  <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
+    Ir directamente a: <a href="#espana" style="color: var(--text2);">España</a> ·
+    <a href="#mexico" style="color: var(--text2);">México</a> ·
+    <a href="#texas-california" style="color: var(--text2);">Texas / California</a> ·
+    <a href="#faq" style="color: var(--text2);">Preguntas frecuentes</a>
+  </p>
 </div>
 
 <div class="signal-banner">
@@ -293,7 +296,7 @@
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="herramientas">
   <h2>Tres herramientas. Todos los casos de uso cubiertos.</h2>
   <p class="section-sub">Elecz expone tres herramientas MCP — para el precio spot actual, la planificación de horas más baratas y la comparación de contratos donde está disponible. Referencia completa de campos en la <a href="/docs" style="color: var(--accent2); text-decoration: underline;">documentación de la API de precio de electricidad</a>.</p>
   <div class="tools-grid">
@@ -303,7 +306,7 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">cheapest_hours</div>
-      <div class="tool-desc">Horas más baratas en 24h con señal tiempo real. Ideal para bomba de calor, lavavajillas, carga VE. Devuelve directamente <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">low / medium / high</code> — sin lógica propia.</div>
+      <div class="tool-desc">Horas más baratas en 24h con señal tiempo real. Ideal para bomba de calor, lavavajillas, carga VE. Devuelve directamente <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">low / medium / high</code> — sin lógica propia. <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline; font-size: 0.85rem;">Más detalles →</a></div>
     </div>
     <div class="tool-card">
       <div class="tool-name">best_energy_contract</div>
@@ -341,7 +344,7 @@ curl "https://elecz.com/signal/contract?zone=ES"
     <li><strong>Planificación:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code> — ¿cuál es la próxima ventana más barata?</li>
     <li><strong>Decisión de contrato:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">best_energy_contract</code> — ¿compensa cambiar ahora mismo? (zonas con comparación de contrato)</li>
   </ul>
-  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">Funciona con cualquier framework de agente compatible con MCP — útil tanto para un asistente conversacional simple como para sistemas de IA agéntica con flujos multi-paso: Claude, ChatGPT, Cursor, Copilot, Grok — una llamada de herramienta en lugar de lógica de precios personalizada. Detalles sobre la <a href="/docs" style="color: var(--accent2); text-decoration: underline;">configuración del servidor MCP de precio de electricidad</a> en la documentación.</p>
+  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">Funciona con cualquier framework de agente compatible con MCP — útil tanto para un asistente conversacional simple como para sistemas de IA agéntica con flujos multi-paso: Claude, ChatGPT, Cursor, Copilot, Grok — una llamada de herramienta en lugar de lógica de precios personalizada. Detalles sobre la <a href="/electricity-price-mcp/" style="color: var(--accent2); text-decoration: underline;">configuración del servidor MCP de precio de electricidad</a> y la <a href="/for-agents/" style="color: var(--accent2); text-decoration: underline;">guía completa para agentes IA</a>.</p>
 </div>
 
 <div class="section">
@@ -399,7 +402,7 @@ curl "https://elecz.com/signal/contract?zone=ES"
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="espana">
   <h2>España — lo que los desarrolladores deben saber</h2>
   <p class="section-sub">Elecz proporciona el precio mayorista ENTSO-E para la zona ES en EUR ct/kWh. Datos actualizados cada hora, precios del día siguiente disponibles a partir de las 13:00–14:00 CET.</p>
   <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
@@ -455,7 +458,7 @@ curl "https://elecz.com/signal/contract?zone=ES"
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="mexico">
   <h2>México — 14 zonas vía CENACE</h2>
   <p class="section-sub">Elecz también cubre México con datos del Mercado Eléctrico Mayorista (MDA, día en adelanto) operado por CENACE — una fuente de datos completamente distinta a ENTSO-E, con su propia moneda y estructura regulatoria.</p>
   <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
@@ -479,7 +482,7 @@ curl "https://elecz.com/signal/cheapest-hours?zone=MX-MTY&hours=5"
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="texas-california">
   <h2>Texas y California — para los más de 28 millones de hispanohablantes en EE.&nbsp;UU.</h2>
   <p class="section-sub">California (16,1 millones) y Texas (12,6 millones) tienen las mayores poblaciones hispanas de Estados Unidos. Elecz cubre ambos mercados eléctricos — CAISO en California, ERCOT en Texas — con la misma señal de decisión que en España y México.</p>
   <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
@@ -499,11 +502,11 @@ curl "https://elecz.com/signal/spot?zone=US-TX-HB_HOUSTON"
   </div>
 
   <div class="es-note">
-    <strong>Una comunidad que ya construye esto para España, todavía no para Texas o California:</strong> la integración de Home Assistant para PVPC tiene más de 1000 instalaciones activas entre hispanohablantes que automatizan su consumo eléctrico en España. Esa misma necesidad — saber cuándo es barata la luz para cargar un coche eléctrico o programar el aire acondicionado — existe igual en Houston o Los Ángeles. Elecz proporciona la señal en español para que esa automatización también pueda construirse ahí.
+    <strong>Una necesidad que ya existe en España, todavía sin resolver en Texas o California:</strong> en España, miles de hogares automatizan ya su consumo eléctrico según el precio horario del mercado mayorista. Esa misma necesidad — saber cuándo es barata la luz para cargar un coche eléctrico o programar el aire acondicionado — existe igual en Houston o Los Ángeles. Elecz proporciona la señal en español para que esa automatización también pueda construirse ahí.
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="faq">
   <h2>Preguntas frecuentes</h2>
   <div class="faq-list">
     <div class="faq-item">
