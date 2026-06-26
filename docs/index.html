@@ -84,8 +84,8 @@
   <p>Elecz turns real-time electricity prices into actionable signals — for AI agents, home automation, and anyone whose decisions depend on when they use electricity.</p>
   <p>A language model cannot know the current electricity price. It was trained on historical data. Without a real-time API call, any answer it gives is a guess. Elecz is that call.</p>
   <p><strong>Contract comparison:</strong> FI · SE · NO · DK · DE · GB · AU · NZ</p>
-  <p><strong>Spot price + cheapest hours:</strong> All of the above + NL · BE · AT · FR · IT · PL · CZ · HU · RO · ES · PT · HR · BG · SI · SK · GR · EE · LV · LT · CH · RS · BA · ME · MK · IE · US-CA · US-TX · US-NY · CA-ON · JP (9 zones) · MX (14 zones)</p>
-  <p><strong>Spot price only:</strong> KR · KR-JEJU · ZA (regulated) · PH-LUZ · PH-VIS · PH-MIN (regulated)</p>
+  <p><strong>Spot price + cheapest hours:</strong> All of the above + NL · BE · AT · FR · IT · PL · CZ · HU · RO · ES · PT · HR · BG · SI · SK · GR · EE · LV · LT · CH · RS · BA · ME · MK · IE · US-CA · US-NY · CA-ON · JP (9 zones) · MX (14 zones)</p>
+  <p><strong>Spot price only:</strong> KR · KR-JEJU · ZA (regulated) · PH-LUZ · PH-VIS · PH-MIN (regulated) · US-TX (ERCOT — day-ahead data requires authenticated access, not yet integrated)</p>
 
   <h2 id="connect">Connect in 30 seconds</h2>
   <h3>Claude / Claude Code / any MCP client</h3>
@@ -140,7 +140,7 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
     <tr><td>ES, PT, HR, BG, SI, SK, GR</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
     <tr><td>EE, LV, LT, CH, RS, BA, ME, MK</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
     <tr><td>US-CA-NP15, US-CA-SP15, US-CA-ZP26</td><td>✓</td><td>✓</td><td>—</td><td>CAISO OASIS</td></tr>
-    <tr><td>US-TX-HB_NORTH/HOUSTON/SOUTH/WEST/HUBAVG, US-TX-LZ_*</td><td>✓</td><td>✓</td><td>—</td><td>ERCOT CDR</td></tr>
+    <tr><td>US-TX-HB_NORTH/HOUSTON/SOUTH/WEST/HUBAVG, US-TX-LZ_*</td><td>✓</td><td>—</td><td>—</td><td>ERCOT CDR</td></tr>
     <tr><td>US-NY-* (11 zones)</td><td>✓</td><td>✓</td><td>—</td><td>NYISO MIS</td></tr>
     <tr><td>CA-ON</td><td>✓</td><td>✓</td><td>—</td><td>IESO</td></tr>
     <tr><td>KR, KR-JEJU</td><td>✓</td><td>—</td><td>—</td><td>KPX EPSIS</td></tr>
@@ -191,7 +191,7 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
   <p>Day-ahead market (DAM), updated daily after 22:00 UTC. Unit: USD c/kWh.</p>
   <p>Zones: <code>US-CA-NP15</code> (NorCal/PG&E) · <code>US-CA-SP15</code> (SoCal/SCE+SDG&E) · <code>US-CA-ZP26</code> (Desert/Central)</p>
   <h3>Texas — ERCOT</h3>
-  <p>Real-time 15-min data from public CDR. <code>cheapest_hours</code> uses DAM data (updated 18:30 UTC). Unit: USD c/kWh.</p>
+  <p>Real-time 15-min data from public ERCOT CDR. <code>cheapest_hours</code> currently returns <code>available: false</code> — ERCOT's day-ahead market requires authenticated API access (OAuth token), which is not yet integrated. Unit: USD c/kWh.</p>
   <p>HB_WEST is the wind zone — prices can go negative.</p>
   <p>Hubs: <code>US-TX-HB_NORTH/HOUSTON/SOUTH/WEST/HUBAVG</code> · Load zones: <code>US-TX-LZ_NORTH/HOUSTON/SOUTH/WEST</code></p>
   <h3>New York — NYISO</h3>
