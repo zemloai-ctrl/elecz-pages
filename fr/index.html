@@ -91,7 +91,6 @@
     footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
     footer a { color: var(--text3); text-decoration: none; }
     footer a:hover { color: var(--text2); }
-    /* Decision-signal callout, identical pattern to /de/ */
     .signal-banner { max-width: 860px; margin: 0 auto; padding: 36px 24px; border-bottom: 1px solid var(--border); background: var(--green-dim); }
     .signal-banner-inner { max-width: 720px; }
     .signal-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
@@ -100,13 +99,11 @@
     .signal-flow { font-family: var(--mono); font-size: 0.95rem; color: var(--text); margin-top: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .signal-flow span { padding: 5px 12px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 5px; }
     .signal-flow .arrow { color: var(--green); font-weight: 600; }
-    /* Use-case grid */
     .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
     .usecase-item { background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 18px 20px; }
     .usecase-icon { font-size: 1.2rem; margin-bottom: 8px; }
     .usecase-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
     .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
-    /* France dual-system note (replaces DACH-style grid — France doesn't split into 3 comparable sub-zones) */
     .fr-note { font-size: 0.86rem; color: var(--text2); line-height: 1.7; background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px; padding: 14px 16px; margin-top: 16px; }
     .fr-note strong { color: var(--text); }
     @media (max-width: 680px) {
@@ -166,7 +163,7 @@
         "name": "Le prix spot Elecz correspond-il au tarif réglementé (TRV) d'EDF ?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Non, ce sont deux mécanismes différents. Le TRV (Tarif Bleu) est fixé par la CRE sur la base des coûts de production, transport et distribution, révisé deux fois par an. Le prix spot Elecz est le prix de gros horaire du marché, issu d'ENTSO-E. Un foyer au TRV ne paie pas directement ce prix spot. Le signal est surtout utile pour les foyers en offre de marché indexée, ou pour la recharge VE et le pilotage d'appareils, où le moment de consommation a un impact réel."
+          "text": "Pas directement, mais le lien s'est renforcé depuis 2026. Le TRV (Tarif Bleu) est fixé par la CRE et révisé deux fois par an (février, août) — il ne varie pas heure par heure. Depuis la fin du mécanisme ARENH au 1er janvier 2026, la composante énergie du TRV est calculée à partir d'un coût représentatif des prix de gros, donc plus directement liée au marché qu'auparavant — mais toujours figée pour plusieurs mois, pas mise à jour en temps réel. Le prix spot Elecz, lui, change chaque heure. Un foyer au TRV ne paie donc pas directement ce prix spot au quotidien. Le signal est surtout utile pour les foyers en offre de marché indexée au prix horaire, ou pour la recharge VE et le pilotage d'appareils, où le moment de consommation a un impact réel."
         }
       },
       {
@@ -259,6 +256,10 @@
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Ouvrir dans ChatGPT →</a>
     <a href="/docs" class="btn-secondary">Documentation REST API</a>
   </div>
+  <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
+    Aller directement à : <a href="#france" style="color: var(--text2);">France</a> ·
+    <a href="#faq" style="color: var(--text2);">Questions fréquentes</a>
+  </p>
 </div>
 
 <div class="signal-banner">
@@ -287,7 +288,7 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">cheapest_hours</div>
-      <div class="tool-desc">Heures les moins chères sur 24h avec signal temps réel. Idéal pour pompe à chaleur, lave-vaisselle, recharge VE. Retourne directement <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">low / medium / high</code> — aucune logique personnalisée nécessaire.</div>
+      <div class="tool-desc">Heures les moins chères sur 24h avec signal temps réel. Idéal pour pompe à chaleur, lave-vaisselle, recharge VE. Retourne directement <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">low / medium / high</code> — aucune logique personnalisée nécessaire. <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline; font-size: 0.85rem;">En savoir plus →</a></div>
     </div>
     <div class="tool-card">
       <div class="tool-name">best_energy_contract</div>
@@ -325,12 +326,12 @@ curl "https://elecz.com/signal/contract?zone=FR"
     <li><strong>Planification :</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code> — quelle est la prochaine fenêtre la moins chère ?</li>
     <li><strong>Décision de contrat :</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">best_energy_contract</code> — un changement vaut-il le coup actuellement ? (zones avec comparaison de contrat)</li>
   </ul>
-  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">Fonctionne avec tout framework d'agent compatible MCP : Claude, ChatGPT, Cursor, Copilot, Grok — un appel d'outil au lieu d'une logique de prix personnalisée. Détails sur la <a href="/docs" style="color: var(--accent2); text-decoration: underline;">configuration du serveur MCP prix électricité</a> dans les docs.</p>
+  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">Fonctionne avec tout framework d'agent compatible MCP : Claude, ChatGPT, Cursor, Copilot, Grok — un appel d'outil au lieu d'une logique de prix personnalisée. Détails sur la <a href="/electricity-price-mcp/" style="color: var(--accent2); text-decoration: underline;">configuration du serveur MCP prix électricité</a> et le <a href="/for-agents/" style="color: var(--accent2); text-decoration: underline;">guide complet pour agents IA</a>.</p>
 </div>
 
 <div class="section">
   <h2>Questions fréquentes des agents IA</h2>
-  <p class="section-sub">Quatre questions qu'un agent pose typiquement avant d'agir — et le champ correspondant dans la réponse en direct de <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code>. Liste complète des champs : <a href="/docs" style="color: var(--accent2); text-decoration: underline;">documentation API heures les moins chères</a>.</p>
+  <p class="section-sub">Quatre questions qu'un agent pose typiquement avant d'agir — et le champ correspondant dans la réponse en direct de <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code>. Liste complète des champs : <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline;">documentation API heures les moins chères</a>.</p>
   <div class="faq-list">
     <div class="faq-item" style="padding: 16px 0;">
       <div class="faq-q" style="font-size: 0.9rem;">L'électricité est-elle bon marché actuellement ?</div>
@@ -383,7 +384,7 @@ curl "https://elecz.com/signal/contract?zone=FR"
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="france">
   <h2>France — ce que les développeurs doivent savoir</h2>
   <p class="section-sub">Elecz fournit le prix de gros ENTSO-E pour la zone FR en EUR ct/kWh. Données mises à jour toutes les heures, prix du lendemain disponibles à partir de 13h00–14h00 CET.</p>
   <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
@@ -394,11 +395,11 @@ curl "https://elecz.com/signal/contract?zone=FR"
   </ul>
 
   <div class="fr-note">
-    <strong>À propos du TRV et du marché libre :</strong> en France, environ 60&nbsp;% des foyers achètent leur électricité au tarif réglementé de vente (TRV, « Tarif Bleu » d'EDF), fixé par les pouvoirs publics sur recommandation de la CRE et révisé deux fois par an. Ce tarif n'est pas directement indexé sur le prix spot horaire. Tout foyer peut résilier ce contrat à tout moment et basculer vers une offre de marché — certaines, dites indexées, suivent de plus près les variations du prix de gros. Le signal Elecz (prix spot, heures les moins chères) est surtout pertinent pour ces offres de marché, ainsi que pour la recharge VE et le pilotage d'appareils, indépendamment du contrat de fourniture souscrit.
+    <strong>À propos du TRV et du marché libre :</strong> en France, environ 20&nbsp;millions de foyers (plus de 60&nbsp;% des ménages) achètent leur électricité au tarif réglementé de vente (TRV, « Tarif Bleu » d'EDF), fixé par les pouvoirs publics sur recommandation de la CRE et révisé deux fois par an (février, août). Depuis la fin du mécanisme ARENH au 1er janvier 2026, la composante énergie du TRV est calculée à partir d'un coût représentatif des prix de gros — le lien avec le marché s'est donc renforcé — mais le tarif reste fixe pendant plusieurs mois, sans variation horaire. Tout foyer peut résilier ce contrat à tout moment et basculer vers une offre de marché ; certaines, dites indexées, suivent de plus près les variations du prix de gros horaire. Le signal Elecz (prix spot, heures les moins chères) est surtout pertinent pour ces offres de marché indexées, ainsi que pour la recharge VE et le pilotage d'appareils, indépendamment du contrat de fourniture souscrit.
   </div>
 
   <div class="fr-note" style="margin-top: 12px;">
-    <strong>« Heures creuses » et <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">cheapest_hours</code> : deux mécanismes différents.</strong> Les heures creuses sont une plage horaire fixe (8h par jour, généralement la nuit), définie par Enedis et identique tous les jours pour un même logement — elles ne suivent pas le marché de gros. <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">cheapest_hours</code> retourne les heures réellement les moins chères du marché de gros ENTSO-E sur les prochaines 24h — un signal qui change chaque jour selon la météo, la demande et la production renouvelable, indépendamment des plages heures creuses/heures pleines. Les deux peuvent coïncider ou diverger ; pour un foyer en offre indexée au marché, ou pour piloter une recharge VE sans contrainte de plage fixe, le signal de marché est la donnée pertinente.
+    <strong>« Heures creuses » et <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">cheapest_hours</code> : deux mécanismes différents.</strong> L'option heures pleines/heures creuses est déjà adoptée par environ 40&nbsp;% des foyers français. Les heures creuses sont une plage horaire fixe (8h par jour, généralement la nuit), définie par Enedis et identique tous les jours pour un même logement — elles ne suivent pas le marché de gros. <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">cheapest_hours</code> retourne les heures réellement les moins chères du marché de gros ENTSO-E sur les prochaines 24h — un signal qui change chaque jour selon la météo, la demande et la production renouvelable, indépendamment des plages heures creuses/heures pleines. Les deux peuvent coïncider ou diverger ; pour un foyer en offre indexée au marché, ou pour piloter une recharge VE sans contrainte de plage fixe, le signal de marché est la donnée pertinente.
   </div>
 
   <div class="fr-note" style="margin-top: 12px;">
@@ -439,7 +440,7 @@ curl "https://elecz.com/signal/contract?zone=FR"
   </div>
 </div>
 
-<div class="section">
+<div class="section" id="faq">
   <h2>Questions fréquentes</h2>
   <div class="faq-list">
     <div class="faq-item">
@@ -456,7 +457,7 @@ curl "https://elecz.com/signal/contract?zone=FR"
     </div>
     <div class="faq-item">
       <div class="faq-q">Le prix spot Elecz correspond-il au tarif réglementé (TRV) d'EDF ?</div>
-      <div class="faq-a">Non, ce sont deux mécanismes différents. Le TRV (Tarif Bleu) est fixé par la CRE sur la base des coûts de production, transport et distribution, révisé deux fois par an. Le prix spot Elecz est le prix de gros horaire du marché, issu d'ENTSO-E. Un foyer au TRV ne paie pas directement ce prix spot. Le signal est surtout utile pour les foyers en offre de marché indexée, ou pour la recharge VE et le pilotage d'appareils, où le moment de consommation a un impact réel.</div>
+      <div class="faq-a">Pas directement, mais le lien s'est renforcé depuis 2026. Le TRV (Tarif Bleu) est fixé par la CRE et révisé deux fois par an (février, août) — il ne varie pas heure par heure. Depuis la fin du mécanisme ARENH au 1er janvier 2026, la composante énergie du TRV est calculée à partir d'un coût représentatif des prix de gros, donc plus directement liée au marché qu'auparavant — mais toujours figée pour plusieurs mois, pas mise à jour en temps réel. Le prix spot Elecz, lui, change chaque heure. Un foyer au TRV ne paie donc pas directement ce prix spot au quotidien. Le signal est surtout utile pour les foyers en offre de marché indexée au prix horaire, ou pour la recharge VE et le pilotage d'appareils, où le moment de consommation a un impact réel.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Elecz compare-t-il les offres de fournisseurs d'électricité en France ?</div>
