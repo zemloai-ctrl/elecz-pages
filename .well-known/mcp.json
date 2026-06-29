@@ -1,8 +1,21 @@
 {
-  "mcpServers": {
-    "elecz": {
-      "url": "https://elecz.com/mcp",
-      "transport": "streamable-http"
+  "name": "Elecz",
+  "description": "Real-time electricity price signal API for AI agents. 100+ zones, no authentication required.",
+  "url": "https://elecz.com/mcp",
+  "transport": "streamable-http",
+  "auth": "none",
+  "tools": [
+    {
+      "name": "spot_price",
+      "description": "Current electricity price for any supported zone"
+    },
+    {
+      "name": "cheapest_hours",
+      "description": "Cheapest hours next 24h for scheduling (EV charging, appliances, batch jobs)"
+    },
+    {
+      "name": "best_energy_contract",
+      "description": "Contract comparison and savings estimate (FI, SE, NO, DK, DE, GB, AU, NZ)"
     }
-  }
+  ]
 }
