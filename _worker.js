@@ -48,6 +48,32 @@ export default {
       );
     }
 
+    // ─── API-shaped paths that don't match any known route get a hard 404 ──
+    // env.ASSETS.fetch() falls back to index.html (200) for anything that
+    // doesn't match a static file — standard Cloudflare Pages SPA behavior.
+    // That silently turned every guessed /api/*, /v1/*, etc. path into a
+    // "successful" 200 response carrying the full homepage HTML, which gave
+    // scanning bots/agents no negative signal to stop hitting those paths.
+    // Anything that looks like an API call but isn't one of our real routes
+    // should fail loudly instead of resolving to the homepage.
+    const looksLikeApiPath =
+      path.startsWith("/api/") ||
+      path.startsWith("/v1/") ||
+      path.startsWith("/v2/") ||
+      path.startsWith("/rest/");
+
+    if (looksLikeApiPath) {
+      return new Response(
+        JSON.stringify({ error: "Not found", path }),
+        {
+          status: 404,
+          headers: { "content-type": "application/json" },
+        }
+      );
+    }
+
+    // Everything else (actual site pages, assets) goes through normal
+    // Pages asset serving, including legitimate SPA fallback if needed.
     return env.ASSETS.fetch(request);
   },
 };
