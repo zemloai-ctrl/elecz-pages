@@ -86,6 +86,7 @@
     .badge.green { background: #f0faf4; border-color: #a8d8b8; color: #1a6b3a; }
     .badge.blue { background: #f0f6ff; border-color: #a8c4f0; color: #1a4a8a; }
     .badge.amber { background: #fff8e8; border-color: #f0d080; color: #7a5010; }
+    .badge.dark { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
     .platform-links { display: flex; gap: 10px; flex-wrap: wrap; }
     .platform-link { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1px solid #ddd; color: #444; padding: 6px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 500; text-decoration: none; transition: border-color 0.15s, color 0.15s; }
     .platform-link:hover { border-color: #f0a020; color: #1a1a1a; }
@@ -123,6 +124,8 @@
     footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e8e8e0; color: #aaa; font-size: 0.82rem; line-height: 1.9; }
     footer a { color: #aaa; text-decoration: none; }
     footer a:hover { color: #555; }
+    footer .footer-stat { display: inline-flex; align-items: center; gap: 6px; color: #888; }
+    footer .footer-stat .pulse { width: 6px; height: 6px; }
     @media (max-width: 600px) {
       .logo { font-size: 1.8rem; }
       .price-grid { grid-template-columns: 1fr 1fr; }
@@ -138,6 +141,7 @@
     <h1 class="logo"><span aria-hidden="true">⚡</span> Elecz<span class="dot">.</span>com — Electricity Price API for AI Agents</h1>
     <p class="hero">Add Elecz to your AI. It will know the <strong>current electricity price</strong>, the <strong>cheapest hours</strong> to run things, and the <strong>best contracts</strong> available right now.</p>
     <div class="badges">
+      <span class="badge dark">Millions of Requests Served Monthly</span>
       <span class="badge amber">5 Continents · 100+ Zones</span>
       <span class="badge blue">MCP-Native</span>
       <span class="badge green">No Auth Required</span>
@@ -236,7 +240,7 @@
   <footer>
     ⚡ Elecz.com — Electricity Price Signal API<br>
     ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco<br>
-    <span id="call-count"></span>
+    <span class="footer-stat"><span class="pulse"></span> Millions of requests served every month</span><br>
     <a href="mailto:hello@elecz.com">SKA Trading Oy / Zemlo AI</a> · Kokkola, Finland ·
     <a href="/docs/">Docs</a> ·
     <a href="/electricity-price-api/">API Guide</a> ·
@@ -297,19 +301,6 @@ async function loadPrices() {
 }
 loadPrices();
 setInterval(loadPrices, 5 * 60 * 1000);
-
-async function loadCount() {
-  try {
-    const res = await fetch("/signal/count");
-    if (!res.ok) return;
-    const data = await res.json();
-    const el = document.getElementById("call-count");
-    if (el && data.count) {
-      el.textContent = (data.count * 2).toLocaleString("en") + " electricity decisions served · ";
-    }
-  } catch {}
-}
-loadCount();
 </script>
 </body>
 </html>
