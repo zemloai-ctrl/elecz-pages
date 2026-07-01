@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>When Is the Best Time to Charge Your EV Today? | Elecz</title>
+  <meta name="description" content="There's no fixed cheapest hour — it changes every day. Get today's live answer for your country: charge now or wait. Free, no sign-up, 40 countries.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://elecz.com/best-time-to-charge-ev/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:title" content="When Is the Best Time to Charge Your EV Today? | Elecz">
+  <meta property="og:description" content="There's no fixed cheapest hour — it changes daily. Get today's live answer: charge now or wait. Free, no sign-up, 40 countries.">
+  <meta property="og:url" content="https://elecz.com/best-time-to-charge-ev/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://elecz.com/og-image.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="When Is the Best Time to Charge Your EV Today? | Elecz">
+  <meta name="twitter:description" content="There's no fixed cheapest hour — it changes daily. Get today's live answer: charge now or wait.">
+  <meta name="twitter:image" content="https://elecz.com/og-image.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f5f0; --bg2: #eeeee8; --bg3: #ffffff;
+      --border: #e0e0d8; --border2: #d0d0c8;
+      --text: #1a1a1a; --text2: #555550; --text3: #999990;
+      --accent: #f0a020; --accent2: #d88c10; --accent-dim: rgba(240,160,32,0.1);
+      --green: #1a7a40; --green-dim: #edfaf3; --green-border: rgba(26,122,64,0.3);
+      --red: #c0300a; --red-dim: #fdf0ed;
+      --mono: 'DM Mono', monospace; --sans: 'DM Sans', -apple-system, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    code { font-family: var(--mono); font-size: 0.85em; color: var(--accent2); background: var(--accent-dim); padding: 2px 7px; border-radius: 3px; }
+
+    nav { background: var(--bg); border-bottom: 2px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 58px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-size: 1.3rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
+    .nav-logo .dot { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text2); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
+    .nav-cta:hover { background: var(--accent2) !important; }
+
+    .hero { max-width: 860px; margin: 0 auto; padding: 56px 24px 0; }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 16px; }
+    h1 { font-size: clamp(26px, 4.8vw, 44px); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; color: var(--text); margin-bottom: 20px; max-width: 720px; }
+
+    /* ANSWER BOX — the AEO-target element. Self-contained, quotable, no jargon. */
+    .answer-box { background: var(--bg3); border: 1px solid var(--border2); border-left: 4px solid var(--accent); border-radius: 8px; padding: 26px 28px; margin: 28px 0 32px; max-width: 720px; }
+    .answer-label { font-family: var(--mono); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 10px; }
+    .answer-text { font-size: 1.04rem; color: var(--text); line-height: 1.7; }
+    .answer-text strong { font-weight: 600; }
+
+    /* VERDICT CARD — the signature element. A live-feeling, plain-language verdict, not a data table. */
+    .verdict-wrap { max-width: 860px; margin: 0 auto 56px; padding: 0 24px; }
+    .verdict { border: 1px solid var(--border2); border-radius: 10px; background: var(--bg3); overflow: hidden; }
+    .verdict-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-bottom: 1px solid var(--border); background: var(--bg2); }
+    .verdict-head-title { font-size: 0.85rem; font-weight: 600; color: var(--text2); }
+    .verdict-zones { display: flex; gap: 6px; flex-wrap: wrap; }
+    .verdict-zone-btn { font-family: var(--mono); font-size: 0.72rem; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border2); background: var(--bg3); color: var(--text2); cursor: pointer; }
+    .verdict-zone-btn.active { background: var(--text); color: var(--bg3); border-color: var(--text); }
+    .verdict-body { padding: 26px 22px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+    .verdict-signal { flex-shrink: 0; width: 84px; height: 84px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.9rem; }
+    .verdict-signal.low { background: var(--green-dim); border: 2px solid var(--green-border); }
+    .verdict-signal.high { background: var(--red-dim); border: 2px solid rgba(192,48,10,0.3); }
+    .verdict-signal.medium { background: var(--accent-dim); border: 2px solid rgba(240,160,32,0.3); }
+    .verdict-signal.loading { background: var(--bg2); border: 2px solid var(--border2); font-size: 1.1rem; color: var(--text3); }
+    .verdict-text { flex: 1; min-width: 220px; }
+    .verdict-verb { font-size: 1.25rem; font-weight: 700; margin-bottom: 6px; }
+    .verdict-verb.low { color: var(--green); }
+    .verdict-verb.high { color: var(--red); }
+    .verdict-verb.medium { color: var(--accent2); }
+    .verdict-detail { font-size: 0.92rem; color: var(--text2); line-height: 1.6; }
+    .verdict-detail b { color: var(--text); font-weight: 600; }
+    .verdict-foot { padding: 12px 22px; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--text3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .verdict-foot a { color: var(--accent2); text-decoration: none; font-weight: 500; }
+
+    .section { max-width: 860px; margin: 0 auto; padding: 48px 24px; border-bottom: 1px solid var(--border); }
+    h2 { font-size: clamp(19px, 2.6vw, 25px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 10px; }
+    .section-sub { font-size: 0.96rem; color: var(--text2); margin-bottom: 28px; max-width: 620px; }
+    .section p.body { font-size: 0.96rem; color: var(--text2); max-width: 680px; margin-bottom: 16px; }
+    .section p.body:last-child { margin-bottom: 0; }
+
+    .region-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .region-table th { text-align: left; padding: 11px 16px; color: var(--text3); font-size: 0.7rem; letter-spacing: 0.07em; text-transform: uppercase; background: var(--bg2); border-bottom: 1px solid var(--border); font-weight: 600; }
+    .region-table td { padding: 13px 16px; border-bottom: 1px solid #f0f0e8; color: var(--text2); vertical-align: top; }
+    .region-table tr:last-child td { border-bottom: none; }
+    .region-table td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; }
+    .region-table .pattern { color: var(--text); font-weight: 500; }
+
+    .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; margin-top: 8px; }
+    .usecase-card { background: var(--bg3); padding: 20px 22px; }
+    .usecase-title { font-weight: 600; font-size: 0.9rem; color: var(--text); margin-bottom: 6px; }
+    .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+    .usecase-desc a { color: var(--accent2); text-decoration: none; font-weight: 500; }
+
+    .code-block { background: #1e1e1e; border-radius: 8px; overflow: hidden; margin: 20px 0; }
+    .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #2a2a2a; }
+    .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
+    .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
+    .code-block pre { padding: 18px 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.8rem; line-height: 1.7; color: #ccc; }
+
+    .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q { font-weight: 600; font-size: 0.96rem; color: var(--text); margin-bottom: 8px; }
+    .faq-a { font-size: 0.9rem; color: var(--text2); line-height: 1.75; max-width: 700px; }
+    .faq-a a { color: var(--accent2); text-decoration: none; }
+
+    .cta-section { max-width: 860px; margin: 0 auto; padding: 56px 24px 72px; text-align: center; }
+    .cta-section h2 { margin-bottom: 12px; }
+    .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 28px; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--accent); color: var(--text); font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; display: inline-block; }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
+    .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
+
+    .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border); }
+    .kw { font-family: var(--mono); font-size: 0.76rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
+
+    footer { border-top: 2px solid var(--border); padding: 24px; text-align: center; }
+    footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
+    footer a { color: var(--text3); text-decoration: none; }
+    footer a:hover { color: var(--text2); }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .verdict-body { flex-direction: column; align-items: flex-start; text-align: left; }
+    }
+  </style>
+
+  <!-- AEO: FAQPage schema — kept in exact sync with the visible FAQ section below -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the best time to charge an EV today?",
+        "acceptedAnswer": { "@type": "Answer", "text": "There's no fixed answer — the cheapest hour changes daily with wind, solar, and demand. Overnight is cheapest more often than not, but California is frequently cheapest around midday, Germany can have very cheap solar afternoons, and Texas swings with the wind. Check a live signal like Elecz's cheapest hours API for today's actual window." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is electricity always cheaper at night for EV charging?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Night is cheaper more often than not, but it's a general pattern, not a rule. Solar-heavy markets like California and Germany can be cheaper at midday. Wind-driven markets like Texas vary night to night depending on wind output. A live check beats a fixed schedule." }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I charge my EV now, or wait?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Check the current signal for your zone. Low means you're already in a cheap hour — charge now. High means waiting for the next cheap window can meaningfully cut the cost, since the cheapest-to-most-expensive gap is commonly 3-10x and can exceed 100x during extreme events." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I find the exact cheapest hour to charge my EV today?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Call GET https://elecz.com/signal/cheapest-hours?zone=YOUR_ZONE — free, no API key. Or connect an AI assistant via MCP at https://elecz.com/mcp and just ask it." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can an AI assistant tell me when to charge my EV?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Only if it's connected to a live price source — a language model has no built-in knowledge of today's electricity prices. Connect it to Elecz via MCP and it can answer with the real current window instead of a guess." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this work for heat pumps, batteries, or dishwashers too?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — the same cheapest_hours signal applies to any flexible load, including industrial and commercial buildings. See the full cheapest hours API for response fields and integration examples with Home Assistant and n8n." }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
+  <div class="nav-links">
+    <a href="/cheapest-hours/">Cheapest Hours API</a>
+    <a href="/electricity-price-api/">API Guide</a>
+    <a href="/docs">Docs</a>
+    <a href="https://elecz.com/mcp" class="nav-cta">Connect via MCP</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">EV Charging &amp; Energy Timing</div>
+  <h1>When is the best time to charge your EV today?</h1>
+
+  <div class="answer-box">
+    <div class="answer-label">Short answer</div>
+    <div class="answer-text">
+      <strong>There is no fixed cheapest hour.</strong> It changes every day based on wind, solar output, and demand. Overnight is cheapest more often than not — but California is frequently cheapest around midday, Germany can have very cheap solar afternoons, and Texas swings with the wind. The only way to know today's actual answer is to check the live market. <strong>Elecz does this for free, for 40 countries, no sign-up required.</strong>
+    </div>
+  </div>
+</div>
+
+<div class="verdict-wrap">
+  <div class="verdict">
+    <div class="verdict-head">
+      <span class="verdict-head-title">Live example — pick a market</span>
+      <div class="verdict-zones" id="zone-buttons">
+        <button class="verdict-zone-btn active" data-zone="DE">🇩🇪 Germany</button>
+        <button class="verdict-zone-btn" data-zone="GB">🇬🇧 UK</button>
+        <button class="verdict-zone-btn" data-zone="US-CA-SP15">🇺🇸 California</button>
+        <button class="verdict-zone-btn" data-zone="JP-TKY">🇯🇵 Japan</button>
+      </div>
+    </div>
+    <div class="verdict-body" id="verdict-body">
+      <div class="verdict-signal loading" id="verdict-signal">...</div>
+      <div class="verdict-text">
+        <div class="verdict-verb" id="verdict-verb">Checking live price…</div>
+        <div class="verdict-detail" id="verdict-detail">Fetching the current signal.</div>
+      </div>
+    </div>
+    <div class="verdict-foot">
+      <span id="verdict-updated">—</span>
+      <a href="/cheapest-hours/">See the full ranked list for your zone →</a>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Should you charge now, or wait?</h2>
+  <p class="body">That's the actual question behind "when is the best time to charge" — and it's what the widget above answers. If the signal reads <b style="color:var(--green)">low</b>, you're already in one of the cheapest hours of the day: charging now is the right call. If it reads <b style="color:var(--red)">high</b>, waiting even a few hours for the next cheap window can meaningfully lower the cost of a full charge.</p>
+  <p class="body">The gap is usually bigger than people expect. The difference between the cheapest and most expensive hour of the day is commonly <b>3–10 times</b>, and during extreme demand or renewable oversupply it can exceed <b>100 times</b>. For a full EV charge, waiting a few hours can easily save several euros or dollars in a single session — for free, with no manual math.</p>
+</div>
+
+<div class="section">
+  <h2>Why there is no fixed cheapest hour</h2>
+  <p class="body">Night charging is a decent default because demand drops when homes and businesses are quiet. But electricity prices are set by supply and demand in real time, not by the clock — and that plays out differently market by market:</p>
+  <div class="usecase-grid" style="margin-top: 0;">
+    <div class="usecase-card">
+      <div class="usecase-title">🇩🇪 Germany</div>
+      <div class="usecase-desc">High solar penetration means sunny afternoons can be cheaper than the middle of the night.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">🇺🇸 California</div>
+      <div class="usecase-desc">Midday solar oversupply (10:00–15:00) is frequently the cheapest window — the opposite of the usual pattern.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">🇺🇸 Texas</div>
+      <div class="usecase-desc">Wind-driven pricing. A windy night can be near-free; a still one can be expensive well past midnight.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">🇫🇮 Nordics</div>
+      <div class="usecase-desc">Usually a clean overnight dip, but wind and hydro reservoir levels can shift or flatten it day to day.</div>
+    </div>
+  </div>
+  <p class="body" style="margin-top: 20px;">This is exactly the gap a live signal closes: instead of assuming last night's pattern repeats, you check what today's day-ahead market actually published.</p>
+</div>
+
+<div class="section">
+  <h2>Typical patterns by market</h2>
+  <p class="section-sub">General tendencies, not today's actual price. Always check the live signal for the exact window.</p>
+  <table class="region-table">
+    <thead><tr><th>Market</th><th>Typical pattern</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Nordics (FI, SE, NO, DK)</td><td class="pattern">Overnight, 01:00–06:00</td><td>Strong day/night split; wind can shift the cheapest window to daytime</td></tr>
+      <tr><td>Germany</td><td class="pattern">Overnight or midday solar dip</td><td>High solar penetration can make early afternoon cheaper than night on sunny days</td></tr>
+      <tr><td>UK (Octopus Agile)</td><td class="pattern">00:30–04:30, half-hourly</td><td>Half-hour resolution — the cheapest 30-minute slot can differ from the cheapest hour</td></tr>
+      <tr><td>California (CAISO)</td><td class="pattern">Midday solar dip, 10:00–15:00</td><td>Solar oversupply often makes midday cheaper than night — opposite of the usual pattern</td></tr>
+      <tr><td>Texas (ERCOT, HB_WEST)</td><td class="pattern">Windy nights, highly variable</td><td>Wind zone prices can go negative during oversupply — most volatile market covered</td></tr>
+      <tr><td>Australia / New Zealand</td><td class="pattern">No public day-ahead data</td><td>Real-time spot price is available; a 24h ranked forecast is not published</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>You don't have to check this yourself every day</h2>
+  <p class="section-sub">The whole point of a live signal is that software can watch it for you.</p>
+  <p class="body">Instead of remembering to look this up each evening, your charger, home automation system, or AI assistant can check the live signal automatically and act on it — start charging when it's cheap, hold off when it isn't.</p>
+  <div class="usecase-grid" style="margin-top: 0;">
+    <div class="usecase-card"><div class="usecase-title">✓ Home Assistant</div><div class="usecase-desc">Use the signal as an automation trigger condition.</div></div>
+    <div class="usecase-card"><div class="usecase-title">✓ n8n</div><div class="usecase-desc">Official node — drop straight into any workflow.</div></div>
+    <div class="usecase-card"><div class="usecase-title">✓ ChatGPT</div><div class="usecase-desc">Ask it directly once connected via MCP.</div></div>
+    <div class="usecase-card"><div class="usecase-title">✓ Claude</div><div class="usecase-desc">Same MCP connection, one line of config.</div></div>
+    <div class="usecase-card"><div class="usecase-title">✓ Cursor &amp; Copilot</div><div class="usecase-desc">Useful when building your own automation.</div></div>
+    <div class="usecase-card"><div class="usecase-title">✓ Any MCP-compatible agent</div><div class="usecase-desc">Open standard — no Elecz-specific integration needed.</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>For developers: the same signal via API or MCP</h2>
+  <p class="section-sub">One call returns the ranked cheapest hours for the next 24h, plus a ready-to-use signal. Free, no API key.</p>
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">REST</span><span class="code-lang">cURL</span></div>
+    <pre>curl "https://elecz.com/signal/cheapest-hours?zone=FI"</pre>
+  </div>
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">MCP — Claude, Grok, Cursor, Copilot</span><span class="code-lang">JSON</span></div>
+    <pre>{
+  "mcpServers": {
+    "elecz": { "url": "https://elecz.com/mcp" }
+  }
+}</pre>
+  </div>
+  <p class="body">Full parameters, response fields, and integration examples: <a href="/cheapest-hours/">Cheapest Hours API</a> · <a href="/electricity-price-api/">Electricity Price API overview</a> · <a href="/electricity-price-mcp/">Electricity Price MCP server</a> · <a href="/docs/">Full documentation</a>.</p>
+</div>
+
+<div class="section">
+  <h2>Same signal, more than just EVs</h2>
+  <p class="section-sub">Any flexible electricity use benefits from the same live cheapest-hours signal.</p>
+  <div class="usecase-grid">
+    <div class="usecase-card">
+      <div class="usecase-title">🌡️ Heat pumps</div>
+      <div class="usecase-desc">Pre-heat during the cheap window, coast on stored heat once prices rise. See the <a href="/cheapest-hours/">cheapest hours API</a>.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">🔋 Home batteries</div>
+      <div class="usecase-desc">Charge on the cheapest hours, discharge on the most expensive ones — same ranked list drives both.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">🍽️ Dishwasher &amp; laundry</div>
+      <div class="usecase-desc">Delay-start settings pair directly with <code>next_cheap_hour</code> from the API.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">🏭 Industrial loads</div>
+      <div class="usecase-desc">Shift flexible, energy-intensive processes to the cheapest hours of the day.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">🏢 Commercial buildings</div>
+      <div class="usecase-desc">HVAC pre-cooling or pre-heating timed to the cheap window, at building scale.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">🤖 AI energy agents</div>
+      <div class="usecase-desc">Any MCP-compatible agent can act on <code>current_hour_signal</code> without custom logic. See <a href="/electricity-price-mcp/">Electricity Price MCP</a>.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">What is the best time to charge an EV today?</div>
+      <div class="faq-a">There's no fixed answer — the cheapest hour changes daily with wind, solar, and demand. Overnight is cheapest more often than not, but California is frequently cheapest around midday, Germany can have very cheap solar afternoons, and Texas swings with the wind. Check a live signal like <a href="/cheapest-hours/">Elecz's cheapest hours API</a> for today's actual window.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is electricity always cheaper at night for EV charging?</div>
+      <div class="faq-a">No. Night is cheaper more often than not, but it's a general pattern, not a rule. Solar-heavy markets like California and Germany can be cheaper at midday. Wind-driven markets like Texas vary night to night depending on wind output. A live check beats a fixed schedule.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Should I charge my EV now, or wait?</div>
+      <div class="faq-a">Check the current signal for your zone. <b style="color:var(--green)">Low</b> means you're already in a cheap hour — charge now. <b style="color:var(--red)">High</b> means waiting for the next cheap window can meaningfully cut the cost, since the cheapest-to-most-expensive gap is commonly 3–10x and can exceed 100x during extreme events.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How do I find the exact cheapest hour to charge my EV today?</div>
+      <div class="faq-a">Call <code>GET https://elecz.com/signal/cheapest-hours?zone=YOUR_ZONE</code> — free, no API key. Or connect an AI assistant via MCP at <code>https://elecz.com/mcp</code> and just ask it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can an AI assistant tell me when to charge my EV?</div>
+      <div class="faq-a">Only if it's connected to a live price source — a language model has no built-in knowledge of today's electricity prices. Connect it to <a href="https://elecz.com/mcp">Elecz via MCP</a> and it can answer with the real current window instead of a guess.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Does this work for heat pumps, batteries, or dishwashers too?</div>
+      <div class="faq-a">Yes — the same <code>cheapest_hours</code> signal applies to any flexible load, including industrial and commercial buildings. See the full <a href="/cheapest-hours/">cheapest hours API</a> for response fields and integration examples with Home Assistant and n8n.</div>
+    </div>
+  </div>
+
+  <div class="keyword-cloud">
+    <span class="kw">best time to charge EV</span>
+    <span class="kw">cheapest time to charge EV tonight</span>
+    <span class="kw">is electricity cheaper at night</span>
+    <span class="kw">when is electricity cheapest today</span>
+    <span class="kw">EV charging off-peak hours</span>
+    <span class="kw">AI energy agent EV charging</span>
+    <span class="kw">home battery optimization API</span>
+    <span class="kw">demand response API</span>
+    <span class="kw">energy scheduling for AI agents</span>
+  </div>
+</div>
+
+<div class="section" style="border-bottom: none;">
+  <h2>Related live tools</h2>
+  <p class="section-sub">Same live data, different questions.</p>
+  <div class="usecase-grid">
+    <div class="usecase-card">
+      <div class="usecase-title">Is electricity cheap right now?</div>
+      <div class="usecase-desc">Current price and signal for any zone. <a href="/electricity-price-api/">Electricity Price API</a></div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">Cheapest electricity today</div>
+      <div class="usecase-desc">Full ranked list for the next 24h. <a href="/cheapest-hours/">Cheapest Hours API</a></div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">Best time to run a heat pump</div>
+      <div class="usecase-desc">Same signal, pre-heat during the cheap window. <a href="/cheapest-hours/">Cheapest Hours API</a></div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">Best time to charge a home battery</div>
+      <div class="usecase-desc">Charge cheap, discharge expensive. <a href="/cheapest-hours/">Cheapest Hours API</a></div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">Should I switch electricity contract?</div>
+      <div class="usecase-desc">Spot vs. fixed comparison for your usage. <a href="/docs/">See the contract endpoint in Docs</a></div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">Building an AI agent that uses this?</div>
+      <div class="usecase-desc">Agent behavior spec and integration notes. <a href="/for-agents/">For AI Agents</a></div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">MCP for AI agents</div>
+      <div class="usecase-desc">Connect any MCP-compatible client in one line. <a href="/electricity-price-mcp/">Electricity Price MCP</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Stop guessing. Check the live window.</h2>
+  <p>Free. No API key. 40 countries. Works via MCP or REST.</p>
+  <div class="cta-row">
+    <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
+    <a href="/cheapest-hours/" class="btn-secondary">Full Cheapest Hours API →</a>
+  </div>
+</div>
+
+<footer>
+  <p>
+    ⚡ <a href="/">Elecz.com</a> · Built by SKA Trading Oy / Zemlo AI, Kokkola, Finland ·
+    Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX ·
+    <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
+    <a href="/cheapest-hours/">Cheapest Hours API</a> ·
+    <a href="/electricity-price-api/">API overview</a> ·
+    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a>
+  </p>
+</footer>
+
+<script>
+const ZONE_LABELS = {
+  "DE": "Germany", "GB": "the UK", "US-CA-SP15": "California", "JP-TKY": "Japan"
+};
+
+function renderVerdict(zone, data) {
+  const signalEl = document.getElementById("verdict-signal");
+  const verbEl = document.getElementById("verdict-verb");
+  const detailEl = document.getElementById("verdict-detail");
+  const updatedEl = document.getElementById("verdict-updated");
+  const label = ZONE_LABELS[zone] || zone;
+
+  if (!data || data.available === false) {
+    signalEl.className = "verdict-signal loading";
+    signalEl.textContent = "n/a";
+    verbEl.className = "verdict-verb";
+    verbEl.textContent = "No live signal for this zone";
+    detailEl.textContent = "Day-ahead ranking isn't published for this market yet.";
+    updatedEl.textContent = "—";
+    return;
+  }
+
+  const signal = data.current_hour_signal || "medium";
+  const icon = signal === "low" ? "✓" : signal === "high" ? "!" : "~";
+  const verb = signal === "low" ? "Good time to charge now"
+             : signal === "high" ? "Wait if you can"
+             : "Okay, but not the cheapest";
+
+  signalEl.className = "verdict-signal " + signal;
+  signalEl.textContent = icon;
+  verbEl.className = "verdict-verb " + signal;
+  verbEl.textContent = verb;
+
+  let detail = `Current price signal for <b>${label}</b>: <b>${signal}</b>.`;
+  if (data.next_cheap_hour && signal !== "low") {
+    detail += ` Next cheap window starts around <b>${new Date(data.next_cheap_hour).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</b>.`;
+  } else if (data.cheap_window_ends) {
+    detail += ` This cheap window runs until <b>${new Date(data.cheap_window_ends).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</b>.`;
+  }
+  detailEl.innerHTML = detail;
+  updatedEl.textContent = "Live · updated " + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+}
+
+async function loadZone(zone) {
+  const signalEl = document.getElementById("verdict-signal");
+  const verbEl = document.getElementById("verdict-verb");
+  signalEl.className = "verdict-signal loading";
+  signalEl.textContent = "...";
+  verbEl.textContent = "Checking live price…";
+  try {
+    const res = await fetch(`/signal/cheapest-hours?zone=${zone}`);
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    renderVerdict(zone, data);
+  } catch {
+    renderVerdict(zone, null);
+  }
+}
+
+document.querySelectorAll(".verdict-zone-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".verdict-zone-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    loadZone(btn.dataset.zone);
+  });
+});
+
+loadZone("DE");
+</script>
+
+</body>
+</html>
