@@ -148,6 +148,11 @@
         "@type": "Question",
         "name": "Can an AI agent use the cheapest hours API?",
         "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz exposes cheapest_hours as an MCP tool. Any MCP-compatible AI client (Claude, Grok, Cursor, Copilot) can call it directly. The response is structured for immediate decision-making — no custom logic needed." }
+      },
+      {
+        "@type": "Question",
+        "name": "I just want to know when to charge my EV — do I need to read all this?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No — see Best Time to Charge Your EV Today at elecz.com/best-time-to-charge-ev/ for a plain-language, no-API-required answer. Come back here if you want to build something on top of the signal yourself." }
       }
     ]
   }
@@ -158,6 +163,7 @@
 <nav>
   <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
   <div class="nav-links">
+    <a href="/best-time-to-charge-ev/">Best Time to Charge EV</a>
     <a href="/docs">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
     <a href="/electricity-price-mcp/">MCP</a>
@@ -169,7 +175,7 @@
   <div class="hero-eyebrow">Cheapest Electricity Hours API</div>
   <h1>Which hours are cheapest<br>to run things today?<br><span class="hl">Ask the API.</span></h1>
   <p class="hero-lead">
-    The <code style="font-family:'DM Mono',monospace;font-size:0.9em;color:var(--accent2);background:var(--accent-dim);padding:2px 8px;border-radius:3px">cheapest_hours</code> API returns ranked electricity hours for the next 24h — built on day-ahead market data, with a ready-to-use scheduling signal. No math, no custom logic. Just call it and act on the answer.
+    The <code style="font-family:'DM Mono',monospace;font-size:0.9em;color:var(--accent2);background:var(--accent-dim);padding:2px 8px;border-radius:3px">cheapest_hours</code> API returns ranked electricity hours for the next 24h — built on day-ahead market data, with a ready-to-use scheduling signal. No math, no custom logic. Just call it and act on the answer. Charging an EV tonight? See the <a href="/best-time-to-charge-ev/" style="color:var(--accent2);font-weight:500;">plain-language answer</a> instead of raw API output.
   </p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">40</div><div class="stat-label">countries</div></div>
@@ -254,7 +260,7 @@
   <div class="usecase-grid">
     <div class="usecase-card">
       <div class="usecase-title">⚡ EV charging scheduler</div>
-      <div class="usecase-desc">Check <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">current_hour_signal</code> — if <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">low</code>, start charging now. Otherwise delay to <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">next_cheap_hour</code>. No custom price comparison needed.</div>
+      <div class="usecase-desc">Check <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">current_hour_signal</code> — if <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">low</code>, start charging now. Otherwise delay to <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">next_cheap_hour</code>. No custom price comparison needed. Building this for a person, not an app? See <a href="/best-time-to-charge-ev/" style="color:var(--accent2)">Best Time to Charge Your EV</a>.</div>
     </div>
     <div class="usecase-card">
       <div class="usecase-title">🌡️ Heat pump control</div>
@@ -337,6 +343,10 @@ starts at 23:00 tonight."</span></pre>
       <div class="faq-q">How is this different from just fetching spot prices and sorting them myself?</div>
       <div class="faq-a">You could — but <code>cheapest_hours</code> also returns <code>current_hour_signal</code>, <code>cheap_window_ends</code>, <code>next_cheap_hour</code>, and <code>hours_until_next_cheap</code>. These context fields are what make the response actionable for agents and automations without additional logic.</div>
     </div>
+    <div class="faq-item">
+      <div class="faq-q">I just want to know when to charge my EV — do I need to read all this?</div>
+      <div class="faq-a">No — see <a href="/best-time-to-charge-ev/">Best Time to Charge Your EV Today</a> for a plain-language, no-API-required answer. Come back here if you want to build something on top of the signal yourself.</div>
+    </div>
   </div>
 
   <div class="keyword-cloud">
@@ -371,6 +381,7 @@ starts at 23:00 tonight."</span></pre>
     ⚡ <a href="/">Elecz.com</a> · Built by SKA Trading Oy / Zemlo AI, Kokkola, Finland ·
     Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX ·
     <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
+    <a href="/best-time-to-charge-ev/">Best Time to Charge EV</a> ·
     <a href="/electricity-price-api/">API overview</a> ·
     <a href="/electricity-price-mcp/">MCP server</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a>
