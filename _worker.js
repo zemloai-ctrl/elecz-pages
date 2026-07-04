@@ -5,6 +5,12 @@ export default {
     const RENDER = "https://elecz-api.onrender.com";
     const CACHE_TTL = 300;
 
+    // GET/HEAD requests must never carry a body when constructing a new
+    // Request — some clients (bots/scanners) send an empty-but-present body
+    // stream alongside GET, which otherwise throws:
+    // "TypeError: Request with a GET/HEAD method cannot have a body."
+    const hasNoBody = request.method === "GET" || request.method === "HEAD";
+
     const cacheable =
       path.startsWith("/signal") ||
       path.startsWith("/spot");
@@ -18,7 +24,7 @@ export default {
       const response = await fetch(new Request(target, {
         method: request.method,
         headers: request.headers,
-        body: request.body,
+        body: hasNoBody ? undefined : request.body,
       }));
       if (response.ok) {
         const toCache = new Response(response.clone().body, response);
@@ -38,7 +44,7 @@ export default {
       return fetch(new Request(target, {
         method: request.method,
         headers: request.headers,
-        body: request.body,
+        body: hasNoBody ? undefined : request.body,
       }));
     }
 
