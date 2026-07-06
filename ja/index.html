@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>電力価格API リアルタイム — APIキー不要、MCP対応 | Elecz</title>
+  <meta name="description" content="日本(JEPX全9エリア)対応のリアルタイム電力価格API。スポット価格、最安時間帯。MCP対応、無料、APIキー不要。">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://elecz.com/ja/">
+  <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-api/">
+  <link rel="alternate" hreflang="de" href="https://elecz.com/de/">
+  <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
+  <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
+  <link rel="alternate" hreflang="ja" href="https://elecz.com/ja/">
+  <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:title" content="電力価格API リアルタイム — APIキー不要、MCP対応 | Elecz">
+  <meta property="og:description" content="無料のリアルタイム電力価格API。スポット価格、最安時間帯。MCP対応、APIキー不要。日本JEPX全9エリア対応。">
+  <meta property="og:url" content="https://elecz.com/ja/">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f5f0; --bg2: #eeeee8; --bg3: #ffffff;
+      --border: #e0e0d8; --border2: #d0d0c8;
+      --text: #1a1a1a; --text2: #555550; --text3: #999990;
+      --accent: #f0a020; --accent2: #d88c10; --accent-dim: rgba(240,160,32,0.1);
+      --green: #1a7a40; --green-dim: rgba(26,122,64,0.08); --green-border: rgba(26,122,64,0.25);
+      --red: #c0300a; --red-dim: #fdf0ed;
+      --mono: 'DM Mono', monospace; --sans: 'DM Sans', -apple-system, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    nav { background: var(--bg); border-bottom: 2px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 58px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-size: 1.3rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
+    .nav-logo .dot { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text2); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-lang { font-size: 0.8rem; color: var(--text3); }
+    .nav-lang a { color: var(--text3); text-decoration: none; }
+    .nav-lang a:hover { color: var(--text2); }
+    .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
+    .nav-cta:hover { background: var(--accent2) !important; }
+    .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 56px; border-bottom: 2px solid var(--border); }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 18px; }
+    h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; }
+    h1 .hl { color: var(--accent2); }
+    .hero-lead { font-size: 1.08rem; color: var(--text2); max-width: 620px; line-height: 1.75; margin-bottom: 32px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 36px; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); max-width: 560px; }
+    .stat { padding: 16px 24px; border-right: 1px solid var(--border); flex: 1; min-width: 110px; }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; color: var(--text); line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-size: 0.75rem; color: var(--text3); font-weight: 500; }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { background: var(--accent); color: var(--text); font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
+    .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
+    .btn-chatgpt { background: #10a37f; color: #fff; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-chatgpt:hover { background: #0d8f6e; }
+    .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
+    h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
+    .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
+    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); }
+    .tool-card { padding: 24px; border-right: 1px solid var(--border); }
+    .tool-card:last-child { border-right: none; }
+    .tool-name { font-family: var(--mono); font-size: 0.82rem; font-weight: 500; color: var(--accent2); margin-bottom: 10px; background: var(--accent-dim); display: inline-block; padding: 3px 8px; border-radius: 3px; }
+    .tool-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.65; }
+    .code-block { background: #1e1e1e; border-radius: 8px; overflow: hidden; margin: 24px 0; }
+    .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #2a2a2a; border-bottom: 1px solid #333; }
+    .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
+    .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
+    .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
+    .k { color: #7ec8e3; } .s { color: #a8d8a8; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+    .faq-a { font-size: 0.9rem; color: var(--text2); line-height: 1.75; max-width: 700px; }
+    .faq-a code { font-family: var(--mono); font-size: 0.82rem; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
+    .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .kw { font-family: var(--mono); font-size: 0.78rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
+    .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
+    .cta-section h2 { margin-bottom: 14px; }
+    .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    footer { border-top: 2px solid var(--border); padding: 24px; text-align: center; }
+    footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
+    footer a { color: var(--text3); text-decoration: none; }
+    footer a:hover { color: var(--text2); }
+    .dach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); margin-bottom: 24px; }
+    .dach-card { padding: 22px 22px 24px; border-right: 1px solid var(--border); }
+    .dach-card:last-child { border-right: none; }
+    .dach-flag { font-size: 1.3rem; margin-bottom: 6px; }
+    .dach-zone { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; color: var(--accent2); background: var(--accent-dim); display: inline-block; padding: 2px 7px; border-radius: 3px; margin-bottom: 10px; }
+    .dach-status { font-size: 0.78rem; font-weight: 600; margin-bottom: 8px; }
+    .dach-status.full { color: var(--green); }
+    .dach-status.partial { color: var(--accent2); }
+    .dach-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.65; }
+    .dach-note { font-size: 0.86rem; color: var(--text2); line-height: 1.7; background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px; padding: 14px 16px; margin-top: 4px; }
+    .signal-banner { max-width: 860px; margin: 0 auto; padding: 36px 24px; border-bottom: 1px solid var(--border); background: var(--green-dim); }
+    .signal-banner-inner { max-width: 720px; }
+    .signal-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+    .signal-banner h2 { font-size: clamp(16px, 2.2vw, 21px); margin-bottom: 12px; }
+    .signal-banner p { font-size: 0.95rem; color: var(--text2); line-height: 1.75; }
+    .signal-flow { font-family: var(--mono); font-size: 0.95rem; color: var(--text); margin-top: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .signal-flow span { padding: 5px 12px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 5px; }
+    .signal-flow .arrow { color: var(--green); font-weight: 600; }
+    .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+    .usecase-item { background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 18px 20px; }
+    .usecase-icon { font-size: 1.2rem; margin-bottom: 8px; }
+    .usecase-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
+    .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+
+    /* ライブ判定ウィジェット — 日本の9エリアをボタンで切り替え */
+    .verdict-wrap { max-width: 860px; margin: 0 auto 0; padding: 0 24px 40px; }
+    .verdict { border: 1px solid var(--border2); border-radius: 10px; background: var(--bg3); overflow: hidden; }
+    .verdict-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 16px 22px; border-bottom: 1px solid var(--border); background: var(--bg2); }
+    .verdict-head-title { font-size: 0.85rem; font-weight: 600; color: var(--text2); }
+    .verdict-zones { display: flex; gap: 6px; flex-wrap: wrap; }
+    .verdict-zone-btn { font-family: var(--mono); font-size: 0.72rem; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border2); background: var(--bg3); color: var(--text2); cursor: pointer; }
+    .verdict-zone-btn.active { background: var(--text); color: var(--bg3); border-color: var(--text); }
+    .verdict-body { padding: 26px 22px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+    .verdict-signal { flex-shrink: 0; width: 84px; height: 84px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.9rem; }
+    .verdict-signal.low { background: var(--green-dim); border: 2px solid var(--green-border); }
+    .verdict-signal.high { background: var(--red-dim); border: 2px solid rgba(192,48,10,0.3); }
+    .verdict-signal.medium { background: var(--accent-dim); border: 2px solid rgba(240,160,32,0.3); }
+    .verdict-signal.loading { background: var(--bg2); border: 2px solid var(--border2); font-size: 1.1rem; color: var(--text3); }
+    .verdict-text { flex: 1; min-width: 220px; }
+    .verdict-verb { font-size: 1.25rem; font-weight: 700; margin-bottom: 6px; }
+    .verdict-verb.low { color: var(--green); }
+    .verdict-verb.high { color: var(--red); }
+    .verdict-verb.medium { color: var(--accent2); }
+    .verdict-detail { font-size: 0.92rem; color: var(--text2); line-height: 1.6; }
+    .verdict-detail b { color: var(--text); font-weight: 600; }
+    .verdict-foot { padding: 12px 22px; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--text3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .verdict-foot a { color: var(--accent2); text-decoration: none; font-weight: 500; }
+
+    /* 9エリア用グリッド調整（3x3） */
+    #japan-zones .dach-card:nth-child(3n) { border-right: none; }
+    #japan-zones .dach-card:nth-child(n+4) { border-top: 1px solid var(--border); }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .tools-grid, .dach-grid { grid-template-columns: 1fr; }
+      .tool-card, .dach-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .tool-card:last-child, .dach-card:last-child { border-bottom: none; }
+      #japan-zones .dach-card:nth-child(n+4) { border-top: none; }
+      .signal-flow { font-size: 0.85rem; }
+      .verdict-body { flex-direction: column; align-items: flex-start; text-align: left; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Elecz 電力価格API",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web/API",
+    "url": "https://elecz.com/ja/",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
+    "description": "日本(JEPX全9エリア)対応の無料リアルタイム電力価格API。生データではなく判断済みの信号を返す — スポット価格、最安時間帯。MCP対応、APIキー不要。",
+    "inLanguage": "ja"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "日本向けの無料電力価格APIはありますか？APIキーは必要ですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。Eleczは日本の全9 JEPXエリアで完全に無料です — スポット価格と最安時間帯の取得に、APIキー・アカウント・登録は不要です。GET /signal/spot?zone=JP-TKY を呼び出すだけで利用できます。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "JEPXのスポット価格をAPIで取得するには？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "EleczはJEPXの前日市場（スポット市場）価格を正規化した形でJPY/kWh単位、認証不要で提供します。JEPXの会員登録やCSVダウンロード・スクレイピングは不要です。前日分の価格は日本時間およそ10:30に公開されます。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "市場連動型プランを契約していますが、今の価格を確認するには？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "市場連動型プランの電力量料金単価はJEPXのスポット市場価格に連動して30分ごとに変動します。Eleczのspot_priceを呼び出せば、契約エリア（例: JP-TKY）の現在の市場価格を直接確認できます。cheapest_hoursを使えば、今後24時間の最安時間帯もあわせて把握できます。実際の請求単価には託送料金や事業者の調達コストが別途加算されます。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Eleczは日本の電力契約プランの比較に対応していますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "現時点では未対応です。best_energy_contract（契約比較ツール）は現在フィンランド、スウェーデン、ノルウェー、デンマーク、ドイツ、イギリス、オーストラリア、ニュージーランドのみに対応しています。日本エリアではspot_priceとcheapest_hoursが利用可能です。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "EleczはHome AssistantやHEMSと連携できますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。REST APIまたは公式n8nノード（n8n-nodes-elecz）を通じて、任意の自動化プラットフォームに統合できます。current_hour_signalフィールドはlow、medium、highを直接返すため、独自ロジックは不要です。Home Assistant公式のSmart Meter B Route統合は電力消費量を取得しますが、価格データは含みません。Eleczと組み合わせることで消費と価格の両方に基づく自動化が可能になります。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "MCPとは何ですか？なぜ電力価格データに必要なのですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MCP（Model Context Protocol）は、AIエージェントが外部ツールを呼び出すためのオープンな標準規格です。電力価格は毎日変動するため、エージェントには学習データではなくライブのAPI呼び出しが必要です。https://elecz.com/mcp に接続するだけで、セットアップ不要で利用できます。Claude、ChatGPT、Grok、Cursor、Copilot、Mistralに対応しています。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "今、電気は安いですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "cheapest_hoursのレスポンスに含まれるenergy_stateフィールドから直接取得できます: cheap、normal、expensive、negativeのいずれかです。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "今すぐ実行すべきですか、それとも待つべきですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "recommendationフィールドから直接取得できます: run_high_consumption_tasks、normal_usage、avoidのいずれかです。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "次の最安時間帯はいつですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "next_cheap_hour（タイムスタンプ）とhours_until_next_cheap（0は今すぐの意味）フィールドから取得できます。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "今日の最適な時間帯はいつですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "best_3h_windowフィールドから直接取得できます — 最安3時間ウィンドウの開始時刻、終了時刻、平均価格です。"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
+  <div class="nav-links">
+    <a href="/docs">Docs</a>
+    <a href="/electricity-price-api/">API Guide</a>
+    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
+    <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a></span>
+    <a href="https://elecz.com/mcp" class="nav-cta">MCPで接続</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">電力価格API — 日本（JEPX全9エリア）</div>
+  <h1>リアルタイム電力価格API。<br><span class="hl">APIキー不要。MCP対応。</span></h1>
+  <p class="hero-lead">
+    Eleczは日本卸電力取引所（JEPX）のスポット価格と最安時間帯を、AIエージェント・ホームオートメーション・EV充電向けに提供します。APIキー不要、登録不要、セットアップ不要。
+  </p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">9</div><div class="stat-label">JEPXエリア</div></div>
+    <div class="stat"><div class="stat-num">日次</div><div class="stat-label">更新（前日市場価格）</div></div>
+    <div class="stat"><div class="stat-num">JEPX</div><div class="stat-label">データソース</div></div>
+    <div class="stat"><div class="stat-num">¥0</div><div class="stat-label">APIキー不要</div></div>
+  </div>
+  <div class="hero-ctas">
+    <a href="https://elecz.com/mcp" class="btn-primary">MCPで接続 →</a>
+    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">ChatGPTで開く →</a>
+    <a href="/docs" class="btn-secondary">REST APIドキュメント</a>
+  </div>
+  <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
+    直接ジャンプ: <a href="#japan-zones" style="color: var(--text2);">日本エリア一覧</a> ·
+    <a href="#japan-dev" style="color: var(--text2);">開発者向け情報</a> ·
+    <a href="#faq" style="color: var(--text2);">よくある質問</a>
+  </p>
+</div>
+
+<div class="verdict-wrap">
+  <div class="verdict">
+    <div class="verdict-head">
+      <span class="verdict-head-title">ライブ判定 — 日本のエリアを選択</span>
+      <div class="verdict-zones" id="zone-buttons">
+        <button class="verdict-zone-btn" data-zone="JP-HKD">北海道</button>
+        <button class="verdict-zone-btn" data-zone="JP-THK">東北</button>
+        <button class="verdict-zone-btn active" data-zone="JP-TKY">東京</button>
+        <button class="verdict-zone-btn" data-zone="JP-CBU">中部</button>
+        <button class="verdict-zone-btn" data-zone="JP-HKR">北陸</button>
+        <button class="verdict-zone-btn" data-zone="JP-KNS">関西</button>
+        <button class="verdict-zone-btn" data-zone="JP-CGK">中国</button>
+        <button class="verdict-zone-btn" data-zone="JP-SKK">四国</button>
+        <button class="verdict-zone-btn" data-zone="JP-KYS">九州</button>
+      </div>
+    </div>
+    <div class="verdict-body" id="verdict-body">
+      <div class="verdict-signal loading" id="verdict-signal">...</div>
+      <div class="verdict-text">
+        <div class="verdict-verb" id="verdict-verb">価格を確認中…</div>
+        <div class="verdict-detail" id="verdict-detail">現在のシグナルを取得しています。</div>
+      </div>
+    </div>
+    <div class="verdict-foot">
+      <span id="verdict-updated">—</span>
+      <a href="/cheapest-hours/">エリアの全時間帯ランキングを見る →</a>
+    </div>
+  </div>
+</div>
+
+<div class="signal-banner">
+  <div class="signal-banner-inner">
+    <div class="signal-eyebrow">データソースではなく、判断信号を提供</div>
+    <h2>単なる電力価格ではなく、すぐに使える判断信号。</h2>
+    <p>JEPXは1日48コマ（30分単位）の約定価格を公開していますが、エージェントはこれをそのまま使えません — 解釈・閾値判定・再計算が必要になります。Eleczはこの処理をあらかじめ済ませて返します: 独自ロジック不要、閾値コード不要、再計算不要。</p>
+    <div class="signal-flow">
+      <span>12.4円/kWh</span>
+      <span class="arrow">→</span>
+      <span>cheap</span>
+      <span class="arrow">→</span>
+      <span>今すぐ実行</span>
+    </div>
+    <p style="font-size: 0.88rem; color: var(--text2); line-height: 1.75; margin-top: 18px;">JEPXはデータソースです — エージェント向けインターフェースやMCP対応、判断済みの推奨値は提供していません。Eleczはその上に構築され、生の数値ではなく結果を返します。</p>
+  </div>
+</div>
+
+<div class="section" id="tools">
+  <h2>3つのツール。すべてのユースケースに対応。</h2>
+  <p class="section-sub">Eleczは3つのMCPツールを提供し、AIエージェントが電力価格に関して必要とするあらゆる判断をカバーします。フィールド一覧は<a href="/docs" style="color: var(--accent2); text-decoration: underline;">REST APIドキュメント</a>を参照してください。</p>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-name">spot_price</div>
+      <div class="tool-desc">ゾーン <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">JP-TKY</code>（東京）ほか全9エリアの現在のスポット価格。価格、単位、タイムスタンプ、データソースを返します。</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">cheapest_hours</div>
+      <div class="tool-desc">今後24時間の最安時間帯をリアルタイム判断信号付きで返します。ヒートポンプ・食洗機・EV充電・バッチ処理に最適。<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">low / medium / high</code> を直接返すため、独自ロジックは不要です。<a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline; font-size: 0.85rem;">詳細はこちら →</a></div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">best_energy_contract</div>
+      <div class="tool-desc">電力契約プランをリアルタイムで比較。最適なスポット連動プラン、最適な固定プラン、総合的な推奨を個別のカテゴリとして返します。REST経由でも利用可能: <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">MCP接続 — Claude, ChatGPT, Grok, Cursor, Copilot, Mistral</span><span class="code-lang">JSON</span></div>
+    <pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"elecz"</span>: {
+      <span class="k">"url"</span>: <span class="s">"https://elecz.com/mcp"</span>
+    }
+  }
+}</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">REST API — 日本の例</span><span class="code-lang">cURL</span></div>
+    <pre>curl "https://elecz.com/signal/spot?zone=JP-TKY"
+curl "https://elecz.com/signal/spot?zone=JP-KNS"
+curl "https://elecz.com/signal/cheapest-hours?zone=JP-TKY&hours=5"</pre>
+  </div>
+</div>
+
+<div class="section">
+  <h2>電力を意識するAIエージェントを作る</h2>
+  <p class="section-sub">AIエージェントやLLMは学習データから現在の電力価格を導き出せません — 価格は毎日変動し、1日の中で数倍の差が生じることもあります。電力を意識したエージェントには、モデルの記憶からの推測ではなく、リアルタイムのツール呼び出しが必要です。</p>
+  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8; margin-bottom: 20px;">Eleczは追加ロジックなしで、あらゆるエージェントを電力対応にします:</p>
+  <ul style="padding-left: 20px; color: var(--text2); font-size: 0.92rem; line-height: 2; margin-bottom: 24px;">
+    <li><strong>実行前チェック:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">current_hour_signal</code> — 今タスクを実行すべきか、待つべきか？</li>
+    <li><strong>スケジューリング:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code> — 次の最安時間帯はいつ始まるか？</li>
+    <li><strong>契約判断:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">best_energy_contract</code> — 今切り替える価値はあるか？（対応国のみ）</li>
+  </ul>
+  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">MCP対応のエージェントフレームワークならすべて動作します: Claude、ChatGPT、Cursor、Copilot、Grok — 独自の価格ロジックの代わりに1回のツール呼び出しで済みます。<a href="/electricity-price-mcp/" style="color: var(--accent2); text-decoration: underline;">MCPサーバー 電力価格のセットアップ</a>と<a href="/for-agents/" style="color: var(--accent2); text-decoration: underline;">AIエージェント向け完全ガイド</a>も参照してください。</p>
+</div>
+
+<div class="section">
+  <h2>AIエージェントが実行前に聞く4つの質問</h2>
+  <p class="section-sub">エージェントがアクション実行前に確認する典型的な4つの質問と、<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code> のライブレスポンスの対応フィールドです。全フィールド一覧: <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline;">最安時間帯API ドキュメント</a>。</p>
+  <div class="faq-list">
+    <div class="faq-item" style="padding: 16px 0;">
+      <div class="faq-q" style="font-size: 0.9rem;">今、電気は安い？</div>
+      <div class="faq-a">直接 <code>energy_state</code> から取得: <code>cheap</code>、<code>normal</code>、<code>expensive</code>、<code>negative</code> のいずれか。</div>
+    </div>
+    <div class="faq-item" style="padding: 16px 0;">
+      <div class="faq-q" style="font-size: 0.9rem;">今すぐ実行すべきか、待つべきか？</div>
+      <div class="faq-a">直接 <code>recommendation</code> から取得: <code>run_high_consumption_tasks</code>、<code>normal_usage</code>、<code>avoid</code> のいずれか。</div>
+    </div>
+    <div class="faq-item" style="padding: 16px 0;">
+      <div class="faq-q" style="font-size: 0.9rem;">次の最安時間帯はいつ？</div>
+      <div class="faq-a"><code>next_cheap_hour</code>（タイムスタンプ）と<code>hours_until_next_cheap</code>（0 = 今すぐ）から取得。</div>
+    </div>
+    <div class="faq-item" style="padding: 16px 0; border-bottom: none;">
+      <div class="faq-q" style="font-size: 0.9rem;">今日最適な時間帯は？</div>
+      <div class="faq-a">直接 <code>best_3h_window</code> から取得 — 最安3時間ウィンドウの開始・終了・平均価格。</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>主な活用シーン</h2>
+  <p class="section-sub">単体の自動化から自律型エージェントまで、同じ3つのツールで対応できます。</p>
+  <div class="usecase-grid">
+    <div class="usecase-item">
+      <div class="usecase-icon">🔋</div>
+      <div class="usecase-title">蓄電池の充放電最適化</div>
+      <div class="usecase-desc">1日の最安時間帯に充電し、高い時間帯に放電。</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🚗</div>
+      <div class="usecase-title">EV充電スケジューリング</div>
+      <div class="usecase-desc">今日の最安3時間を見つけて、自動的に充電をそこに合わせる。</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🏠</div>
+      <div class="usecase-title">Home Assistant / n8n</div>
+      <div class="usecase-desc"><code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">current_hour_signal</code> を自動化に直接利用 — 独自の閾値ロジックは不要です。</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🤖</div>
+      <div class="usecase-title">AIエージェント</div>
+      <div class="usecase-desc">追加の計算ロジックなしで、電力を意識した判断を自動化。</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">📊</div>
+      <div class="usecase-title">需給分析・レポート自動化</div>
+      <div class="usecase-desc">JEPXスポット価格の履歴を自動取得・可視化。</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="japan-zones">
+  <h2>日本 — JEPX全9エリア対応</h2>
+  <p class="section-sub">日本卸電力取引所（JEPX）は1日を30分単位・48コマに分けたスポット市場（一日前市場）で電力を取引しています。Eleczは全9エリアのスポット価格に対応しています。</p>
+
+  <div class="dach-grid">
+    <div class="dach-card"><div class="dach-flag">🇯🇵</div><div class="dach-zone">JP-HKD</div><div class="dach-desc">北海道</div></div>
+    <div class="dach-card"><div class="dach-flag">🇯🇵</div><div class="dach-zone">JP-THK</div><div class="dach-desc">東北</div></div>
+    <div class="dach-card"><div class="dach-flag">🇯🇵</div><div class="dach-zone">JP-TKY</div><div class="dach-desc">東京</div></div>
+    <div class="dach-card"><div class="dach-flag">🇯🇵</div><div class="dach-zone">JP-CBU</div><div class="dach-desc">中部</div></div>
+    <div class="dach-card"><div class="dach-flag">🇯🇵</div><div class="dach-zone">JP-HKR</div><div class="dach-desc">北陸</div></div>
+    <div class="dach-card"><div class="dach-flag">🇯🇵</div><div class="dach-zone">JP-KNS</div><div class="dach-desc">関西</div></div>
+    <div class="dach-card"><div class="dach-flag">🇯🇵</div><div class="dach-zone">JP-CGK</div><div class="dach-desc">中国</div></div>
+    <div class="dach-card"><div class="dach-flag">🇯🇵</div><div class="dach-zone">JP-SKK</div><div class="dach-desc">四国</div></div>
+    <div class="dach-card"><div class="dach-flag">🇯🇵</div><div class="dach-zone">JP-KYS</div><div class="dach-desc">九州</div></div>
+  </div>
+
+  <div class="dach-note">
+    <strong>市場連動型プランをご利用の方へ：</strong> 一部の新電力事業者が提供する「市場連動型プラン」は、電力量料金の単価がJEPXのスポット市場価格に連動して30分ごとに変動します。市場価格が安い時間帯に電気を使えば節約できる一方、価格高騰時にはそのまま電気代に跳ね返るリスクがあります。Eleczの <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">spot_price</code> と <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code> は、契約エリアの現在価格と今後の最安時間帯をそのまま返します（実際の請求単価には託送料金・再エネ賦課金等が別途加算されます）。
+  </div>
+</div>
+
+<div class="section" id="japan-dev">
+  <h2>日本 — 開発者が知っておくべきこと</h2>
+  <p class="section-sub">Eleczは日本卸電力取引所（JEPX）のスポット市場価格をJPY/kWh単位で正規化して提供します。前日市場価格は日本時間で毎日およそ10:30に公開されます。</p>
+  <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
+    <li>価格は<strong>卸売市場価格</strong> — 小売電気料金には託送料金・再エネ賦課金・燃料費調整額が別途加算されます</li>
+    <li>JEPXは30分単位・48コマで取引されるため、価格は30分ごとに変動します</li>
+    <li><code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">cheapest_hours</code> は日本の全9エリアで利用可能</li>
+    <li><code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">best_energy_contract</code>（契約プラン比較）は日本では現時点で未対応</li>
+    <li>Home Assistant公式の「Smart Meter B Route」統合はBルート経由で電力<strong>消費量</strong>を取得します — 価格データは含みません。Eleczと組み合わせることで、消費と価格の両方に基づく自動化が可能になります</li>
+  </ul>
+  <p style="font-size: 0.88rem; color: var(--text2);">日本の開発者・AIエージェント構築者・自動化ユーザーが探すことが多いキーワード:</p>
+  <div class="keyword-cloud">
+    <span class="kw">JEPX API</span>
+    <span class="kw">電力価格API</span>
+    <span class="kw">電気料金API</span>
+    <span class="kw">リアルタイム電力価格</span>
+    <span class="kw">電力データAPI</span>
+    <span class="kw">JEPXデータ</span>
+    <span class="kw">スポット市場API</span>
+    <span class="kw">電力価格MCPサーバー</span>
+    <span class="kw">MCPサーバー電力</span>
+    <span class="kw">AIエージェント向け電力API</span>
+    <span class="kw">APIキー不要 電力API</span>
+    <span class="kw">登録不要 電力価格API</span>
+    <span class="kw">最安時間帯API</span>
+    <span class="kw">JSON API 電力</span>
+    <span class="kw">市場連動型プラン</span>
+    <span class="kw">JEPX価格</span>
+    <span class="kw">30分ごと 電気代</span>
+    <span class="kw">Home Assistant JEPX</span>
+    <span class="kw">Bルート</span>
+    <span class="kw">HEMS</span>
+    <span class="kw">ECHONET Lite</span>
+  </div>
+</div>
+
+<div class="section" id="faq">
+  <h2>よくある質問</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">日本向けの無料電力価格APIはありますか？APIキーは必要ですか？</div>
+      <div class="faq-a">はい。Eleczは日本の全9 JEPXエリアで完全に無料です — スポット価格と最安時間帯の取得に、APIキー・アカウント・登録は不要です。<code>GET /signal/spot?zone=JP-TKY</code> を呼び出すだけで利用できます。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">JEPXのスポット価格をAPIで取得するには？</div>
+      <div class="faq-a">EleczはJEPXの前日市場（スポット市場）価格を正規化した形でJPY/kWh単位、認証不要で提供します。JEPXの会員登録やCSVダウンロード・スクレイピングは不要です。前日分の価格は日本時間およそ10:30に公開されます。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">市場連動型プランを契約していますが、今の価格を確認するには？</div>
+      <div class="faq-a">市場連動型プランの電力量料金単価はJEPXのスポット市場価格に連動して30分ごとに変動します。Eleczの<code>spot_price</code>を呼び出せば、契約エリア（例: <code>JP-TKY</code>）の現在の市場価格を直接確認できます。<code>cheapest_hours</code>を使えば、今後24時間の最安時間帯もあわせて把握できます（実際の請求単価には託送料金や事業者の調達コストが別途加算されます）。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Eleczは日本の電力契約プランの比較に対応していますか？</div>
+      <div class="faq-a">現時点では未対応です。<code>best_energy_contract</code>（契約比較ツール）は現在フィンランド、スウェーデン、ノルウェー、デンマーク、ドイツ、イギリス、オーストラリア、ニュージーランドのみに対応しています。日本エリアでは<code>spot_price</code>と<code>cheapest_hours</code>が利用可能です。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">EleczはHome AssistantやHEMSと連携できますか？</div>
+      <div class="faq-a">はい。REST APIまたは公式n8nノード（<code>n8n-nodes-elecz</code>）を通じて、任意の自動化プラットフォームに統合できます。<code>current_hour_signal</code>フィールドは<code>low</code>、<code>medium</code>、<code>high</code>を直接返すため、独自ロジックは不要です。Home Assistant公式のSmart Meter B Route統合は電力消費量を取得しますが、価格データは含みません。Eleczと組み合わせることで消費と価格の両方に基づく自動化が可能になります。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">MCPとは何ですか？なぜ電力価格データに必要なのですか？</div>
+      <div class="faq-a">MCP（Model Context Protocol）は、AIエージェントが外部ツールを呼び出すためのオープンな標準規格です。電力価格は毎日変動するため、エージェントには学習データではなくライブのAPI呼び出しが必要です。<code>https://elecz.com/mcp</code> に接続するだけで、セットアップ不要で利用できます。Claude、ChatGPT、Grok、Cursor、Copilot、Mistralに対応しています。</div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>AI向けリアルタイム電力価格 —<br>60秒で導入完了。</h2>
+  <p>APIキー不要。登録不要。MCP対応。日本の全9 JEPXエリアと世界40か国以上で無料。</p>
+  <div class="cta-row">
+    <a href="https://elecz.com/mcp" class="btn-primary">MCPで接続 →</a>
+    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">ChatGPTで開く →</a>
+    <a href="/docs" class="btn-secondary">ドキュメントを読む</a>
+  </div>
+</div>
+
+<footer>
+  <p>
+    ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, コッコラ, フィンランド ·
+    データ: ENTSO-E · EPEX SPOT · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
+    <a href="/terms">利用規約</a> · <a href="/docs">Docs</a> ·
+    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
+    <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a>
+  </p>
+</footer>
+
+<script>
+const ZONE_LABELS = {
+  "JP-HKD": "北海道", "JP-THK": "東北", "JP-TKY": "東京", "JP-CBU": "中部",
+  "JP-HKR": "北陸", "JP-KNS": "関西", "JP-CGK": "中国", "JP-SKK": "四国", "JP-KYS": "九州"
+};
+
+function renderVerdict(zone, data) {
+  const signalEl = document.getElementById("verdict-signal");
+  const verbEl = document.getElementById("verdict-verb");
+  const detailEl = document.getElementById("verdict-detail");
+  const updatedEl = document.getElementById("verdict-updated");
+  const label = ZONE_LABELS[zone] || zone;
+
+  if (!data || data.available === false) {
+    signalEl.className = "verdict-signal loading";
+    signalEl.textContent = "n/a";
+    verbEl.className = "verdict-verb";
+    verbEl.textContent = "このエリアのライブシグナルは利用できません";
+    detailEl.textContent = "このエリアの24時間ランキングはまだ提供されていません。";
+    updatedEl.textContent = "—";
+    return;
+  }
+
+  const signal = data.current_hour_signal || "medium";
+  const icon = signal === "low" ? "✓" : signal === "high" ? "!" : "~";
+  const verb = signal === "low" ? "今すぐ使うのに良いタイミング"
+             : signal === "high" ? "できれば待ちましょう"
+             : "普通（最安ではない）";
+
+  signalEl.className = "verdict-signal " + signal;
+  signalEl.textContent = icon;
+  verbEl.className = "verdict-verb " + signal;
+  verbEl.textContent = verb;
+
+  let detail = `<b>${label}</b>エリアの現在の価格シグナル: <b>${signal}</b>。`;
+  if (data.next_cheap_hour && signal !== "low") {
+    detail += ` 次の最安時間帯は <b>${new Date(data.next_cheap_hour).toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'})}</b> ごろ開始します。`;
+  } else if (data.cheap_window_ends) {
+    detail += ` この最安時間帯は <b>${new Date(data.cheap_window_ends).toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'})}</b> まで続きます。`;
+  }
+  detailEl.innerHTML = detail;
+  updatedEl.textContent = "ライブ · 更新 " + new Date().toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'});
+}
+
+async function loadZone(zone) {
+  const signalEl = document.getElementById("verdict-signal");
+  const verbEl = document.getElementById("verdict-verb");
+  signalEl.className = "verdict-signal loading";
+  signalEl.textContent = "...";
+  verbEl.textContent = "価格を確認中…";
+  try {
+    const res = await fetch(`/signal/cheapest-hours?zone=${zone}`);
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    renderVerdict(zone, data);
+  } catch {
+    renderVerdict(zone, null);
+  }
+}
+
+document.querySelectorAll(".verdict-zone-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".verdict-zone-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    loadZone(btn.dataset.zone);
+  });
+});
+
+loadZone("JP-TKY");
+</script>
+
+</body>
+</html>
