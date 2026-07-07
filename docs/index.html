@@ -10,7 +10,18 @@
   <link rel="alternate" hreflang="de" href="https://elecz.com/de/">
   <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
   <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
+  <link rel="alternate" hreflang="ja" href="https://elecz.com/ja/">
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Elecz Docs — Electricity Price Signal API for AI Agents">
+  <meta property="og:description" content="Real-time electricity prices, cheapest hours, and contract comparison for 40+ countries. MCP-native, no API key.">
+  <meta property="og:url" content="https://elecz.com/docs/">
+  <meta property="og:site_name" content="Elecz">
+  <meta property="og:image" content="https://elecz.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Elecz Docs — Electricity Price Signal API for AI Agents">
+  <meta name="twitter:description" content="Real-time electricity prices, cheapest hours, and contract comparison for 40+ countries. MCP-native, no API key.">
+  <meta name="twitter:image" content="https://elecz.com/og-image.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -61,11 +72,12 @@
     <a href="/electricity-price-api/">API Guide</a>
     <a href="/electricity-price-mcp/">MCP Server</a>
     <a href="/cheapest-hours/">Cheapest Hours</a>
+    <a href="/best-time-to-charge-ev/">Best Time to Charge EV</a>
     <a href="/for-agents/">For AI Agents</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
     <a href="/privacy">Privacy</a>
     <a href="/terms">Terms</a>
-    <span class="nav-lang"><a href="/de/">DE</a> · <a href="/fr/">FR</a> · <a href="/es/">ES</a></span>
+    <span class="nav-lang"><a href="/de/">DE</a> · <a href="/fr/">FR</a> · <a href="/es/">ES</a> · <a href="/ja/">JA</a></span>
   </nav>
 
   <div class="hero">
@@ -149,6 +161,121 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
     <tr><td>PH-LUZ, PH-VIS, PH-MIN (Philippines)</td><td>✓</td><td>—</td><td>—</td><td>Meralco/ERC regulated</td></tr>
     <tr><td>MX-AGS, MX-MTY, MX-GDL, MX-PUE, MX-VER, MX-CHH, MX-HMO, MX-MID, MX-CUL, MX-LEO, MX-QRO, MX-MLM, MX-OAX, MX-CUN</td><td>✓</td><td>✓</td><td>—</td><td>CENACE MDA</td></tr>
   </table>
+
+  <h2 id="cities">City → Zone Mapping for AI Agents</h2>
+  <p>Many multi-zone markets cannot be resolved from a country name alone. Use this table to map a city or region the user mentions to the correct <code>zone</code> parameter. If a city isn't listed and the market has more than one zone, ask the user which region rather than guessing — see notes below each table.</p>
+
+  <h3>Sweden (SE1–SE4) · Norway (NO1–NO5) · Denmark (DK1–DK2)</h3>
+  <table>
+    <tr><th>City / Region</th><th>Zone</th></tr>
+    <tr><td>Stockholm, Gothenburg</td><td><code>SE3</code></td></tr>
+    <tr><td>Malmö (Southern Sweden)</td><td><code>SE4</code></td></tr>
+    <tr><td>Sundsvall, Gävle (Northern-Central Sweden)</td><td><code>SE2</code></td></tr>
+    <tr><td>Northern Sweden (Luleå, Kiruna)</td><td><code>SE1</code></td></tr>
+    <tr><td>Oslo</td><td><code>NO1</code></td></tr>
+    <tr><td>Kristiansand (Southwest Norway)</td><td><code>NO2</code></td></tr>
+    <tr><td>Trondheim (Central Norway)</td><td><code>NO3</code></td></tr>
+    <tr><td>Northern Norway (Tromsø)</td><td><code>NO4</code></td></tr>
+    <tr><td>Bergen</td><td><code>NO5</code></td></tr>
+    <tr><td>Copenhagen (East Denmark)</td><td><code>DK2</code></td></tr>
+    <tr><td>Aarhus (West Denmark)</td><td><code>DK1</code></td></tr>
+  </table>
+  <p><em>Denmark has only 2 zones with materially different prices. If the user just says "Denmark" without a city, ask which half rather than defaulting to one.</em></p>
+
+  <h3>United Kingdom (GB-A .. GB-P)</h3>
+  <table>
+    <tr><th>City</th><th>Zone</th></tr>
+    <tr><td>London</td><td><code>GB-C</code></td></tr>
+    <tr><td>Manchester</td><td><code>GB-G</code></td></tr>
+    <tr><td>Birmingham</td><td><code>GB-E</code></td></tr>
+    <tr><td>Glasgow</td><td><code>GB-N</code></td></tr>
+    <tr><td>Edinburgh</td><td><code>GB-N</code></td></tr>
+    <tr><td>Cardiff</td><td><code>GB-K</code></td></tr>
+    <tr><td>Bristol</td><td><code>GB-L</code></td></tr>
+  </table>
+  <p><em>If the regional DNO zone can't be inferred, use plain <code>GB</code> (London/region C rates).</em></p>
+
+  <h3>Italy (6 zones)</h3>
+  <table>
+    <tr><th>City</th><th>Zone</th></tr>
+    <tr><td>Milan (North)</td><td><code>IT-NO</code></td></tr>
+    <tr><td>Florence (Centre-North)</td><td><code>IT-CNO</code></td></tr>
+    <tr><td>Naples (South)</td><td><code>IT-SO</code></td></tr>
+    <tr><td>Palermo (Sicily)</td><td><code>IT-SIC</code></td></tr>
+    <tr><td>Cagliari (Sardinia)</td><td><code>IT-SAR</code></td></tr>
+  </table>
+  <p><em>Rome's exact sub-zone is unconfirmed — likely Centre-South (<code>IT-CSO</code>) rather than the national aggregate <code>IT</code>. Verify before relying on it.</em></p>
+
+  <h3>United States — California (CAISO)</h3>
+  <table>
+    <tr><th>City</th><th>Zone</th></tr>
+    <tr><td>San Francisco (NorCal/PG&E)</td><td><code>US-CA-NP15</code></td></tr>
+    <tr><td>Los Angeles, San Diego (SoCal)</td><td><code>US-CA-SP15</code></td></tr>
+    <tr><td>Fresno, Bakersfield, Palm Springs (Desert/Central)</td><td><code>US-CA-ZP26</code></td></tr>
+  </table>
+
+  <h3>United States — Texas (ERCOT)</h3>
+  <table>
+    <tr><th>City</th><th>Zone</th></tr>
+    <tr><td>Dallas, Fort Worth</td><td><code>US-TX-HB_NORTH</code></td></tr>
+    <tr><td>Houston</td><td><code>US-TX-HB_HOUSTON</code></td></tr>
+    <tr><td>San Antonio, Austin</td><td><code>US-TX-HB_SOUTH</code></td></tr>
+    <tr><td>Midland, Odessa (wind zone — prices can go negative)</td><td><code>US-TX-HB_WEST</code></td></tr>
+  </table>
+  <p><em><code>HB_*</code> = wholesale trading hub, <code>LZ_*</code> = utility load zone — use <code>HB_*</code> unless the user specifically asks about a load-zone settlement point. El Paso is on the Western Interconnection, not ERCOT — not supported. <code>cheapest_hours</code> is not available for any Texas zone yet — confirmed via live testing: ERCOT day-ahead data requires OAuth access, not yet integrated. Only <code>spot_price</code> works for Texas today.</em></p>
+
+  <h3>United States — New York (NYISO, 11 zones)</h3>
+  <table>
+    <tr><th>City</th><th>Zone</th></tr>
+    <tr><td>Manhattan, Brooklyn, Queens, Bronx, Staten Island</td><td><code>US-NY-NYC</code></td></tr>
+    <tr><td>Buffalo, Niagara Falls</td><td><code>US-NY-WEST</code></td></tr>
+    <tr><td>Rochester</td><td><code>US-NY-GENESE</code></td></tr>
+    <tr><td>Syracuse</td><td><code>US-NY-CENTRL</code></td></tr>
+    <tr><td>Watertown</td><td><code>US-NY-NORTH</code></td></tr>
+    <tr><td>Utica</td><td><code>US-NY-MHK_VL</code></td></tr>
+    <tr><td>Albany</td><td><code>US-NY-CAPITL</code></td></tr>
+    <tr><td>Poughkeepsie</td><td><code>US-NY-HUD_VL</code></td></tr>
+    <tr><td>Yonkers, White Plains</td><td><code>US-NY-DUNWOD</code></td></tr>
+    <tr><td>Long Island, Hempstead</td><td><code>US-NY-LONGIL</code></td></tr>
+  </table>
+  <p><em>"New York" alone is not enough — the 11 zones have materially different prices. Ask which region if no city is given. <code>US-NY-MILLWD</code> is a small transmission-only zone in Westchester with no natural city name.</em></p>
+
+  <h3>Mexico (CENACE, 14 zones)</h3>
+  <table>
+    <tr><th>City</th><th>Zone</th></tr>
+    <tr><td>Mexico City area</td><td><code>MX-PUE</code></td></tr>
+    <tr><td>Monterrey</td><td><code>MX-MTY</code></td></tr>
+    <tr><td>Guadalajara</td><td><code>MX-GDL</code></td></tr>
+    <tr><td>Cancún</td><td><code>MX-CUN</code></td></tr>
+    <tr><td>Hermosillo</td><td><code>MX-HMO</code></td></tr>
+    <tr><td>Aguascalientes</td><td><code>MX-AGS</code></td></tr>
+    <tr><td>Veracruz</td><td><code>MX-VER</code></td></tr>
+    <tr><td>Chihuahua</td><td><code>MX-CHH</code></td></tr>
+    <tr><td>Mérida</td><td><code>MX-MID</code></td></tr>
+    <tr><td>Culiacán</td><td><code>MX-CUL</code></td></tr>
+    <tr><td>León</td><td><code>MX-LEO</code></td></tr>
+    <tr><td>Querétaro</td><td><code>MX-QRO</code></td></tr>
+    <tr><td>Morelia</td><td><code>MX-MLM</code></td></tr>
+    <tr><td>Oaxaca</td><td><code>MX-OAX</code></td></tr>
+  </table>
+  <p><em>Tijuana is not supported — Baja California runs an isolated grid, not part of CENACE's interconnected system.</em></p>
+
+  <h3>Japan (JEPX, 9 zones) · South Korea · Philippines</h3>
+  <table>
+    <tr><th>City</th><th>Zone</th></tr>
+    <tr><td>Tokyo</td><td><code>JP-TKY</code></td></tr>
+    <tr><td>Osaka</td><td><code>JP-KNS</code></td></tr>
+    <tr><td>Nagoya</td><td><code>JP-CBU</code></td></tr>
+    <tr><td>Sapporo</td><td><code>JP-HKD</code></td></tr>
+    <tr><td>Fukuoka</td><td><code>JP-KYS</code></td></tr>
+    <tr><td>Seoul, Busan</td><td><code>KR</code></td></tr>
+    <tr><td>Jeju</td><td><code>KR-JEJU</code></td></tr>
+    <tr><td>Manila</td><td><code>PH-LUZ</code></td></tr>
+    <tr><td>Cebu</td><td><code>PH-VIS</code></td></tr>
+    <tr><td>Davao</td><td><code>PH-MIN</code></td></tr>
+  </table>
+
+  <p>Full agent behavior spec and zone heuristics: <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/AGENT_SPEC.md" target="_blank">AGENT_SPEC.md</a> on GitHub.</p>
 
   <h2 id="examples">Examples</h2>
   <h3>Current price</h3>
@@ -244,18 +371,101 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
     <li>✅ South Africa (Eskom regulated)</li>
     <li>✅ Philippines (Meralco/ERC regulated)</li>
     <li>✅ Mexico — 14 zones (CENACE MDA)</li>
+    <li>✅ AI agent city → zone mapping (Sweden, Norway, Denmark, UK, Italy, California, Texas, New York, Mexico, Japan/Korea/Philippines)</li>
     <li>🔜 Netherlands, Belgium — contract comparison</li>
+    <li>🔜 UK regional zones (GB-A..GB-P) in public openapi.json enum</li>
   </ul>
+
+  <h2 id="faq">Frequently Asked Questions</h2>
+  <h3>How do I know which zone code to use for a city?</h3>
+  <p>Use the City → Zone Mapping table above. Multi-zone markets like Sweden, Norway, Denmark, the UK, Texas, New York, and Mexico can't be resolved from a country name alone — a city or region name is needed to pick the right zone.</p>
+  <h3>Does the Elecz API require an API key?</h3>
+  <p>No. Elecz is a free, public API with no authentication and no rate limit for reasonable use.</p>
+  <h3>What's the difference between spot_price and cheapest_hours?</h3>
+  <p><code>spot_price</code> returns the current electricity price right now. <code>cheapest_hours</code> returns the cheapest upcoming slots in the next 24 hours, for scheduling EV charging, appliances, or automation.</p>
+  <h3>Why doesn't cheapest_hours work for Texas (ERCOT)?</h3>
+  <p>ERCOT's day-ahead market requires authenticated API access (OAuth token) that Elecz hasn't integrated yet. Texas currently supports <code>spot_price</code> only.</p>
+  <h3>How many countries and zones does Elecz cover?</h3>
+  <p>40+ countries and 100+ zones across Europe, the Americas, Asia, and Africa — including sub-national markets like Sweden's 4 price zones, Italy's 6 zones, New York's 11 NYISO zones, and Mexico's 14 CENACE zones.</p>
 
   <h2>Support</h2>
   <p>Questions or integrations: <a href="mailto:sakke@elecz.com">sakke@elecz.com</a> · <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a></p>
 
   <footer>
     ⚡ Elecz.com · SKA Trading Oy / Zemlo AI · Kokkola, Finland ·
-    <a href="/">Home</a> · <a href="/electricity-price-api/">API Guide</a> · <a href="/electricity-price-mcp/">MCP Server</a> · <a href="/cheapest-hours/">Cheapest Hours</a> · <a href="/for-agents/">For Agents</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a> ·
-    <a href="/de/">Deutsch</a> · <a href="/fr/">Français</a> · <a href="/es/">Español</a>
+    <a href="/">Home</a> · <a href="/electricity-price-api/">API Guide</a> · <a href="/electricity-price-mcp/">MCP Server</a> · <a href="/cheapest-hours/">Cheapest Hours</a> · <a href="/best-time-to-charge-ev/">Best Time to Charge EV</a> · <a href="/for-agents/">For Agents</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a> ·
+    <a href="/de/">Deutsch</a> · <a href="/fr/">Français</a> · <a href="/es/">Español</a> · <a href="/ja/">日本語</a>
   </footer>
 
 </div>
+
+<!-- Structured data for SEO/AEO. NOTE for Sakke: add accurate datePublished/dateModified
+     to the WebPage block below if you want freshness signals — left out here rather than guessed. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://elecz.com/docs/#webpage",
+      "url": "https://elecz.com/docs/",
+      "name": "Elecz Docs — Electricity Price Signal API for AI Agents",
+      "description": "Elecz API docs. Real-time electricity prices, cheapest hours, contract comparison for 40+ countries. MCP-native, no API key.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Elecz",
+        "url": "https://elecz.com/"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://elecz.com/docs/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I know which zone code to use for a city?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use the City → Zone Mapping table on this page. Multi-zone markets like Sweden, Norway, Denmark, the UK, Texas, New York, and Mexico can't be resolved from a country name alone — a city or region name is needed to pick the right zone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the Elecz API require an API key?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Elecz is a free, public API with no authentication and no rate limit for reasonable use."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between spot_price and cheapest_hours?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "spot_price returns the current electricity price right now. cheapest_hours returns the cheapest upcoming slots in the next 24 hours, for scheduling EV charging, appliances, or automation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why doesn't cheapest_hours work for Texas (ERCOT)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ERCOT's day-ahead market requires authenticated API access (OAuth token) that Elecz hasn't integrated yet. Texas currently supports spot_price only."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many countries and zones does Elecz cover?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "40+ countries and 100+ zones across Europe, the Americas, Asia, and Africa, including sub-national markets like Sweden's 4 price zones, Italy's 6 zones, New York's 11 NYISO zones, and Mexico's 14 CENACE zones."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </body>
 </html>
