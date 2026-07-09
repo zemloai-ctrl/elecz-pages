@@ -4,13 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Electricity Price API for AI Agents | Elecz</title>
-  <meta name="description" content="Real-time electricity prices, cheapest hours and contract options for 40+ countries. MCP-native, no API key required. Europe, Asia, North America, Africa.">
+  <meta name="description" content="Real-time electricity prices, cheapest hours, contract options and automation signals for 40+ countries. MCP-native, no API key required. Europe, Asia, North America, Africa.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/electricity-price-api/">
   <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-api/">
   <link rel="alternate" hreflang="de" href="https://elecz.com/de/">
   <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
   <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
+  <link rel="alternate" hreflang="ja" href="https://elecz.com/ja/">
+  <link rel="alternate" hreflang="fi" href="https://elecz.com/fi/">
+  <link rel="alternate" hreflang="sv" href="https://elecz.com/sv/">
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
@@ -55,6 +58,7 @@
     h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; }
     h1 .hl { color: var(--accent2); }
     .hero-lead { font-size: 1.08rem; color: var(--text2); max-width: 620px; line-height: 1.75; margin-bottom: 32px; }
+    .hero-tagline { font-size: 1.02rem; font-weight: 600; color: var(--accent2); margin-bottom: 20px; letter-spacing: -0.01em; }
     .hero-stats { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 36px; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); max-width: 600px; }
     .stat { padding: 16px 24px; border-right: 1px solid var(--border); flex: 1; min-width: 120px; }
     .stat:last-child { border-right: none; }
@@ -67,6 +71,10 @@
     .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
     .btn-chatgpt { background: #10a37f; color: #fff; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
     .btn-chatgpt:hover { background: #0d8f6e; }
+    .btn-claude { background: #CC785C; color: #fff; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-claude:hover { background: #b8664c; }
+    .btn-grok { background: #000000; color: #fff; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; border: 1px solid #333; }
+    .btn-grok:hover { background: #1a1a1a; }
     .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
     h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
     .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
@@ -149,7 +157,7 @@
     "@context": "https://schema.org",
     "@type": "Dataset",
     "name": "Elecz Electricity Price Signal API",
-    "description": "Real-time electricity spot prices, day-ahead prices, cheapest hours, and contract comparison for 40+ countries across Europe, Oceania, North America, Asia, and Africa. Designed for AI agents and automation.",
+    "description": "Real-time electricity spot prices, day-ahead prices, cheapest hours, and contract comparison for 40+ countries across Europe, Oceania, North America, Asia, and Africa. Designed for AI agents and automation. Millions of requests served monthly.",
     "url": "https://elecz.com/electricity-price-api/",
     "creator": { "@type": "Organization", "name": "SKA Trading Oy / Zemlo AI", "url": "https://elecz.com" },
     "license": "https://elecz.com/terms",
@@ -168,7 +176,7 @@
     "operatingSystem": "Web/API",
     "url": "https://elecz.com",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "Free real-time electricity price API for AI agents. Spot prices, day-ahead prices, cheapest hours, and contract comparison for 40+ countries. No API key required."
+    "description": "Not a data source — a decision layer. Free real-time electricity price API for AI agents. Spot prices, day-ahead prices, cheapest hours, and contract comparison for 40+ countries. No API key required."
   }
   </script>
 
@@ -189,8 +197,8 @@
       },
       {
         "@type": "Question",
-        "name": "Why can't I just ask ChatGPT or Claude for the electricity price?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Large language models are trained on historical data and have no access to live markets. Without a real-time tool, the model will either refuse to answer or produce a plausible-sounding estimate that may be completely wrong. The actual spot price can be 0 c/kWh during oversupply or 50+ c/kWh during a crisis. Elecz gives the AI a verified, live signal every time it is called." }
+        "name": "Why can't I just ask ChatGPT, Claude, Gemini, or Grok for the electricity price?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Large language models — ChatGPT, Claude, Gemini, Grok, Copilot, all of them — are trained on historical data and have no access to live markets. Without a real-time tool, the model will either refuse to answer or produce a plausible-sounding estimate that may be completely wrong. The actual spot price can be 0 c/kWh during oversupply or 50+ c/kWh during a crisis. Elecz gives the AI a verified, live signal every time it is called, regardless of which assistant is asking." }
       },
       {
         "@type": "Question",
@@ -201,6 +209,21 @@
         "@type": "Question",
         "name": "Can I use Elecz with Claude, ChatGPT, or other AI assistants?",
         "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz is MCP-native — add it via https://elecz.com/mcp, no API key or account needed. Also available as a public GPT in the ChatGPT Store (search Electricity Prices), and on Glama, ClawHub, PulseMCP, mcp.so, and n8n." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Elecz work with Grok?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Grok can connect to Elecz over MCP at https://elecz.com/mcp — no API key or account required. Once connected, Grok can call spot_price, cheapest_hours, and best_energy_contract the same way any other MCP-compatible assistant does." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Elecz work with Gemini?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Gemini can use Elecz through the MCP endpoint at https://elecz.com/mcp, or via the REST API for setups that don't yet support MCP. Same live spot price, cheapest hours, and contract data as every other integration — no API key needed." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work with home automation?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — EV charging, heat pumps, and dishwashers are primary use cases. An agent can call cheapest_hours to find the optimal run window and use current_hour_signal to decide whether to act right now. No custom logic required — the signal is already decision-ready." }
       }
     ]
   }
@@ -213,7 +236,7 @@
   <div class="nav-links">
     <a href="/docs">Docs</a>
     <a href="/terms">Terms</a>
-    <span class="nav-lang"><a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a></span>
+    <span class="nav-lang"><a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
     <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a>
     <a href="https://elecz.com/mcp" class="nav-cta">Connect via MCP</a>
   </div>
@@ -222,8 +245,9 @@
 <div class="hero">
   <div class="hero-eyebrow">Electricity Price API for AI Agents</div>
   <h1>LLMs hallucinate<br>electricity prices.<br><span class="hl">Elecz doesn't.</span></h1>
+  <p class="hero-tagline">Not a data source — a decision layer.</p>
   <p class="hero-lead">
-    Real-time electricity price API built for LLMs and AI agents. MCP-native, REST-ready. One call returns the current price, the cheapest hours, and the best available contract options.<br><br>
+    Real-time electricity price API built for LLMs and AI agents. MCP-native, REST-ready. One call returns the current price, the cheapest hours, and the best available contract options — ready for EV charging, heat pumps, and home automation to act on directly.<br><br>
     40+ countries across Europe, Oceania, North America, Asia, and Africa. No API key required.
   </p>
   <div class="hero-stats">
@@ -233,10 +257,11 @@
     <div class="stat"><div class="stat-num">€0</div><div class="stat-label">no API key</div></div>
   </div>
   <div class="hero-ctas">
-    <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
+    <a href="https://elecz.com/mcp" class="btn-claude">Connect in Claude →</a>
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Open in ChatGPT →</a>
+    <a href="https://elecz.com/mcp" class="btn-grok">Connect in Grok →</a>
+    <a href="https://elecz.com/mcp" class="btn-secondary">Connect via MCP (any client) →</a>
     <a href="/docs" class="btn-secondary">REST API docs</a>
-    <a href="https://raw.githubusercontent.com/zemloai-ctrl/elecz-api/main/openapi.json" target="_blank" rel="noopener" class="btn-secondary">OpenAPI spec →</a>
   </div>
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
     Jump to: <a href="#tools" style="color: var(--text2);">Tools</a> ·
@@ -279,12 +304,12 @@
   <div class="tools-grid">
     <div class="tool-card">
       <div class="tool-name">spot_price</div>
-      <div class="tool-desc">Current electricity spot price for any supported zone. Returns price, unit, timestamp, and data source. For ZA and PH, returns regulated tariff data.</div>
-      <div class="tool-returns">→ <span>price, zone, currency, unit, timestamp, source</span></div>
+      <div class="tool-desc">Current electricity spot price for any supported zone. Returns price, unit, timestamp, and data source. For ZA and PH, returns regulated tariff data. If the live feed is briefly unavailable, the response includes <code style="font-size:0.78rem">fallback: true</code> — agents should not present this as a confirmed current price.</div>
+      <div class="tool-returns">→ <span>price, zone, currency, unit, timestamp, source, fallback</span></div>
     </div>
     <div class="tool-card">
       <div class="tool-name">cheapest_hours</div>
-      <div class="tool-desc">Ranked cheapest hours today and tomorrow. Includes current-hour signal, cheap window end time, and next cheap period countdown. <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline; font-size: 0.82rem;">Full field reference →</a></div>
+      <div class="tool-desc">Ranked cheapest hours today and tomorrow. Includes current-hour signal, cheap window end time, and next cheap period countdown. Requires public day-ahead market data — not available for AU, NZ, KR, US-TX (ERCOT), ZA, or Philippines (PH-LUZ/PH-VIS/PH-MIN), which publish only current or regulated prices. <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline; font-size: 0.82rem;">Full field reference →</a></div>
       <div class="tool-returns">→ <span>ranked_hours, current_hour_signal, cheap_window_ends, next_cheap_hour, hours_until_next_cheap</span></div>
     </div>
     <div class="tool-card">
@@ -302,6 +327,7 @@
   <span class="k">"unit"</span>: <span class="s">"c/kWh"</span>,
   <span class="k">"timestamp"</span>: <span class="s">"2026-05-22T14:00:00Z"</span>,
   <span class="k">"source"</span>: <span class="s">"NYISO_RT"</span>,
+  <span class="k">"fallback"</span>: <span class="b">false</span>,
   <span class="k">"disclaimer"</span>: <span class="s">"NYISO real-time wholesale price. Retail rates include transmission, distribution and taxes on top."</span>
 }</pre>
   </div>
@@ -351,7 +377,7 @@
   <div class="proof-bar">
     <div class="proof-item"><strong>Hundreds</strong> of installs on ClawHub</div>
     <div class="proof-divider"></div>
-    <div class="proof-item"><strong>Thousands</strong> of decisions per day</div>
+    <div class="proof-item"><strong>Millions</strong> of requests served monthly</div>
     <div class="proof-divider"></div>
     <div class="proof-item">Live on <strong><a href="https://glama.ai/mcp/connectors/com.elecz/elecz" target="_blank" rel="noopener" style="color:inherit">Glama</a>, <a href="https://www.pulsemcp.com/servers/elecz" target="_blank" rel="noopener" style="color:inherit">PulseMCP</a>, <a href="https://clawhub.ai/zemloai-ctrl/elecz" target="_blank" rel="noopener" style="color:inherit">ClawHub</a>, <a href="https://mcp.so/server/elecz/Zemlo%20AI" target="_blank" rel="noopener" style="color:inherit">mcp.so</a>, n8n, RapidAPI, ChatGPT</strong></div>
     <div class="proof-divider"></div>
@@ -529,9 +555,18 @@
       <div class="faq-a">Yes — Elecz provides day-ahead spot prices for all 40+ supported countries. Next-day prices are available from 13:00–14:00 CET for ENTSO-E zones, ~10:30 JST for Japan (JEPX), daily for Mexico (CENACE MDA). The <code>cheapest_hours</code> tool includes a <code>data_complete</code> flag so agents know whether tomorrow's data is already in. No API key or registration required.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Why can't I just ask ChatGPT or Claude for the electricity price?</div>
-      <div class="faq-a">Large language models have no access to live markets. Without a real-time tool, the model will produce a historical average that looks like an answer but is not the current price. The actual spot price can be <code>0.0 c/kWh</code> during renewable oversupply or <code>50+ c/kWh</code> during a grid crisis — a guess is useless for any real decision. Elecz gives the AI a verified signal on every call. The <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener">Electricity Prices GPT</a> is available directly in ChatGPT.</div>
+      <div class="faq-q">Why can't I just ask ChatGPT, Claude, Gemini, or Grok for the electricity price?</div>
+      <div class="faq-a">Large language models — ChatGPT, Claude, Gemini, Grok, Copilot, all of them — have no access to live markets. Without a real-time tool, the model will produce a historical average that looks like an answer but is not the current price. The actual spot price can be <code>0.0 c/kWh</code> during renewable oversupply or <code>50+ c/kWh</code> during a grid crisis — a guess is useless for any real decision. Elecz gives the AI a verified signal on every call, regardless of which assistant is asking. The <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener">Electricity Prices GPT</a> is available directly in ChatGPT, and any MCP-compatible assistant — including Claude, Grok, and Gemini — can connect via <code>https://elecz.com/mcp</code>.</div>
     </div>
+    <div class="faq-item">
+      <div class="faq-q">Does Elecz work with Grok?</div>
+      <div class="faq-a">Yes. Grok can connect to Elecz over MCP at <code>https://elecz.com/mcp</code> — no API key or account required. Once connected, Grok can call <code>spot_price</code>, <code>cheapest_hours</code>, and <code>best_energy_contract</code> the same way any other MCP-compatible assistant does.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Does Elecz work with Gemini?</div>
+      <div class="faq-a">Yes. Gemini can use Elecz through the MCP endpoint at <code>https://elecz.com/mcp</code>, or via the REST API for setups that don't yet support MCP. Same live spot price, cheapest hours, and contract data as every other integration — no API key needed.</div>
+    </div>
+
     <div class="faq-item">
       <div class="faq-q">Which countries does Elecz cover?</div>
       <div class="faq-a">40+ countries across Europe, Oceania, North America, Asia, and Africa. Europe: all Nordic countries, Germany, UK, Ireland, France, Austria, Belgium, Netherlands, Switzerland, Poland, Czech Republic, Baltics, and Southern Europe. Oceania: Australia (5 zones) and New Zealand. North America: California (CAISO), Texas (ERCOT), New York (NYISO), and Ontario (IESO). Asia: South Korea (KPX) and Japan (JEPX, 9 zones). Africa: South Africa (Eskom regulated tariff). Also: Philippines (3 zones) and Mexico (14 CENACE zones).</div>
@@ -590,6 +625,8 @@
     <span class="kw">CENACE electricity API</span>
     <span class="kw">Eskom electricity API</span>
     <span class="kw">electricity price API 5 continents</span>
+    <span class="kw">electricity price API for automation</span>
+    <span class="kw">home automation electricity API</span>
     <span class="kw">ChatGPT electricity price</span>
   </div>
 </div>
@@ -611,7 +648,7 @@
     <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
     <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
-    <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a>
+    <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a>
   </p>
 </footer>
 
