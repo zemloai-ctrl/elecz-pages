@@ -4,17 +4,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Electricity Price MCP Server &amp; Connector | Elecz</title>
-  <meta name="description" content="Electricity price MCP server for AI agents. Spot prices, cheapest hours, contract comparison. 40+ countries, no API key. Works with Claude, Grok, Cursor.">
+  <meta name="description" content="Electricity price MCP server for AI agents. Spot prices, cheapest hours, contract comparison, automation. 40+ countries, no API key. Works with Claude, Grok, Cursor.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/electricity-price-mcp/">
   <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-mcp/">
   <link rel="alternate" hreflang="de" href="https://elecz.com/de/">
   <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
   <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
+  <link rel="alternate" hreflang="ja" href="https://elecz.com/ja/">
+  <link rel="alternate" hreflang="fi" href="https://elecz.com/fi/">
+  <link rel="alternate" hreflang="sv" href="https://elecz.com/sv/">
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Elecz Electricity Price MCP Server",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web/MCP",
+    "url": "https://elecz.com/electricity-price-mcp/",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "Not a data source — a decision layer. Free electricity price MCP server for AI agents. Spot prices, cheapest hours, and contract comparison for 40+ countries. No API key required. Millions of requests served monthly."
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between an MCP server and a connector?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Same thing, different name depending on the platform. Developer documentation calls it an MCP server. AI platforms like Glama, Claude, and Grok call it a connector. Elecz is listed as a connector on Glama (com.elecz) and as an MCP server in developer registries. The endpoint is always: https://elecz.com/mcp." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is an electricity price MCP server?",
+        "acceptedAnswer": { "@type": "Answer", "text": "MCP (Model Context Protocol) is an open standard that lets AI agents call external tools during a conversation. An electricity price MCP server gives the agent access to live electricity data — so instead of guessing, it fetches the real price on demand. Elecz exposes three tools: spot_price, cheapest_hours, and best_energy_contract." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I add an electricity price MCP server to Claude?",
+        "acceptedAnswer": { "@type": "Answer", "text": "In Claude.ai: Settings → Integrations → Add MCP server → paste https://elecz.com/mcp. In Claude Desktop: add to claude_desktop_config.json under mcpServers. No API key required — just the URL." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I add an electricity price MCP server to Grok?",
+        "acceptedAnswer": { "@type": "Answer", "text": "In Grok, click the \"+\" next to the prompt field, choose Add MCP server, and paste https://elecz.com/mcp. No API key or account required — Grok can call spot_price, cheapest_hours, and best_energy_contract immediately after connecting." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the Elecz MCP server free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. All three tools — spot prices, cheapest hours, and contract comparison — are free. No API key, no account, no registration required." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which countries does the electricity MCP server cover?",
+        "acceptedAnswer": { "@type": "Answer", "text": "40+ countries across Europe, Oceania, North America, Asia, and Africa. All ENTSO-E zones in Europe, UK via Octopus Agile, Australia (5 zones), New Zealand, USA (CAISO, ERCOT, NYISO), Canada (Ontario/IESO), South Korea, Japan (9 JEPX zones), South Africa (Eskom regulated), Philippines (Meralco/ERC regulated), and Mexico (14 CENACE zones)." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the electricity MCP server work in Australia?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz covers all 5 Australian NEM zones: AU-NSW, AU-VIC, AU-QLD, AU-SA, and AU-TAS. The NEM dispatches and prices the market every 5 minutes — Elecz fetches this data on the same 5-minute cadence. cheapest_hours is not available for Australia because AEMO does not publish public day-ahead price forecasts." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which zones does cheapest_hours not support?",
+        "acceptedAnswer": { "@type": "Answer", "text": "cheapest_hours requires public day-ahead market data and is not available for Australia, New Zealand, South Korea, US-TX (ERCOT), South Africa, or the Philippines (PH-LUZ, PH-VIS, PH-MIN) — these markets publish only current or regulated prices, not day-ahead forecasts. spot_price still works for all of them." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it require a local installation?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Elecz uses streamable HTTP transport — the agent connects directly to https://elecz.com/mcp over the internet. No npm install, no Docker, no local process needed." }
+      },
+      {
+        "@type": "Question",
+        "name": "What transport does the MCP server use?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Streamable HTTP (the current MCP standard for remote servers). This works with Claude.ai, Claude Desktop, Cursor, Copilot, Windsurf, Grok, Mistral, ChatGPT, and all other MCP clients that support remote HTTP servers." }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if the live price feed is temporarily unavailable?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The response includes a fallback field. When fallback is true, the returned price may not reflect the current live market and agents should not present it to a user as a confirmed current price." }
+      }
+    ]
+  }
+  </script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -55,6 +135,11 @@
     .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
     .btn-chatgpt { background: #10a37f; color: #fff; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
     .btn-chatgpt:hover { background: #0d8f6e; }
+    .btn-claude { background: #CC785C; color: #fff; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-claude:hover { background: #b8664c; }
+    .btn-grok { background: #000000; color: #fff; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; border: 1px solid #333; }
+    .btn-grok:hover { background: #1a1a1a; }
+    .hero-tagline { font-size: 1.02rem; font-weight: 600; color: var(--accent2); margin-bottom: 20px; letter-spacing: -0.01em; }
     .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
     h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
     .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
@@ -125,7 +210,7 @@
     <a href="/docs">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
-    <span class="nav-lang"><a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a></span>
+    <span class="nav-lang"><a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
     <a href="https://elecz.com/mcp" class="nav-cta">Connect via MCP</a>
   </div>
 </nav>
@@ -133,19 +218,21 @@
 <div class="hero">
   <div class="hero-eyebrow">Electricity Price MCP Server &amp; Connector</div>
   <h1>Live electricity prices<br>for any MCP-compatible<br><span class="hl">AI agent.</span></h1>
+  <p class="hero-tagline">Not a data source — a decision layer.</p>
   <p class="hero-lead">
-    Elecz is an <strong>electricity price MCP server</strong> — listed as a <strong>connector</strong> in Glama, Claude, Grok, and other AI platforms. Connect it once and your agent can fetch real-time spot prices, find the cheapest hours, and compare energy contracts on demand. No API key. No authentication. Works with Claude, Grok, Cursor, Copilot, Mistral, ChatGPT, and any MCP-compatible client.
+    Elecz is an <strong>electricity price MCP server</strong> — listed as a <strong>connector</strong> in Glama, Claude, Grok, and other AI platforms. Connect it once and your agent can fetch real-time spot prices, find the cheapest hours, compare energy contracts, and automate decisions like EV charging or heat pump scheduling on demand. No API key. No authentication. Works with Claude, Grok, Cursor, Copilot, Mistral, ChatGPT, and any MCP-compatible client.
   </p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">40+</div><div class="stat-label">countries</div></div>
     <div class="stat"><div class="stat-num">100+</div><div class="stat-label">zones</div></div>
-    <div class="stat"><div class="stat-num">thousands</div><div class="stat-label">decisions/day</div></div>
+    <div class="stat"><div class="stat-num">Millions</div><div class="stat-label">requests/month</div></div>
     <div class="stat"><div class="stat-num">€0</div><div class="stat-label">free, no auth</div></div>
   </div>
   <div class="hero-ctas">
-    <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
+    <a href="https://elecz.com/mcp" class="btn-claude">Connect in Claude →</a>
+    <a href="https://elecz.com/mcp" class="btn-grok">Connect in Grok →</a>
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Open in ChatGPT →</a>
-    <a href="https://raw.githubusercontent.com/zemloai-ctrl/elecz-api/main/openapi.json" target="_blank" rel="noopener" class="btn-secondary">OpenAPI spec →</a>
+    <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP (any client) →</a>
     <a href="/docs" class="btn-secondary">View docs</a>
   </div>
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
@@ -212,12 +299,12 @@
   <div class="tools-grid">
     <div class="tool-card">
       <div class="tool-name">spot_price</div>
-      <div class="tool-desc">Current electricity spot price for any supported zone. Returns price, unit, timestamp, and data source. Called when a user asks "what is the electricity price right now?"</div>
-      <div class="tool-returns">→ <span>price, zone, currency, unit, timestamp, source</span></div>
+      <div class="tool-desc">Current electricity spot price for any supported zone. Returns price, unit, timestamp, and data source. Called when a user asks "what is the electricity price right now?" If the live feed is briefly unavailable, the response includes <code style="font-size:0.78rem">fallback: true</code> — agents should not present this as a confirmed current price.</div>
+      <div class="tool-returns">→ <span>price, zone, currency, unit, timestamp, source, fallback</span></div>
     </div>
     <div class="tool-card">
       <div class="tool-name">cheapest_hours</div>
-      <div class="tool-desc">Ranked cheapest hours today and tomorrow. Includes current-hour signal and next cheap window. Called for scheduling questions — EV charging, heat pump, dishwasher, batch jobs. <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline; font-size: 0.82rem;">Full field reference →</a></div>
+      <div class="tool-desc">Ranked cheapest hours today and tomorrow. Includes current-hour signal and next cheap window. Called for scheduling questions — EV charging, heat pump, dishwasher, batch jobs. Requires public day-ahead data — not available for AU, NZ, KR, US-TX (ERCOT), ZA, or PH-*. <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline; font-size: 0.82rem;">Full field reference →</a></div>
       <div class="tool-returns">→ <span>ranked_hours, current_hour_signal, cheap_window_ends, next_cheap_hour</span></div>
     </div>
     <div class="tool-card">
@@ -264,8 +351,8 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
       <div class="why-desc">Built on the current MCP standard. No local process, no Docker, no npm. Remote streamable HTTP — works from any MCP-compatible client.</div>
     </div>
     <div class="why-card">
-      <div class="why-title">Thousands of decisions served daily</div>
-      <div class="why-desc">AI agents from Claude, Grok, Cursor, Copilot, Mistral, and ChatGPT call Elecz thousands of times per day to answer electricity questions for real users worldwide.</div>
+      <div class="why-title">Millions of requests served monthly</div>
+      <div class="why-desc">AI agents from Claude, Grok, Cursor, Copilot, Mistral, and ChatGPT call Elecz millions of times per month to answer electricity questions for real users worldwide.</div>
     </div>
   </div>
 </div>
@@ -340,6 +427,10 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
       <div class="faq-a">In Claude.ai: Settings → Integrations → Add MCP server → paste <code>https://elecz.com/mcp</code>. In Claude Desktop: add to <code>claude_desktop_config.json</code> under <code>mcpServers</code>. No API key required — just the URL.</div>
     </div>
     <div class="faq-item">
+      <div class="faq-q">How do I add an electricity price MCP server to Grok?</div>
+      <div class="faq-a">In Grok, click the "+" next to the prompt field, choose Add MCP server, and paste <code>https://elecz.com/mcp</code>. No API key or account required — Grok can call <code>spot_price</code>, <code>cheapest_hours</code>, and <code>best_energy_contract</code> immediately after connecting.</div>
+    </div>
+    <div class="faq-item">
       <div class="faq-q">Is the Elecz MCP server free?</div>
       <div class="faq-a">Yes. All three tools — spot prices, cheapest hours, and contract comparison — are free. No API key, no account, no registration required.</div>
     </div>
@@ -350,6 +441,14 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
     <div class="faq-item">
       <div class="faq-q">Does the electricity MCP server work in Australia?</div>
       <div class="faq-a">Yes. Elecz covers all 5 Australian NEM zones: AU-NSW, AU-VIC, AU-QLD, AU-SA, and AU-TAS. The NEM dispatches and prices the market every 5 minutes — Elecz fetches this data on the same 5-minute cadence. Note: <code>cheapest_hours</code> is not available for Australia — AEMO does not publish public day-ahead price forecasts.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Which zones does cheapest_hours not support?</div>
+      <div class="faq-a"><code>cheapest_hours</code> requires public day-ahead market data and is not available for Australia, New Zealand, South Korea, US-TX (ERCOT), South Africa, or the Philippines (PH-LUZ, PH-VIS, PH-MIN) — these markets publish only current or regulated prices, not day-ahead forecasts. <code>spot_price</code> still works for all of them.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What happens if the live price feed is temporarily unavailable?</div>
+      <div class="faq-a">The response includes a <code>fallback</code> field. When <code>fallback: true</code>, the returned price may not reflect the current live market — agents should not present it to a user as a confirmed current price.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Does it require a local installation?</div>
@@ -384,6 +483,8 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
     <span class="kw">Eskom electricity MCP</span>
     <span class="kw">CENACE electricity MCP</span>
     <span class="kw">ChatGPT electricity prices</span>
+    <span class="kw">electricity automation MCP</span>
+    <span class="kw">home automation electricity MCP</span>
     <span class="kw">elecz mcp</span>
     <span class="kw">elecz connector</span>
   </div>
@@ -406,7 +507,7 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
     <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
     <a href="/electricity-price-api/">API overview</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
-    <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a>
+    <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a>
   </p>
 </footer>
 
