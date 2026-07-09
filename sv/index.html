@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elpris API för AI-agenter — MCP-nativ | Elecz</title>
+  <meta name="description" content="Elpris API byggt för AI-agenter: MCP-nativt, färdigt beslutssignal istället för rådata. Elpris, kvartspriser, billigaste timmar, avtalsjämförelse. Sverige (SE1–SE4), Norge, Danmark, Finland och 40+ länder.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://elecz.com/sv/">
+  <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-api/">
+  <link rel="alternate" hreflang="de" href="https://elecz.com/de/">
+  <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
+  <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
+  <link rel="alternate" hreflang="ja" href="https://elecz.com/ja/">
+  <link rel="alternate" hreflang="fi" href="https://elecz.com/fi/">
+  <link rel="alternate" hreflang="sv" href="https://elecz.com/sv/">
+  <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:title" content="Elpris API för AI-agenter — MCP-nativ | Elecz">
+  <meta property="og:description" content="MCP-nativt elpris API. Färdig beslutssignal istället för rådata — elpris, kvartspriser, billigaste timmar, avtalsjämförelse. Sverige och 40+ länder.">
+  <meta property="og:url" content="https://elecz.com/sv/">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f5f0; --bg2: #eeeee8; --bg3: #ffffff;
+      --border: #e0e0d8; --border2: #d0d0c8;
+      --text: #1a1a1a; --text2: #555550; --text3: #999990;
+      --accent: #f0a020; --accent2: #d88c10; --accent-dim: rgba(240,160,32,0.1);
+      --green: #1a7a40; --green-dim: rgba(26,122,64,0.08); --green-border: rgba(26,122,64,0.25);
+      --mono: 'DM Mono', monospace; --sans: 'DM Sans', -apple-system, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    nav { background: var(--bg); border-bottom: 2px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 58px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-size: 1.3rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
+    .nav-logo .dot { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text2); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-lang { font-size: 0.8rem; color: var(--text3); }
+    .nav-lang a { color: var(--text3); text-decoration: none; }
+    .nav-lang a:hover { color: var(--text2); }
+    .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
+    .nav-cta:hover { background: var(--accent2) !important; }
+    .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 56px; border-bottom: 2px solid var(--border); }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 18px; }
+    h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; }
+    h1 .hl { color: var(--accent2); }
+    .hero-lead { font-size: 1.08rem; color: var(--text2); max-width: 620px; line-height: 1.75; margin-bottom: 32px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 36px; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); max-width: 560px; }
+    .stat { padding: 16px 24px; border-right: 1px solid var(--border); flex: 1; min-width: 110px; }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; color: var(--text); line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-size: 0.75rem; color: var(--text3); font-weight: 500; }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { background: var(--accent); color: var(--text); font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
+    .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
+    .btn-chatgpt { background: #10a37f; color: #fff; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-chatgpt:hover { background: #0d8f6e; }
+    .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
+    h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
+    .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
+    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); }
+    .tool-card { padding: 24px; border-right: 1px solid var(--border); }
+    .tool-card:last-child { border-right: none; }
+    .tool-name { font-family: var(--mono); font-size: 0.82rem; font-weight: 500; color: var(--accent2); margin-bottom: 10px; background: var(--accent-dim); display: inline-block; padding: 3px 8px; border-radius: 3px; }
+    .tool-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.65; }
+    .code-block { background: #1e1e1e; border-radius: 8px; overflow: hidden; margin: 24px 0; }
+    .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #2a2a2a; border-bottom: 1px solid #333; }
+    .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
+    .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
+    .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
+    .k { color: #7ec8e3; } .s { color: #a8d8a8; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+    .faq-a { font-size: 0.9rem; color: var(--text2); line-height: 1.75; max-width: 700px; }
+    .faq-a code { font-family: var(--mono); font-size: 0.82rem; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
+    .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .kw { font-family: var(--mono); font-size: 0.78rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
+    .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
+    .cta-section h2 { margin-bottom: 14px; }
+    .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    footer { border-top: 2px solid var(--border); padding: 24px; text-align: center; }
+    footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
+    footer a { color: var(--text3); text-decoration: none; }
+    footer a:hover { color: var(--text2); }
+    .cmp-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; margin-bottom: 20px; background: var(--bg3); font-size: 0.87rem; }
+    .cmp-table th, .cmp-table td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+    .cmp-table th { background: var(--bg2); font-weight: 600; color: var(--text); font-size: 0.8rem; }
+    .cmp-table td { color: var(--text2); }
+    .cmp-table tr:last-child td { border-bottom: none; }
+    .signal-banner { max-width: 860px; margin: 0 auto; padding: 36px 24px; border-bottom: 1px solid var(--border); background: var(--green-dim); }
+    .signal-banner-inner { max-width: 720px; }
+    .signal-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+    .signal-banner h2 { font-size: clamp(16px, 2.2vw, 21px); margin-bottom: 12px; }
+    .signal-banner p { font-size: 0.95rem; color: var(--text2); line-height: 1.75; }
+    .signal-flow { font-family: var(--mono); font-size: 0.95rem; color: var(--text); margin-top: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .signal-flow span { padding: 5px 12px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 5px; }
+    .signal-flow .arrow { color: var(--green); font-weight: 600; }
+    .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+    .usecase-item { background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 18px 20px; }
+    .usecase-icon { font-size: 1.2rem; margin-bottom: 8px; }
+    .usecase-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
+    .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+    .zone-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); margin-bottom: 20px; }
+    .zone-card { padding: 16px 18px; border-right: 1px solid var(--border); }
+    .zone-card:last-child { border-right: none; }
+    .zone-code { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; color: var(--accent2); background: var(--accent-dim); display: inline-block; padding: 2px 7px; border-radius: 3px; margin-bottom: 8px; }
+    .zone-city { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .tools-grid, .zone-grid { grid-template-columns: 1fr; }
+      .tool-card, .zone-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .tool-card:last-child, .zone-card:last-child { border-bottom: none; }
+      .signal-flow { font-size: 0.85rem; }
+      .cmp-table { font-size: 0.78rem; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Elecz Elpris API",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web/API",
+    "url": "https://elecz.com/sv/",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "MCP-nativt elpris API för AI-agenter och LLM:er. Täcker Sverige (SE1–SE4), Norge, Danmark, Finland och 40+ länder. Levererar en färdig beslutssignal — spotpris, billigaste timmar, avtalsjämförelse — istället för rådata som agenten själv måste tolka.",
+    "inLanguage": "sv"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Vilket är det bästa API:t för elpriser i Sverige?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "För AI-agenter och automation är Elecz det enda elpris-API:et för Sverige med nativt MCP-stöd, en färdig beslutssignal och stöd för SE1, SE2, SE3 och SE4. För rena konsumentgränssnitt finns väletablerade alternativ som elprisetjustnu.se."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Hur hämtar man elpriset för SE3?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Anropa GET https://elecz.com/signal/spot?zone=SE3. Ingen API-nyckel krävs. Svaret är strukturerad JSON med pris, enhet, tidsstämpel och källa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Vilket API kan användas för att ladda elbilen när elen är billigast?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Elecz cheapest_hours-verktyg visar dagens och morgondagens billigaste timmar och kan användas direkt för att styra elbilsladdning, värmepumpar och andra flexibla laster."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Finns det ett elpris API med MCP-stöd för AI-agenter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Elecz är MCP-nativt (Model Context Protocol) och kopplas direkt till Claude, Cursor, ChatGPT, Grok, Copilot och Mistral via https://elecz.com/mcp, utan separat OpenAPI- eller GPT Actions-konfiguration. Ingen annan svensk elprislösning erbjuder ett verifierat MCP-stöd idag."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Är elpris API:et gratis?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja, spotpris, billigaste timmar och avtalsjämförelse är gratis utan API-nyckel. Sverige har redan flera bra gratis elpris-API:er (elprisetjustnu.se, aktuellaelpriser.se), så Elecz konkurrerar inte på pris utan på agent-nativitet: MCP-stöd och en färdig beslutssignal istället för rådata."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Vad är skillnaden mellan Elecz och elprisetjustnu.se?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "elprisetjustnu.se är en utmärkt och väletablerad källa till rådata om elpriser, listad även på Sveriges dataportal. Elecz levererar en tolkad beslutssignal ovanpå samma typ av data — current_hour_signal, next_cheap_hour, avtalsjämförelse — samt nativt MCP-stöd för AI-agenter, vilket elprisetjustnu.se inte erbjuder."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Vad är skillnaden mellan Elecz och Ellerva?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ellerva är en stark lösning för elbolagsjämförelse (260+ svenska elbolag) och är redan uttryckligen AI-medveten med OpenAPI-spec för GPT Actions. Skillnaden är protokollnivån: Elecz har nativt MCP-stöd som kopplas direkt i Claude Desktop, Cursor och andra MCP-kompatibla verktyg utan extra konfiguration, samt global täckning (100+ zoner, 40+ länder) utöver Norden."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Fungerar Elecz för alla svenska elområden (SE1–SE4)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. spot_price och cheapest_hours fungerar för SE (rikssnitt) samt SE1 (Luleå), SE2 (Sundsvall), SE3 (Stockholm) och SE4 (Malmö) individuellt."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Visar Elecz kvartspriser (15-minuters upplösning)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Sverige gick över till 15-minuters prisupplösning från 1 oktober 2025, och Elecz data följer samma upplösning (settlement_period: PT15M)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Jämför Elecz elbolag i Sverige?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja, best_energy_contract returnerar bästa rörliga avtal, bästa fasta avtal och en rekommendation med uppskattad besparing för SE-zonen, ett av åtta marknader Elecz stödjer för avtalsjämförelse (FI, SE, NO, DK, DE, GB, AU, NZ)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Varifrån kommer prisdatan och vad är källan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Från ENTSO-E Transparency Platform, som baseras på Nord Pools auktionsresultat. Samma primärkälla som svenska konkurrenter använder."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
+  <div class="nav-links">
+    <a href="/docs">Docs</a>
+    <a href="/electricity-price-api/">API Guide</a>
+    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
+    <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a></span>
+    <a href="https://elecz.com/mcp" class="nav-cta">Anslut via MCP</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Elpris API — Sverige, Norge, Danmark, Finland &amp; världen</div>
+  <h1>AI:n gissar elpriset.<br><span class="hl">Elecz gissar inte.</span></h1>
+  <p class="hero-lead">
+    Elecz är ett MCP-nativt elpris API för AI-agenter — kopplas direkt i Claude, Cursor, ChatGPT och Grok utan separat OpenAPI-konfiguration. Levererar aktuellt spotpris (elpris idag, elpris imorgon, timpris per timme), billigaste timmar och avtalsjämförelse som en färdig beslutssignal, inte rådata som agenten själv måste tolka.
+  </p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">MCP</div><div class="stat-label">nativt stöd</div></div>
+    <div class="stat"><div class="stat-num">15 min</div><div class="stat-label">kvartspriser</div></div>
+    <div class="stat"><div class="stat-num">40+</div><div class="stat-label">länder</div></div>
+    <div class="stat"><div class="stat-num">SE1–SE4</div><div class="stat-label">alla elområden</div></div>
+  </div>
+  <div class="hero-ctas">
+    <a href="https://elecz.com/mcp" class="btn-primary">Anslut via MCP →</a>
+    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Öppna i ChatGPT →</a>
+    <a href="/docs" class="btn-secondary">REST API-dokumentation</a>
+  </div>
+  <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
+    Gå till: <a href="#verktyg" style="color: var(--text2);">Verktyg</a> ·
+    <a href="#jamforelse" style="color: var(--text2);">Sverige vs. andra tjänster</a> ·
+    <a href="#faq" style="color: var(--text2);">Vanliga frågor</a>
+  </p>
+</div>
+
+<div class="signal-banner">
+  <div class="signal-banner-inner">
+    <div class="signal-eyebrow">Inte bara elpris — en färdig beslutssignal</div>
+    <h2>Inte en datakälla till. En beslutslager ovanpå datan.</h2>
+    <p>ENTSO-E och Nord Pool levererar rådata — 96 kvartsvärden per dygn som agenten själv måste tolka. Elecz gör det steget färdigt: ingen egen logik, ingen tröskelkod, ingen omräkning.</p>
+    <div class="signal-flow">
+      <span>6,34 öre/kWh</span>
+      <span class="arrow">→</span>
+      <span>låg</span>
+      <span class="arrow">→</span>
+      <span>ladda nu</span>
+    </div>
+    <p style="font-size: 0.88rem; color: var(--text2); line-height: 1.75; margin-top: 18px;">ENTSO-E och Nord Pool är datakällor — inget agentgränssnitt, ingen MCP, ingen färdig rekommendation. Elecz bygger ovanpå dem och levererar resultatet, inte bara rådatan.</p>
+  </div>
+</div>
+
+<div class="section" id="verktyg">
+  <h2>Tre verktyg. Alla användningsfall täckta.</h2>
+  <p class="section-sub">Elecz erbjuder tre MCP-verktyg och motsvarande REST-endpoints för elprisrelaterade beslut i Sverige och 40+ andra länder. Fullständig schemareferens: <a href="/docs" style="color: var(--accent2); text-decoration: underline;">REST API-dokumentation</a>.</p>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-name">spot_price</div>
+      <div class="tool-desc">Aktuellt elpris för zon <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">SE</code>, <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">SE1–SE4</code> och alla andra zoner. Pris, enhet, tidsstämpel, källa.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">cheapest_hours</div>
+      <div class="tool-desc">Billigaste timmarna kommande 24h med realtidssignal. Returnerar direkt <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">low / medium / high</code> — ingen egen logik krävs. <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline; font-size: 0.85rem;">Mer information →</a></div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">best_energy_contract</div>
+      <div class="tool-desc">Avtalsjämförelse i realtid. Returnerar bästa rörliga avtal, bästa fasta avtal och en helhetsrekommendation — varje som egen kategori. Även via REST: <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">Anslut via MCP — Claude, ChatGPT, Grok, Cursor, Copilot, Mistral</span><span class="code-lang">JSON</span></div>
+    <pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"elecz"</span>: {
+      <span class="k">"url"</span>: <span class="s">"https://elecz.com/mcp"</span>
+    }
+  }
+}</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">REST API — exempel för Sverige och Norden</span><span class="code-lang">cURL</span></div>
+    <pre>curl "https://elecz.com/signal/spot?zone=SE3"
+curl "https://elecz.com/signal/spot?zone=NO1"
+curl "https://elecz.com/signal/spot?zone=DK1"
+curl "https://elecz.com/signal/cheapest-hours?zone=SE3&hours=5"
+curl "https://elecz.com/signal/contract?zone=SE&consumption=5000"</pre>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Sveriges elområden</h2>
+  <p class="section-sub">Elecz stödjer rikssnittet (SE) och alla fyra elområden individuellt — samma API-schema för varje.</p>
+  <div class="zone-grid">
+    <div class="zone-card"><div class="zone-code">SE1</div><div class="zone-city">Luleå</div></div>
+    <div class="zone-card"><div class="zone-code">SE2</div><div class="zone-city">Sundsvall</div></div>
+    <div class="zone-card"><div class="zone-code">SE3</div><div class="zone-city">Stockholm</div></div>
+    <div class="zone-card"><div class="zone-code">SE4</div><div class="zone-city">Malmö</div></div>
+  </div>
+  <p style="font-size: 0.88rem; color: var(--text2); line-height: 1.75;">Elecz stödjer även Norges elområden (NO1–NO5) och Danmarks (DK1–DK2) med samma schema — praktiskt för agenter som opererar över hela Norden med en gemensam integration.</p>
+</div>
+
+<div class="section" id="jamforelse">
+  <h2>Hur Elecz skiljer sig från svenska elpristjänster</h2>
+  <p class="section-sub">Den svenska marknaden för elpris-API:er är mogen och väl betjänad: elprisetjustnu.se är gratis och listat på Sveriges dataportal, aktuellaelpriser.se täcker hela Norden, och Ellerva.se jämför redan 260+ svenska elbolag och är uttryckligen AI-medveten med stöd för GPT Actions. Elecz konkurrerar inte på rådata eller elbolagsjämförelse — differentieringen ligger på protokollnivå och global räckvidd.</p>
+
+  <table class="cmp-table">
+    <tr><th></th><th>Elecz</th><th>elprisetjustnu.se / aktuellaelpriser.se</th><th>Ellerva.se</th></tr>
+    <tr><td>Elprisdata (Nord Pool / ENTSO-E)</td><td>Ja</td><td>Ja</td><td>Ja</td></tr>
+    <tr><td>Kvartspriser (15 min, från 1.10.2025)</td><td>Ja</td><td>Delvis</td><td>Delvis</td></tr>
+    <tr><td>Nativt MCP-stöd</td><td>Ja — tre verktyg</td><td>Nej</td><td>Nej (OpenAPI/GPT Actions)</td></tr>
+    <tr><td>Elbolagsjämförelse</td><td>Ja — bästa rörligt/fast, besparing</td><td>Nej</td><td>Ja — 260+ bolag</td></tr>
+    <tr><td>Global täckning</td><td>40+ länder, 100+ zoner</td><td>Norden</td><td>Sverige</td></tr>
+  </table>
+
+  <p style="font-size: 0.9rem; color: var(--text2); line-height: 1.75; margin-bottom: 24px;">Ellerva är den starkaste konkurrenten inom elbolagsjämförelse och redan AI-medveten — det är inte en lucka Elecz försöker fylla. Skillnaden är att Elecz kopplas direkt via MCP i Claude Desktop, Cursor och andra MCP-kompatibla agentverktyg utan separat konfiguration, och fungerar identiskt över hela Norden och 40+ andra länder med samma schema.</p>
+
+  <p style="font-size: 0.9rem; color: var(--text2); line-height: 1.75; margin-bottom: 20px;"><strong>Vanliga elprissidor visar priser för människor. Elecz levererar elpriser som maskinläsbara beslutssignaler för AI-agenter och automation.</strong></p>
+
+  <p style="font-size: 0.88rem; color: var(--text2);">Utvecklare i Sverige söker även på:</p>
+  <div class="keyword-cloud">
+    <span class="kw">elpris API</span>
+    <span class="kw">elpriser API</span>
+    <span class="kw">spotpris API</span>
+    <span class="kw">spotpris el</span>
+    <span class="kw">elpris idag</span>
+    <span class="kw">elpris imorgon</span>
+    <span class="kw">timpris el</span>
+    <span class="kw">elpris per timme</span>
+    <span class="kw">elpris API AI</span>
+    <span class="kw">elpris MCP</span>
+    <span class="kw">MCP server elpris</span>
+    <span class="kw">kvartspriser API</span>
+    <span class="kw">billigaste timmar API</span>
+    <span class="kw">elområde API SE1 SE2 SE3 SE4</span>
+    <span class="kw">elbolagsjämförelse API</span>
+    <span class="kw">realtid elpris API</span>
+    <span class="kw">AI-agent elpris</span>
+    <span class="kw">ladda elbil billigast</span>
+    <span class="kw">styra värmepump</span>
+    <span class="kw">Home Assistant elpris</span>
+    <span class="kw">ingen API-nyckel</span>
+    <span class="kw">Nord Pool API</span>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Vanliga användningsfall</h2>
+  <p class="section-sub">Från enskild automation till autonom agent — samma tre verktyg täcker alla fall.</p>
+  <div class="usecase-grid">
+    <div class="usecase-item">
+      <div class="usecase-icon">🚗</div>
+      <div class="usecase-title">Elbilsladdning</div>
+      <div class="usecase-desc">Hitta dagens billigaste timmar och schemalägg laddningen automatiskt.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🌡️</div>
+      <div class="usecase-title">Värmepumpsstyrning</div>
+      <div class="usecase-desc">Undvik dyra timmar automatiskt, utnyttja billiga timmar exakt.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🔋</div>
+      <div class="usecase-title">Batterilagring</div>
+      <div class="usecase-desc">Ladda under dygnets billigaste period, ladda ur under dyra timmar.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🏠</div>
+      <div class="usecase-title">Home Assistant / n8n</div>
+      <div class="usecase-desc"><code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">current_hour_signal</code> direkt som automationsvillkor — ingen egen tröskellogik krävs.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🤖</div>
+      <div class="usecase-title">AI-agenter</div>
+      <div class="usecase-desc">Energioptimerade beslut automatiskt, utan separat beräkningslogik i agenten.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">📋</div>
+      <div class="usecase-title">Avtalsbyte</div>
+      <div class="usecase-desc">Agenten kontrollerar en gång i månaden om det lönar sig att byta elavtal, med besparingsuppskattning.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="faq">
+  <h2>Vanliga frågor</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">Vilket är det bästa API:t för elpriser i Sverige?</div>
+      <div class="faq-a">För AI-agenter och automation: Elecz, eftersom det är det enda elpris-API:et för Sverige med nativt MCP-stöd, en färdig beslutssignal (<code>current_hour_signal</code>, <code>next_cheap_hour</code>) och stöd för SE1, SE2, SE3 och SE4. För rena kuluttajgränssnitt finns väletablerade alternativ som elprisetjustnu.se.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Hur hämtar man elpriset för SE3?</div>
+      <div class="faq-a">Anropa <code>GET https://elecz.com/signal/spot?zone=SE3</code>. Ingen API-nyckel krävs. Svaret är strukturerad JSON med pris, enhet, tidsstämpel och källa — direkt användbart för AI-agenter, appar och automationer.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Vilket API kan användas för att ladda elbilen när elen är billigast?</div>
+      <div class="faq-a"><code>cheapest_hours</code>-verktyget (eller <code>GET /signal/cheapest-hours?zone=SE3</code>) visar dagens och morgondagens billigaste timmar samt om den aktuella timmen är billig just nu. Kan användas direkt för att styra elbilsladdning, värmepumpar och andra flexibla laster utan egen tröskellogik.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Finns det ett elpris API med MCP-stöd för AI-agenter?</div>
+      <div class="faq-a">Ja. Elecz är MCP-nativt och kopplas direkt till Claude, Cursor, ChatGPT, Grok, Copilot och Mistral via <code>https://elecz.com/mcp</code>, utan separat OpenAPI- eller GPT Actions-konfiguration. Ingen annan svensk elprislösning erbjuder ett verifierat MCP-stöd idag.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Är elpris API:et gratis?</div>
+      <div class="faq-a">Ja, spotpris, billigaste timmar och avtalsjämförelse är gratis utan API-nyckel. Sverige har redan flera bra gratis elpris-API:er, så Elecz konkurrerar inte på pris utan på agent-nativitet: MCP-stöd och en färdig beslutssignal istället för rådata.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Vad är skillnaden mellan Elecz och elprisetjustnu.se?</div>
+      <div class="faq-a">elprisetjustnu.se är en utmärkt och väletablerad källa till rådata om elpriser, listad även på Sveriges dataportal. Elecz levererar en tolkad beslutssignal ovanpå samma typ av data — <code>current_hour_signal</code>, <code>next_cheap_hour</code>, avtalsjämförelse — samt nativt MCP-stöd för AI-agenter.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Vad är skillnaden mellan Elecz och Ellerva?</div>
+      <div class="faq-a">Ellerva är en stark lösning för elbolagsjämförelse (260+ svenska elbolag) och är redan uttryckligen AI-medveten med OpenAPI-spec för GPT Actions. Skillnaden är protokollnivån: Elecz har nativt MCP-stöd som kopplas direkt i Claude Desktop, Cursor och andra MCP-kompatibla verktyg utan extra konfiguration, samt global täckning (100+ zoner, 40+ länder) utöver Norden.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Fungerar Elecz för alla svenska elområden (SE1–SE4)?</div>
+      <div class="faq-a">Ja. <code>spot_price</code> och <code>cheapest_hours</code> fungerar för SE (rikssnitt) samt SE1 (Luleå), SE2 (Sundsvall), SE3 (Stockholm) och SE4 (Malmö) individuellt.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Visar Elecz kvartspriser (15-minuters upplösning)?</div>
+      <div class="faq-a">Ja. Sverige gick över till 15-minuters prisupplösning från 1 oktober 2025, och Elecz data följer samma upplösning (<code>settlement_period: PT15M</code>).</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Jämför Elecz elbolag i Sverige?</div>
+      <div class="faq-a">Ja, <code>best_energy_contract</code> returnerar bästa rörliga avtal, bästa fasta avtal och en rekommendation med uppskattad besparing för SE-zonen — ett av åtta marknader Elecz stödjer för avtalsjämförelse (FI, SE, NO, DK, DE, GB, AU, NZ).</div>
+    </div>
+    <div class="faq-item" style="border-bottom: none;">
+      <div class="faq-q">Varifrån kommer prisdatan?</div>
+      <div class="faq-a">Från ENTSO-E Transparency Platform, baserat på Nord Pools auktionsresultat — samma primärkälla som svenska konkurrenter använder.</div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Elpris API för din AI —<br>klart på 60 sekunder.</h2>
+  <p>MCP-nativt. Färdig beslutssignal. Gratis. För Sverige, Norge, Danmark, Finland och 40+ andra länder.</p>
+  <div class="cta-row">
+    <a href="https://elecz.com/mcp" class="btn-primary">Anslut via MCP →</a>
+    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Öppna i ChatGPT →</a>
+    <a href="/docs" class="btn-secondary">Läs dokumentationen</a>
+  </div>
+</div>
+
+<footer>
+  <p>
+    ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Karleby (Kokkola), Finland ·
+    Data: ENTSO-E · Nord Pool · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
+    <a href="/terms">Villkor</a> · <a href="/docs">Docs</a> ·
+    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
+    <a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a>
+  </p>
+</footer>
+
+</body>
+</html>
