@@ -19,6 +19,13 @@
   <meta property="og:description" content="無料のリアルタイム電力価格API。スポット価格、最安時間帯。MCP対応、APIキー不要。日本JEPX全9エリア対応。">
   <meta property="og:url" content="https://elecz.com/ja/">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://elecz.com/og-image.png">
+  <meta property="og:locale" content="ja_JP">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="電力価格API リアルタイム — APIキー不要、MCP対応 | Elecz">
+  <meta name="twitter:description" content="無料のリアルタイム電力価格API。スポット価格、最安時間帯。MCP対応、APIキー不要。日本JEPX全9エリア対応。">
+  <meta name="twitter:image" content="https://elecz.com/og-image.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -77,7 +84,7 @@
     .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
     .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
     .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
-    .k { color: #7ec8e3; } .s { color: #a8d8a8; }
+    .k { color: #7ec8e3; } .s { color: #a8d8a8; } .c { color: #777; }
     .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
     .faq-item:first-child { border-top: 1px solid var(--border); }
     .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
@@ -103,6 +110,8 @@
     .dach-status.partial { color: var(--accent2); }
     .dach-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.65; }
     .dach-note { font-size: 0.86rem; color: var(--text2); line-height: 1.7; background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px; padding: 14px 16px; margin-top: 4px; }
+    .dach-note.highlight { background: var(--green-dim); border-color: var(--green-border); }
+    .dach-note.highlight strong { color: var(--green); }
     .signal-banner { max-width: 860px; margin: 0 auto; padding: 36px 24px; border-bottom: 1px solid var(--border); background: var(--green-dim); }
     .signal-banner-inner { max-width: 720px; }
     .signal-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
@@ -116,6 +125,7 @@
     .usecase-icon { font-size: 1.2rem; margin-bottom: 8px; }
     .usecase-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
     .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+    .usecase-desc a { color: var(--accent2); text-decoration: underline; }
 
     /* ライブ判定ウィジェット — 日本の9エリアをボタンで切り替え */
     .verdict-wrap { max-width: 860px; margin: 0 auto 0; padding: 0 24px 40px; }
@@ -160,12 +170,25 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Elecz 電力価格API",
+    "alternateName": "Elecz Electricity Price Signal API",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web/API",
     "url": "https://elecz.com/ja/",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
     "description": "日本(JEPX全9エリア)対応の無料リアルタイム電力価格API。生データではなく判断済みの信号を返す — スポット価格、最安時間帯。MCP対応、APIキー不要。",
-    "inLanguage": "ja"
+    "inLanguage": "ja",
+    "datePublished": "2026-07-06",
+    "dateModified": "2026-07-09",
+    "provider": {
+      "@type": "Organization",
+      "name": "Zemlo AI",
+      "url": "https://elecz.com",
+      "email": "hello@elecz.com"
+    },
+    "sameAs": [
+      "https://github.com/zemloai-ctrl/elecz-api",
+      "https://elecz.com/"
+    ]
   }
   </script>
 
@@ -173,6 +196,9 @@
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "mainEntityOfPage": "https://elecz.com/ja/",
+    "dateModified": "2026-07-09",
+    "inLanguage": "ja",
     "mainEntity": [
       {
         "@type": "Question",
@@ -212,6 +238,14 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "はい。REST APIまたは公式n8nノード（n8n-nodes-elecz）を通じて、任意の自動化プラットフォームに統合できます。current_hour_signalフィールドはlow、medium、highを直接返すため、独自ロジックは不要です。Home Assistant公式のSmart Meter B Route統合は電力消費量を取得しますが、価格データは含みません。Eleczと組み合わせることで消費と価格の両方に基づく自動化が可能になります。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "JEPXとHome Assistant／HACSを連携させる公式な統合はありますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "2026年7月時点で、Home AssistantおよびHACSにはJEPXのスポット価格を扱う公式・コミュニティ統合は存在しません。既存のJEPX価格予測APIは発電事業者・小売電気事業者・VPP事業者向けの法人サービスに限られており、無料・APIキー不要で家庭用オートメーションから直接呼び出せるJEPX価格ソースはEleczが最初です。RESTセンサーとしてEleczのエンドポイントを追加すれば、数分でHome Assistantに組み込めます。"
         }
       },
       {
@@ -265,6 +299,8 @@
   <div class="nav-links">
     <a href="/docs">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
+    <a href="/cheapest-hours/">Cheapest Hours</a>
+    <a href="/for-agents/">For AI Agents</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
     <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a></span>
     <a href="https://elecz.com/mcp" class="nav-cta">MCPで接続</a>
@@ -291,6 +327,7 @@
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
     直接ジャンプ: <a href="#japan-zones" style="color: var(--text2);">日本エリア一覧</a> ·
     <a href="#japan-dev" style="color: var(--text2);">開発者向け情報</a> ·
+    <a href="#home-assistant" style="color: var(--text2);">Home Assistant連携例</a> ·
     <a href="#faq" style="color: var(--text2);">よくある質問</a>
   </p>
 </div>
@@ -430,7 +467,7 @@ curl "https://elecz.com/signal/cheapest-hours?zone=JP-TKY&hours=5"</pre>
     <div class="usecase-item">
       <div class="usecase-icon">🏠</div>
       <div class="usecase-title">Home Assistant / n8n</div>
-      <div class="usecase-desc"><code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">current_hour_signal</code> を自動化に直接利用 — 独自の閾値ロジックは不要です。</div>
+      <div class="usecase-desc"><code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">current_hour_signal</code> を自動化に直接利用 — 独自の閾値ロジックは不要です。<a href="#home-assistant">動く実例を見る →</a></div>
     </div>
     <div class="usecase-item">
       <div class="usecase-icon">🤖</div>
@@ -464,6 +501,7 @@ curl "https://elecz.com/signal/cheapest-hours?zone=JP-TKY&hours=5"</pre>
   <div class="dach-note">
     <strong>市場連動型プランをご利用の方へ：</strong> 一部の新電力事業者が提供する「市場連動型プラン」は、電力量料金の単価がJEPXのスポット市場価格に連動して30分ごとに変動します。市場価格が安い時間帯に電気を使えば節約できる一方、価格高騰時にはそのまま電気代に跳ね返るリスクがあります。Eleczの <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">spot_price</code> と <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code> は、契約エリアの現在価格と今後の最安時間帯をそのまま返します（実際の請求単価には託送料金・再エネ賦課金等が別途加算されます）。
   </div>
+  <p style="font-size: 0.8rem; color: var(--text3); margin-top: 14px;">出典・一次データ: <a href="https://www.jepx.jp/electricpower/market-data/spot/" target="_blank" rel="noopener" style="color: var(--text3); text-decoration: underline;">一般社団法人 日本卸電力取引所（JEPX）スポット市場</a></p>
 </div>
 
 <div class="section" id="japan-dev">
@@ -476,7 +514,12 @@ curl "https://elecz.com/signal/cheapest-hours?zone=JP-TKY&hours=5"</pre>
     <li><code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">best_energy_contract</code>（契約プラン比較）は日本では現時点で未対応</li>
     <li>Home Assistant公式の「Smart Meter B Route」統合はBルート経由で電力<strong>消費量</strong>を取得します — 価格データは含みません。Eleczと組み合わせることで、消費と価格の両方に基づく自動化が可能になります</li>
   </ul>
-  <p style="font-size: 0.88rem; color: var(--text2);">日本の開発者・AIエージェント構築者・自動化ユーザーが探すことが多いキーワード:</p>
+
+  <div class="dach-note highlight">
+    <strong>市場調査で確認済み（2026年7月）：</strong> Home AssistantおよびHACSには、JEPXのスポット価格を扱う公式・コミュニティ統合が現時点で存在しません。既存のJEPX価格予測APIは発電事業者・小売電気事業者・VPP事業者向けの法人サービスに限られており、無料・APIキー不要で家庭用オートメーションから直接呼び出せるJEPX価格ソースはEleczが最初です。下の「Home Assistantで動かす」セクションに、RESTセンサーとして数分で組み込める設定例を掲載しています。
+  </div>
+
+  <p style="font-size: 0.88rem; color: var(--text2); margin-top: 24px;">日本の開発者・AIエージェント構築者・自動化ユーザーが探すことが多いキーワード:</p>
   <div class="keyword-cloud">
     <span class="kw">JEPX API</span>
     <span class="kw">電力価格API</span>
@@ -502,6 +545,64 @@ curl "https://elecz.com/signal/cheapest-hours?zone=JP-TKY&hours=5"</pre>
   </div>
 </div>
 
+<div class="section" id="home-assistant">
+  <h2>Home Assistantで動かす — ヒートポンプ・エアコン自動化の実例</h2>
+  <p class="section-sub">JEPX価格を扱う公式Home Assistant統合は存在しませんが、EleczのREST APIをそのままRESTセンサーとして登録すれば数分で組み込めます。以下はエコキュート（ヒートポンプ給湯器）とエアコンを電力シグナルで自動制御する設定例です。</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">configuration.yaml — Eleczシグナルをセンサーとして登録</span><span class="code-lang">YAML</span></div>
+    <pre><span class="c"># 東京エリア(JP-TKY)の電力シグナルをRESTセンサーとして取得</span>
+sensor:
+  - platform: rest
+    name: <span class="s">"Elecz 電力シグナル 東京"</span>
+    resource: <span class="s">"https://elecz.com/signal?zone=JP-TKY&consumption=2000"</span>
+    value_template: <span class="s">"{{ value_json.current_hour_signal }}"</span>
+    json_attributes:
+      - spot_price
+      - energy_state
+      - recommendation
+      - next_cheap_hour
+      - hours_until_next_cheap
+    scan_interval: 1800  <span class="c"># 30分ごと。JEPXの取引単位(48コマ)に合わせる</span></pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">automations.yaml — 価格シグナルで家電を制御</span><span class="code-lang">YAML</span></div>
+    <pre><span class="c"># シグナルが low になったらヒートポンプ給湯器を運転</span>
+automation:
+  - alias: <span class="s">"エコキュートを最安時間帯に運転"</span>
+    trigger:
+      - platform: state
+        entity_id: sensor.elecz_denryoku_signal_tokyo
+        to: <span class="s">"low"</span>
+    action:
+      - service: switch.turn_on
+        target:
+          entity_id: switch.heat_pump_water_heater
+
+  <span class="c"># シグナルが high になったらエアコンをエコモードに切替</span>
+  - alias: <span class="s">"電力価格が高い時はエアコンをエコモードに"</span>
+    trigger:
+      - platform: state
+        entity_id: sensor.elecz_denryoku_signal_tokyo
+        to: <span class="s">"high"</span>
+    action:
+      - service: climate.set_preset_mode
+        target:
+          entity_id: climate.living_room_ac
+        data:
+          preset_mode: eco</pre>
+  </div>
+
+  <p style="font-size: 0.88rem; color: var(--text2); line-height: 1.8; margin-top: 8px;">
+    エリアを変更する場合は <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">zone=JP-TKY</code> の部分を該当エリアコード（<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">JP-KNS</code> = 関西、<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">JP-CBU</code> = 中部など）に置き換えてください。<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">consumption</code> パラメータは年間消費電力量(kWh)の目安値で、契約プランの比較には使われませんが、将来の拡張フィールド用に指定しておくことを推奨します。
+  </p>
+
+  <p style="font-size: 0.88rem; color: var(--text2); line-height: 1.8; margin-top: 16px;">
+    n8nでも同様の自動化が可能です — HTTP Requestノードで同じエンドポイントを呼び出し、<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">current_hour_signal</code> をSwitchノードで分岐させるだけです。公式n8nノード（<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">n8n-nodes-elecz</code>）を使えばHTTP Requestノードの設定も不要です。
+  </p>
+</div>
+
 <div class="section" id="faq">
   <h2>よくある質問</h2>
   <div class="faq-list">
@@ -524,6 +625,10 @@ curl "https://elecz.com/signal/cheapest-hours?zone=JP-TKY&hours=5"</pre>
     <div class="faq-item">
       <div class="faq-q">EleczはHome AssistantやHEMSと連携できますか？</div>
       <div class="faq-a">はい。REST APIまたは公式n8nノード（<code>n8n-nodes-elecz</code>）を通じて、任意の自動化プラットフォームに統合できます。<code>current_hour_signal</code>フィールドは<code>low</code>、<code>medium</code>、<code>high</code>を直接返すため、独自ロジックは不要です。Home Assistant公式のSmart Meter B Route統合は電力消費量を取得しますが、価格データは含みません。Eleczと組み合わせることで消費と価格の両方に基づく自動化が可能になります。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">JEPXとHome Assistant／HACSを連携させる公式な統合はありますか？</div>
+      <div class="faq-a">2026年7月時点で、Home AssistantおよびHACSにはJEPXのスポット価格を扱う公式・コミュニティ統合は存在しません。既存のJEPX価格予測APIは発電事業者・小売電気事業者・VPP事業者向けの法人サービスに限られており、無料・APIキー不要で家庭用オートメーションから直接呼び出せるJEPX価格ソースはEleczが最初です。RESTセンサーとしてEleczのエンドポイントを追加すれば、数分でHome Assistantに組み込めます。<a href="#home-assistant" style="color: var(--accent2); text-decoration: underline;">設定例はこちら →</a></div>
     </div>
     <div class="faq-item">
       <div class="faq-q">MCPとは何ですか？なぜ電力価格データに必要なのですか？</div>
