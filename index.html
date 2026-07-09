@@ -11,6 +11,8 @@
 
   <link rel="canonical" href="https://elecz.com/">
   <link rel="alternate" hreflang="en" href="https://elecz.com/">
+  <link rel="alternate" hreflang="fi" href="https://elecz.com/fi/">
+  <link rel="alternate" hreflang="sv" href="https://elecz.com/sv/">
   <link rel="alternate" hreflang="de" href="https://elecz.com/de/">
   <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
   <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
@@ -97,22 +99,31 @@
     nav a:hover { color: #1a1a1a; border-bottom-color: #f0a020; }
     .section { margin-bottom: 48px; }
     .section-title { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #888; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #e8e8e0; }
-    .price-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
-    .price-card { background: #fff; border: 1px solid #e0e0d8; border-radius: 10px; padding: 16px; transition: box-shadow 0.15s; }
-    .price-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-    .price-zone { font-size: 0.78rem; color: #888; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-    .price-flag { display: inline-block; border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
-    .price-value { font-size: 1.5rem; font-weight: 700; color: #1a1a1a; line-height: 1; margin-bottom: 6px; min-height: 1.5rem; }
-    .price-value .unit { font-size: 0.75rem; font-weight: 400; color: #888; }
-    .price-value.loading { color: #ccc; font-size: 1rem; font-weight: 400; padding-top: 4px; }
-    .price-state { display: inline-block; font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.04em; }
-    .price-state.cheap { background: #edfaf3; color: #1a6b3a; }
-    .price-state.expensive { background: #fdf0f0; color: #a03030; }
-    .price-state.normal { background: #f0f4ff; color: #2a4a9a; }
-    .price-state.negative { background: #fff8e8; color: #8a5a10; }
-    .refresh-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 0.8rem; color: #aaa; }
-    .pulse { width: 7px; height: 7px; background: #3db870; border-radius: 50%; animation: pulse 2s ease infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+
+    /* ── Live signal widget ─────────────────────────────────────── */
+    .signal-sub { font-size: 0.85rem; color: #888; margin-bottom: 16px; max-width: 620px; line-height: 1.6; }
+    .verdict { background: #fff; border: 1px solid #e0e0d8; border-radius: 10px; overflow: hidden; margin-bottom: 18px; }
+    .verdict-body { padding: 22px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    .verdict-signal { flex-shrink: 0; width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 700; }
+    .verdict-signal.loading { background: #f0f0e8; border: 2px solid #d8d8d0; color: #999; }
+    .verdict-signal.regulated { background: #f0f4ff; border: 2px solid #a8c4f0; color: #1a4a8a; }
+    .verdict-signal.cheap { background: #f0faf4; border: 2px solid #a8d8b8; color: #1a6b3a; }
+    .verdict-signal.normal { background: #f0f4ff; border: 2px solid #a8c4f0; color: #1a4a8a; }
+    .verdict-signal.expensive { background: #fdf0f0; border: 2px solid #e8b0b0; color: #a03030; }
+    .verdict-text { flex: 1; min-width: 200px; }
+    .verdict-verb { font-size: 1.05rem; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+    .verdict-verb img { border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+    .verdict-detail { font-size: 0.88rem; color: #555; line-height: 1.6; }
+    .verdict-price { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 1.3rem; font-weight: 500; color: #1a1a1a; white-space: nowrap; }
+    .verdict-price .unit { font-size: 0.7rem; color: #999; font-weight: 400; }
+    .verdict-foot { padding: 10px 22px; border-top: 1px solid #e8e8e0; font-size: 0.75rem; color: #999; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
+    .zones-label { font-size: 0.78rem; color: #999; margin-bottom: 10px; }
+    .zone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+    .zone-btn { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.75rem; padding: 7px 10px; border-radius: 6px; border: 1px solid #d0d0c8; background: #fff; color: #555; cursor: pointer; display: flex; align-items: center; gap: 7px; text-align: left; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+    .zone-btn:hover { border-color: #f0a020; }
+    .zone-btn img { border-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.15); flex-shrink: 0; }
+    .zone-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
     .code-block { background: #fff; border: 1px solid #e0e0d8; border-radius: 10px; padding: 20px 24px; font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.88rem; line-height: 1.7; color: #2a2a2a; overflow-x: auto; }
     .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: #fff; border: 1px solid #e0e0d8; border-radius: 10px; overflow: hidden; }
     .data-table th { text-align: left; padding: 12px 16px; color: #666; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; background: #f8f8f4; border-bottom: 1px solid #e8e8e0; font-weight: 600; }
@@ -126,12 +137,13 @@
     footer a { color: #aaa; text-decoration: none; }
     footer a:hover { color: #555; }
     footer .footer-stat { display: inline-flex; align-items: center; gap: 6px; color: #888; }
-    footer .footer-stat .pulse { width: 6px; height: 6px; }
+    footer .footer-stat .pulse { width: 6px; height: 6px; background: #3db870; border-radius: 50%; animation: pulse 2s ease infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
     @media (max-width: 600px) {
       .logo { font-size: 1.8rem; }
-      .price-grid { grid-template-columns: 1fr 1fr; }
       .container { padding: 32px 16px 60px; }
-      .price-value { font-size: 1.2rem; }
+      .verdict-body { flex-direction: column; align-items: flex-start; }
+      .verdict-price { font-size: 1.1rem; }
     }
   </style>
 </head>
@@ -169,6 +181,8 @@
     <a href="/for-agents/">For AI Agents →</a>
     <a href="/docs/">Documentation →</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub →</a>
+    <a href="/fi/">🇫🇮 Suomi</a>
+    <a href="/sv/">🇸🇪 Svenska</a>
     <a href="/de/">🇩🇪 Deutsch</a>
     <a href="/fr/">🇫🇷 Français</a>
     <a href="/es/">🇪🇸 Español</a>
@@ -178,18 +192,32 @@
   </nav>
 
   <section class="section">
-    <div class="section-title">Live Spot Prices</div>
-    <div class="refresh-bar">
-      <div class="pulse"></div>
-      <span id="last-updated">fetching prices...</span>
+    <div class="section-title">Live Spot Price Signal</div>
+    <p class="signal-sub">One market loads by default — a regulated tariff that doesn't change minute to minute. Click any zone below to check its live market signal on demand.</p>
+
+    <div class="verdict" id="verdict">
+      <div class="verdict-body">
+        <div class="verdict-signal loading" id="verdict-signal">...</div>
+        <div class="verdict-text">
+          <div class="verdict-verb" id="verdict-verb">Loading…</div>
+          <div class="verdict-detail" id="verdict-detail">Fetching signal…</div>
+        </div>
+        <div class="verdict-price" id="verdict-price"></div>
+      </div>
+      <div class="verdict-foot">
+        <span id="verdict-foot-note">—</span>
+        <span>Elecz.com</span>
+      </div>
     </div>
-    <div class="price-grid" id="price-grid"></div>
+
+    <div class="zones-label">Global markets — click for live signal</div>
+    <div class="zone-grid" id="zone-grid"></div>
   </section>
 
   <section class="section">
     <div class="section-title">Connect — MCP</div>
     <div class="code-block">
-<span style="color:#999">// Claude / Grok / Cursor / Copilot / Mistral / ChatGPT / any MCP client</span>
+<span style="color:#999">// Claude / Grok / Cursor / Copilot / Mistral / ChatGPT / Gemini / any MCP client</span>
 {
   <span style="color:#1a4a8a">"mcpServers"</span>: {
     <span style="color:#1a4a8a">"elecz"</span>: {
@@ -251,6 +279,8 @@
     <a href="/cheapest-hours/">Cheapest Hours</a> ·
     <a href="/best-time-to-charge-ev/">Best Time to Charge EV</a> ·
     <a href="/for-agents/">For AI Agents</a> ·
+    <a href="/fi/">🇫🇮 Suomi</a> ·
+    <a href="/sv/">🇸🇪 Svenska</a> ·
     <a href="/de/">🇩🇪 Deutsch</a> ·
     <a href="/fr/">🇫🇷 Français</a> ·
     <a href="/es/">🇪🇸 Español</a> ·
@@ -261,51 +291,136 @@
   </footer>
 
 </div>
+
 <script>
+/*
+  Live signal widget.
+  - No polling, no setInterval. Fetches once on load (default zone),
+    and again only when the user clicks a different zone.
+  - Default zone is a REGULATED market (Philippines) that does not
+    change minute to minute, so the very first paint costs one request
+    and then stays static until the user interacts.
+  - Regulated zones (price_type === "regulated") never show a
+    cheap/normal/expensive badge, since there's nothing to compare
+    against intraday. Market zones show the live energy_state.
+*/
+
+const DEFAULT_ZONE = "PH-LUZ";
+
 const ZONES = [
-  { zone: "DE",               label: "Germany",       cc: "de" },
-  { zone: "JP-TKY",           label: "Japan Tokyo",   cc: "jp" },
-  { zone: "US-CA-SP15",       label: "California",   cc: "us" },
-  { zone: "NZ-NI",            label: "New Zealand",   cc: "nz" },
+  { zone: "DE",             label: "Germany",         cc: "de" },
+  { zone: "GB",              label: "United Kingdom",  cc: "gb" },
+  { zone: "FR",              label: "France",          cc: "fr" },
+  { zone: "ES",              label: "Spain",           cc: "es" },
+  { zone: "NL",              label: "Netherlands",     cc: "nl" },
+  { zone: "PL",              label: "Poland",          cc: "pl" },
+  { zone: "US-TX-HB_WEST",   label: "Texas",           cc: "us" },
+  { zone: "CA-ON",           label: "Ontario",         cc: "ca" },
+  { zone: "MX-CEN",          label: "Mexico",          cc: "mx" },
+  { zone: "AU-NSW",          label: "Australia",       cc: "au" },
+  { zone: "NZ-NI",           label: "New Zealand",     cc: "nz" },
+  { zone: "KR",              label: "South Korea",     cc: "kr" },
 ];
-const API_BASE = "";
 
-function renderCard(z, data) {
-  const price = data ? data.spot_price?.value : null;
-  const unit = data ? data.unit : "";
-  const state = data ? data.energy_state : null;
-  let valueHtml;
-  if (data === null) {
-    valueHtml = `<div class="price-value loading">...</div>`;
-  } else if (price === null) {
-    valueHtml = `<div class="price-value loading">no data</div>`;
-  } else {
-    valueHtml = `<div class="price-value">${Number(price).toFixed(4)} <span class="unit">${unit}</span></div>`;
+const STATE_COLORS = {
+  cheap: "cheap",
+  normal: "normal",
+  expensive: "expensive",
+  negative: "cheap"
+};
+
+function flagUrl(cc, w) {
+  return `https://flagcdn.com/${w}x${Math.round(w * 0.75)}/${cc}.png`;
+}
+
+function findZoneMeta(zone) {
+  return ZONES.find(z => z.zone === zone) || { zone, label: zone, cc: "un" };
+}
+
+function renderLoading() {
+  document.getElementById("verdict-signal").className = "verdict-signal loading";
+  document.getElementById("verdict-signal").textContent = "…";
+  document.getElementById("verdict-verb").textContent = "Loading…";
+  document.getElementById("verdict-detail").textContent = "Fetching signal…";
+  document.getElementById("verdict-price").textContent = "";
+  document.getElementById("verdict-foot-note").textContent = "—";
+}
+
+function renderVerdict(zone, data, meta) {
+  const signalEl = document.getElementById("verdict-signal");
+  const verbEl = document.getElementById("verdict-verb");
+  const detailEl = document.getElementById("verdict-detail");
+  const priceEl = document.getElementById("verdict-price");
+  const footEl = document.getElementById("verdict-foot-note");
+
+  if (!data) {
+    signalEl.className = "verdict-signal loading";
+    signalEl.textContent = "n/a";
+    verbEl.innerHTML = `<img src="${flagUrl(meta.cc, 24)}" width="24" height="18" alt="">${meta.label}`;
+    detailEl.textContent = "No live data available for this zone right now.";
+    priceEl.textContent = "";
+    footEl.textContent = "—";
+    return;
   }
-  return `<div class="price-card">
-    <div class="price-zone"><img class="price-flag" src="https://flagcdn.com/24x18/${z.cc}.png" width="24" height="18" alt="${z.label}"><span>${z.label} <span style="opacity:0.6">(${z.zone})</span></span></div>
-    ${valueHtml}
-    ${state ? `<div class="price-state ${state.toLowerCase()}">${state}</div>` : ''}
-  </div>`;
+
+  const price = data.spot_price ? data.spot_price.value : null;
+  const unit = data.unit || "";
+  priceEl.innerHTML = price !== null
+    ? `${Number(price).toFixed(2)} <span class="unit">${unit}</span>`
+    : "";
+
+  if (data.price_type === "regulated") {
+    signalEl.className = "verdict-signal regulated";
+    signalEl.textContent = "=";
+    verbEl.innerHTML = `<img src="${flagUrl(meta.cc, 24)}" width="24" height="18" alt="">${meta.label}`;
+    detailEl.textContent = "Regulated tariff — not a live market signal. Click another zone for real-time pricing.";
+    footEl.textContent = "Regulated · " + (data.tariff_details && data.tariff_details.valid_month
+      ? "updated " + data.tariff_details.valid_month
+      : "updates periodically");
+    return;
+  }
+
+  const state = data.energy_state || "normal";
+  const cls = STATE_COLORS[state] || "normal";
+  const icon = state === "cheap" || state === "negative" ? "✓" : state === "expensive" ? "!" : "~";
+
+  signalEl.className = "verdict-signal " + cls;
+  signalEl.textContent = icon;
+  verbEl.innerHTML = `<img src="${flagUrl(meta.cc, 24)}" width="24" height="18" alt="">${meta.label}`;
+  detailEl.textContent = state === "cheap" ? "Good time to run high-consumption tasks now."
+    : state === "expensive" ? "Prices are elevated — better to wait if possible."
+    : "Mid-range pricing right now.";
+  footEl.textContent = "Live · " + (data.source || "market data");
 }
 
-async function loadPrices() {
-  const grid = document.getElementById("price-grid");
-  const updated = document.getElementById("last-updated");
-  grid.innerHTML = ZONES.map(z => renderCard(z, null)).join("");
-  const results = await Promise.all(ZONES.map(async z => {
-    try {
-      const res = await fetch(`${API_BASE}/signal?zone=${z.zone}&consumption=2000`);
-      if (!res.ok) throw new Error();
-      return await res.json();
-    } catch { return undefined; }
-  }));
-  grid.innerHTML = ZONES.map((z, i) => renderCard(z, results[i] !== undefined ? results[i] : null)).join("");
-  const now = new Date();
-  updated.textContent = `updated ${now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })} UTC`;
+async function loadZone(zone) {
+  const meta = findZoneMeta(zone);
+  renderLoading();
+  document.querySelectorAll(".zone-btn").forEach(b => {
+    b.classList.toggle("active", b.dataset.zone === zone);
+  });
+  try {
+    const res = await fetch(`/signal?zone=${encodeURIComponent(zone)}&consumption=2000`);
+    if (!res.ok) throw new Error("bad response");
+    const data = await res.json();
+    renderVerdict(zone, data, meta);
+  } catch {
+    renderVerdict(zone, null, meta);
+  }
 }
-loadPrices();
-setInterval(loadPrices, 5 * 60 * 1000);
+
+const grid = document.getElementById("zone-grid");
+ZONES.forEach(z => {
+  const btn = document.createElement("button");
+  btn.className = "zone-btn";
+  btn.dataset.zone = z.zone;
+  btn.innerHTML = `<img src="${flagUrl(z.cc, 20)}" width="20" height="15" alt="">${z.label}`;
+  btn.addEventListener("click", () => loadZone(z.zone));
+  grid.appendChild(btn);
+});
+
+/* Single load on page open. No polling, no setInterval. */
+loadZone(DEFAULT_ZONE);
 </script>
 </body>
 </html>
