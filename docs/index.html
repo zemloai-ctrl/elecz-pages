@@ -11,6 +11,8 @@
   <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
   <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
   <link rel="alternate" hreflang="ja" href="https://elecz.com/ja/">
+  <link rel="alternate" hreflang="fi" href="https://elecz.com/fi/">
+  <link rel="alternate" hreflang="sv" href="https://elecz.com/sv/">
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Elecz Docs — Electricity Price Signal API for AI Agents">
@@ -68,16 +70,16 @@
 
   <nav>
     <a href="/" class="logo">⚡ Elecz<span class="dot">.</span>com</a>
-    <a href="/docs">Docs</a>
+    <a href="/docs/">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
     <a href="/electricity-price-mcp/">MCP Server</a>
     <a href="/cheapest-hours/">Cheapest Hours</a>
     <a href="/best-time-to-charge-ev/">Best Time to Charge EV</a>
     <a href="/for-agents/">For AI Agents</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
-    <a href="/privacy">Privacy</a>
-    <a href="/terms">Terms</a>
-    <span class="nav-lang"><a href="/de/">DE</a> · <a href="/fr/">FR</a> · <a href="/es/">ES</a> · <a href="/ja/">JA</a></span>
+    <a href="/privacy/">Privacy</a>
+    <a href="/terms/">Terms</a>
+    <span class="nav-lang"><a href="/de/">DE</a> · <a href="/fr/">FR</a> · <a href="/es/">ES</a> · <a href="/ja/">JA</a> · <a href="/fi/">FI</a> · <a href="/sv/">SV</a></span>
   </nav>
 
   <div class="hero">
@@ -119,6 +121,30 @@ curl "https://elecz.com/signal/spot?zone=ZA"
 curl "https://elecz.com/signal/spot?zone=MX-MTY"
 curl "https://elecz.com/signal/cheapest-hours?zone=DE&hours=5"
 curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
+
+  <h2 id="terminology">What is this called on your platform?</h2>
+  <p>Elecz connects the same way everywhere, but AI platforms each use their own name for it.</p>
+  <table>
+    <tr><th>Platform</th><th>Term</th></tr>
+    <tr><td>Claude, Grok</td><td>Connector</td></tr>
+    <tr><td>Cursor, Copilot, Windsurf</td><td>MCP server</td></tr>
+    <tr><td>ChatGPT</td><td>Plugin</td></tr>
+    <tr><td>n8n</td><td>Node</td></tr>
+    <tr><td>Gemini CLI</td><td>Extension</td></tr>
+    <tr><td>Claude Skills, Anthropic/OpenAI/Microsoft</td><td>Skill</td></tr>
+  </table>
+
+  <h2 id="skill">Using Elecz as a Skill</h2>
+  <p>Elecz ships a <code>SKILL.md</code> compatible with Claude Skills and similar formats. Recommended config name: <code>electricity</code>.</p>
+  <p><a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/SKILL.md" target="_blank">View SKILL.md on GitHub →</a></p>
+
+  <h2 id="gemini">Gemini Extension</h2>
+  <p>Elecz is available as a Gemini CLI extension.</p>
+  <p><a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/gemini-extension.json" target="_blank">gemini-extension.json →</a></p>
+
+  <h2 id="n8n">n8n Node</h2>
+  <p>Elecz is available as an n8n community node (v0.2.0).</p>
+  <p><a href="https://www.npmjs.com/package/n8n-nodes-elecz" target="_blank">Install from npm →</a> · <a href="https://ncnodes.com/nodes/n8n-nodes-elecz" target="_blank">ncnodes.com listing →</a></p>
 
   <h2 id="tools">MCP Tools</h2>
   <table>
@@ -372,8 +398,8 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
     <li>✅ Philippines (Meralco/ERC regulated)</li>
     <li>✅ Mexico — 14 zones (CENACE MDA)</li>
     <li>✅ AI agent city → zone mapping (Sweden, Norway, Denmark, UK, Italy, California, Texas, New York, Mexico, Japan/Korea/Philippines)</li>
+    <li>✅ UK regional zones (GB-A..GB-P) in public openapi.json enum</li>
     <li>🔜 Netherlands, Belgium — contract comparison</li>
-    <li>🔜 UK regional zones (GB-A..GB-P) in public openapi.json enum</li>
   </ul>
 
   <h2 id="faq">Frequently Asked Questions</h2>
@@ -387,14 +413,20 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
   <p>ERCOT's day-ahead market requires authenticated API access (OAuth token) that Elecz hasn't integrated yet. Texas currently supports <code>spot_price</code> only.</p>
   <h3>How many countries and zones does Elecz cover?</h3>
   <p>40+ countries and 100+ zones across Europe, the Americas, Asia, and Africa — including sub-national markets like Sweden's 4 price zones, Italy's 6 zones, New York's 11 NYISO zones, and Mexico's 14 CENACE zones.</p>
+  <h3>What is an electricity price skill?</h3>
+  <p>An electricity price skill is a Claude Skill (or equivalent format for OpenAI/Microsoft agents) that gives an AI assistant direct access to real-time electricity price data instead of guessing. Elecz provides a ready-to-use <code>SKILL.md</code>.</p>
+  <h3>Is there an electricity price plugin for ChatGPT?</h3>
+  <p>Yes. Elecz is available on ChatGPT as a plugin, providing the same real-time price signal, cheapest-hours, and contract comparison data available through the MCP server.</p>
+  <h3>Does Elecz work as an n8n node or Gemini extension?</h3>
+  <p>Yes. Elecz ships an official n8n community node (v0.2.0) and a Gemini CLI extension, in addition to the MCP server and REST API.</p>
 
   <h2>Support</h2>
   <p>Questions or integrations: <a href="mailto:sakke@elecz.com">sakke@elecz.com</a> · <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a></p>
 
   <footer>
     ⚡ Elecz.com · SKA Trading Oy / Zemlo AI · Kokkola, Finland ·
-    <a href="/">Home</a> · <a href="/electricity-price-api/">API Guide</a> · <a href="/electricity-price-mcp/">MCP Server</a> · <a href="/cheapest-hours/">Cheapest Hours</a> · <a href="/best-time-to-charge-ev/">Best Time to Charge EV</a> · <a href="/for-agents/">For Agents</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms of Service</a> ·
-    <a href="/de/">Deutsch</a> · <a href="/fr/">Français</a> · <a href="/es/">Español</a> · <a href="/ja/">日本語</a>
+    <a href="/">Home</a> · <a href="/electricity-price-api/">API Guide</a> · <a href="/electricity-price-mcp/">MCP Server</a> · <a href="/cheapest-hours/">Cheapest Hours</a> · <a href="/best-time-to-charge-ev/">Best Time to Charge EV</a> · <a href="/for-agents/">For Agents</a> · <a href="/privacy/">Privacy Policy</a> · <a href="/terms/">Terms of Service</a> ·
+    <a href="/de/">Deutsch</a> · <a href="/fr/">Français</a> · <a href="/es/">Español</a> · <a href="/ja/">日本語</a> · <a href="/fi/">Suomi</a> · <a href="/sv/">Svenska</a>
   </footer>
 
 </div>
@@ -460,6 +492,30 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "40+ countries and 100+ zones across Europe, the Americas, Asia, and Africa, including sub-national markets like Sweden's 4 price zones, Italy's 6 zones, New York's 11 NYISO zones, and Mexico's 14 CENACE zones."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is an electricity price skill?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An electricity price skill is a Claude Skill (or equivalent format for OpenAI/Microsoft agents) that gives an AI assistant direct access to real-time electricity price data instead of guessing. Elecz provides a ready-to-use SKILL.md."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there an electricity price plugin for ChatGPT?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Elecz is available on ChatGPT as a plugin, providing the same real-time price signal, cheapest-hours, and contract comparison data available through the MCP server."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Elecz work as an n8n node or Gemini extension?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Elecz ships an official n8n community node (v0.2.0) and a Gemini CLI extension, in addition to the MCP server and REST API."
           }
         }
       ]
