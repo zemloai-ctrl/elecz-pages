@@ -160,7 +160,7 @@
     "description": "Real-time electricity spot prices, day-ahead prices, cheapest hours, and contract comparison for 40+ countries across Europe, Oceania, North America, Asia, and Africa. Designed for AI agents and automation. Millions of requests served monthly.",
     "url": "https://elecz.com/electricity-price-api/",
     "creator": { "@type": "Organization", "name": "SKA Trading Oy / Zemlo AI", "url": "https://elecz.com" },
-    "license": "https://elecz.com/terms",
+    "license": "https://elecz.com/terms/",
     "spatialCoverage": "Europe, Oceania, North America, Asia, Africa",
     "isAccessibleForFree": true,
     "variableMeasured": ["Spot electricity price", "Day-ahead electricity price", "Cheapest hours", "Energy contract comparison", "Regulated electricity tariff"]
@@ -208,7 +208,7 @@
       {
         "@type": "Question",
         "name": "Can I use Elecz with Claude, ChatGPT, or other AI assistants?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz is MCP-native — add it via https://elecz.com/mcp, no API key or account needed. Also available as a public GPT in the ChatGPT Store (search Electricity Prices), and on Glama, ClawHub, PulseMCP, mcp.so, and n8n." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz is MCP-native — add it via https://elecz.com/mcp, no API key or account needed. Also available as a custom GPT in ChatGPT (search Electricity Prices), and on Glama, ClawHub, PulseMCP, mcp.so, and n8n." }
       },
       {
         "@type": "Question",
@@ -218,7 +218,7 @@
       {
         "@type": "Question",
         "name": "Does Elecz work with Gemini?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Gemini can use Elecz through the MCP endpoint at https://elecz.com/mcp, or via the REST API for setups that don't yet support MCP. Same live spot price, cheapest hours, and contract data as every other integration — no API key needed." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Gemini can use Elecz through the MCP endpoint at https://elecz.com/mcp, as a Gemini CLI extension, or via the REST API for setups that don't yet support MCP. Same live spot price, cheapest hours, and contract data as every other integration — no API key needed." }
       },
       {
         "@type": "Question",
@@ -234,8 +234,8 @@
 <nav>
   <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
   <div class="nav-links">
-    <a href="/docs">Docs</a>
-    <a href="/terms">Terms</a>
+    <a href="/docs/">Docs</a>
+    <a href="/terms/">Terms</a>
     <span class="nav-lang"><a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
     <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a>
     <a href="https://elecz.com/mcp" class="nav-cta">Connect via MCP</a>
@@ -261,7 +261,7 @@
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Open in ChatGPT →</a>
     <a href="https://elecz.com/mcp" class="btn-grok">Connect in Grok →</a>
     <a href="https://elecz.com/mcp" class="btn-secondary">Connect via MCP (any client) →</a>
-    <a href="/docs" class="btn-secondary">REST API docs</a>
+    <a href="/docs/" class="btn-secondary">REST API docs</a>
   </div>
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
     Jump to: <a href="#tools" style="color: var(--text2);">Tools</a> ·
@@ -494,8 +494,8 @@
       <div class="integration-code">https://elecz.com/mcp</div>
     </div>
     <div class="integration-card">
-      <div class="integration-title">ChatGPT</div>
-      <div class="integration-desc">Available as a public GPT in the ChatGPT Store. Real-time electricity prices, cheapest hours, and contract options — no setup required.</div>
+      <div class="integration-title">ChatGPT (custom GPT)</div>
+      <div class="integration-desc">Available as a custom GPT in ChatGPT. Real-time electricity prices, cheapest hours, and contract options — no setup required.</div>
       <div class="integration-code">chatgpt.com → search "Electricity Prices"</div>
       <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="integration-link">Open in ChatGPT →</a>
     </div>
@@ -536,6 +536,16 @@
       <a href="https://www.npmjs.com/package/n8n-nodes-elecz" target="_blank" rel="noopener" class="integration-link">npm package →</a>
     </div>
     <div class="integration-card">
+      <div class="integration-title">Claude Skills</div>
+      <div class="integration-desc">Elecz ships a SKILL.md compatible with Claude Skills and similar formats. Recommended config name: <code style="font-size:0.78rem">electricity</code></div>
+      <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/SKILL.md" target="_blank" rel="noopener" class="integration-link">View SKILL.md →</a>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">Gemini CLI Extension</div>
+      <div class="integration-desc">Elecz is available as a Gemini CLI extension via gemini-extension.json in the repo root.</div>
+      <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/gemini-extension.json" target="_blank" rel="noopener" class="integration-link">View gemini-extension.json →</a>
+    </div>
+    <div class="integration-card">
       <div class="integration-title">REST API</div>
       <div class="integration-desc">Direct HTTP. No authentication. Returns JSON. Any language, any platform.</div>
       <div class="integration-code">GET /signal/spot?zone=DE</div>
@@ -556,7 +566,7 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">Why can't I just ask ChatGPT, Claude, Gemini, or Grok for the electricity price?</div>
-      <div class="faq-a">Large language models — ChatGPT, Claude, Gemini, Grok, Copilot, all of them — have no access to live markets. Without a real-time tool, the model will produce a historical average that looks like an answer but is not the current price. The actual spot price can be <code>0.0 c/kWh</code> during renewable oversupply or <code>50+ c/kWh</code> during a grid crisis — a guess is useless for any real decision. Elecz gives the AI a verified signal on every call, regardless of which assistant is asking. The <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener">Electricity Prices GPT</a> is available directly in ChatGPT, and any MCP-compatible assistant — including Claude, Grok, and Gemini — can connect via <code>https://elecz.com/mcp</code>.</div>
+      <div class="faq-a">Large language models — ChatGPT, Claude, Gemini, Grok, Copilot, all of them — have no access to live markets. Without a real-time tool, the model will produce a historical average that looks like an answer but is not the current price. The actual spot price can be <code>0.0 c/kWh</code> during renewable oversupply or <code>50+ c/kWh</code> during a grid crisis — a guess is useless for any real decision. Elecz gives the AI a verified signal on every call, regardless of which assistant is asking. The Electricity Prices custom GPT is available directly in ChatGPT via the link below, and any MCP-compatible assistant — including Claude, Grok, and Gemini — can connect via <code>https://elecz.com/mcp</code>.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Does Elecz work with Grok?</div>
@@ -564,7 +574,7 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">Does Elecz work with Gemini?</div>
-      <div class="faq-a">Yes. Gemini can use Elecz through the MCP endpoint at <code>https://elecz.com/mcp</code>, or via the REST API for setups that don't yet support MCP. Same live spot price, cheapest hours, and contract data as every other integration — no API key needed.</div>
+      <div class="faq-a">Yes. Gemini can use Elecz through the MCP endpoint at <code>https://elecz.com/mcp</code>, as a Gemini CLI extension, or via the REST API for setups that don't yet support MCP. Same live spot price, cheapest hours, and contract data as every other integration — no API key needed.</div>
     </div>
 
     <div class="faq-item">
@@ -601,7 +611,7 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">Where is the full API documentation?</div>
-      <div class="faq-a">Full REST reference, MCP tool schemas, and integration guides at <a href="/docs">elecz.com/docs</a>. Dedicated guides: <a href="/cheapest-hours/">cheapest_hours field reference</a>, <a href="/electricity-price-mcp/">MCP server setup</a>, <a href="/for-agents/">AI agent integration</a>. OpenAPI spec at <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">github.com/zemloai-ctrl/elecz-api</a>. Also compare electricity price APIs at <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a>.</div>
+      <div class="faq-a">Full REST reference, MCP tool schemas, and integration guides at <a href="/docs/">elecz.com/docs</a>. Dedicated guides: <a href="/cheapest-hours/">cheapest_hours field reference</a>, <a href="/electricity-price-mcp/">MCP server setup</a>, <a href="/for-agents/">AI agent integration</a>. OpenAPI spec at <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">github.com/zemloai-ctrl/elecz-api</a>. Also compare electricity price APIs at <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a>.</div>
     </div>
   </div>
 
@@ -628,6 +638,9 @@
     <span class="kw">electricity price API for automation</span>
     <span class="kw">home automation electricity API</span>
     <span class="kw">ChatGPT electricity price</span>
+    <span class="kw">electricity price skill</span>
+    <span class="kw">electricity price n8n node</span>
+    <span class="kw">electricity price Gemini extension</span>
   </div>
 </div>
 
@@ -637,7 +650,7 @@
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Open in ChatGPT →</a>
-    <a href="/docs" class="btn-secondary">Read the docs</a>
+    <a href="/docs/" class="btn-secondary">Read the docs</a>
   </div>
 </div>
 
@@ -645,7 +658,7 @@
   <p>
     ⚡ <a href="/">Elecz.com</a> · Built by SKA Trading Oy / Zemlo AI, Kokkola, Finland ·
     Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
-    <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
+    <a href="/terms/">Terms</a> · <a href="/docs/">Docs</a> ·
     <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a>
