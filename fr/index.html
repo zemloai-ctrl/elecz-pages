@@ -231,7 +231,7 @@
         "name": "Existe-t-il un plugin de prix d'électricité pour ChatGPT ?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Oui. Elecz fonctionne comme un plugin pour ChatGPT via un Custom GPT et des OpenAPI Actions — connexion directe, aucune configuration séparée nécessaire. Pas encore répertorié dans le Plugin Directory officiel d'OpenAI, mais pleinement fonctionnel via lien direct."
+          "text": "Oui, de deux façons. Le Custom GPT Electricity Prices est déjà répertorié publiquement dans l'annuaire de GPT propre à ChatGPT et se trouve en le cherchant directement dans ChatGPT. La connexion MCP d'Elecz peut aussi être ajoutée manuellement dans les paramètres Mode développeur de ChatGPT, comme pour tout autre serveur MCP, cette connexion n'est pas répertoriée dans le Plugin Directory distinct et plus récent d'OpenAI, dédié aux Apps basées sur MCP."
         }
       },
       {
@@ -382,7 +382,7 @@ curl "https://elecz.com/signal/contract?zone=FR"
     </div>
     <div class="integration-card">
       <div class="integration-title">ChatGPT</div>
-      <div class="integration-desc">Deux options distinctes : le Custom GPT « Electricity Prices » s'ouvre directement, sans configuration. Pour une connexion MCP personnelle, l'URL Elecz peut aussi être ajoutée manuellement via Paramètres → Mode développeur, si cette fonction est disponible sur votre offre ChatGPT — comme pour tout autre serveur MCP. Aucune des deux options n'est actuellement répertoriée dans le Plugin Directory officiel d'OpenAI.</div>
+      <div class="integration-desc">Deux options distinctes : le Custom GPT « Electricity Prices » est déjà répertorié dans l'annuaire de GPT propre à ChatGPT et se trouve en cherchant « Electricity Prices » directement dans ChatGPT, ou en l'ouvrant via lien direct. Pour une connexion MCP personnelle, l'URL Elecz peut aussi être ajoutée manuellement via Paramètres → Mode développeur, si cette fonction est disponible sur votre offre ChatGPT — comme pour tout autre serveur MCP. Cette connexion MCP n'est pas répertoriée dans le Plugin Directory distinct et plus récent d'OpenAI, dédié aux Apps basées sur MCP.</div>
       <div class="integration-links">
         <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener">Ouvrir Elecz dans ChatGPT →</a>
         <a href="/electricity-price-mcp/">Voir le guide MCP →</a>
@@ -499,7 +499,7 @@ curl "https://elecz.com/signal/contract?zone=FR"
   </div>
 
   <div class="fr-note" style="margin-top: 12px;">
-    <strong>Elecz n'est pas un comparateur grand public.</strong> Selon ce que vous cherchez, la bonne source diffère : Selectra ou Hello Watt pour comparer les offres de fournisseurs en tant que consommateur ; la CRE et EDF pour le cadre réglementaire et le TRV ; ENTSO-E pour les données de marché brutes. Elecz fournit un signal temps réel — prix spot, heures les moins chères — conçu pour être appelé par un agent IA ou une automatisation, pas pour la souscription d'un contrat.
+    <strong>Elecz n'est pas un comparateur grand public.</strong> Selon ce que vous cherchez, la bonne source diffère : un comparateur d'offres pour choisir un fournisseur en tant que consommateur ; la CRE et EDF pour le cadre réglementaire et le TRV ; ENTSO-E pour les données de marché brutes. Elecz fournit un signal temps réel — prix spot, heures les moins chères — conçu pour être appelé par un agent IA ou une automatisation, pas pour la souscription d'un contrat.
   </div>
 
   <div class="fr-note" style="margin-top: 12px;">
@@ -583,7 +583,7 @@ curl "https://elecz.com/signal/contract?zone=FR"
     </div>
     <div class="faq-item">
       <div class="faq-q">Existe-t-il un plugin de prix d'électricité pour ChatGPT ?</div>
-      <div class="faq-a">Oui. Elecz fonctionne comme un plugin pour ChatGPT via un Custom GPT et des OpenAPI Actions — connexion directe, aucune configuration séparée nécessaire. Pas encore répertorié dans le Plugin Directory officiel d'OpenAI, mais pleinement fonctionnel via lien direct.</div>
+      <div class="faq-a">Oui, de deux façons. Le Custom GPT « Electricity Prices » est déjà répertorié publiquement dans l'annuaire de GPT propre à ChatGPT et se trouve en le cherchant directement dans ChatGPT. La connexion MCP d'Elecz peut aussi être ajoutée manuellement dans les paramètres Mode développeur de ChatGPT, comme pour tout autre serveur MCP — cette connexion n'est pas répertoriée dans le Plugin Directory distinct et plus récent d'OpenAI, dédié aux Apps basées sur MCP.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Existe-t-il une extension Gemini pour les prix de l'électricité ?</div>
