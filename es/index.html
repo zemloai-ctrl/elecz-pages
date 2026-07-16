@@ -12,6 +12,8 @@
   <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
   <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
   <link rel="alternate" hreflang="ja" href="https://elecz.com/ja/">
+  <link rel="alternate" hreflang="fi" href="https://elecz.com/fi/">
+  <link rel="alternate" hreflang="sv" href="https://elecz.com/sv/">
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
@@ -107,6 +109,23 @@
     .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
     .es-note { font-size: 0.86rem; color: var(--text2); line-height: 1.7; background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px; padding: 14px 16px; margin-top: 16px; }
     .es-note strong { color: var(--text); }
+    .live-price { font-family: var(--mono); font-size: 1.05rem; font-weight: 600; color: var(--text3); display: flex; align-items: center; gap: 8px; margin-bottom: 20px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 12px 18px; max-width: 340px; }
+    .live-price .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
+    .live-price.low { color: var(--green); }
+    .live-price.low .dot { background: var(--green); }
+    .live-price.medium { color: var(--accent2); }
+    .live-price.medium .dot { background: var(--accent2); }
+    .live-price.high { color: #c0300a; }
+    .live-price.high .dot { background: #c0300a; }
+    .integration-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
+    .integration-card { background: var(--bg3); padding: 22px 24px; }
+    .integration-title { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+    .integration-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; margin-bottom: 12px; }
+    .integration-code { font-family: var(--mono); font-size: 0.76rem; color: var(--text2); background: var(--bg2); padding: 8px 12px; border-radius: 5px; border: 1px solid var(--border); word-break: break-all; margin-bottom: 10px; }
+    .integration-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .integration-links a { font-size: 0.8rem; color: var(--accent2); text-decoration: none; font-weight: 500; }
+    .integration-links a:hover { text-decoration: underline; }
+    .integration-test { font-size: 0.82rem; color: var(--text2); background: var(--green-dim); border: 1px solid var(--green-border); border-radius: 6px; padding: 10px 12px; margin-top: 10px; font-style: italic; }
     @media (max-width: 680px) {
       .nav-links { display: none; }
       .tools-grid { grid-template-columns: 1fr; }
@@ -180,7 +199,7 @@
         "name": "¿El precio spot de Elecz corresponde al PVPC?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Son similares pero no idénticos. El PVPC es una tarifa regulada que sigue de cerca el precio mayorista OMIE hora a hora, pero desde 2024 incorpora también una cesta de precios a plazo (futuros) que suaviza su volatilidad, y desde 2025 se calcula en intervalos de 15 minutos. El precio spot de Elecz refleja directamente el mercado mayorista diario sin ese ajuste de futuros, de forma similar a una tarifa indexada del mercado libre. Para un hogar en PVPC o en tarifa indexada, el signal de Elecz es una referencia útil, aunque el importe exacto de la factura puede diferir ligeramente."
+          "text": "Son similares pero no idénticos. El PVPC es una tarifa regulada que sigue de cerca el precio mayorista OMIE hora a hora, pero desde 2024 incorpora también una cesta de precios a plazo (futuros) que suaviza su volatilidad, y desde 2025 se calcula en intervalos de 15 minutos. El precio spot de Elecz refleja directamente el mercado mayorista diario sin ese ajuste de futuros, de forma similar a una tarifa indexada del mercado libre. Para un hogar en PVPC o en tarifa indexada, la señal de Elecz es una referencia útil, aunque el importe exacto de la factura puede diferir ligeramente."
         }
       },
       {
@@ -205,6 +224,38 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "MCP (Model Context Protocol) es un estándar abierto para conectar agentes IA con herramientas externas. Los precios cambian cada hora — un agente necesita una llamada API en vivo, no datos de entrenamiento. Conectar vía https://elecz.com/mcp, sin configuración requerida. Compatible con Claude, ChatGPT, Grok, Cursor, Copilot y Mistral."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Qué es una señal de decisión para el precio de la electricidad?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Una señal de decisión es un valor ya interpretado como current_hour_signal (low/medium/high) o recommendation, a diferencia del precio bruto que un agente tendría que evaluar por sí mismo. Elecz entrega ambos: el precio bruto y la señal lista para usar en la misma respuesta."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Existe un skill de Elecz para Claude?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Elecz proporciona un archivo SKILL.md que sigue el estándar abierto Agent Skills y funciona en Claude, Cursor, VS Code y más de 30 herramientas adicionales."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Existe un plugin de precio de electricidad para ChatGPT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Elecz funciona como un plugin para ChatGPT mediante un Custom GPT y OpenAPI Actions — conexión directa, sin configuración separada. Aún no está listado en el Plugin Directory oficial de OpenAI, pero es totalmente funcional mediante enlace directo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Existe una extensión de Gemini para precios de electricidad?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sí. Elecz está disponible como extensión de Gemini CLI mediante gemini-extension.json, además de la conexión MCP y la API REST."
         }
       },
       {
@@ -248,10 +299,10 @@
 <nav>
   <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
   <div class="nav-links">
-    <a href="/docs">Docs</a>
+    <a href="/docs/">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
-    <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/ja/">🇯🇵 日本語</a></span>
+    <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
     <a href="https://elecz.com/mcp" class="nav-cta">Conectar vía MCP</a>
   </div>
 </nav>
@@ -260,7 +311,7 @@
   <div class="hero-eyebrow">API precio electricidad — España, México &amp; Europa</div>
   <h1>API precio electricidad tiempo real.<br><span class="hl">Sin clave API. MCP-nativo.</span></h1>
   <p class="hero-lead">
-    Elecz proporciona el precio spot actual de la electricidad, las horas más baratas y las mejores opciones de contrato — para agentes IA, domótica y carga de vehículos eléctricos. Sin clave API, sin registro, sin configuración.
+    Elecz proporciona el precio spot actual de la electricidad, las horas más baratas y las mejores opciones de contrato — para agentes IA, domótica y carga de vehículos eléctricos. Sin clave API, sin registro — utilizable de inmediato vía REST.
   </p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Zonas</div></div>
@@ -271,10 +322,11 @@
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Conectar vía MCP →</a>
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Abrir en ChatGPT →</a>
-    <a href="/docs" class="btn-secondary">Documentación REST API</a>
+    <a href="/docs/" class="btn-secondary">Documentación REST API</a>
   </div>
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
-    Ir directamente a: <a href="#espana" style="color: var(--text2);">España</a> ·
+    Ir directamente a: <a href="#integracion" style="color: var(--text2);">Conectar tu IA</a> ·
+    <a href="#espana" style="color: var(--text2);">España</a> ·
     <a href="#mexico" style="color: var(--text2);">México</a> ·
     <a href="#texas-california" style="color: var(--text2);">Texas / California</a> ·
     <a href="#faq" style="color: var(--text2);">Preguntas frecuentes</a>
@@ -285,7 +337,7 @@
   <div class="signal-banner-inner">
     <div class="signal-eyebrow">No es una fuente de datos — es una capa de decisión</div>
     <h2>No solo precios. Señales de decisión listas para usar.</h2>
-    <p>ENTSO-E y OMIE proporcionan precios brutos — 24 valores por día que un agente debe interpretar primero. Elecz ya hace ese trabajo: sin lógica propia que programar, sin umbrales que definir, sin recalcular nada.</p>
+    <p>ENTSO-E y OMIE proporcionan precios brutos — 96 precios por cuarto de hora al día desde el cambio a granularidad de 15 minutos el 1 de octubre de 2025, que un agente debe interpretar primero. Elecz ya hace ese trabajo: sin lógica propia que programar, sin umbrales que definir, sin recalcular nada.</p>
     <div class="signal-flow">
       <span>11,7 c/kWh</span>
       <span class="arrow">→</span>
@@ -299,7 +351,7 @@
 
 <div class="section" id="herramientas">
   <h2>Tres herramientas. Todos los casos de uso cubiertos.</h2>
-  <p class="section-sub">Elecz expone tres herramientas MCP — para el precio spot actual, la planificación de horas más baratas y la comparación de contratos donde está disponible. Referencia completa de campos en la <a href="/docs" style="color: var(--accent2); text-decoration: underline;">documentación de la API de precio de electricidad</a>.</p>
+  <p class="section-sub">Elecz expone tres herramientas MCP — para el precio spot actual, la planificación de horas más baratas y la comparación de contratos donde está disponible. Referencia completa de campos en la <a href="/docs/" style="color: var(--accent2); text-decoration: underline;">documentación de la API de precio de electricidad</a>.</p>
   <div class="tools-grid">
     <div class="tool-card">
       <div class="tool-name">spot_price</div>
@@ -336,6 +388,48 @@ curl "https://elecz.com/signal/contract?zone=ES"
   </div>
 </div>
 
+<div class="section" id="integracion">
+  <h2>Conectar Elecz con tu IA</h2>
+  <p class="section-sub">Cada plataforma funciona de forma algo distinta — aquí los pasos concretos en lugar de una configuración genérica.</p>
+  <div class="integration-grid">
+    <div class="integration-card">
+      <div class="integration-title">Claude</div>
+      <div class="integration-desc">Añadir Elecz como servidor MCP (Claude.ai: Configuración → Conectores, Claude Desktop: archivo de configuración).</div>
+      <div class="integration-code">https://elecz.com/mcp</div>
+      <div class="integration-test">Pregunta de prueba: «¿Cuáles son hoy las tres horas más baratas para cargar mi coche eléctrico en España?»</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">ChatGPT</div>
+      <div class="integration-desc">Dos vías distintas: el Custom GPT «Electricity Prices» se abre directamente, sin configuración. Para una conexión MCP propia, la URL de Elecz también puede añadirse manualmente en Configuración → Modo desarrollador, si esta función está disponible en tu plan de ChatGPT — igual que con cualquier otro servidor MCP. Ninguna de las dos opciones está actualmente listada en el Plugin Directory oficial de OpenAI.</div>
+      <div class="integration-links">
+        <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener">Abrir Elecz en ChatGPT →</a>
+        <a href="/electricity-price-mcp/">Ver guía MCP →</a>
+      </div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">Cursor y otros clientes MCP</div>
+      <div class="integration-desc">Para Cursor, Copilot, Grok, Mistral y cualquier otro cliente compatible con MCP — misma URL, misma configuración.</div>
+      <div class="integration-code">https://elecz.com/mcp</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">n8n</div>
+      <div class="integration-desc">Instalar el node oficial de n8n y usar precios de electricidad en vivo, horas más baratas y señales de decisión directamente en tus workflows.</div>
+      <div class="integration-code">n8n-nodes-elecz</div>
+      <div class="integration-links"><a href="https://www.npmjs.com/package/n8n-nodes-elecz" target="_blank" rel="noopener">Paquete npm →</a></div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">Home Assistant</div>
+      <div class="integration-desc">Sin extensión nativa oficial — conectar Elecz vía la API REST o un sensor REST, y controlar automatizaciones con <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">current_hour_signal</code> o <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">recommendation</code>.</div>
+      <div class="integration-code">GET /signal?zone=ES&consumption=3500</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">API REST</div>
+      <div class="integration-desc">HTTP directo, sin autenticación. Funciona en cualquier lenguaje o plataforma.</div>
+      <div class="integration-code">GET /signal/spot?zone=ES</div>
+    </div>
+  </div>
+</div>
+
 <div class="section">
   <h2>Cómo construir agentes IA conscientes del precio de la electricidad</h2>
   <p class="section-sub">Un LLM o agente IA no puede deducir el precio actual de la electricidad a partir de sus datos de entrenamiento — cambia cada hora, a veces multiplicándose por diez en un solo día. Un agente consciente de la energía necesita una llamada de herramienta en vivo, no una estimación de la memoria del modelo.</p>
@@ -345,12 +439,12 @@ curl "https://elecz.com/signal/contract?zone=ES"
     <li><strong>Planificación:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code> — ¿cuál es la próxima ventana más barata?</li>
     <li><strong>Decisión de contrato:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">best_energy_contract</code> — ¿compensa cambiar ahora mismo? (zonas con comparación de contrato)</li>
   </ul>
-  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">Funciona con cualquier framework de agente compatible con MCP — útil tanto para un asistente conversacional simple como para sistemas de IA agéntica con flujos multi-paso: Claude, ChatGPT, Cursor, Copilot, Grok — una llamada de herramienta en lugar de lógica de precios personalizada. Detalles sobre la <a href="/electricity-price-mcp/" style="color: var(--accent2); text-decoration: underline;">configuración del servidor MCP de precio de electricidad</a> y la <a href="/for-agents/" style="color: var(--accent2); text-decoration: underline;">guía completa para agentes IA</a>.</p>
+  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">Funciona con cualquier framework de agente compatible con MCP — útil tanto para un asistente conversacional simple como para sistemas de IA agéntica con flujos multi-paso: Claude, ChatGPT, Cursor, Copilot, Grok — una llamada de herramienta en lugar de lógica de precios personalizada. Detalles sobre la <a href="/electricity-price-mcp/" style="color: var(--accent2); text-decoration: underline;">configuración del servidor MCP de precio de electricidad</a> y la <a href="/for-agents/" style="color: var(--accent2); text-decoration: underline;">guía completa para agentes IA</a>. Elecz también proporciona un archivo <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">SKILL.md</code> que sigue el estándar abierto Agent Skills. <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/SKILL.md" target="_blank" rel="noopener" style="color: var(--accent2); text-decoration: underline;">Ver SKILL.md en GitHub →</a></p>
 </div>
 
 <div class="section">
   <h2>Preguntas frecuentes de agentes IA</h2>
-  <p class="section-sub">Cuatro preguntas que un agente típicamente hace antes de actuar — y el campo correspondiente en la respuesta en vivo de <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code>. Lista completa de campos: <a href="/docs" style="color: var(--accent2); text-decoration: underline;">documentación de la API de horas más baratas</a>.</p>
+  <p class="section-sub">Cuatro preguntas que un agente típicamente hace antes de actuar — y el campo correspondiente en la respuesta en vivo de <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code>. Lista completa de campos: <a href="/docs/" style="color: var(--accent2); text-decoration: underline;">documentación de la API de horas más baratas</a>.</p>
   <div class="faq-list">
     <div class="faq-item" style="padding: 16px 0;">
       <div class="faq-q" style="font-size: 0.9rem;">¿Está la electricidad barata ahora mismo?</div>
@@ -405,6 +499,7 @@ curl "https://elecz.com/signal/contract?zone=ES"
 
 <div class="section" id="espana">
   <h2>España — lo que los desarrolladores deben saber</h2>
+  <div class="live-price" id="live-price-es"><span class="dot"></span>Cargando precio en directo…</div>
   <p class="section-sub">Elecz proporciona el precio mayorista ENTSO-E para la zona ES en EUR ct/kWh. Datos actualizados cada hora, precios del día siguiente disponibles a partir de las 13:00–14:00 CET.</p>
   <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
     <li>Precio <strong>sin incluir</strong> peajes de acceso y cargos de red</li>
@@ -456,6 +551,12 @@ curl "https://elecz.com/signal/contract?zone=ES"
     <span class="kw">ERCOT CAISO API español</span>
     <span class="kw">API electricidad para LLM</span>
     <span class="kw">IA agéntica precio electricidad</span>
+    <span class="kw">skill electricidad Claude</span>
+    <span class="kw">node electricidad n8n</span>
+    <span class="kw">extensión Gemini electricidad</span>
+    <span class="kw">plugin electricidad ChatGPT</span>
+    <span class="kw">herramienta IA electricidad</span>
+    <span class="kw">integración electricidad Home Assistant</span>
   </div>
 </div>
 
@@ -464,7 +565,7 @@ curl "https://elecz.com/signal/contract?zone=ES"
   <p class="section-sub">Elecz también cubre México con datos del Mercado Eléctrico Mayorista (MDA, día en adelanto) operado por CENACE — una fuente de datos completamente distinta a ENTSO-E, con su propia moneda y estructura regulatoria.</p>
   <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
     <li>Precio mayorista en <strong>MXN/kWh</strong> — no en EUR, a diferencia de las zonas europeas</li>
-    <li>14 zonas por ciudad, cada una con su propio precio: <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">MX-CUN</code> (Cancún), <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">MX-MTY</code> (Monterrey), <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">MX-GDL</code> (Guadalajara), <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">MX-HMO</code> (Hermosillo) y 10 zonas más — <a href="/docs" style="color: var(--accent2); text-decoration: underline;">lista completa en la documentación</a></li>
+    <li>14 zonas por ciudad, cada una con su propio precio: <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">MX-CUN</code> (Cancún), <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">MX-MTY</code> (Monterrey), <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">MX-GDL</code> (Guadalajara), <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">MX-HMO</code> (Hermosillo) y 10 zonas más — <a href="/docs/" style="color: var(--accent2); text-decoration: underline;">lista completa en la documentación</a></li>
     <li>Las zonas tienen precios muy distintos entre sí — el Sistema Eléctrico Nacional (SIN) de México no es un mercado único, sino miles de nodos agrupados por zona de carga; un agente que optimiza consumo en Monterrey no debe usar el precio de Cancún</li>
     <li><code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">cheapest_hours</code> disponible para todas las zonas MX, igual que en Europa</li>
     <li>Precio <strong>mayorista únicamente</strong> — la tarifa minorista de CFE (Comisión Federal de Electricidad) incluye cargos de distribución, impuestos y subsidios que no están reflejados en este dato</li>
@@ -532,7 +633,7 @@ curl "https://elecz.com/signal/spot?zone=US-TX-HB_HOUSTON"
     </div>
     <div class="faq-item">
       <div class="faq-q">¿El precio spot de Elecz corresponde al PVPC?</div>
-      <div class="faq-a">Son similares pero no idénticos. El PVPC es una tarifa regulada que sigue de cerca el precio mayorista OMIE hora a hora, pero desde 2024 incorpora también una cesta de precios a plazo (futuros) que suaviza su volatilidad, y desde 2025 se calcula en intervalos de 15 minutos. El precio spot de Elecz refleja directamente el mercado mayorista diario sin ese ajuste de futuros, de forma similar a una tarifa indexada del mercado libre. Para un hogar en PVPC o en tarifa indexada, el signal de Elecz es una referencia útil, aunque el importe exacto de la factura puede diferir ligeramente.</div>
+      <div class="faq-a">Son similares pero no idénticos. El PVPC es una tarifa regulada que sigue de cerca el precio mayorista OMIE hora a hora, pero desde 2024 incorpora también una cesta de precios a plazo (futuros) que suaviza su volatilidad, y desde 2025 se calcula en intervalos de 15 minutos. El precio spot de Elecz refleja directamente el mercado mayorista diario sin ese ajuste de futuros, de forma similar a una tarifa indexada del mercado libre. Para un hogar en PVPC o en tarifa indexada, la señal de Elecz es una referencia útil, aunque el importe exacto de la factura puede diferir ligeramente.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">¿Elecz compara las ofertas de comercializadoras de luz en España?</div>
@@ -546,6 +647,22 @@ curl "https://elecz.com/signal/spot?zone=US-TX-HB_HOUSTON"
       <div class="faq-q">¿Qué es MCP y por qué es útil para datos de electricidad?</div>
       <div class="faq-a">MCP (Model Context Protocol) es un estándar abierto para conectar agentes IA con herramientas externas. Los precios cambian cada hora — un agente necesita una llamada API en vivo, no datos de entrenamiento. Conectar vía <code>https://elecz.com/mcp</code>, sin configuración requerida. Compatible con Claude, ChatGPT, Grok, Cursor, Copilot y Mistral.</div>
     </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Qué es una señal de decisión para el precio de la electricidad?</div>
+      <div class="faq-a">Una señal de decisión es un valor ya interpretado como <code>current_hour_signal</code> (<code>low</code>/<code>medium</code>/<code>high</code>) o <code>recommendation</code>, a diferencia del precio bruto que un agente tendría que evaluar por sí mismo. Elecz entrega ambos: el precio bruto y la señal lista para usar en la misma respuesta.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Existe un skill de Elecz para Claude?</div>
+      <div class="faq-a">Sí. Elecz proporciona un archivo <code>SKILL.md</code> que sigue el estándar abierto Agent Skills y funciona en Claude, Cursor, VS Code y más de 30 herramientas adicionales. <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/SKILL.md" target="_blank" rel="noopener">Ver SKILL.md en GitHub →</a></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Existe un plugin de precio de electricidad para ChatGPT?</div>
+      <div class="faq-a">Sí. Elecz funciona como un plugin para ChatGPT mediante un Custom GPT y OpenAPI Actions — conexión directa, sin configuración separada. Aún no está listado en el Plugin Directory oficial de OpenAI, pero es totalmente funcional mediante enlace directo.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">¿Existe una extensión de Gemini para precios de electricidad?</div>
+      <div class="faq-a">Sí. Elecz está disponible como extensión de Gemini CLI mediante <code>gemini-extension.json</code>, además de la conexión MCP y la API REST. <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/gemini-extension.json" target="_blank" rel="noopener">Ver gemini-extension.json en GitHub →</a></div>
+    </div>
   </div>
 </div>
 
@@ -555,7 +672,7 @@ curl "https://elecz.com/signal/spot?zone=US-TX-HB_HOUSTON"
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Conectar vía MCP →</a>
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Abrir en ChatGPT →</a>
-    <a href="/docs" class="btn-secondary">Leer la documentación</a>
+    <a href="/docs/" class="btn-secondary">Leer la documentación</a>
   </div>
 </div>
 
@@ -563,11 +680,44 @@ curl "https://elecz.com/signal/spot?zone=US-TX-HB_HOUSTON"
   <p>
     ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Finlandia ·
     Datos: ENTSO-E · OMIE · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
-    <a href="/terms">Términos de uso</a> · <a href="/docs">Docs</a> ·
+    <a href="/terms/">Términos de uso</a> · <a href="/docs/">Docs</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
-    <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/ja/">🇯🇵 日本語</a>
+    <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a>
   </p>
 </footer>
+
+<script>
+async function loadEsPrice() {
+  const el = document.getElementById("live-price-es");
+  if (!el) return;
+  try {
+    const [spotRes, hoursRes] = await Promise.all([
+      fetch("/signal/spot?zone=ES"),
+      fetch("/signal/cheapest-hours?zone=ES")
+    ]);
+    if (!spotRes.ok) throw new Error("spot");
+    const spot = await spotRes.json();
+    let signal = null;
+    if (hoursRes.ok) {
+      const hours = await hoursRes.json();
+      if (hours && hours.available !== false) signal = hours.current_hour_signal || null;
+    }
+    const priceText = `Precio actual ES: ${spot.price} ${spot.unit || "ct/kWh"}`;
+    if (signal) {
+      const labelMap = { low: "barato", medium: "medio", high: "caro" };
+      el.className = "live-price " + signal;
+      el.innerHTML = `<span class="dot"></span>${priceText} · ${labelMap[signal] || signal}`;
+    } else {
+      el.className = "live-price";
+      el.innerHTML = `<span class="dot"></span>${priceText}`;
+    }
+  } catch {
+    el.className = "live-price";
+    el.innerHTML = `<span class="dot"></span>Precio en directo no disponible por ahora`;
+  }
+}
+loadEsPrice();
+</script>
 
 </body>
 </html>
