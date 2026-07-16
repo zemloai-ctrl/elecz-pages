@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Electricity Price MCP Server &amp; Connector | Elecz</title>
-  <meta name="description" content="Electricity price MCP server for AI agents. Spot prices, cheapest hours, contract comparison, automation. 40+ countries, no API key. Works with Claude, Grok, Cursor.">
+  <meta name="description" content="Electricity price MCP server for AI agents. Spot prices, cheapest hours, contract comparison. 40+ countries, no API key. Works with Claude, Grok, Cursor.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/electricity-price-mcp/">
   <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-mcp/">
@@ -91,6 +91,16 @@
         "@type": "Question",
         "name": "What happens if the live price feed is temporarily unavailable?",
         "acceptedAnswer": { "@type": "Answer", "text": "The response includes a fallback field. When fallback is true, the returned price may not reflect the current live market and agents should not present it to a user as a confirmed current price." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the Elecz MCP server work with ChatGPT?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, two ways. The https://elecz.com/mcp endpoint can be added manually in ChatGPT's Settings, Developer Mode, the same as any other MCP server, since ChatGPT's Apps ecosystem is itself built on MCP. Elecz is also available separately as the Electricity Prices custom GPT via direct link, which uses OpenAPI actions rather than MCP. Neither is currently listed in OpenAI's Plugin Directory, so discovery is manual rather than automatic." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there an electricity price plugin for ChatGPT?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Informally, yes. The Elecz MCP endpoint can be added in ChatGPT as a plugin-style connector through Settings, Developer Mode, the same way you'd add any other MCP server, no coding required, just the URL. It isn't listed in OpenAI's official Plugin Directory, so you add it directly rather than finding it by browsing. A separate custom GPT is also available via direct link for a no-setup option." }
       }
     ]
   }
@@ -207,7 +217,7 @@
 <nav>
   <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
   <div class="nav-links">
-    <a href="/docs">Docs</a>
+    <a href="/docs/">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
     <span class="nav-lang"><a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
@@ -233,7 +243,7 @@
     <a href="https://elecz.com/mcp" class="btn-grok">Connect in Grok →</a>
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Open in ChatGPT →</a>
     <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP (any client) →</a>
-    <a href="/docs" class="btn-secondary">View docs</a>
+    <a href="/docs/" class="btn-secondary">View docs</a>
   </div>
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
     Jump to: <a href="#tools" style="color: var(--text2);">Tools</a> ·
@@ -248,7 +258,7 @@
   <h2>MCP server or connector — same thing</h2>
   <div class="connector-note">
     <strong>Whatever your platform calls it — it's the same thing.</strong><br>
-    Claude and Grok call it a <em>connector</em>. Cursor and Copilot call it an <em>MCP server</em>. ChatGPT calls it an <em>App</em>. n8n calls it a <em>node</em>. Some platforms say <em>tool</em> or <em>skill</em>. The endpoint is always the same: <code style="font-family:var(--mono);font-size:0.85rem;color:var(--green)">https://elecz.com/mcp</code>
+    Claude and Grok call it a <em>connector</em>. Cursor and Copilot call it an <em>MCP server</em>. n8n calls it a <em>node</em>. Gemini CLI calls it an <em>extension</em>. Some platforms say <em>tool</em> or <em>skill</em>. ChatGPT's own Apps ecosystem is MCP-based too — the Elecz MCP endpoint can be added manually via ChatGPT's Developer Mode, the same as any other MCP server, though it isn't listed in OpenAI's Plugin Directory for automatic discovery. Separately, Elecz is also available as a custom GPT using OpenAPI actions. The endpoint for MCP clients is always: <code style="font-family:var(--mono);font-size:0.85rem;color:var(--green)">https://elecz.com/mcp</code>
   </div>
 
   <h2>Connect in 60 seconds</h2>
@@ -284,7 +294,7 @@
     </li>
     <li>
       <span class="step-num">02</span>
-      <div class="step-content"><strong>Add to your AI client</strong> — Grok: click "+" next to the prompt field → Add MCP server. Claude.ai: Settings → Integrations → Add MCP server. Claude Desktop: paste into <code>claude_desktop_config.json</code>. Cursor: add to <code>.cursor/mcp.json</code>. Mistral: add as remote MCP server. ChatGPT: available as <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener">Electricity Prices</a> in the ChatGPT Store — no setup required.</div>
+      <div class="step-content"><strong>Add to your AI client</strong> — Grok: click "+" next to the prompt field → Add MCP server. Claude.ai: Settings → Integrations → Add MCP server. Claude Desktop: paste into <code>claude_desktop_config.json</code>. Cursor: add to <code>.cursor/mcp.json</code>. Mistral: add as remote MCP server. ChatGPT: available as the <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener">Electricity Prices</a> custom GPT — no setup required.</div>
     </li>
     <li>
       <span class="step-num">03</span>
@@ -359,13 +369,13 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
 
 <div class="section" id="clients">
   <h2>Works with every major MCP client and connector platform</h2>
-  <p class="section-sub">Elecz is available as an MCP server (for developers) and as a connector (in Glama, Claude, Grok, and other AI platforms). Same URL, same tools.</p>
+  <p class="section-sub">Elecz is available as an MCP server (for developers), as a connector (in Glama, Claude, Grok, and other AI platforms), and in platform-native formats like n8n nodes, Claude Skills, and the Gemini CLI. Same underlying data, same tools.</p>
   <div class="clients-grid">
     <div class="client-card">
       <div class="client-name">ChatGPT</div>
-      <div class="client-desc">Available as a public app in the ChatGPT Store. Real-time electricity prices, cheapest hours, and contract options — no setup required.</div>
-      <div class="client-code">chatgpt.com → search "Electricity Prices"</div>
-      <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="client-link">Open in ChatGPT →</a>
+      <div class="client-desc">Two ways to connect: open the Electricity Prices custom GPT directly, or add the MCP endpoint manually via Settings → Developer Mode, the same as any other MCP server. Not listed in OpenAI's Plugin Directory, so neither is auto-discoverable — direct link or manual add only.</div>
+      <div class="client-code">https://elecz.com/mcp</div>
+      <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="client-link">Open the Electricity Prices GPT →</a>
     </div>
     <div class="client-card">
       <div class="client-name">Grok</div>
@@ -383,9 +393,19 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
       <div class="client-code">url: https://elecz.com/mcp</div>
     </div>
     <div class="client-card">
+      <div class="client-name">Claude Skills</div>
+      <div class="client-desc">Elecz ships a SKILL.md compatible with Claude Skills and similar formats. Recommended config name: <code style="font-family:var(--mono);font-size:0.78rem">electricity</code></div>
+      <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/SKILL.md" target="_blank" rel="noopener" class="client-link">View SKILL.md →</a>
+    </div>
+    <div class="client-card">
       <div class="client-name">Mistral</div>
       <div class="client-desc">Add as a remote MCP server in your Mistral agent or API configuration. Streamable HTTP transport supported natively.</div>
       <div class="client-code">https://elecz.com/mcp</div>
+    </div>
+    <div class="client-card">
+      <div class="client-name">Gemini CLI</div>
+      <div class="client-desc">Available as a Gemini CLI extension via gemini-extension.json, or connect over MCP / REST for other Gemini surfaces.</div>
+      <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/gemini-extension.json" target="_blank" rel="noopener" class="client-link">View gemini-extension.json →</a>
     </div>
     <div class="client-card">
       <div class="client-name">Cursor</div>
@@ -401,6 +421,12 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
       <div class="client-name">Windsurf</div>
       <div class="client-desc">Add via Windsurf MCP settings panel.</div>
       <div class="client-code">https://elecz.com/mcp</div>
+    </div>
+    <div class="client-card">
+      <div class="client-name">n8n</div>
+      <div class="client-desc">Official Elecz community node. Spot price, cheapest hours, and contract tools available as workflow steps.</div>
+      <div class="client-code">n8n-nodes-elecz</div>
+      <a href="https://www.npmjs.com/package/n8n-nodes-elecz" target="_blank" rel="noopener" class="client-link">npm package →</a>
     </div>
     <div class="client-card">
       <div class="client-name">Glama</div>
@@ -458,6 +484,14 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
       <div class="faq-q">What transport does the MCP server use?</div>
       <div class="faq-a">Streamable HTTP (the current MCP standard for remote servers). This works with Claude.ai, Claude Desktop, Cursor, Copilot, Windsurf, Grok, Mistral, ChatGPT, and all other MCP clients that support remote HTTP servers.</div>
     </div>
+    <div class="faq-item">
+      <div class="faq-q">Does the Elecz MCP server work with ChatGPT?</div>
+      <div class="faq-a">Yes, two ways. The <code>https://elecz.com/mcp</code> endpoint can be added manually in ChatGPT's Settings → Developer Mode, the same as any other MCP server — ChatGPT's Apps ecosystem is itself built on MCP. Elecz is also available separately as the Electricity Prices custom GPT via direct link, which uses OpenAPI actions rather than MCP. Neither is currently listed in OpenAI's Plugin Directory, so discovery is manual rather than automatic.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is there an electricity price plugin for ChatGPT?</div>
+      <div class="faq-a">Informally, yes. The Elecz MCP endpoint can be added in ChatGPT as a plugin-style connector through Settings → Developer Mode, the same way you'd add any other MCP server — no coding required, just the URL. It isn't listed in OpenAI's official Plugin Directory, so you add it directly rather than finding it by browsing. A separate custom GPT is also available via direct link for a no-setup option.</div>
+    </div>
   </div>
 
   <div class="keyword-cloud">
@@ -487,6 +521,14 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
     <span class="kw">home automation electricity MCP</span>
     <span class="kw">elecz mcp</span>
     <span class="kw">elecz connector</span>
+    <span class="kw">electricity price skill</span>
+    <span class="kw">electricity price n8n node</span>
+    <span class="kw">electricity price node</span>
+    <span class="kw">electricity price Gemini extension</span>
+    <span class="kw">electricity price extension</span>
+    <span class="kw">electricity price connector Claude</span>
+    <span class="kw">electricity price plugin chatgpt</span>
+    <span class="kw">chatgpt electricity price plugin</span>
   </div>
 </div>
 
@@ -504,7 +546,7 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
   <p>
     ⚡ <a href="/">Elecz.com</a> · Built by SKA Trading Oy / Zemlo AI, Kokkola, Finland ·
     Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
-    <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
+    <a href="/terms/">Terms</a> · <a href="/docs/">Docs</a> ·
     <a href="/electricity-price-api/">API overview</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a>
