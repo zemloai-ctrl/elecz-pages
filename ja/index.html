@@ -12,6 +12,8 @@
   <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
   <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
   <link rel="alternate" hreflang="ja" href="https://elecz.com/ja/">
+  <link rel="alternate" hreflang="fi" href="https://elecz.com/fi/">
+  <link rel="alternate" hreflang="sv" href="https://elecz.com/sv/">
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
@@ -127,7 +129,6 @@
     .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
     .usecase-desc a { color: var(--accent2); text-decoration: underline; }
 
-    /* ライブ判定ウィジェット — 日本の9エリアをボタンで切り替え */
     .verdict-wrap { max-width: 860px; margin: 0 auto 0; padding: 0 24px 40px; }
     .verdict { border: 1px solid var(--border2); border-radius: 10px; background: var(--bg3); overflow: hidden; }
     .verdict-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 16px 22px; border-bottom: 1px solid var(--border); background: var(--bg2); }
@@ -151,7 +152,6 @@
     .verdict-foot { padding: 12px 22px; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--text3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
     .verdict-foot a { color: var(--accent2); text-decoration: none; font-weight: 500; }
 
-    /* 9エリア用グリッド調整（3x3） */
     #japan-zones .dach-card:nth-child(3n) { border-right: none; }
     #japan-zones .dach-card:nth-child(n+4) { border-top: 1px solid var(--border); }
     @media (max-width: 680px) {
@@ -258,7 +258,15 @@
       },
       {
         "@type": "Question",
-        "name": "今、電気は安いですか？",
+        "name": "ChatGPT向けの電力価格プラグインはありますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。EleczのMCPエンドポイント（https://elecz.com/mcp）は、ChatGPTの設定、開発者モードから他のMCPサーバーと同じ手順でプラグインのように追加できます。コーディング不要、URLを入力するだけです。現時点ではOpenAIの公式プラグインディレクトリには未掲載のため、ディレクトリからの検索ではなく直接追加する形になります。セットアップ不要のカスタムGPT（Electricity Prices）も直接リンクから別途利用可能です。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "今、電気は安い？",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "cheapest_hoursのレスポンスに含まれるenergy_stateフィールドから直接取得できます: cheap、normal、expensive、negativeのいずれかです。"
@@ -266,7 +274,7 @@
       },
       {
         "@type": "Question",
-        "name": "今すぐ実行すべきですか、それとも待つべきですか？",
+        "name": "今すぐ実行すべきか、待つべきか？",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "recommendationフィールドから直接取得できます: run_high_consumption_tasks、normal_usage、avoidのいずれかです。"
@@ -274,7 +282,7 @@
       },
       {
         "@type": "Question",
-        "name": "次の最安時間帯はいつですか？",
+        "name": "次の最安時間帯はいつ？",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "next_cheap_hour（タイムスタンプ）とhours_until_next_cheap（0は今すぐの意味）フィールドから取得できます。"
@@ -282,7 +290,7 @@
       },
       {
         "@type": "Question",
-        "name": "今日の最適な時間帯はいつですか？",
+        "name": "今日最適な時間帯は？",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "best_3h_windowフィールドから直接取得できます — 最安3時間ウィンドウの開始時刻、終了時刻、平均価格です。"
@@ -297,12 +305,12 @@
 <nav>
   <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
   <div class="nav-links">
-    <a href="/docs">Docs</a>
+    <a href="/docs/">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
     <a href="/cheapest-hours/">Cheapest Hours</a>
     <a href="/for-agents/">For AI Agents</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
-    <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a></span>
+    <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
     <a href="https://elecz.com/mcp" class="nav-cta">MCPで接続</a>
   </div>
 </nav>
@@ -322,7 +330,7 @@
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">MCPで接続 →</a>
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">ChatGPTで開く →</a>
-    <a href="/docs" class="btn-secondary">REST APIドキュメント</a>
+    <a href="/docs/" class="btn-secondary">REST APIドキュメント</a>
   </div>
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
     直接ジャンプ: <a href="#japan-zones" style="color: var(--text2);">日本エリア一覧</a> ·
@@ -380,7 +388,7 @@
 
 <div class="section" id="tools">
   <h2>3つのツール。すべてのユースケースに対応。</h2>
-  <p class="section-sub">Eleczは3つのMCPツールを提供し、AIエージェントが電力価格に関して必要とするあらゆる判断をカバーします。フィールド一覧は<a href="/docs" style="color: var(--accent2); text-decoration: underline;">REST APIドキュメント</a>を参照してください。</p>
+  <p class="section-sub">Eleczは3つのMCPツールを提供し、AIエージェントが電力価格に関して必要とするあらゆる判断をカバーします。フィールド一覧は<a href="/docs/" style="color: var(--accent2); text-decoration: underline;">REST APIドキュメント</a>を参照してください。</p>
   <div class="tools-grid">
     <div class="tool-card">
       <div class="tool-name">spot_price</div>
@@ -542,6 +550,13 @@ curl "https://elecz.com/signal/cheapest-hours?zone=JP-TKY&hours=5"</pre>
     <span class="kw">Bルート</span>
     <span class="kw">HEMS</span>
     <span class="kw">ECHONET Lite</span>
+    <span class="kw">電力価格シグナル</span>
+    <span class="kw">電力コネクタ</span>
+    <span class="kw">電力価格スキル</span>
+    <span class="kw">電力価格ノード</span>
+    <span class="kw">電力価格ツール</span>
+    <span class="kw">電力価格プラグイン</span>
+    <span class="kw">ChatGPT プラグイン 電力</span>
   </div>
 </div>
 
@@ -599,7 +614,7 @@ automation:
   </p>
 
   <p style="font-size: 0.88rem; color: var(--text2); line-height: 1.8; margin-top: 16px;">
-    n8nでも同様の自動化が可能です — HTTP Requestノードで同じエンドポイントを呼び出し、<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">current_hour_signal</code> をSwitchノードで分岐させるだけです。公式n8nノード（<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">n8n-nodes-elecz</code>）を使えばHTTP Requestノードの設定も不要です。
+    n8nでも同様の自動化が可能です — HTTP Requestノードで同じエンドポイントを呼び出し、<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">current_hour_signal</code> をSwitchノードで分岐させるだけです。公式n8nノード（電力価格ノード、<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">n8n-nodes-elecz</code>）を使えばHTTP Requestノードの設定も不要です。
   </p>
 </div>
 
@@ -631,6 +646,10 @@ automation:
       <div class="faq-a">2026年7月時点で、Home AssistantおよびHACSにはJEPXのスポット価格を扱う公式・コミュニティ統合は存在しません。既存のJEPX価格予測APIは発電事業者・小売電気事業者・VPP事業者向けの法人サービスに限られており、無料・APIキー不要で家庭用オートメーションから直接呼び出せるJEPX価格ソースはEleczが最初です。RESTセンサーとしてEleczのエンドポイントを追加すれば、数分でHome Assistantに組み込めます。<a href="#home-assistant" style="color: var(--accent2); text-decoration: underline;">設定例はこちら →</a></div>
     </div>
     <div class="faq-item">
+      <div class="faq-q">ChatGPT向けの電力価格プラグインはありますか？</div>
+      <div class="faq-a">はい。Eleczの MCP エンドポイント（<code>https://elecz.com/mcp</code>）は、ChatGPTの設定 → 開発者モードから他のMCPサーバーと同じ手順でプラグインのように追加できます。コーディング不要、URLを入力するだけです。現時点ではOpenAIの公式プラグインディレクトリには未掲載のため、ディレクトリからの検索ではなく直接追加する形になります。セットアップ不要のカスタムGPT（Electricity Prices）も直接リンクから別途利用可能です。</div>
+    </div>
+    <div class="faq-item">
       <div class="faq-q">MCPとは何ですか？なぜ電力価格データに必要なのですか？</div>
       <div class="faq-a">MCP（Model Context Protocol）は、AIエージェントが外部ツールを呼び出すためのオープンな標準規格です。電力価格は毎日変動するため、エージェントには学習データではなくライブのAPI呼び出しが必要です。<code>https://elecz.com/mcp</code> に接続するだけで、セットアップ不要で利用できます。Claude、ChatGPT、Grok、Cursor、Copilot、Mistralに対応しています。</div>
     </div>
@@ -643,7 +662,7 @@ automation:
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">MCPで接続 →</a>
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">ChatGPTで開く →</a>
-    <a href="/docs" class="btn-secondary">ドキュメントを読む</a>
+    <a href="/docs/" class="btn-secondary">ドキュメントを読む</a>
   </div>
 </div>
 
@@ -651,9 +670,9 @@ automation:
   <p>
     ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, コッコラ, フィンランド ·
     データ: ENTSO-E · EPEX SPOT · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
-    <a href="/terms">利用規約</a> · <a href="/docs">Docs</a> ·
+    <a href="/terms/">利用規約</a> · <a href="/docs/">Docs</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
-    <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a>
+    <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a>
   </p>
 </footer>
 
