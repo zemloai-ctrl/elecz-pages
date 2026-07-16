@@ -7,6 +7,14 @@
   <meta name="description" content="API that returns the cheapest electricity hours for the next 24h. Decision-ready signal for EV charging, heat pumps, home automation. No API key required.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/cheapest-hours/">
+  <link rel="alternate" hreflang="en" href="https://elecz.com/cheapest-hours/">
+  <link rel="alternate" hreflang="de" href="https://elecz.com/de/">
+  <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
+  <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
+  <link rel="alternate" hreflang="ja" href="https://elecz.com/ja/">
+  <link rel="alternate" hreflang="fi" href="https://elecz.com/fi/">
+  <link rel="alternate" hreflang="sv" href="https://elecz.com/sv/">
+  <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
   <meta property="og:title" content="Cheapest Electricity Hours API — Real-Time Scheduling Signal | Elecz">
@@ -123,7 +131,7 @@
     "name": "Elecz Cheapest Hours API",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web/API",
-    "url": "https://elecz.com/cheapest-hours-api/",
+    "url": "https://elecz.com/cheapest-hours/",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
     "description": "API that returns the cheapest electricity hours for the next 24h. Decision-ready signal for EV charging, heat pumps, dishwashers, and batch jobs. No API key required."
   }
@@ -151,8 +159,28 @@
       },
       {
         "@type": "Question",
+        "name": "Can I use this with Home Assistant or n8n?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Via the REST API, sensor.rest works today. A dedicated Home Assistant integration (custom_component) is not yet available. For workflow automation, the official n8n community node (n8n-nodes-elecz) integrates cheapest_hours into any n8n workflow. The current_hour_signal field returns low, medium, or high, ready to use as a trigger condition without any custom logic." }
+      },
+      {
+        "@type": "Question",
         "name": "I just want to know when to charge my EV — do I need to read all this?",
         "acceptedAnswer": { "@type": "Answer", "text": "No — see Best Time to Charge Your EV Today at elecz.com/best-time-to-charge-ev/ for a plain-language, no-API-required answer. Come back here if you want to build something on top of the signal yourself." }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I charge my EV tonight?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Call cheapest_hours and check current_hour_signal, if it's already low, start now. Otherwise use next_cheap_hour for the start time and best_3h_window if the charge needs a full uninterrupted block." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is electricity cheap right now?",
+        "acceptedAnswer": { "@type": "Answer", "text": "current_hour_signal answers this directly, low means yes, high means no, medium means average. No threshold math required, the signal is already computed relative to the rest of the ranked window." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the cheapest 3-hour window today?",
+        "acceptedAnswer": { "@type": "Answer", "text": "best_3h_window returns the cheapest consecutive 3-hour block in the response, with its start, end, and avg_price, useful for tasks that need to run uninterrupted, like a full EV charge or a dishwasher cycle." }
       }
     ]
   }
@@ -164,7 +192,7 @@
   <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
   <div class="nav-links">
     <a href="/best-time-to-charge-ev/">Best Time to Charge EV</a>
-    <a href="/docs">Docs</a>
+    <a href="/docs/">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
     <a href="/electricity-price-mcp/">MCP</a>
     <a href="https://elecz.com/mcp" class="nav-cta">Connect via MCP</a>
@@ -175,7 +203,7 @@
   <div class="hero-eyebrow">Cheapest Electricity Hours API</div>
   <h1>Which hours are cheapest<br>to run things today?<br><span class="hl">Ask the API.</span></h1>
   <p class="hero-lead">
-    The <code style="font-family:'DM Mono',monospace;font-size:0.9em;color:var(--accent2);background:var(--accent-dim);padding:2px 8px;border-radius:3px">cheapest_hours</code> API returns ranked electricity hours for the next 24h — built on day-ahead market data, with a ready-to-use scheduling signal. No math, no custom logic. Just call it and act on the answer. Charging an EV tonight? See the <a href="/best-time-to-charge-ev/" style="color:var(--accent2);font-weight:500;">plain-language answer</a> instead of raw API output.
+    The <code style="font-family:'DM Mono',monospace;font-size:0.9em;color:var(--accent2);background:var(--accent-dim);padding:2px 8px;border-radius:3px">cheapest_hours</code> API returns ranked electricity hours for the next 24h — built on day-ahead market data, with a ready-to-use scheduling signal. No math, no custom logic. Just call it and act on the answer. Whether the question is the cheapest time to charge an EV, the best time to run a dishwasher or heat pump, or simply when electricity is cheapest today, the same endpoint answers all of it. Charging an EV tonight? See the <a href="/best-time-to-charge-ev/" style="color:var(--accent2);font-weight:500;">plain-language answer</a> instead of raw API output.
   </p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">40</div><div class="stat-label">countries</div></div>
@@ -185,7 +213,7 @@
   </div>
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
-    <a href="/docs" class="btn-secondary">REST API docs</a>
+    <a href="/docs/" class="btn-secondary">REST API docs</a>
   </div>
 </div>
 
@@ -249,9 +277,25 @@
       <tr><td>next_cheap_hour</td><td>ISO 8601</td><td>Start of the next cheap period — useful for scheduling a delayed start</td></tr>
       <tr><td>hours_until_next_cheap</td><td>integer</td><td>Hours until the next cheap period — useful for natural language responses</td></tr>
       <tr><td>data_complete</td><td>boolean</td><td>True if tomorrow's day-ahead prices are already published and included in the ranking. Day-ahead data typically available from ~13:00 CET for ENTSO-E zones, ~10:30 JST for Japan.</td></tr>
+      <tr><td>best_3h_window</td><td>object</td><td>Optimal consecutive 3-hour block for uninterruptible tasks (e.g. a full EV charge cycle). Contains <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">start</code>, <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">end</code>, and <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">avg_price</code></td></tr>
       <tr><td>cheapest_hours</td><td>array</td><td>Ranked list of cheapest hours with price and timestamp</td></tr>
     </tbody>
   </table>
+</div>
+
+<div class="section">
+  <h2>How cheapest_hours is calculated</h2>
+  <p class="section-sub">The ranking logic is the same in every supported zone, so the response behaves consistently regardless of market.</p>
+  <ul style="list-style:none;">
+    <li style="padding:14px 0;border-top:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">Window:</strong> the next 24 hours from the current hour, extending into tomorrow once next-day prices are published.</li>
+    <li style="padding:14px 0;border-top:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">Ranking:</strong> hours within the window are sorted by day-ahead (or spot) price, cheapest first. Ties share the same rank.</li>
+    <li style="padding:14px 0;border-top:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">Best continuous window:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">best_3h_window</code> scans for the cheapest consecutive 3-hour block — useful for tasks that shouldn't be interrupted mid-run, like a full EV charge cycle.</li>
+    <li style="padding:14px 0;border-top:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">current_hour_signal:</strong> the current hour's rank relative to the rest of the window — <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">low</code> (top third), <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">medium</code>, or <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">high</code>.</li>
+    <li style="padding:14px 0;border-top:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">cheap_window_ends / next_cheap_hour:</strong> derived directly from the ranked list — the boundaries of the current or nearest cheap block.</li>
+    <li style="padding:14px 0;border-top:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">Timezone handling:</strong> every timestamp is returned in UTC (ISO 8601). Convert to the user's local timezone before displaying — don't apply a fixed hour offset, since that breaks around daylight saving transitions.</li>
+    <li style="padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">Daylight saving:</strong> because the API always works in UTC internally, clock-change days don't cause duplicate or skipped hours in the ranking — that ambiguity only appears if you convert to local time before doing the ranking yourself.</li>
+  </ul>
+  <p style="font-size:0.85rem;color:var(--text3);margin-top:16px;">Markets without public day-ahead data (AU, NZ, KR, US-TX, ZA, PH-*) can't use this ranking — see <a href="/electricity-price-api/#tools" style="color:var(--accent2)">the full market coverage table</a> for which zones support <code style="font-family:var(--mono);font-size:0.78rem">cheapest_hours</code>.</p>
 </div>
 
 <div class="section">
@@ -272,7 +316,7 @@
     </div>
     <div class="usecase-card">
       <div class="usecase-title">🤖 AI agent scheduling</div>
-      <div class="usecase-desc">User asks "when should I run the dryer?" — agent calls <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">cheapest_hours</code>, answers with a concrete time and estimated saving. Works via MCP in Claude, Grok, Cursor.</div>
+      <div class="usecase-desc">User asks "when should I run the dryer?" — agent calls <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">cheapest_hours</code>, answers with a concrete time and estimated saving. Works via MCP in Claude, Grok, Cursor — see the <a href="/for-agents/" style="color:var(--accent2)">AI agent integration guide</a> for the full rule set.</div>
     </div>
     <div class="usecase-card">
       <div class="usecase-title">💻 Batch job scheduler</div>
@@ -337,11 +381,23 @@ starts at 23:00 tonight."</span></pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Can I use this with Home Assistant or n8n?</div>
-      <div class="faq-a">Yes. Via the REST API or the official n8n node (<code>n8n-nodes-elecz</code>), <code>cheapest_hours</code> integrates into any automation platform. The <code>current_hour_signal</code> field returns <code>low</code>, <code>medium</code>, or <code>high</code> — ready to use as a trigger condition without any custom logic.</div>
+      <div class="faq-a">Yes. Via the REST API — <code>sensor.rest</code> works today. A dedicated Home Assistant integration (custom_component) is not yet available. For workflow automation, the official <a href="https://www.npmjs.com/package/n8n-nodes-elecz" target="_blank" rel="noopener">n8n community node</a> (<code>n8n-nodes-elecz</code>) integrates <code>cheapest_hours</code> into any n8n workflow. The <code>current_hour_signal</code> field returns <code>low</code>, <code>medium</code>, or <code>high</code> — ready to use as a trigger condition without any custom logic.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">How is this different from just fetching spot prices and sorting them myself?</div>
       <div class="faq-a">You could — but <code>cheapest_hours</code> also returns <code>current_hour_signal</code>, <code>cheap_window_ends</code>, <code>next_cheap_hour</code>, and <code>hours_until_next_cheap</code>. These context fields are what make the response actionable for agents and automations without additional logic.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">When should I charge my EV tonight?</div>
+      <div class="faq-a">Call <code>cheapest_hours</code> and check <code>current_hour_signal</code> — if it's already <code>low</code>, start now. Otherwise use <code>next_cheap_hour</code> for the start time and <code>best_3h_window</code> if the charge needs a full uninterrupted block. For a plain-language version of this same answer, see <a href="/best-time-to-charge-ev/">Best Time to Charge Your EV Today</a>.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is electricity cheap right now?</div>
+      <div class="faq-a"><code>current_hour_signal</code> answers this directly — <code>low</code> means yes, <code>high</code> means no, <code>medium</code> means average. No threshold math required; the signal is already computed relative to the rest of the ranked window.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What is the cheapest 3-hour window today?</div>
+      <div class="faq-a"><code>best_3h_window</code> returns the cheapest consecutive 3-hour block in the response, with its <code>start</code>, <code>end</code>, and <code>avg_price</code> — useful for tasks that need to run uninterrupted, like a full EV charge or a dishwasher cycle.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">I just want to know when to charge my EV — do I need to read all this?</div>
@@ -364,6 +420,15 @@ starts at 23:00 tonight."</span></pre>
     <span class="kw">electricity price API home automation</span>
     <span class="kw">smart home electricity API</span>
     <span class="kw">heat pump electricity price API</span>
+    <span class="kw">electricity price Home Assistant integration</span>
+    <span class="kw">electricity price n8n node</span>
+    <span class="kw">cheapest time to use electricity</span>
+    <span class="kw">cheapest time to charge EV</span>
+    <span class="kw">best time to run dishwasher</span>
+    <span class="kw">best time to run washing machine</span>
+    <span class="kw">best time for heat pump</span>
+    <span class="kw">when electricity is cheapest today</span>
+    <span class="kw">lowest electricity price today</span>
   </div>
 </div>
 
@@ -380,7 +445,7 @@ starts at 23:00 tonight."</span></pre>
   <p>
     ⚡ <a href="/">Elecz.com</a> · Built by SKA Trading Oy / Zemlo AI, Kokkola, Finland ·
     Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX ·
-    <a href="/terms">Terms</a> · <a href="/docs">Docs</a> ·
+    <a href="/terms/">Terms</a> · <a href="/docs/">Docs</a> ·
     <a href="/best-time-to-charge-ev/">Best Time to Charge EV</a> ·
     <a href="/electricity-price-api/">API overview</a> ·
     <a href="/electricity-price-mcp/">MCP server</a> ·
