@@ -112,6 +112,23 @@
     .usecase-icon { font-size: 1.2rem; margin-bottom: 8px; }
     .usecase-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
     .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+    .live-price { font-family: var(--mono); font-size: 1.05rem; font-weight: 600; color: var(--text3); display: flex; align-items: center; gap: 8px; margin-bottom: 20px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 12px 18px; max-width: 340px; }
+    .live-price .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
+    .live-price.low { color: var(--green); }
+    .live-price.low .dot { background: var(--green); }
+    .live-price.medium { color: var(--accent2); }
+    .live-price.medium .dot { background: var(--accent2); }
+    .live-price.high { color: #c0300a; }
+    .live-price.high .dot { background: #c0300a; }
+    .integration-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
+    .integration-card { background: var(--bg3); padding: 22px 24px; }
+    .integration-title { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+    .integration-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; margin-bottom: 12px; }
+    .integration-code { font-family: var(--mono); font-size: 0.76rem; color: var(--text2); background: var(--bg2); padding: 8px 12px; border-radius: 5px; border: 1px solid var(--border); word-break: break-all; margin-bottom: 10px; }
+    .integration-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .integration-links a { font-size: 0.8rem; color: var(--accent2); text-decoration: none; font-weight: 500; }
+    .integration-links a:hover { text-decoration: underline; }
+    .integration-test { font-size: 0.82rem; color: var(--text2); background: var(--green-dim); border: 1px solid var(--green-border); border-radius: 6px; padding: 10px 12px; margin-top: 10px; font-style: italic; }
     @media (max-width: 680px) {
       .nav-links { display: none; }
       .tools-grid { grid-template-columns: 1fr; }
@@ -159,6 +176,14 @@
       },
       {
         "@type": "Question",
+        "name": "Mikä ero on MCP-palvelimella ja liittimellä (connector)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sama asia, eri nimi alustasta riippuen. Kehittäjädokumentaatio kutsuu sitä MCP-palvelimeksi. Tekoälyalustat kuten Claude ja Grok kutsuvat samaa asiaa liittimeksi eli connectoriksi. Osoite on aina sama: https://elecz.com/mcp."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "Onko Elecillä sähkönhinta API myös muille Pohjoismaille kuin Suomelle?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -175,10 +200,10 @@
       },
       {
         "@type": "Question",
-        "name": "Miten Elecz eroaa kotimaisista sähkönhinta-rajapinnoista, kuten sahkohinta-api.fi tai porssisahko.net?",
+        "name": "Miten Elecz eroaa kotimaisista sähkönhinta-rajapinnoista?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Nämä ovat vakiintuneita, hyviä palveluita pörssisähködatan hakuun ja käytössä laajasti Home Assistant -yhteisössä. Yksikään ei kuitenkaan tarjoa MCP-tukea, agenttikohtaisia ohjeita tai sähkösopimusvertailua. Elecz täydentää kenttää agenttitasolla: valmiiksi tulkittu päätössignaali, sähkösopimusvertailu ja natiivi MCP-yhteys, sekä 40+ muuta maata samalla skeemalla."
+          "text": "Suomessa on useita vakiintuneita, hyviä palveluita pörssisähködatan hakuun, käytössä laajasti Home Assistant -yhteisössä. Yksikään ei kuitenkaan tarjoa MCP-tukea, agenttikohtaisia ohjeita tai sähkösopimusvertailua. Elecz täydentää kenttää agenttitasolla: valmiiksi tulkittu päätössignaali, sähkösopimusvertailu ja natiivi MCP-yhteys, sekä 40+ muuta maata samalla skeemalla."
         }
       },
       {
@@ -215,10 +240,66 @@
       },
       {
         "@type": "Question",
+        "name": "Mikä on päätössignaali sähkön hinnassa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Päätössignaali on jo valmiiksi tulkittu arvo, kuten current_hour_signal (low/medium/high) tai recommendation — toisin kuin raakahinta, jonka agentin pitäisi itse arvioida. Elecz palauttaa molemmat: raakahinnan ja valmiin signaalin samassa vastauksessa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Onko Elecillä skill Claudelle?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kyllä. Elecz tarjoaa SKILL.md-tiedoston, joka noudattaa avointa Agent Skills -standardia ja toimii Claudessa, Cursorissa, VS Codessa ja yli 30 muussa työkalussa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Onko sähkön hinta plugin ChatGPT:lle?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kyllä, kahdella tavalla. Electricity Prices -custom GPT on jo julkisesti listattuna ChatGPT:n omassa GPT-hakemistossa ja löytyy hakemalla suoraan ChatGPT:ssä. Eleczin MCP-yhteyden voi myös lisätä manuaalisesti ChatGPT:n Kehittäjätila-asetuksista, samaan tapaan kuin minkä tahansa muun MCP-palvelimen. Tämä yhteystapa ei ole listattuna OpenAI:n erillisessä, uudemmassa Plugin Directoryssä, joka koskee MCP-pohjaisia Apps-sovelluksia."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Onko Elecillä Gemini-laajennus (extension)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kyllä. Elecz on saatavilla Gemini CLI -laajennuksena gemini-extension.json-tiedoston kautta, MCP-yhteyden ja REST API:n lisäksi."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "Sopiiko Elecz automaatioihin?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Kyllä, erinomaisesti. Elecz on suunniteltu automaatiokäyttöön: current_hour_signal-kenttä palauttaa valmiin halpa/normaali/kallis-tilan, jota voi käyttää suoraan automaation ehtona. Käytännön esimerkkejä ovat n8n-työnkulut virallisella n8n-nodes-elecz-noodilla, Home Assistant REST-sensorin kautta tehty ohjaus, sekä agenttiketjut jotka reagoivat hintasignaaliin reaaliajassa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Onko Elecillä node n8n-työnkulkuihin?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kyllä. Elecz tarjoaa virallisen n8n-noden (n8n-nodes-elecz), joka tuo reaaliaikaisen sähkön hinnan, halvimmat tunnit ja sopimusvertailun suoraan työnkulkuun ilman HTTP Request -noden manuaalista konfigurointia."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Miten Elecz integroidaan omaan sovellukseen tai automaatioon?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kolme tapaa: MCP-yhteydellä tekoälyagentteihin (Claude, ChatGPT, Cursor), REST API:lla mihin tahansa omaan sovellukseen ilman API-avainta, tai valmiilla integraatioilla kuten n8n-node ja Home Assistant REST-sensori. Kaikki käyttävät samaa dataa ja samaa JSON-skeemaa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Mitä työkaluja Elecz tarjoaa tekoälyagenteille?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kolme MCP-työkalua: spot_price (nykyinen hinta), cheapest_hours (halvimmat tunnit valmiilla signaalilla) ja best_energy_contract (sopimusvertailu). Agentti valitsee oikean työkalun kysymyksen perusteella, ei tarvitse itse päätellä mitä dataa hakea."
         }
       },
       {
@@ -238,7 +319,7 @@
 <nav>
   <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
   <div class="nav-links">
-    <a href="/docs">Docs</a>
+    <a href="/docs/">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
     <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
@@ -261,10 +342,11 @@
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Yhdistä MCP:llä →</a>
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Avaa ChatGPT:ssä →</a>
-    <a href="/docs" class="btn-secondary">REST API -dokumentaatio</a>
+    <a href="/docs/" class="btn-secondary">REST API -dokumentaatio</a>
   </div>
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
-    Siirry: <a href="#tyokalut" style="color: var(--text2);">Työkalut</a> ·
+    Siirry: <a href="#integraatio" style="color: var(--text2);">Yhdistä tekoälyysi</a> ·
+    <a href="#tyokalut" style="color: var(--text2);">Työkalut</a> ·
     <a href="#vertailu" style="color: var(--text2);">Suomi vs. muut palvelut</a> ·
     <a href="#faq" style="color: var(--text2);">Usein kysytyt kysymykset</a>
   </p>
@@ -288,7 +370,7 @@
 
 <div class="section" id="tyokalut">
   <h2>Kolme työkalua. Kaikki käyttötapaukset katettu.</h2>
-  <p class="section-sub">Elecz tarjoaa kolme MCP-työkalua ja vastaavat REST-rajapinnat sähkön hintaan liittyviin päätöksiin Suomessa ja 40+ muussa maassa. Täydet skeemat: <a href="/docs" style="color: var(--accent2); text-decoration: underline;">REST API -dokumentaatio</a>.</p>
+  <p class="section-sub">Elecz tarjoaa kolme MCP-työkalua ja vastaavat REST-rajapinnat sähkön hintaan liittyviin päätöksiin Suomessa ja 40+ muussa maassa. Täydet skeemat: <a href="/docs/" style="color: var(--accent2); text-decoration: underline;">REST API -dokumentaatio</a>.</p>
   <div class="tools-grid">
     <div class="tool-card">
       <div class="tool-name">spot_price</div>
@@ -325,6 +407,48 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
   </div>
 </div>
 
+<div class="section" id="integraatio">
+  <h2>Yhdistä Elecz tekoälyysi</h2>
+  <p class="section-sub">Jokainen alusta toimii hieman eri tavalla — tässä konkreettiset vaiheet yleisen konfiguraation sijaan.</p>
+  <div class="integration-grid">
+    <div class="integration-card">
+      <div class="integration-title">Claude</div>
+      <div class="integration-desc">Lisää Elecz MCP-palvelimeksi (Claude.ai: Asetukset → Yhteydet, Claude Desktop: konfiguraatiotiedosto).</div>
+      <div class="integration-code">https://elecz.com/mcp</div>
+      <div class="integration-test">Testikysymys: "Mitkä ovat tänään Suomen kolme halvinta tuntia sähköauton lataukseen?"</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">ChatGPT</div>
+      <div class="integration-desc">Kaksi erillistä tapaa: "Electricity Prices" -custom GPT on jo listattuna ChatGPT:n omassa GPT-hakemistossa ja löytyy hakemalla "Electricity Prices" suoraan ChatGPT:ssä, tai avaamalla se linkistä. Eleczin MCP-yhteyden voi myös lisätä manuaalisesti Asetukset → Kehittäjätila-valikosta, jos tämä ominaisuus on käytössä ChatGPT-tilauksessasi — samalla tavalla kuin minkä tahansa muun MCP-palvelimen. Tämä MCP-yhteystapa ei ole listattuna OpenAI:n erillisessä, uudemmassa Plugin Directoryssä, joka koskee MCP-pohjaisia Apps-sovelluksia.</div>
+      <div class="integration-links">
+        <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener">Avaa Elecz ChatGPT:ssä →</a>
+        <a href="/electricity-price-mcp/">Katso MCP-opas →</a>
+      </div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">Cursor ja muut MCP-clientit</div>
+      <div class="integration-desc">Cursorille, Copilotille, Grokille, Mistralille ja muille MCP-yhteensopiville clienteille — sama osoite, sama konfiguraatio.</div>
+      <div class="integration-code">https://elecz.com/mcp</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">n8n</div>
+      <div class="integration-desc">Asenna virallinen n8n-node ja käytä reaaliaikaista sähkön hintaa, halvimpia tunteja ja päätössignaaleja suoraan työnkuluissasi.</div>
+      <div class="integration-code">n8n-nodes-elecz</div>
+      <div class="integration-links"><a href="https://www.npmjs.com/package/n8n-nodes-elecz" target="_blank" rel="noopener">npm-paketti →</a></div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">Home Assistant</div>
+      <div class="integration-desc">Ei virallista natiivilaajennusta — yhdistä Elecz REST API:n tai REST-sensorin kautta, ja ohjaa automaatioita kentillä <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">current_hour_signal</code> tai <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">recommendation</code>.</div>
+      <div class="integration-code">GET /signal?zone=FI&consumption=5000</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">REST API</div>
+      <div class="integration-desc">Suora HTTP, ei todennusta. Toimii millä tahansa kielellä tai alustalla.</div>
+      <div class="integration-code">GET /signal/spot?zone=FI</div>
+    </div>
+  </div>
+</div>
+
 <div class="section">
   <h2>Energiatietoisia tekoälyagentteja ilman lisälogiikkaa</h2>
   <p class="section-sub">Tekoälyagentit ja LLM:t eivät voi päätellä nykyistä sähkön hintaa koulutusdatasta — se muuttuu 15 minuutin välein, usein yli kymmenkertaisesti saman päivän aikana. Energiatietoinen agentti tarvitsee live-työkalukutsun, ei arvausta mallin muistista.</p>
@@ -334,18 +458,18 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
     <li><strong>Suunnittelu:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code> — milloin seuraava halpa ikkuna on?</li>
     <li><strong>Sopimuspäätös:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">best_energy_contract</code> — kannattaako vaihtaa juuri nyt?</li>
   </ul>
-  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">Toimii minkä tahansa MCP-yhteensopivan agenttikehyksen kanssa: Claude, ChatGPT, Cursor, Copilot, Grok — yksi työkalukutsu oman hintalogiikan sijaan.</p>
+  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">Toimii minkä tahansa MCP-yhteensopivan agenttikehyksen kanssa: Claude, ChatGPT, Cursor, Copilot, Grok — yksi työkalukutsu oman hintalogiikan sijaan. Elecz tarjoaa myös <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">SKILL.md</code>-tiedoston, joka noudattaa avointa Agent Skills -standardia. <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/SKILL.md" target="_blank" rel="noopener" style="color: var(--accent2); text-decoration: underline;">Katso SKILL.md GitHubissa →</a></p>
 </div>
 
 <div class="section" id="vertailu">
   <h2>Miten Elecz eroaa suomalaisista sähkönhintapalveluista</h2>
-  <p class="section-sub">Suomen pörssisähkö-API-kenttä on kypsä ja hyvin palveltu: sahkohinta-api.fi, porssisahko.net, sahkotin.fi, sahkonhintatanaan.fi ja koneoppimispohjainen sahkovatkain.web.app tarjoavat ilmaista, avaimetonta pörssisähködataa, ja niitä käytetään laajasti suomalaisessa Home Assistant- ja Fissio-yhteisössä. Elecz ei kilpaile datan saatavuudella — se täydentää kenttää agenttitasolla, joka on toistaiseksi täysin avoin.</p>
+  <p class="section-sub">Suomen pörssisähkö-API-kenttä on kypsä ja hyvin palveltu — useat vakiintuneet, ilmaiset ja avaimettomat palvelut tarjoavat pörssisähködataa, ja niitä käytetään laajasti suomalaisessa Home Assistant- ja kotiautomaatioyhteisössä. Elecz ei kilpaile datan saatavuudella — se täydentää kenttää agenttitasolla, joka on toistaiseksi täysin avoin.</p>
 
   <table class="cmp-table">
     <tr><th></th><th>Elecz</th><th>Suomalaiset pörssisähkö-APIt</th></tr>
     <tr><td>Pörssisähködata (Nord Pool / Fingrid)</td><td>Kyllä</td><td>Kyllä — kypsä, vakiintunut kenttä</td></tr>
     <tr><td>Varttihinnat (15 min, alkaen 1.10.2025)</td><td>Kyllä</td><td>Vaihtelee palvelusta riippuen</td></tr>
-    <tr><td>Halvimmat tunnit valmiiksi laskettuna</td><td>Kyllä — signaali, ranking</td><td>Osalla kyllä (esim. sahkohinta-api.fi)</td></tr>
+    <tr><td>Halvimmat tunnit valmiiksi laskettuna</td><td>Kyllä — signaali, ranking</td><td>Osalla kyllä</td></tr>
     <tr><td>MCP-tuki tekoälyagenteille</td><td>Kyllä — natiivi, kolme työkalua</td><td>Ei yhdelläkään</td></tr>
     <tr><td>Sähkösopimusvertailu</td><td>Kyllä — spot vs. kiinteä, säästöarvio</td><td>Ei yhdelläkään</td></tr>
     <tr><td>Kansainvälinen kattavuus</td><td>40+ maata, 100+ aluetta</td><td>Suomi (osalla myös Pohjoismaat)</td></tr>
@@ -369,6 +493,13 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
     <span class="kw">AI-agentit sähkö</span>
     <span class="kw">sähkösopimusvertailu API</span>
     <span class="kw">reaaliaikainen sähkön hinta API</span>
+    <span class="kw">sähkö skill Claude</span>
+    <span class="kw">sähkö node n8n</span>
+    <span class="kw">sähkö extension Gemini</span>
+    <span class="kw">sähkö plugin ChatGPT</span>
+    <span class="kw">sähkö työkalu IA</span>
+    <span class="kw">sähkö liitin connector</span>
+    <span class="kw">sähkö integraatio Home Assistant</span>
   </div>
 </div>
 
@@ -409,6 +540,12 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
   </div>
 </div>
 
+<div class="section" id="suomi">
+  <h2>Suomi — mitä kehittäjien kannattaa tietää</h2>
+  <div class="live-price" id="live-price-fi"><span class="dot"></span>Ladataan live-hintaa…</div>
+  <p class="section-sub">Elecz palauttaa ENTSO-E-tukkuhinnan FI-vyöhykkeelle EUR snt/kWh-yksikössä. Data päivittyy tunneittain, seuraavan päivän hinnat saatavilla noin klo 13:00–14:00 CET alkaen.</p>
+</div>
+
 <div class="section" id="faq">
   <h2>Usein kysytyt kysymykset</h2>
   <div class="faq-list">
@@ -421,6 +558,10 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
       <div class="faq-a">MCP (Model Context Protocol) on avoin standardi, jolla tekoälyagentit yhdistetään ulkoisiin työkaluihin. Sähkön hinta muuttuu 15 minuutin välein — agentti tarvitsee live-työkalukutsun, ei koulutusdataa. Yhdistä osoitteessa <code>https://elecz.com/mcp</code>, ei asennusta. Toimii Claudessa, ChatGPT:ssä, Grokissa, Cursorissa, Copilotissa ja Mistralissa.</div>
     </div>
     <div class="faq-item">
+      <div class="faq-q">Mikä ero on MCP-palvelimella ja liittimellä (connector)?</div>
+      <div class="faq-a">Sama asia, eri nimi alustasta riippuen. Kehittäjädokumentaatio kutsuu sitä MCP-palvelimeksi. Tekoälyalustat kuten Claude ja Grok kutsuvat samaa asiaa liittimeksi eli connectoriksi. Osoite on aina sama: <code>https://elecz.com/mcp</code>.</div>
+    </div>
+    <div class="faq-item">
       <div class="faq-q">Onko Elecillä sähkönhinta API myös muille Pohjoismaille kuin Suomelle?</div>
       <div class="faq-a">Kyllä. Elecz kattaa Suomen lisäksi Ruotsin (SE1–SE4), Norjan (NO1–NO5) ja Tanskan (DK1, DK2) sekä spot-hinnoilla että sopimusvertailulla. Sama rajapinta ja sama JSON-skeema toimivat kaikissa neljässä maassa.</div>
     </div>
@@ -429,8 +570,8 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
       <div class="faq-a">Suurilla kielimalleilla ei ole pääsyä live-markkinoihin. Ilman reaaliaikaista työkalua malli tuottaa historiallisen keskiarvon, joka näyttää vastaukselta muttei ole nykyinen hinta. Elecz antaa tekoälylle varmennetun signaalin jokaisella kutsulla.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Miten Elecz eroaa kotimaisista sähkönhinta-rajapinnoista, kuten sahkohinta-api.fi tai porssisahko.net?</div>
-      <div class="faq-a">Nämä ovat vakiintuneita, hyviä palveluita pörssisähködatan hakuun ja käytössä laajasti Home Assistant -yhteisössä. Yksikään ei kuitenkaan tarjoa MCP-tukea, agenttikohtaisia ohjeita tai sähkösopimusvertailua. Elecz täydentää kenttää agenttitasolla: valmiiksi tulkittu päätössignaali, sähkösopimusvertailu ja natiivi MCP-yhteys, sekä 40+ muuta maata samalla skeemalla.</div>
+      <div class="faq-q">Miten Elecz eroaa kotimaisista sähkönhinta-rajapinnoista?</div>
+      <div class="faq-a">Suomessa on useita vakiintuneita, hyviä palveluita pörssisähködatan hakuun, käytössä laajasti Home Assistant -yhteisössä. Yksikään ei kuitenkaan tarjoa MCP-tukea, agenttikohtaisia ohjeita tai sähkösopimusvertailua. Elecz täydentää kenttää agenttitasolla: valmiiksi tulkittu päätössignaali, sähkösopimusvertailu ja natiivi MCP-yhteys, sekä 40+ muuta maata samalla skeemalla.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Toimiiko Elecz suomalaisten sähkösopimusten vertailussa?</div>
@@ -449,8 +590,36 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
       <div class="faq-a">Vaihtelee päivittäin sään, tuulituotannon ja kulutuspiikkien mukaan. <code>cheapest_hours</code>-työkalu palauttaa tämän päivän ja huomisen halvimmat tunnit järjestyksessä, kertoo onko nykyinen tunti halpa (<code>current_hour_signal</code>) ja ilmoittaa milloin seuraava halpa ikkuna alkaa (<code>next_cheap_hour</code>, <code>hours_until_next_cheap</code>).</div>
     </div>
     <div class="faq-item">
+      <div class="faq-q">Mikä on päätössignaali sähkön hinnassa?</div>
+      <div class="faq-a">Päätössignaali on jo valmiiksi tulkittu arvo, kuten <code>current_hour_signal</code> (<code>low</code>/<code>medium</code>/<code>high</code>) tai <code>recommendation</code> — toisin kuin raakahinta, jonka agentin pitäisi itse arvioida. Elecz palauttaa molemmat: raakahinnan ja valmiin signaalin samassa vastauksessa.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Onko Elecillä skill Claudelle?</div>
+      <div class="faq-a">Kyllä. Elecz tarjoaa <code>SKILL.md</code>-tiedoston, joka noudattaa avointa Agent Skills -standardia ja toimii Claudessa, Cursorissa, VS Codessa ja yli 30 muussa työkalussa. <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/SKILL.md" target="_blank" rel="noopener">Katso SKILL.md GitHubissa →</a></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Onko sähkön hinta plugin ChatGPT:lle?</div>
+      <div class="faq-a">Kyllä, kahdella tavalla. "Electricity Prices" -custom GPT on jo julkisesti listattuna ChatGPT:n omassa GPT-hakemistossa ja löytyy hakemalla suoraan ChatGPT:ssä. Eleczin MCP-yhteyden voi myös lisätä manuaalisesti ChatGPT:n Kehittäjätila-asetuksista, samaan tapaan kuin minkä tahansa muun MCP-palvelimen — tämä yhteystapa ei ole listattuna OpenAI:n erillisessä, uudemmassa Plugin Directoryssä, joka koskee MCP-pohjaisia Apps-sovelluksia.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Onko Elecillä Gemini-laajennus (extension)?</div>
+      <div class="faq-a">Kyllä. Elecz on saatavilla Gemini CLI -laajennuksena <code>gemini-extension.json</code>-tiedoston kautta, MCP-yhteyden ja REST API:n lisäksi. <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/gemini-extension.json" target="_blank" rel="noopener">Katso gemini-extension.json GitHubissa →</a></div>
+    </div>
+    <div class="faq-item">
       <div class="faq-q">Sopiiko Elecz automaatioihin?</div>
       <div class="faq-a">Kyllä, erinomaisesti. <code>current_hour_signal</code>-kenttä palauttaa valmiin halpa/normaali/kallis-tilan suoraan automaation ehtona käytettäväksi. Käytännön esimerkkejä: n8n-työnkulut virallisella <code>n8n-nodes-elecz</code>-noodilla, Home Assistant REST-sensorin kautta tehty ohjaus, ja agenttiketjut jotka reagoivat hintasignaaliin reaaliajassa.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Onko Elecillä node n8n-työnkulkuihin?</div>
+      <div class="faq-a">Kyllä. Elecz tarjoaa virallisen n8n-noden (<code>n8n-nodes-elecz</code>), joka tuo reaaliaikaisen sähkön hinnan, halvimmat tunnit ja sopimusvertailun suoraan työnkulkuun ilman HTTP Request -noden manuaalista konfigurointia.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Miten Elecz integroidaan omaan sovellukseen tai automaatioon?</div>
+      <div class="faq-a">Kolme tapaa: MCP-yhteydellä tekoälyagentteihin (Claude, ChatGPT, Cursor), REST API:lla mihin tahansa omaan sovellukseen ilman API-avainta, tai valmiilla integraatioilla kuten n8n-node ja Home Assistant REST-sensori. Kaikki käyttävät samaa dataa ja samaa JSON-skeemaa.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Mitä työkaluja Elecz tarjoaa tekoälyagenteille?</div>
+      <div class="faq-a">Kolme MCP-työkalua: <code>spot_price</code> (nykyinen hinta), <code>cheapest_hours</code> (halvimmat tunnit valmiilla signaalilla) ja <code>best_energy_contract</code> (sopimusvertailu). Agentti valitsee oikean työkalun kysymyksen perusteella — ei tarvitse itse päätellä mitä dataa hakea.</div>
     </div>
     <div class="faq-item" style="border-bottom: none;">
       <div class="faq-q">Miten usein data päivittyy?</div>
@@ -465,7 +634,7 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Yhdistä MCP:llä →</a>
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Avaa ChatGPT:ssä →</a>
-    <a href="/docs" class="btn-secondary">Lue dokumentaatio</a>
+    <a href="/docs/" class="btn-secondary">Lue dokumentaatio</a>
   </div>
 </div>
 
@@ -473,11 +642,44 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
   <p>
     ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Suomi ·
     Data: ENTSO-E · Nord Pool · Fingrid · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
-    <a href="/terms">Ehdot</a> · <a href="/docs">Docs</a> ·
+    <a href="/terms/">Ehdot</a> · <a href="/docs/">Docs</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/sv/">🇸🇪 Svenska</a>
   </p>
 </footer>
+
+<script>
+async function loadFiPrice() {
+  const el = document.getElementById("live-price-fi");
+  if (!el) return;
+  try {
+    const [spotRes, hoursRes] = await Promise.all([
+      fetch("/signal/spot?zone=FI"),
+      fetch("/signal/cheapest-hours?zone=FI")
+    ]);
+    if (!spotRes.ok) throw new Error("spot");
+    const spot = await spotRes.json();
+    let signal = null;
+    if (hoursRes.ok) {
+      const hours = await hoursRes.json();
+      if (hours && hours.available !== false) signal = hours.current_hour_signal || null;
+    }
+    const priceText = `Nykyinen hinta FI: ${spot.price} ${spot.unit || "snt/kWh"}`;
+    if (signal) {
+      const labelMap = { low: "halpa", medium: "normaali", high: "kallis" };
+      el.className = "live-price " + signal;
+      el.innerHTML = `<span class="dot"></span>${priceText} · ${labelMap[signal] || signal}`;
+    } else {
+      el.className = "live-price";
+      el.innerHTML = `<span class="dot"></span>${priceText}`;
+    }
+  } catch {
+    el.className = "live-price";
+    el.innerHTML = `<span class="dot"></span>Live-hinta ei ole juuri nyt saatavilla`;
+  }
+}
+loadFiPrice();
+</script>
 
 </body>
 </html>
