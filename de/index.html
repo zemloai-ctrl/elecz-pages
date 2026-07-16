@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Strompreis API Echtzeit — kein API-Key, MCP-nativ | Elecz</title>
-  <meta name="description" content="Echtzeit-Strompreis API für KI-Agenten: Spotpreise, günstigste Stunden, Vertragsvergleich für Deutschland, Österreich, Schweiz. MCP-nativ, kostenlos.">
+  <meta name="description" content="Echtzeit-Strompreis API für KI-Agenten: Spotpreise und günstigste Stunden für Deutschland, Österreich, Schweiz. Vertragsvergleich für Deutschland. MCP-nativ, kostenlos.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/de/">
   <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-api/">
@@ -12,6 +12,8 @@
   <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
   <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
   <link rel="alternate" hreflang="ja" href="https://elecz.com/ja/">
+  <link rel="alternate" hreflang="fi" href="https://elecz.com/fi/">
+  <link rel="alternate" hreflang="sv" href="https://elecz.com/sv/">
   <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
@@ -101,6 +103,14 @@
     .dach-status.full { color: var(--green); }
     .dach-status.partial { color: var(--accent2); }
     .dach-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.65; }
+    .dach-price { font-family: var(--mono); font-size: 0.95rem; font-weight: 600; color: var(--text3); margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+    .dach-price .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
+    .dach-price.low { color: var(--green); }
+    .dach-price.low .dot { background: var(--green); }
+    .dach-price.medium { color: var(--accent2); }
+    .dach-price.medium .dot { background: var(--accent2); }
+    .dach-price.high { color: #c0300a; }
+    .dach-price.high .dot { background: #c0300a; }
     .dach-note { font-size: 0.86rem; color: var(--text2); line-height: 1.7; background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px; padding: 14px 16px; margin-top: 4px; }
     .signal-banner { max-width: 860px; margin: 0 auto; padding: 36px 24px; border-bottom: 1px solid var(--border); background: var(--green-dim); }
     .signal-banner-inner { max-width: 720px; }
@@ -115,6 +125,15 @@
     .usecase-icon { font-size: 1.2rem; margin-bottom: 8px; }
     .usecase-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
     .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+    .integration-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
+    .integration-card { background: var(--bg3); padding: 22px 24px; }
+    .integration-title { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+    .integration-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; margin-bottom: 12px; }
+    .integration-code { font-family: var(--mono); font-size: 0.76rem; color: var(--text2); background: var(--bg2); padding: 8px 12px; border-radius: 5px; border: 1px solid var(--border); word-break: break-all; margin-bottom: 10px; }
+    .integration-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .integration-links a { font-size: 0.8rem; color: var(--accent2); text-decoration: none; font-weight: 500; }
+    .integration-links a:hover { text-decoration: underline; }
+    .integration-test { font-size: 0.82rem; color: var(--text2); background: var(--green-dim); border: 1px solid var(--green-border); border-radius: 6px; padding: 10px 12px; margin-top: 10px; font-style: italic; }
     @media (max-width: 680px) {
       .nav-links { display: none; }
       .tools-grid, .dach-grid { grid-template-columns: 1fr; }
@@ -133,7 +152,7 @@
     "operatingSystem": "Web/API",
     "url": "https://elecz.com/de/",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "Kostenlose Echtzeit Strompreis API für Deutschland, Österreich, die Schweiz und Europa. Liefert fertige Entscheidungssignale statt Rohdaten — Spotpreis, günstigste Stunden, dynamischer Stromtarif Vergleich. MCP-nativ, kein API-Key.",
+    "description": "Kostenlose Echtzeit Strompreis API für Deutschland, Österreich, die Schweiz und Europa. Liefert fertige Entscheidungssignale statt Rohdaten — Spotpreis und günstigste Stunden für alle drei DACH-Länder, dynamischer Stromtarif Vergleich derzeit für Deutschland. MCP-nativ, kein API-Key.",
     "inLanguage": "de"
   }
   </script>
@@ -188,7 +207,47 @@
         "name": "Funktioniert Elecz auch in Österreich und der Schweiz?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja. Österreich (AT) ist wie Deutschland vollständig liberalisiert und hat einen etablierten Markt für dynamische Tarife — cheapest_hours und best_energy_contract funktionieren identisch zu Deutschland. Die Schweiz (CH) öffnet ihren Strommarkt im Zuge des im März 2026 unterzeichneten Stromabkommens mit der EU: künftig können grundsätzlich alle Verbraucherinnen und Verbraucher ihren Lieferanten frei wählen, wer das nicht möchte, bleibt in der regulierten Grundversorgung. Zusätzlich müssen Schweizer Energieversorger ab 2026 zeitvariable Tarife anbieten, sobald ein Smart Meter installiert ist — einzelne Anbieter wie EKZ haben bereits dynamische Tarife mit 15-Minuten-Auflösung lanciert. Elecz liefert den Spotpreis schon heute in Echtzeit in Euro-Cent (Abrechnung erfolgt meist in CHF) — nützlich als Referenzsignal und für die Ladeplanung von Elektroautos, unabhängig vom Tempo der weiteren Marktöffnung."
+          "text": "Ja, mit unterschiedlichem Funktionsumfang. Österreich (AT) ist wie Deutschland vollständig liberalisiert — spot_price und cheapest_hours funktionieren identisch zu Deutschland, best_energy_contract ist für AT derzeit noch nicht verfügbar. Die Schweiz (CH) öffnet ihren Strommarkt im Zuge des im März 2026 unterzeichneten Stromabkommens mit der EU: künftig können grundsätzlich alle Verbraucherinnen und Verbraucher ihren Lieferanten frei wählen, wer das nicht möchte, bleibt in der regulierten Grundversorgung. Zusätzlich müssen Schweizer Energieversorger ab 2026 zeitvariable Tarife anbieten, sobald ein Smart Meter installiert ist — einzelne Anbieter wie EKZ haben bereits dynamische Tarife mit 15-Minuten-Auflösung lanciert. Elecz liefert den Spotpreis schon heute in Echtzeit in Euro-Cent (Abrechnung erfolgt meist in CHF) — nützlich als Referenzsignal und für die Ladeplanung von Elektroautos, unabhängig vom Tempo der weiteren Marktöffnung. best_energy_contract ist auch für CH noch nicht verfügbar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Was ist ein Entscheidungssignal beim Strompreis?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ein Entscheidungssignal ist ein bereits interpretierter Wert wie current_hour_signal (low/medium/high) oder recommendation, im Unterschied zum reinen Preiswert, den ein Agent erst selbst bewerten müsste. Elecz liefert beides: Rohpreis und fertiges Signal in derselben Antwort."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Gibt es eine Gemini Extension für Strompreise?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Elecz ist als Gemini CLI Extension über gemini-extension.json verfügbar, zusätzlich zur MCP-Verbindung und REST API."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Was ist der Unterschied zwischen einem MCP-Server und einem Connector?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Dasselbe, nur eine andere Bezeichnung je nach Plattform. Entwicklerdokumentation nennt es einen MCP-Server. KI-Plattformen wie Claude und Grok nennen dasselbe einen Connector. Der Endpunkt ist immer identisch: https://elecz.com/mcp."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Gibt es einen Elecz Skill für Claude?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Elecz stellt eine SKILL.md bereit, die dem offenen Agent-Skills-Standard folgt und in Claude, Cursor, VS Code und über 30 weiteren Tools funktioniert."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Gibt es ein Strompreis-Plugin für ChatGPT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Elecz funktioniert als Plugin für ChatGPT über einen Custom GPT und OpenAPI Actions, direkt verbinden, keine separate Konfiguration nötig. Noch nicht in OpenAIs offiziellem Plugin Directory gelistet, aber voll funktionsfähig über Direktlink."
         }
       },
       {
@@ -232,10 +291,10 @@
 <nav>
   <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
   <div class="nav-links">
-    <a href="/docs">Docs</a>
+    <a href="/docs/">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
-    <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a></span>
+    <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
     <a href="https://elecz.com/mcp" class="nav-cta">Via MCP verbinden</a>
   </div>
 </nav>
@@ -244,7 +303,7 @@
   <div class="hero-eyebrow">Strompreis API — Deutschland, Österreich, Schweiz &amp; Europa</div>
   <h1>Echtzeit Strompreis API.<br><span class="hl">Kein API-Key. MCP-nativ.</span></h1>
   <p class="hero-lead">
-    Elecz liefert den aktuellen Börsenstrompreis, die günstigsten Stunden und die besten Stromvertrag-Optionen — für KI-Agenten, Home Automation und EV-Ladung. Kein API-Key, keine Registrierung, kein Setup.
+    Elecz liefert den aktuellen Börsenstrompreis, die günstigsten Stunden und die besten Stromvertrag-Optionen — für KI-Agenten, Home Automation und EV-Ladung. Kein API-Key, keine Registrierung — sofort per REST nutzbar.
   </p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Zonen</div></div>
@@ -255,10 +314,11 @@
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Via MCP verbinden →</a>
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">In ChatGPT öffnen →</a>
-    <a href="/docs" class="btn-secondary">REST API Dokumentation</a>
+    <a href="/docs/" class="btn-secondary">REST API Dokumentation</a>
   </div>
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
-    Direkt zu: <a href="#dach" style="color: var(--text2);">DACH-Übersicht</a> ·
+    Direkt zu: <a href="#integration" style="color: var(--text2);">KI verbinden</a> ·
+    <a href="#dach" style="color: var(--text2);">DACH-Übersicht</a> ·
     <a href="#deutschland" style="color: var(--text2);">Deutschland</a> ·
     <a href="#faq" style="color: var(--text2);">Häufige Fragen</a>
   </p>
@@ -268,7 +328,7 @@
   <div class="signal-banner-inner">
     <div class="signal-eyebrow">Keine Datenquelle — eine Entscheidungsschicht</div>
     <h2>Nicht nur Strompreise. Fertige Entscheidungssignale.</h2>
-    <p>ENTSO-E und EPEX SPOT liefern Rohpreise — 24 Einzelwerte pro Tag, die ein Agent erst interpretieren muss. Elecz übernimmt diesen Schritt bereits: keine eigene Logik, kein Schwellwert-Code, kein Nachrechnen.</p>
+    <p>ENTSO-E und EPEX SPOT liefern Rohpreise — 96 Viertelstundenwerte pro Tag (seit der Umstellung auf 15-Minuten-Markteinheiten am 1. Oktober 2025), die ein Agent erst interpretieren muss. Elecz übernimmt diesen Schritt bereits: keine eigene Logik, kein Schwellwert-Code, kein Nachrechnen.</p>
     <div class="signal-flow">
       <span>8,42 ct/kWh</span>
       <span class="arrow">→</span>
@@ -282,7 +342,7 @@
 
 <div class="section" id="tools">
   <h2>Drei Tools. Alle Anwendungsfälle abgedeckt.</h2>
-  <p class="section-sub">Elecz stellt drei MCP-Tools bereit — für den aktuellen Spotpreis, die Planung günstiger Stunden und den Vergleich dynamischer Stromtarife in Deutschland, Österreich und der Schweiz. Vollständige Feldreferenz in der <a href="/docs" style="color: var(--accent2); text-decoration: underline;">REST API Dokumentation</a>.</p>
+  <p class="section-sub">Elecz stellt drei MCP-Tools bereit — für den aktuellen Spotpreis und die Planung günstiger Stunden in Deutschland, Österreich und der Schweiz, sowie den Vergleich dynamischer Stromtarife (derzeit für Deutschland verfügbar). Vollständige Feldreferenz in der <a href="/docs/" style="color: var(--accent2); text-decoration: underline;">REST API Dokumentation</a>.</p>
   <div class="tools-grid">
     <div class="tool-card">
       <div class="tool-name">spot_price</div>
@@ -319,6 +379,48 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   </div>
 </div>
 
+<div class="section" id="integration">
+  <h2>Elecz mit Ihrer KI verbinden</h2>
+  <p class="section-sub">Jede Plattform funktioniert etwas anders — hier die konkreten Schritte statt einer generischen Konfiguration.</p>
+  <div class="integration-grid">
+    <div class="integration-card">
+      <div class="integration-title">Claude</div>
+      <div class="integration-desc">Elecz als MCP-Server hinzufügen (Claude.ai: Einstellungen → Integrationen, Claude Desktop: Konfigurationsdatei).</div>
+      <div class="integration-code">https://elecz.com/mcp</div>
+      <div class="integration-test">Testfrage: „Wann sind heute in Deutschland die drei günstigsten Stunden zum Laden meines Elektroautos?"</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">ChatGPT</div>
+      <div class="integration-desc">Zwei getrennte Wege: der Custom GPT „Electricity Prices" lässt sich direkt öffnen, ohne Einrichtung. Für eine eigene MCP-Verbindung kann die Elecz-URL zusätzlich manuell über Einstellungen → Entwicklermodus hinzugefügt werden, sofern diese Funktion in Ihrem ChatGPT-Plan verfügbar ist — genau wie bei jedem anderen MCP-Server. Keiner der beiden Wege ist aktuell in OpenAIs offiziellem Plugin Directory gelistet.</div>
+      <div class="integration-links">
+        <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener">Elecz in ChatGPT öffnen →</a>
+        <a href="/electricity-price-mcp/">MCP-Anleitung ansehen →</a>
+      </div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">Cursor &amp; andere MCP-Clients</div>
+      <div class="integration-desc">Für Cursor, Copilot, Grok, Mistral und alle weiteren MCP-kompatiblen Clients — dieselbe URL, dieselbe Konfiguration.</div>
+      <div class="integration-code">https://elecz.com/mcp</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">n8n</div>
+      <div class="integration-desc">Offizieller n8n-Node installieren und Live-Strompreise, günstigste Stunden und Entscheidungssignale direkt in Workflows verwenden.</div>
+      <div class="integration-code">n8n-nodes-elecz</div>
+      <div class="integration-links"><a href="https://www.npmjs.com/package/n8n-nodes-elecz" target="_blank" rel="noopener">npm-Paket →</a></div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">Home Assistant</div>
+      <div class="integration-desc">Kein offizieller natives Add-on — Elecz über die REST API bzw. einen REST-Sensor einbinden und Automationen mit <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">current_hour_signal</code> oder <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">recommendation</code> steuern.</div>
+      <div class="integration-code">GET /signal?zone=DE&consumption=3500</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">REST API</div>
+      <div class="integration-desc">Direktes HTTP, keine Authentifizierung. Funktioniert in jeder Sprache und Plattform.</div>
+      <div class="integration-code">GET /signal/spot?zone=DE</div>
+    </div>
+  </div>
+</div>
+
 <div class="section">
   <h2>Energiebewusste KI-Agenten bauen</h2>
   <p class="section-sub">KI-Agenten und LLMs können den aktuellen Strompreis nicht aus Trainingsdaten ableiten — er ändert sich stündlich, oft um mehr als das Zehnfache innerhalb eines Tages. Ein energiebewusster Agent braucht einen Live-Tool-Call, keine Schätzung aus dem Modellgedächtnis.</p>
@@ -352,6 +454,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
       <div class="faq-a">Direkt aus <code>best_3h_window</code> — Start, Ende und Durchschnittspreis des günstigsten Drei-Stunden-Fensters.</div>
     </div>
   </div>
+  <p style="font-size: 0.88rem; color: var(--text2); line-height: 1.8; margin-top: 20px;">Elecz ist auch als Skill verfügbar — die <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">SKILL.md</code> folgt dem offenen Agent-Skills-Standard und funktioniert in Claude, Cursor, VS Code und 30+ weiteren Tools. <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/SKILL.md" target="_blank" rel="noopener" style="color: var(--accent2); text-decoration: underline;">SKILL.md auf GitHub ansehen →</a></p>
 </div>
 
 <div class="section">
@@ -395,18 +498,21 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
       <div class="dach-flag">🇩🇪</div>
       <div class="dach-zone">DE-LU</div>
       <div class="dach-status full">Vollständig liberalisiert</div>
+      <div class="dach-price" id="dach-price-DE"><span class="dot"></span>Lädt Live-Preis…</div>
       <div class="dach-desc">Dynamische Stromtarife sind seit 2025 gesetzlich Pflicht (EnWG). Etablierter Markt: Tibber, Octopus Energy, E wie Einfach, Vattenfall, EnBW. <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">cheapest_hours</code> und <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">best_energy_contract</code> sind für jeden Haushalt direkt umsetzbar.</div>
     </div>
     <div class="dach-card">
       <div class="dach-flag">🇦🇹</div>
       <div class="dach-zone">AT</div>
       <div class="dach-status full">Vollständig liberalisiert</div>
-      <div class="dach-desc">EU-Mitglied, gleiche Marktstruktur wie Deutschland. Etablierte Anbieter dynamischer Tarife: aWATTar, smartENERGY, Spotty. Beide Tools funktionieren identisch zur DE-Zone — keine Sonderbehandlung nötig.</div>
+      <div class="dach-price" id="dach-price-AT"><span class="dot"></span>Lädt Live-Preis…</div>
+      <div class="dach-desc">EU-Mitglied, gleiche Marktstruktur wie Deutschland. Etablierte Anbieter dynamischer Tarife: aWATTar, smartENERGY, Spotty. <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">spot_price</code> und <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">cheapest_hours</code> funktionieren identisch zur DE-Zone. <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">best_energy_contract</code> ist für AT noch nicht verfügbar.</div>
     </div>
     <div class="dach-card">
       <div class="dach-flag">🇨🇭</div>
       <div class="dach-zone">CH</div>
       <div class="dach-status partial">Markt öffnet sich 2026</div>
+      <div class="dach-price" id="dach-price-CH"><span class="dot"></span>Lädt Live-Preis…</div>
       <div class="dach-desc">Die Schweiz und die EU haben im März 2026 ein Stromabkommen unterzeichnet, das den Strommarkt schrittweise für alle Verbraucher öffnet — Details siehe Hinweis unten. Zusätzlich müssen Energieversorger ab 2026 zeitvariable Tarife anbieten, sobald ein Smart Meter vorhanden ist. <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">spot_price</code> liefert schon heute ein Echtzeit-Referenzsignal, z. B. für EV-Ladeplanung.</div>
     </div>
   </div>
@@ -444,6 +550,13 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     <span class="kw">Schweizer Strommarkt API</span>
     <span class="kw">energiebewusster KI-Agent</span>
     <span class="kw">Entscheidungssignal Strompreis</span>
+    <span class="kw">Strompreis-Skill</span>
+    <span class="kw">Strompreis-Node</span>
+    <span class="kw">Strompreis-Extension</span>
+    <span class="kw">Strompreis-Integration</span>
+    <span class="kw">Strompreis-Tool</span>
+    <span class="kw">Strompreis-Plugin</span>
+    <span class="kw">Strompreis-Plugin ChatGPT</span>
   </div>
 </div>
 
@@ -472,7 +585,27 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Funktioniert Elecz auch in Österreich und der Schweiz?</div>
-      <div class="faq-a">Ja. Österreich (<code>AT</code>) ist wie Deutschland vollständig liberalisiert und hat einen etablierten Markt für dynamische Tarife — <code>cheapest_hours</code> und <code>best_energy_contract</code> funktionieren identisch zu Deutschland. Die Schweiz (<code>CH</code>) öffnet ihren Strommarkt im Zuge des im März 2026 unterzeichneten Stromabkommens mit der EU: künftig können grundsätzlich alle Verbraucherinnen und Verbraucher ihren Lieferanten frei wählen, wer das nicht möchte, bleibt in der regulierten Grundversorgung. Zusätzlich müssen Schweizer Energieversorger ab 2026 zeitvariable Tarife anbieten, sobald ein Smart Meter installiert ist — einzelne Anbieter wie EKZ haben bereits dynamische Tarife mit 15-Minuten-Auflösung lanciert. Elecz liefert den Spotpreis schon heute in Echtzeit in Euro-Cent (Abrechnung erfolgt meist in CHF) — nützlich als Referenzsignal und für die Ladeplanung von Elektroautos, unabhängig vom Tempo der weiteren Marktöffnung.</div>
+      <div class="faq-a">Ja, mit unterschiedlichem Funktionsumfang. Österreich (<code>AT</code>) ist wie Deutschland vollständig liberalisiert — <code>spot_price</code> und <code>cheapest_hours</code> funktionieren identisch zu Deutschland, <code>best_energy_contract</code> ist für AT derzeit noch nicht verfügbar. Die Schweiz (<code>CH</code>) öffnet ihren Strommarkt im Zuge des im März 2026 unterzeichneten Stromabkommens mit der EU: künftig können grundsätzlich alle Verbraucherinnen und Verbraucher ihren Lieferanten frei wählen, wer das nicht möchte, bleibt in der regulierten Grundversorgung. Zusätzlich müssen Schweizer Energieversorger ab 2026 zeitvariable Tarife anbieten, sobald ein Smart Meter installiert ist — einzelne Anbieter wie EKZ haben bereits dynamische Tarife mit 15-Minuten-Auflösung lanciert. Elecz liefert den Spotpreis schon heute in Echtzeit in Euro-Cent (Abrechnung erfolgt meist in CHF) — nützlich als Referenzsignal und für die Ladeplanung von Elektroautos, unabhängig vom Tempo der weiteren Marktöffnung. <code>best_energy_contract</code> ist auch für CH noch nicht verfügbar.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Was ist ein Entscheidungssignal beim Strompreis?</div>
+      <div class="faq-a">Ein Entscheidungssignal ist ein bereits interpretierter Wert wie <code>current_hour_signal</code> (<code>low</code>/<code>medium</code>/<code>high</code>) oder <code>recommendation</code> — im Unterschied zum reinen Preiswert, den ein Agent erst selbst bewerten müsste. Elecz liefert beides: Rohpreis und fertiges Signal in derselben Antwort.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Gibt es eine Gemini Extension für Strompreise?</div>
+      <div class="faq-a">Ja. Elecz ist als Gemini CLI Extension über <code>gemini-extension.json</code> verfügbar, zusätzlich zur MCP-Verbindung und REST API. <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/gemini-extension.json" target="_blank" rel="noopener">gemini-extension.json auf GitHub ansehen →</a></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Was ist der Unterschied zwischen einem MCP-Server und einem Connector?</div>
+      <div class="faq-a">Dasselbe, nur eine andere Bezeichnung je nach Plattform. Entwicklerdokumentation nennt es einen MCP-Server. KI-Plattformen wie Claude und Grok nennen dasselbe einen Connector. Der Endpunkt ist immer identisch: <code>https://elecz.com/mcp</code>.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Gibt es einen Elecz Skill für Claude?</div>
+      <div class="faq-a">Ja. Elecz stellt eine <code>SKILL.md</code> bereit, die dem offenen Agent-Skills-Standard folgt und in Claude, Cursor, VS Code und über 30 weiteren Tools funktioniert. <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/SKILL.md" target="_blank" rel="noopener">SKILL.md auf GitHub ansehen →</a></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Gibt es ein Strompreis-Plugin für ChatGPT?</div>
+      <div class="faq-a">Ja. Elecz funktioniert als Plugin für ChatGPT über einen Custom GPT und OpenAPI Actions — direkt verbinden, keine separate Konfiguration nötig. Noch nicht in OpenAIs offiziellem Plugin Directory gelistet, aber voll funktionsfähig über Direktlink.</div>
     </div>
   </div>
 </div>
@@ -483,7 +616,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Via MCP verbinden →</a>
     <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">In ChatGPT öffnen →</a>
-    <a href="/docs" class="btn-secondary">Dokumentation lesen</a>
+    <a href="/docs/" class="btn-secondary">Dokumentation lesen</a>
   </div>
 </div>
 
@@ -491,11 +624,47 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
   <p>
     ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Finnland ·
     Daten: ENTSO-E · EPEX SPOT · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
-    <a href="/terms">Nutzungsbedingungen</a> · <a href="/docs">Docs</a> ·
+    <a href="/terms/">Nutzungsbedingungen</a> · <a href="/docs/">Docs</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
-    <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a>
+    <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a>
   </p>
 </footer>
+
+<script>
+const DACH_ZONES = ["DE", "AT", "CH"];
+
+async function loadDachPrice(zone) {
+  const el = document.getElementById("dach-price-" + zone);
+  if (!el) return;
+  try {
+    const [spotRes, hoursRes] = await Promise.all([
+      fetch(`/signal/spot?zone=${zone}`),
+      fetch(`/signal/cheapest-hours?zone=${zone}`)
+    ]);
+    if (!spotRes.ok) throw new Error("spot");
+    const spot = await spotRes.json();
+    let signal = null;
+    if (hoursRes.ok) {
+      const hours = await hoursRes.json();
+      if (hours && hours.available !== false) signal = hours.current_hour_signal || null;
+    }
+    const priceText = `${spot.price} ${spot.unit || "ct/kWh"}`;
+    if (signal) {
+      const labelMap = { low: "günstig", medium: "durchschnittlich", high: "teuer" };
+      el.className = "dach-price " + signal;
+      el.innerHTML = `<span class="dot"></span>${priceText} · ${labelMap[signal] || signal}`;
+    } else {
+      el.className = "dach-price";
+      el.innerHTML = `<span class="dot"></span>${priceText}`;
+    }
+  } catch {
+    el.className = "dach-price";
+    el.innerHTML = `<span class="dot"></span>Live-Preis derzeit nicht verfügbar`;
+  }
+}
+
+DACH_ZONES.forEach(loadDachPrice);
+</script>
 
 </body>
 </html>
