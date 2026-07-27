@@ -86,6 +86,9 @@ export default {
       "/privacy",
       "/terms",
       "/electricity-price-api",
+      "/fi",
+      "/ja",
+      "/for-agents",
     ];
     if (NO_SLASH_REDIRECT.includes(path)) {
       const assetUrl = new URL(url);
