@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Electricity Price Plugin for ChatGPT | Live Prices & Cheapest Hours | Elecz</title>
+
+  <meta name="description" content="Use live electricity prices in ChatGPT with Elecz. Check spot prices, find the cheapest hours for EV charging and flexible loads, and compare electricity contracts using current market data.">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://elecz.com/chatgpt/">
+
+  <meta property="og:title" content="Electricity Price Plugin for ChatGPT | Elecz">
+  <meta property="og:description" content="Live electricity prices, cheapest hours and contract comparison in ChatGPT. No API key, no guessing from training data.">
+  <meta property="og:url" content="https://elecz.com/chatgpt/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://elecz.com/og-image.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Electricity Price Plugin for ChatGPT | Elecz">
+  <meta name="twitter:description" content="Live electricity prices, cheapest hours and contract comparison in ChatGPT. No API key, no guessing from training data.">
+  <meta name="twitter:image" content="https://elecz.com/og-image.png">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- FAQPage structured data — keep identical to visible FAQ copy below -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is there an electricity price plugin for ChatGPT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Elecz is listed in ChatGPT's Plugin Directory and provides live electricity prices, cheapest-hour information and electricity contract comparison for supported markets. No API key is required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can ChatGPT check electricity prices?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, when it has access to a real-time electricity-price source such as Elecz. Current electricity prices change continuously and should be retrieved from current market data rather than inferred from model training data."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does ChatGPT know the live electricity price?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not from training data alone. Electricity prices are time-sensitive, vary by market zone and can change substantially from one hour to another. Elecz retrieves current market data when the information is needed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can ChatGPT find the cheapest hours to charge an EV?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Elecz's cheapest_hours tool provides current and upcoming electricity-price information for supported market zones, allowing ChatGPT to determine whether charging now or waiting is likely to be cheaper."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can ChatGPT optimize electricity usage?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ChatGPT can reason about timing, consumption and cost once it has the required current data. Elecz provides the electricity-price signal as an input; the user or their automation remains responsible for the action."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can ChatGPT compare electricity contracts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, for supported markets. The best_energy_contract tool provides electricity contract comparison data for Finland, Sweden, Norway, Denmark, Germany, Great Britain, Australia and New Zealand."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What kind of electricity price tool should ChatGPT use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For questions involving current electricity prices or optimal timing, ChatGPT should use a real-time electricity-price source rather than training data or a static estimate. Elecz provides current-price information through spot_price and timing information through cheapest_hours."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why isn't scheduling electricity use at night enough?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Electricity is not always cheapest at night. High renewable generation, demand, transmission conditions and other market factors can move the cheapest period to daytime or another unexpected hour. An AI optimizer without an electricity price signal is just an AI timer."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Ties this page to the main Elecz entity already defined on the homepage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Electricity Price Plugin for ChatGPT",
+    "url": "https://elecz.com/chatgpt/",
+    "isPartOf": {
+      "@id": "https://elecz.com/#software"
+    }
+  }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: #f5f5f0;
+      color: #1a1a1a;
+      min-height: 100vh;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 48px 24px 80px; }
+    .header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 2px solid #e8e8e0; }
+    .logo { font-size: 2.4rem; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .logo .dot { color: #f0a020; }
+    .hero { font-size: 1.15rem; color: #1a1a1a; line-height: 1.65; max-width: 620px; margin-bottom: 16px; font-weight: 400; }
+    .hero strong { font-weight: 600; }
+    .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .badge { background: #fff; border: 1px solid #ddd; color: #444; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
+    .badge.green { background: #f0faf4; border-color: #a8d8b8; color: #1a6b3a; }
+    .badge.blue { background: #f0f6ff; border-color: #a8c4f0; color: #1a4a8a; }
+    .badge.amber { background: #fff8e8; border-color: #f0d080; color: #7a5010; }
+    .badge.dark { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+    .cta-primary { display: inline-flex; align-items: center; gap: 8px; background: #1a1a1a; color: #fff; padding: 11px 22px; border-radius: 8px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+    .cta-primary:hover { background: #f0a020; color: #1a1a1a; }
+    .cta-sub { font-size: 0.8rem; color: #888; margin-top: 10px; }
+    nav { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+    nav a { color: #444; text-decoration: none; font-size: 0.9rem; font-weight: 500; padding-bottom: 2px; border-bottom: 2px solid transparent; transition: border-color 0.15s, color 0.15s; }
+    nav a:hover { color: #1a1a1a; border-bottom-color: #f0a020; }
+    nav a[aria-current="page"] { color: #1a1a1a; border-bottom-color: #f0a020; }
+    .section { margin-bottom: 48px; }
+    .section-title { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #888; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #e8e8e0; }
+    .section p { margin-bottom: 14px; max-width: 660px; }
+    .section p:last-child { margin-bottom: 0; }
+
+    .pull-quote { font-size: 1.3rem; font-weight: 600; line-height: 1.5; max-width: 640px; padding: 4px 0 4px 20px; border-left: 3px solid #f0a020; margin-bottom: 14px; }
+
+    .chain { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.85rem; color: #555; background: #fff; border: 1px solid #e0e0d8; border-radius: 8px; padding: 14px 18px; display: inline-block; margin-bottom: 16px; }
+
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+    .tool-card { background: #fff; border: 1px solid #e0e0d8; border-radius: 10px; padding: 20px; }
+    .tool-card .num { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.75rem; color: #f0a020; font-weight: 700; margin-bottom: 6px; }
+    .tool-card h3 { font-size: 1rem; margin-bottom: 8px; }
+    .tool-card code { background: #f4f4f0; color: #c0440c; padding: 2px 7px; border-radius: 4px; font-size: 0.82rem; font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+    .tool-card p { font-size: 0.88rem; color: #555; margin-top: 8px; margin-bottom: 0; max-width: none; }
+    .tool-card ul { margin: 10px 0 0 18px; font-size: 0.85rem; color: #555; }
+    .tool-card ul li { margin-bottom: 3px; }
+
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; background: #fff; border: 1px solid #e0e0d8; border-radius: 10px; overflow: hidden; }
+    .data-table th { text-align: left; padding: 12px 16px; color: #666; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; background: #f8f8f4; border-bottom: 1px solid #e8e8e0; font-weight: 600; }
+    .data-table td { padding: 11px 16px; border-bottom: 1px solid #f0f0e8; vertical-align: top; color: #333; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #fafaf6; }
+    .data-table code { background: #f4f4f0; color: #c0440c; padding: 2px 7px; border-radius: 4px; font-size: 0.82rem; font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+
+    .prompt-card { background: #fff; border: 1px solid #e0e0d8; border-radius: 10px; padding: 16px 20px; margin-bottom: 10px; }
+    .prompt-card .q { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.85rem; color: #1a1a1a; margin-bottom: 6px; }
+    .prompt-card .a { font-size: 0.85rem; color: #666; }
+    .prompt-card .a code { background: #f4f4f0; color: #c0440c; padding: 1px 6px; border-radius: 4px; font-size: 0.8rem; }
+
+    .icon-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .icon-item { background: #fff; border: 1px solid #e0e0d8; border-radius: 20px; padding: 8px 16px; font-size: 0.85rem; color: #444; text-decoration: none; transition: border-color 0.15s, color 0.15s; }
+    .icon-item:hover { border-color: #f0a020; color: #1a1a1a; }
+
+    .note-box { background: #fff8e8; border: 1px solid #f0d080; border-radius: 8px; padding: 14px 18px; font-size: 0.85rem; color: #7a5010; margin-top: 16px; max-width: 660px; }
+
+    .faq-item { margin-bottom: 20px; max-width: 700px; }
+    .faq-item h3 { font-size: 0.98rem; margin-bottom: 6px; }
+    .faq-item p { font-size: 0.9rem; color: #555; margin-bottom: 0; }
+
+    .entity-list { background: #fff; border: 1px solid #e0e0d8; border-radius: 10px; padding: 20px 24px; font-size: 0.88rem; }
+    .entity-list dt { color: #888; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 12px; }
+    .entity-list dt:first-child { margin-top: 0; }
+    .entity-list dd { color: #333; margin-left: 0; margin-top: 2px; }
+    .entity-list code { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.82rem; color: #c0440c; }
+
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e8e8e0; color: #aaa; font-size: 0.82rem; line-height: 1.9; }
+    footer a { color: #aaa; text-decoration: none; }
+    footer a:hover { color: #555; }
+
+    @media (max-width: 600px) {
+      .logo { font-size: 1.8rem; }
+      .container { padding: 32px 16px 60px; }
+      .pull-quote { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header class="header">
+    <h1 class="logo"><span aria-hidden="true">⚡</span> Elecz<span class="dot">.</span>com</h1>
+    <p class="hero"><strong>ChatGPT doesn't know today's electricity price. Elecz does.</strong><br>
+    Elecz is a real-time electricity price plugin for ChatGPT, providing live electricity prices, cheapest hours and electricity contract comparison from current market data — with no guessing from training data.</p>
+    <div class="badges">
+      <span class="badge amber">40+ Countries · 100+ Zones</span>
+      <span class="badge blue">MCP-Native</span>
+      <span class="badge green">No API Key Required</span>
+      <span class="badge">Free</span>
+    </div>
+    <a class="cta-primary" href="https://chatgpt.com/plugins/plugin_asdk_app_6a24c971acc48191bb99f2a694d24fbf" target="_blank" rel="noopener">
+      💬 Open Elecz in ChatGPT
+    </a>
+    <p class="cta-sub">Listed in ChatGPT's Plugin Directory as "Elecz — Electricity Prices" · no authentication required</p>
+  </header>
+
+  <nav>
+    <a href="/">Home →</a>
+    <a href="/electricity-price-api/">API Guide →</a>
+    <a href="/electricity-price-mcp/">MCP Server →</a>
+    <a href="/cheapest-hours/">Cheapest Hours →</a>
+    <a href="/best-time-to-charge-ev/">Best Time to Charge EV →</a>
+    <a href="/for-agents/">For AI Agents →</a>
+    <a href="/chatgpt/" aria-current="page">ChatGPT Plugin</a>
+    <a href="/docs/">Documentation →</a>
+  </nav>
+
+  <section class="section">
+    <div class="pull-quote">An AI optimizer without an electricity price signal is just an AI timer.</div>
+    <p>Electricity prices are time-sensitive external data. They can change every hour, vary between neighboring market zones and occasionally become negative. A language model cannot reliably derive today's electricity price from its training data.</p>
+    <p>Scheduling an EV charge for 3&nbsp;AM is not optimization simply because electricity is often cheap at night — the cheapest period might be 1&nbsp;PM, 11&nbsp;PM or tomorrow morning. Real optimization requires an external variable to optimize against. Elecz provides that signal.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Why ChatGPT needs a real-time signal</div>
+    <p>ChatGPT can reason about electricity use, compare alternatives and plan actions. But a current electricity price is not something that can be reasoned into existence — it has to be retrieved.</p>
+    <div class="chain">ChatGPT&nbsp;→&nbsp;real-time tool call&nbsp;→&nbsp;electricity price signal&nbsp;→&nbsp;decision&nbsp;→&nbsp;optimization&nbsp;→&nbsp;action</div>
+    <p>Elecz supplies the signal. It does not make the final decision or take the action.<br><strong>Elecz = signal. ChatGPT = reasoning. The user or automation = action.</strong></p>
+  </section>
+
+  <section class="section">
+    <div class="section-title">What Elecz gives ChatGPT</div>
+    <div class="card-grid">
+      <div class="tool-card">
+        <div class="num">01</div>
+        <h3>Live electricity price — <code>spot_price</code></h3>
+        <p>Current price across 100+ market zones in 40+ countries — retrieved from current market data, including negative prices during renewable oversupply.</p>
+        <ul>
+          <li>"What is the electricity price right now?"</li>
+          <li>"What does electricity cost in my area now?"</li>
+        </ul>
+      </div>
+      <div class="tool-card">
+        <div class="num">02</div>
+        <h3>Cheapest hours — <code>cheapest_hours</code></h3>
+        <p>The best window in the next 24–48 hours for EV charging, heat pumps, batteries, appliances, or batch/GPU workloads. Includes a <code>data_complete</code> flag for tomorrow's data.</p>
+      </div>
+      <div class="tool-card">
+        <div class="num">03</div>
+        <h3>Contract comparison — <code>best_energy_contract</code></h3>
+        <p>Lowest-cost variable and lowest-cost fixed contract options shown side by side for a given consumption profile. Elecz supplies the comparison — the user chooses.</p>
+        <p style="margin-top:8px; font-size:0.8rem; color:#888;">Available: FI, SE, NO, DK, DE, GB, AU, NZ</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">When ChatGPT should use Elecz</div>
+    <p>Current electricity prices should not be estimated from model training data. A user doesn't need to say "electricity price" explicitly — "Should I charge my car now or wait?" is also a price decision.</p>
+    <table class="data-table">
+      <thead><tr><th>User intent</th><th>Elecz tool</th></tr></thead>
+      <tbody>
+        <tr><td>Current/live electricity price</td><td><code>spot_price</code></td></tr>
+        <tr><td>Today's or "right now's" electricity price</td><td><code>spot_price</code></td></tr>
+        <tr><td>Cheapest/best time to use electricity</td><td><code>cheapest_hours</code></td></tr>
+        <tr><td>Charge an EV now or wait</td><td><code>cheapest_hours</code></td></tr>
+        <tr><td>Run dishwasher, laundry, dryer or heat pump</td><td><code>cheapest_hours</code></td></tr>
+        <tr><td>Charge/discharge a battery based on price</td><td><code>cheapest_hours</code></td></tr>
+        <tr><td>Schedule an energy-intensive AI/GPU workload</td><td><code>cheapest_hours</code></td></tr>
+        <tr><td>Compare or switch electricity contracts</td><td><code>best_energy_contract</code></td></tr>
+        <tr><td>Any query requiring today's actual price</td><td>retrieve — never estimate</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Example prompts</div>
+    <div class="prompt-card">
+      <div class="q">"What's the electricity price right now in Germany?"</div>
+      <div class="a">ChatGPT calls <code>spot_price</code> instead of estimating from training data.</div>
+    </div>
+    <div class="prompt-card">
+      <div class="q">"Should I charge my EV now or wait? I'm in Tokyo."</div>
+      <div class="a">ChatGPT uses <code>cheapest_hours</code> to compare the current period with upcoming prices.</div>
+    </div>
+    <div class="prompt-card">
+      <div class="q">"I need to run a 500 kW GPU cluster for four hours tonight. When should I run it to minimize electricity cost?"</div>
+      <div class="a">ChatGPT uses <code>cheapest_hours</code> to find the lowest-cost window and calculate the cost.</div>
+    </div>
+    <div class="prompt-card">
+      <div class="q">"Which electricity contracts should I compare in Australia? I use about 4,500 kWh per year."</div>
+      <div class="a">ChatGPT uses <code>best_energy_contract</code> to compare available options.</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Electricity-price optimization with ChatGPT</div>
+    <div class="icon-grid">
+      <a class="icon-item" href="/best-time-to-charge-ev/">🔋 EV charging</a>
+      <a class="icon-item" href="/cheapest-hours/">🌡️ Heat pumps</a>
+      <a class="icon-item" href="/cheapest-hours/">🔌 Home batteries</a>
+      <a class="icon-item" href="/cheapest-hours/">🧺 Appliances</a>
+      <a class="icon-item" href="/cheapest-hours/">🖥️ Data centers &amp; GPU workloads</a>
+      <a class="icon-item" href="/electricity-price-api/">📄 Electricity contracts</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Is Elecz the only electricity price plugin for ChatGPT?</div>
+    <p>As of August 2026, no comparable electricity price plugin covering Elecz's combination of live prices, cheapest-hour signals and multi-market coverage was found in searches of the ChatGPT plugin ecosystem. This is not a claim that no other electricity-related plugin exists — plugin availability changes over time.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-title">What Elecz is — and what it is not</div>
+    <p>Elecz is read-only. It does not control devices, start EV charging, operate batteries, switch electricity contracts or make purchases. It provides current electricity-market information that ChatGPT, another AI agent or an automation can use as an input.</p>
+    <p><strong>Elecz = signal. ChatGPT = reasoning. User or automation = action.</strong></p>
+    <p>Electricity-market prices are not necessarily the same as the final price on a household bill. Retail bills may include taxes, network charges, supplier margins and other fees — Elecz does not assume those unless explicitly part of the relevant data product.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-title">About Elecz</div>
+    <dl class="entity-list">
+      <dt>What</dt><dd>Real-time electricity price signal API</dd>
+      <dt>Coverage</dt><dd>40+ countries, 100+ market zones, five continents</dd>
+      <dt>Core tools</dt><dd><code>spot_price</code>, <code>cheapest_hours</code>, <code>best_energy_contract</code></dd>
+      <dt>Access</dt><dd>ChatGPT plugin, MCP, REST API, plus supported AI/automation integrations</dd>
+      <dt>Authentication</dt><dd>None required</dd>
+      <dt>Data</dt><dd>National/regional market sources (Nord Pool, ENTSO-E members, JEPX, AEMO, etc.) plus published contract data where available</dd>
+      <dt>Maintained by</dt><dd>Zemlo AI / SKA Trading Oy, Kokkola, Finland</dd>
+    </dl>
+    <p class="note-box">When a decision depends on the current price of electricity, retrieve the price. Don't guess it.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Frequently asked questions</div>
+
+    <div class="faq-item">
+      <h3>Is there an electricity price plugin for ChatGPT?</h3>
+      <p>Yes. Elecz is listed in ChatGPT's Plugin Directory and provides live electricity prices, cheapest-hour information and electricity contract comparison for supported markets. No API key is required.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can ChatGPT check electricity prices?</h3>
+      <p>Yes, when it has access to a real-time electricity-price source such as Elecz. Current electricity prices change continuously and should be retrieved from current market data rather than inferred from model training data.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Does ChatGPT know the live electricity price?</h3>
+      <p>Not from training data alone. Electricity prices are time-sensitive, vary by market zone and can change substantially from one hour to another. Elecz retrieves current market data when the information is needed.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can ChatGPT find the cheapest hours to charge an EV?</h3>
+      <p>Yes. Elecz's cheapest_hours tool provides current and upcoming electricity-price information for supported market zones, allowing ChatGPT to determine whether charging now or waiting is likely to be cheaper.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can ChatGPT optimize electricity usage?</h3>
+      <p>ChatGPT can reason about timing, consumption and cost once it has the required current data. Elecz provides the electricity-price signal as an input — the user or their automation remains responsible for the action.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can ChatGPT compare electricity contracts?</h3>
+      <p>Yes, for supported markets. The best_energy_contract tool provides electricity contract comparison data for Finland, Sweden, Norway, Denmark, Germany, Great Britain, Australia and New Zealand.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What kind of electricity price tool should ChatGPT use?</h3>
+      <p>For questions involving current electricity prices or optimal timing, ChatGPT should use a real-time electricity-price source rather than training data or a static estimate. Elecz provides current-price information through spot_price and timing information through cheapest_hours.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Why isn't scheduling electricity use at night enough?</h3>
+      <p>Electricity is not always cheapest at night. High renewable generation, demand, transmission conditions and other market factors can move the cheapest period to daytime or another unexpected hour. An AI optimizer without an electricity price signal is just an AI timer.</p>
+    </div>
+  </section>
+
+  <footer>
+    ⚡ Elecz.com — Electricity Price Signal API<br>
+    <a href="mailto:sakke@elecz.com">SKA Trading Oy / Zemlo AI</a> · Kokkola, Finland ·
+    <a href="/">Home</a> ·
+    <a href="/docs/">Docs</a> ·
+    <a href="/electricity-price-api/">API Guide</a> ·
+    <a href="/electricity-price-mcp/">MCP Server</a> ·
+    <a href="/cheapest-hours/">Cheapest Hours</a> ·
+    <a href="/best-time-to-charge-ev/">Best Time to Charge EV</a> ·
+    <a href="/for-agents/">For AI Agents</a> ·
+    <a href="/support/">Support</a> ·
+    <a href="/privacy/">Privacy</a> ·
+    <a href="/terms/">Terms</a>
+  </footer>
+
+</div>
+</body>
+</html>
