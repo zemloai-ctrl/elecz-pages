@@ -259,7 +259,7 @@
         "name": "Onko sähkön hinta plugin ChatGPT:lle?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Kyllä, kahdella tavalla. Electricity Prices -custom GPT on jo julkisesti listattuna ChatGPT:n omassa GPT-hakemistossa ja löytyy hakemalla suoraan ChatGPT:ssä. Eleczin MCP-yhteyden voi myös lisätä manuaalisesti ChatGPT:n Kehittäjätila-asetuksista, samaan tapaan kuin minkä tahansa muun MCP-palvelimen. Tämä yhteystapa ei ole listattuna OpenAI:n erillisessä, uudemmassa Plugin Directoryssä, joka koskee MCP-pohjaisia Apps-sovelluksia."
+          "text": "Kyllä. Elecz on listattuna ChatGPT:n virallisessa Plugin Directoryssä nimellä \"Elecz — Electricity Prices\" — suora yhteys, ei API-avainta."
         }
       },
       {
@@ -321,6 +321,7 @@
   <div class="nav-links">
     <a href="/docs/">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
+    <a href="/chatgpt/">ChatGPT-plugin</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
     <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
     <a href="https://elecz.com/mcp" class="nav-cta">Yhdistä MCP:llä</a>
@@ -341,9 +342,12 @@
   </div>
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Yhdistä MCP:llä →</a>
-    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Avaa ChatGPT:ssä →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">Avaa ChatGPT:ssä →</a>
     <a href="/docs/" class="btn-secondary">REST API -dokumentaatio</a>
   </div>
+  <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text2);">
+    Oletko yksityiskäyttäjä ja haluat vain tietää kannattaako odottaa? <a href="https://cheapesthours.com/" target="_blank" rel="noopener" style="color: var(--accent2); text-decoration: underline;">cheapesthours.com</a> vastaa siihen ilman teknistä settiä — tämä sivu on kehittäjille ja tekoälyagenteille.
+  </p>
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
     Siirry: <a href="#integraatio" style="color: var(--text2);">Yhdistä tekoälyysi</a> ·
     <a href="#tyokalut" style="color: var(--text2);">Työkalut</a> ·
@@ -419,9 +423,9 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
     </div>
     <div class="integration-card">
       <div class="integration-title">ChatGPT</div>
-      <div class="integration-desc">Kaksi erillistä tapaa: "Electricity Prices" -custom GPT on jo listattuna ChatGPT:n omassa GPT-hakemistossa ja löytyy hakemalla "Electricity Prices" suoraan ChatGPT:ssä, tai avaamalla se linkistä. Eleczin MCP-yhteyden voi myös lisätä manuaalisesti Asetukset → Kehittäjätila-valikosta, jos tämä ominaisuus on käytössä ChatGPT-tilauksessasi — samalla tavalla kuin minkä tahansa muun MCP-palvelimen. Tämä MCP-yhteystapa ei ole listattuna OpenAI:n erillisessä, uudemmassa Plugin Directoryssä, joka koskee MCP-pohjaisia Apps-sovelluksia.</div>
+      <div class="integration-desc">Elecz on listattuna ChatGPT:n virallisessa Plugin Directoryssä nimellä "Elecz — Electricity Prices" — avautuu ja yhdistyy suoraan, ei asennusta, ei API-avainta. Oman MCP-yhteyden voi myös lisätä Asetukset → Kehittäjätila-valikosta, jos tämä ominaisuus on käytössä ChatGPT-tilauksessasi — samalla tavalla kuin minkä tahansa muun MCP-palvelimen.</div>
       <div class="integration-links">
-        <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener">Avaa Elecz ChatGPT:ssä →</a>
+        <a href="/chatgpt/">Lisää Eleczistä ChatGPT:ssä →</a>
         <a href="/electricity-price-mcp/">Katso MCP-opas →</a>
       </div>
     </div>
@@ -599,7 +603,7 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Onko sähkön hinta plugin ChatGPT:lle?</div>
-      <div class="faq-a">Kyllä, kahdella tavalla. "Electricity Prices" -custom GPT on jo julkisesti listattuna ChatGPT:n omassa GPT-hakemistossa ja löytyy hakemalla suoraan ChatGPT:ssä. Eleczin MCP-yhteyden voi myös lisätä manuaalisesti ChatGPT:n Kehittäjätila-asetuksista, samaan tapaan kuin minkä tahansa muun MCP-palvelimen — tämä yhteystapa ei ole listattuna OpenAI:n erillisessä, uudemmassa Plugin Directoryssä, joka koskee MCP-pohjaisia Apps-sovelluksia.</div>
+      <div class="faq-a">Kyllä. Elecz on listattuna ChatGPT:n virallisessa Plugin Directoryssä nimellä "Elecz — Electricity Prices" — suora yhteys, ei API-avainta. <a href="/chatgpt/">Lisätietoa →</a></div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Onko Elecillä Gemini-laajennus (extension)?</div>
@@ -633,7 +637,7 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
   <p>Agenttinatiivi. MCP-natiivi. Ilmainen. Suomelle, Ruotsille, Norjalle, Tanskalle ja 40+ muulle maalle.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Yhdistä MCP:llä →</a>
-    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Avaa ChatGPT:ssä →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">Avaa ChatGPT:ssä →</a>
     <a href="/docs/" class="btn-secondary">Lue dokumentaatio</a>
   </div>
 </div>
@@ -642,7 +646,7 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
   <p>
     ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Suomi ·
     Data: ENTSO-E · Nord Pool · Fingrid · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
-    <a href="/terms/">Ehdot</a> · <a href="/docs/">Docs</a> ·
+    <a href="/terms/">Ehdot</a> · <a href="/docs/">Docs</a> · <a href="/chatgpt/">ChatGPT-plugin</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/sv/">🇸🇪 Svenska</a>
   </p>
