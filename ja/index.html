@@ -261,7 +261,7 @@
         "name": "ChatGPT向けの電力価格プラグインはありますか？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "はい。EleczのMCPエンドポイント（https://elecz.com/mcp）は、ChatGPTの設定、開発者モードから他のMCPサーバーと同じ手順でプラグインのように追加できます。コーディング不要、URLを入力するだけです。現時点ではOpenAIの公式プラグインディレクトリには未掲載のため、ディレクトリからの検索ではなく直接追加する形になります。セットアップ不要のカスタムGPT（Electricity Prices）も直接リンクから別途利用可能です。"
+          "text": "はい。EleczはChatGPTの公式Plugin Directoryに「Elecz — Electricity Prices」として掲載されています — 設定不要でそのまま接続でき、APIキーも不要です。"
         }
       },
       {
@@ -309,6 +309,7 @@
     <a href="/electricity-price-api/">API Guide</a>
     <a href="/cheapest-hours/">Cheapest Hours</a>
     <a href="/for-agents/">For AI Agents</a>
+    <a href="/chatgpt/">ChatGPTプラグイン</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
     <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
     <a href="https://elecz.com/mcp" class="nav-cta">MCPで接続</a>
@@ -329,9 +330,12 @@
   </div>
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">MCPで接続 →</a>
-    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">ChatGPTで開く →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">ChatGPTで開く →</a>
     <a href="/docs/" class="btn-secondary">REST APIドキュメント</a>
   </div>
+  <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text2);">
+    一般のご家庭の方で、待った方がお得かどうかだけ知りたい場合は <a href="https://cheapesthours.com/" target="_blank" rel="noopener" style="color: var(--accent2); text-decoration: underline;">cheapesthours.com</a> なら技術的な知識なしでそれが分かります — こちらのページは開発者・AIエージェント向けです。
+  </p>
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
     直接ジャンプ: <a href="#japan-zones" style="color: var(--text2);">日本エリア一覧</a> ·
     <a href="#japan-dev" style="color: var(--text2);">開発者向け情報</a> ·
@@ -647,7 +651,7 @@ automation:
     </div>
     <div class="faq-item">
       <div class="faq-q">ChatGPT向けの電力価格プラグインはありますか？</div>
-      <div class="faq-a">はい。Eleczの MCP エンドポイント（<code>https://elecz.com/mcp</code>）は、ChatGPTの設定 → 開発者モードから他のMCPサーバーと同じ手順でプラグインのように追加できます。コーディング不要、URLを入力するだけです。現時点ではOpenAIの公式プラグインディレクトリには未掲載のため、ディレクトリからの検索ではなく直接追加する形になります。セットアップ不要のカスタムGPT（Electricity Prices）も直接リンクから別途利用可能です。</div>
+      <div class="faq-a">はい。EleczはChatGPTの公式Plugin Directoryに「Elecz — Electricity Prices」として掲載されています — 設定不要でそのまま接続でき、APIキーも不要です。<a href="/chatgpt/" style="color: var(--accent2); text-decoration: underline;">詳細はこちら →</a></div>
     </div>
     <div class="faq-item">
       <div class="faq-q">MCPとは何ですか？なぜ電力価格データに必要なのですか？</div>
@@ -661,7 +665,7 @@ automation:
   <p>APIキー不要。登録不要。MCP対応。日本の全9 JEPXエリアと世界40か国以上で無料。</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">MCPで接続 →</a>
-    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">ChatGPTで開く →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">ChatGPTで開く →</a>
     <a href="/docs/" class="btn-secondary">ドキュメントを読む</a>
   </div>
 </div>
@@ -670,7 +674,7 @@ automation:
   <p>
     ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, コッコラ, フィンランド ·
     データ: ENTSO-E · EPEX SPOT · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
-    <a href="/terms/">利用規約</a> · <a href="/docs/">Docs</a> ·
+    <a href="/terms/">利用規約</a> · <a href="/docs/">Docs</a> · <a href="/chatgpt/">ChatGPTプラグイン</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a>
   </p>
