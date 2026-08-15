@@ -228,6 +228,14 @@
       },
       {
         "@type": "Question",
+        "name": "Finns det ett elpris-plugin för ChatGPT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Elecz är listat i ChatGPTs officiella Plugin Directory som \"Elecz — Electricity Prices\" — kopplas direkt, ingen API-nyckel krävs."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "Varifrån kommer prisdatan och vad är källan?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -245,6 +253,7 @@
   <div class="nav-links">
     <a href="/docs/">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
+    <a href="/chatgpt/">ChatGPT-plugin</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
     <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a></span>
     <a href="https://elecz.com/mcp" class="nav-cta">Anslut via MCP</a>
@@ -265,9 +274,12 @@
   </div>
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Anslut via MCP →</a>
-    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Öppna i ChatGPT →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">Öppna i ChatGPT →</a>
     <a href="/docs/" class="btn-secondary">REST API-dokumentation</a>
   </div>
+  <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text2);">
+    Privatperson och vill bara veta om det lönar sig att vänta? <a href="https://cheapesthours.com/" target="_blank" rel="noopener" style="color: var(--accent2); text-decoration: underline;">cheapesthours.com</a> svarar på det utan tekniskt krångel — den här sidan är till för utvecklare och AI-agenter.
+  </p>
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
     Gå till: <a href="#verktyg" style="color: var(--text2);">Verktyg</a> ·
     <a href="#jamforelse" style="color: var(--text2);">Sverige vs. andra tjänster</a> ·
@@ -389,6 +401,7 @@ curl "https://elecz.com/signal/contract?zone=SE&consumption=5000"</pre>
     <span class="kw">elpris skill</span>
     <span class="kw">elpris node</span>
     <span class="kw">elpris MCP-server</span>
+    <span class="kw">elpris plugin ChatGPT</span>
   </div>
 </div>
 
@@ -472,6 +485,10 @@ curl "https://elecz.com/signal/contract?zone=SE&consumption=5000"</pre>
       <div class="faq-q">Jämför Elecz elbolag i Sverige?</div>
       <div class="faq-a">Ja, <code>best_energy_contract</code> returnerar bästa rörliga avtal, bästa fasta avtal och en rekommendation med uppskattad besparing för SE-zonen — ett av åtta marknader Elecz stödjer för avtalsjämförelse (FI, SE, NO, DK, DE, GB, AU, NZ).</div>
     </div>
+    <div class="faq-item">
+      <div class="faq-q">Finns det ett elpris-plugin för ChatGPT?</div>
+      <div class="faq-a">Ja. Elecz är listat i ChatGPTs officiella Plugin Directory som "Elecz — Electricity Prices" — kopplas direkt, ingen API-nyckel krävs. <a href="/chatgpt/" style="color: var(--accent2); text-decoration: underline;">Läs mer →</a></div>
+    </div>
     <div class="faq-item" style="border-bottom: none;">
       <div class="faq-q">Varifrån kommer prisdatan?</div>
       <div class="faq-a">Från ENTSO-E Transparency Platform, baserat på Nord Pools auktionsresultat — samma primärkälla som svenska konkurrenter använder.</div>
@@ -484,7 +501,7 @@ curl "https://elecz.com/signal/contract?zone=SE&consumption=5000"</pre>
   <p>MCP-nativt. Färdig beslutssignal. Gratis. För Sverige, Norge, Danmark, Finland och 40+ andra länder.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Anslut via MCP →</a>
-    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Öppna i ChatGPT →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">Öppna i ChatGPT →</a>
     <a href="/docs/" class="btn-secondary">Läs dokumentationen</a>
   </div>
 </div>
@@ -493,7 +510,7 @@ curl "https://elecz.com/signal/contract?zone=SE&consumption=5000"</pre>
   <p>
     ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Karleby (Kokkola), Finland ·
     Data: ENTSO-E · Nord Pool · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
-    <a href="/terms/">Villkor</a> · <a href="/docs/">Docs</a> ·
+    <a href="/terms/">Villkor</a> · <a href="/docs/">Docs</a> · <a href="/chatgpt/">ChatGPT-plugin</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a>
   </p>
