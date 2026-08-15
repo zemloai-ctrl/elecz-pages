@@ -247,7 +247,7 @@
         "name": "¿Existe un plugin de precio de electricidad para ChatGPT?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sí, de dos formas. El Custom GPT Electricity Prices ya está listado públicamente en el directorio de GPTs propio de ChatGPT y se encuentra buscándolo directamente en ChatGPT. La conexión MCP de Elecz también puede añadirse manualmente en la configuración de Modo desarrollador de ChatGPT, igual que con cualquier otro servidor MCP, esta conexión no está listada en el Plugin Directory independiente y más reciente de OpenAI, dedicado a las Apps basadas en MCP."
+          "text": "Sí. Elecz está listado en el directorio oficial de plugins de ChatGPT como «Elecz — Electricity Prices» — conexión directa, sin clave API."
         }
       },
       {
@@ -301,6 +301,7 @@
   <div class="nav-links">
     <a href="/docs/">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
+    <a href="/chatgpt/">Plugin ChatGPT</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
     <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
     <a href="https://elecz.com/mcp" class="nav-cta">Conectar vía MCP</a>
@@ -321,7 +322,7 @@
   </div>
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Conectar vía MCP →</a>
-    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Abrir en ChatGPT →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">Abrir en ChatGPT →</a>
     <a href="/docs/" class="btn-secondary">Documentación REST API</a>
   </div>
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
@@ -400,9 +401,9 @@ curl "https://elecz.com/signal/contract?zone=ES"
     </div>
     <div class="integration-card">
       <div class="integration-title">ChatGPT</div>
-      <div class="integration-desc">Dos vías distintas: el Custom GPT «Electricity Prices» ya está listado en el directorio de GPTs propio de ChatGPT y se encuentra buscando «Electricity Prices» directamente en ChatGPT, o abriéndolo mediante enlace directo. Para una conexión MCP propia, la URL de Elecz también puede añadirse manualmente en Configuración → Modo desarrollador, si esta función está disponible en tu plan de ChatGPT — igual que con cualquier otro servidor MCP. Esta conexión MCP no está listada en el Plugin Directory independiente y más reciente de OpenAI, dedicado a las Apps basadas en MCP.</div>
+      <div class="integration-desc">Elecz está listado en el directorio oficial de plugins de ChatGPT como «Elecz — Electricity Prices» — se abre y conecta directamente, sin configuración ni clave API. También puede añadirse una conexión MCP propia en Configuración → Modo desarrollador, si esta función está disponible en tu plan de ChatGPT — igual que con cualquier otro servidor MCP.</div>
       <div class="integration-links">
-        <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener">Abrir Elecz en ChatGPT →</a>
+        <a href="/chatgpt/">Más sobre Elecz en ChatGPT →</a>
         <a href="/electricity-price-mcp/">Ver guía MCP →</a>
       </div>
     </div>
@@ -657,7 +658,7 @@ curl "https://elecz.com/signal/spot?zone=US-TX-HB_HOUSTON"
     </div>
     <div class="faq-item">
       <div class="faq-q">¿Existe un plugin de precio de electricidad para ChatGPT?</div>
-      <div class="faq-a">Sí, de dos formas. El Custom GPT «Electricity Prices» ya está listado públicamente en el directorio de GPTs propio de ChatGPT y se encuentra buscándolo directamente en ChatGPT. La conexión MCP de Elecz también puede añadirse manualmente en la configuración de Modo desarrollador de ChatGPT, igual que con cualquier otro servidor MCP — esta conexión no está listada en el Plugin Directory independiente y más reciente de OpenAI, dedicado a las Apps basadas en MCP.</div>
+      <div class="faq-a">Sí. Elecz está listado en el directorio oficial de plugins de ChatGPT como «Elecz — Electricity Prices» — conexión directa, sin clave API. <a href="/chatgpt/">Más información →</a></div>
     </div>
     <div class="faq-item">
       <div class="faq-q">¿Existe una extensión de Gemini para precios de electricidad?</div>
@@ -671,7 +672,7 @@ curl "https://elecz.com/signal/spot?zone=US-TX-HB_HOUSTON"
   <p>Sin clave API. Sin registro. MCP-nativo. Gratuito para España y 40+ países más.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Conectar vía MCP →</a>
-    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Abrir en ChatGPT →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">Abrir en ChatGPT →</a>
     <a href="/docs/" class="btn-secondary">Leer la documentación</a>
   </div>
 </div>
@@ -680,7 +681,7 @@ curl "https://elecz.com/signal/spot?zone=US-TX-HB_HOUSTON"
   <p>
     ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Finlandia ·
     Datos: ENTSO-E · OMIE · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
-    <a href="/terms/">Términos de uso</a> · <a href="/docs/">Docs</a> ·
+    <a href="/terms/">Términos de uso</a> · <a href="/docs/">Docs</a> · <a href="/chatgpt/">Plugin ChatGPT</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a>
   </p>
