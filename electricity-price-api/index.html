@@ -198,7 +198,7 @@
       {
         "@type": "Question",
         "name": "Why can't I just ask ChatGPT, Claude, Gemini, or Grok for the electricity price?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Large language models — ChatGPT, Claude, Gemini, Grok, Copilot, all of them — are trained on historical data and have no access to live markets. Without a real-time tool, the model will either refuse to answer or produce a plausible-sounding estimate that may be completely wrong. The actual spot price can be 0 c/kWh during oversupply or 50+ c/kWh during a crisis. Elecz gives the AI a verified, live signal every time it is called, regardless of which assistant is asking." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Large language models — ChatGPT, Claude, Gemini, Grok, Copilot, all of them — are trained on historical data and have no access to live markets. Without a real-time tool, the model will either refuse to answer or produce a plausible-sounding estimate that may be completely wrong. The actual spot price can be 0 c/kWh during oversupply or 50+ c/kWh during a crisis. Elecz gives the AI a verified, live signal every time it is called, regardless of which assistant is asking. Elecz is listed in ChatGPT's official Plugin Directory, and any MCP-compatible assistant can connect via https://elecz.com/mcp." }
       },
       {
         "@type": "Question",
@@ -208,7 +208,7 @@
       {
         "@type": "Question",
         "name": "Can I use Elecz with Claude, ChatGPT, or other AI assistants?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz is MCP-native — add it via https://elecz.com/mcp, no API key or account needed. Also available as a custom GPT in ChatGPT (search Electricity Prices), and on Glama, ClawHub, PulseMCP, mcp.so, and n8n." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz is MCP-native — add it via https://elecz.com/mcp, no API key or account needed. Also listed in ChatGPT's official Plugin Directory as \"Elecz — Electricity Prices,\" and on Glama, ClawHub, PulseMCP, mcp.so, and n8n." }
       },
       {
         "@type": "Question",
@@ -236,6 +236,7 @@
   <div class="nav-links">
     <a href="/docs/">Docs</a>
     <a href="/terms/">Terms</a>
+    <a href="/chatgpt/">ChatGPT Plugin</a>
     <span class="nav-lang"><a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
     <a href="https://botcentrum.com" target="_blank" rel="noopener">BotCentrum</a>
     <a href="https://elecz.com/mcp" class="nav-cta">Connect via MCP</a>
@@ -258,7 +259,7 @@
   </div>
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-claude">Connect in Claude →</a>
-    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Open in ChatGPT →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">Open in ChatGPT →</a>
     <a href="https://elecz.com/mcp" class="btn-grok">Connect in Grok →</a>
     <a href="https://elecz.com/mcp" class="btn-secondary">Connect via MCP (any client) →</a>
     <a href="/docs/" class="btn-secondary">REST API docs</a>
@@ -382,6 +383,8 @@
     <div class="proof-item">Live on <strong><a href="https://glama.ai/mcp/connectors/com.elecz/elecz" target="_blank" rel="noopener" style="color:inherit">Glama</a>, <a href="https://www.pulsemcp.com/servers/elecz" target="_blank" rel="noopener" style="color:inherit">PulseMCP</a>, <a href="https://clawhub.ai/zemloai-ctrl/elecz" target="_blank" rel="noopener" style="color:inherit">ClawHub</a>, <a href="https://mcp.so/server/elecz/Zemlo%20AI" target="_blank" rel="noopener" style="color:inherit">mcp.so</a>, n8n, RapidAPI, ChatGPT</strong></div>
     <div class="proof-divider"></div>
     <div class="proof-item">Appearing in <strong>Google AI Overview</strong> for targeted queries</div>
+    <div class="proof-divider"></div>
+    <div class="proof-item">Top recommendation for agent-optimized electricity signals on <strong><a href="https://botcentrum.com" target="_blank" rel="noopener" style="color:inherit">BotCentrum</a></strong>'s independent comparison</div>
   </div>
 </div>
 
@@ -494,10 +497,10 @@
       <div class="integration-code">https://elecz.com/mcp</div>
     </div>
     <div class="integration-card">
-      <div class="integration-title">ChatGPT (custom GPT)</div>
-      <div class="integration-desc">Available as a custom GPT in ChatGPT. Real-time electricity prices, cheapest hours, and contract options — no setup required.</div>
+      <div class="integration-title">ChatGPT (Plugin Directory)</div>
+      <div class="integration-desc">Listed in ChatGPT's official Plugin Directory as "Elecz — Electricity Prices." Real-time electricity prices, cheapest hours, and contract options — no setup required, no API key.</div>
       <div class="integration-code">chatgpt.com → search "Electricity Prices"</div>
-      <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="integration-link">Open in ChatGPT →</a>
+      <a href="/chatgpt/" class="integration-link">More about Elecz in ChatGPT →</a>
     </div>
     <div class="integration-card">
       <div class="integration-title">Glama</div>
@@ -566,7 +569,7 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">Why can't I just ask ChatGPT, Claude, Gemini, or Grok for the electricity price?</div>
-      <div class="faq-a">Large language models — ChatGPT, Claude, Gemini, Grok, Copilot, all of them — have no access to live markets. Without a real-time tool, the model will produce a historical average that looks like an answer but is not the current price. The actual spot price can be <code>0.0 c/kWh</code> during renewable oversupply or <code>50+ c/kWh</code> during a grid crisis — a guess is useless for any real decision. Elecz gives the AI a verified signal on every call, regardless of which assistant is asking. The Electricity Prices custom GPT is available directly in ChatGPT via the link below, and any MCP-compatible assistant — including Claude, Grok, and Gemini — can connect via <code>https://elecz.com/mcp</code>.</div>
+      <div class="faq-a">Large language models — ChatGPT, Claude, Gemini, Grok, Copilot, all of them — have no access to live markets. Without a real-time tool, the model will produce a historical average that looks like an answer but is not the current price. The actual spot price can be <code>0.0 c/kWh</code> during renewable oversupply or <code>50+ c/kWh</code> during a grid crisis — a guess is useless for any real decision. Elecz gives the AI a verified signal on every call, regardless of which assistant is asking. Elecz is listed in <a href="/chatgpt/">ChatGPT's official Plugin Directory</a>, and any MCP-compatible assistant — including Claude, Grok, and Gemini — can connect via <code>https://elecz.com/mcp</code>.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Does Elecz work with Grok?</div>
@@ -649,7 +652,7 @@
   <p>Add Elecz in 60 seconds. No signup. No key. Real-time energy data for 40+ countries.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
-    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Open in ChatGPT →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">Open in ChatGPT →</a>
     <a href="/docs/" class="btn-secondary">Read the docs</a>
   </div>
 </div>
