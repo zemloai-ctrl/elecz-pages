@@ -95,12 +95,12 @@
       {
         "@type": "Question",
         "name": "Does the Elecz MCP server work with ChatGPT?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, two ways. The https://elecz.com/mcp endpoint can be added manually in ChatGPT's Settings, Developer Mode, the same as any other MCP server, since ChatGPT's Apps ecosystem is itself built on MCP. Elecz is also available separately as the Electricity Prices custom GPT via direct link, which uses OpenAPI actions rather than MCP. Neither is currently listed in OpenAI's Plugin Directory, so discovery is manual rather than automatic." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz is listed in ChatGPT's official Plugin Directory as \"Elecz — Electricity Prices\" — connect directly, no manual configuration needed. The https://elecz.com/mcp endpoint can also be added manually via Settings, Developer Mode, the same as any other MCP server, since ChatGPT's Apps ecosystem is itself built on MCP." }
       },
       {
         "@type": "Question",
         "name": "Is there an electricity price plugin for ChatGPT?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Informally, yes. The Elecz MCP endpoint can be added in ChatGPT as a plugin-style connector through Settings, Developer Mode, the same way you'd add any other MCP server, no coding required, just the URL. It isn't listed in OpenAI's official Plugin Directory, so you add it directly rather than finding it by browsing. A separate custom GPT is also available via direct link for a no-setup option." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz is listed in ChatGPT's official Plugin Directory as \"Elecz — Electricity Prices\" — connect directly, no coding required, no API key." }
       }
     ]
   }
@@ -219,6 +219,7 @@
   <div class="nav-links">
     <a href="/docs/">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
+    <a href="/chatgpt/">ChatGPT Plugin</a>
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
     <span class="nav-lang"><a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
     <a href="https://elecz.com/mcp" class="nav-cta">Connect via MCP</a>
@@ -241,7 +242,7 @@
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-claude">Connect in Claude →</a>
     <a href="https://elecz.com/mcp" class="btn-grok">Connect in Grok →</a>
-    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Open in ChatGPT →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">Open in ChatGPT →</a>
     <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP (any client) →</a>
     <a href="/docs/" class="btn-secondary">View docs</a>
   </div>
@@ -258,7 +259,7 @@
   <h2>MCP server or connector — same thing</h2>
   <div class="connector-note">
     <strong>Whatever your platform calls it — it's the same thing.</strong><br>
-    Claude and Grok call it a <em>connector</em>. Cursor and Copilot call it an <em>MCP server</em>. n8n calls it a <em>node</em>. Gemini CLI calls it an <em>extension</em>. Some platforms say <em>tool</em> or <em>skill</em>. ChatGPT's own Apps ecosystem is MCP-based too — the Elecz MCP endpoint can be added manually via ChatGPT's Developer Mode, the same as any other MCP server, though it isn't listed in OpenAI's Plugin Directory for automatic discovery. Separately, Elecz is also available as a custom GPT using OpenAPI actions. The endpoint for MCP clients is always: <code style="font-family:var(--mono);font-size:0.85rem;color:var(--green)">https://elecz.com/mcp</code>
+    Claude and Grok call it a <em>connector</em>. Cursor and Copilot call it an <em>MCP server</em>. n8n calls it a <em>node</em>. Gemini CLI calls it an <em>extension</em>. Some platforms say <em>tool</em> or <em>skill</em>. ChatGPT calls it a plugin — Elecz is listed in <a href="/chatgpt/" style="color:var(--green)">ChatGPT's official Plugin Directory</a> as "Elecz — Electricity Prices," connecting directly with no manual configuration needed. The endpoint for MCP clients is always: <code style="font-family:var(--mono);font-size:0.85rem;color:var(--green)">https://elecz.com/mcp</code>
   </div>
 
   <h2>Connect in 60 seconds</h2>
@@ -294,7 +295,7 @@
     </li>
     <li>
       <span class="step-num">02</span>
-      <div class="step-content"><strong>Add to your AI client</strong> — Grok: click "+" next to the prompt field → Add MCP server. Claude.ai: Settings → Integrations → Add MCP server. Claude Desktop: paste into <code>claude_desktop_config.json</code>. Cursor: add to <code>.cursor/mcp.json</code>. Mistral: add as remote MCP server. ChatGPT: available as the <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener">Electricity Prices</a> custom GPT — no setup required.</div>
+      <div class="step-content"><strong>Add to your AI client</strong> — Grok: click "+" next to the prompt field → Add MCP server. Claude.ai: Settings → Integrations → Add MCP server. Claude Desktop: paste into <code>claude_desktop_config.json</code>. Cursor: add to <code>.cursor/mcp.json</code>. Mistral: add as remote MCP server. ChatGPT: listed in the <a href="/chatgpt/">official Plugin Directory</a> as "Elecz — Electricity Prices" — connect directly, no setup required.</div>
     </li>
     <li>
       <span class="step-num">03</span>
@@ -373,9 +374,9 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
   <div class="clients-grid">
     <div class="client-card">
       <div class="client-name">ChatGPT</div>
-      <div class="client-desc">Two ways to connect: open the Electricity Prices custom GPT directly, or add the MCP endpoint manually via Settings → Developer Mode, the same as any other MCP server. Not listed in OpenAI's Plugin Directory, so neither is auto-discoverable — direct link or manual add only.</div>
+      <div class="client-desc">Listed in ChatGPT's official Plugin Directory as "Elecz — Electricity Prices" — connect directly, no API key, no manual configuration. A remote MCP connection can also be added via Settings → Developer Mode, the same as any other MCP server.</div>
       <div class="client-code">https://elecz.com/mcp</div>
-      <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="client-link">Open the Electricity Prices GPT →</a>
+      <a href="/chatgpt/" class="client-link">More about Elecz in ChatGPT →</a>
     </div>
     <div class="client-card">
       <div class="client-name">Grok</div>
@@ -486,11 +487,11 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Does the Elecz MCP server work with ChatGPT?</div>
-      <div class="faq-a">Yes, two ways. The <code>https://elecz.com/mcp</code> endpoint can be added manually in ChatGPT's Settings → Developer Mode, the same as any other MCP server — ChatGPT's Apps ecosystem is itself built on MCP. Elecz is also available separately as the Electricity Prices custom GPT via direct link, which uses OpenAPI actions rather than MCP. Neither is currently listed in OpenAI's Plugin Directory, so discovery is manual rather than automatic.</div>
+      <div class="faq-a">Yes. Elecz is listed in ChatGPT's official Plugin Directory as "Elecz — Electricity Prices" — connect directly, no manual configuration needed. The <code>https://elecz.com/mcp</code> endpoint can also be added manually via Settings → Developer Mode, the same as any other MCP server, since ChatGPT's Apps ecosystem is itself built on MCP.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Is there an electricity price plugin for ChatGPT?</div>
-      <div class="faq-a">Informally, yes. The Elecz MCP endpoint can be added in ChatGPT as a plugin-style connector through Settings → Developer Mode, the same way you'd add any other MCP server — no coding required, just the URL. It isn't listed in OpenAI's official Plugin Directory, so you add it directly rather than finding it by browsing. A separate custom GPT is also available via direct link for a no-setup option.</div>
+      <div class="faq-a">Yes. Elecz is listed in ChatGPT's official Plugin Directory as "Elecz — Electricity Prices" — connect directly, no coding required, no API key.</div>
     </div>
   </div>
 
@@ -537,7 +538,7 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
   <p>One URL. No API key. No setup. Works with Claude, Grok, Cursor, Copilot, Mistral, ChatGPT, and any MCP-compatible client.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
-    <a href="https://chatgpt.com/g/g-6a174fbbc984819189bb9944ba86743c-electricity-prices" target="_blank" rel="noopener" class="btn-chatgpt">Open in ChatGPT →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">Open in ChatGPT →</a>
     <a href="/electricity-price-api/" class="btn-secondary">Full API overview</a>
   </div>
 </div>
@@ -548,6 +549,7 @@ to start at 02:00 saves roughly 75% vs charging now."</span></pre>
     Data: ENTSO-E · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
     <a href="/terms/">Terms</a> · <a href="/docs/">Docs</a> ·
     <a href="/electricity-price-api/">API overview</a> ·
+    <a href="/chatgpt/">ChatGPT Plugin</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a>
   </p>
