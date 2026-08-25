@@ -72,11 +72,14 @@ Mexico: MX-AGS, MX-MTY, MX-GDL, MX-PUE, MX-VER, MX-CHH, MX-HMO, MX-MID, MX-CUL, 
 - KR: regulated KEPCO retail market — no contract comparison
 - JP: JEPX day-ahead prices — no contract comparison
 - Contract comparison available for: FI, SE, NO, DK, DE, GB, AU, NZ
+- best_energy_contract's `recommended` field is never influenced by commission or affiliate status — ranking is based purely on estimated annual cost
 
 ## Links
 
 - Homepage: https://elecz.com
 - API overview: https://elecz.com/electricity-price-api/
+- Cheapest hours (cheapest_hours reference): https://elecz.com/cheapest-hours/
+- Compare electricity contracts (best_energy_contract reference): https://elecz.com/compare-electricity-contracts/
 - Documentation: https://elecz.com/docs
 - ChatGPT plugin: https://elecz.com/chatgpt/
 - OpenAPI spec: https://raw.githubusercontent.com/zemloai-ctrl/elecz-api/main/openapi.json
