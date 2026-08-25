@@ -3,22 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cheapest Electricity Hours API — Real-Time Scheduling Signal | Elecz</title>
-  <meta name="description" content="API that returns the cheapest electricity hours for the next 24h. Decision-ready signal for EV charging, heat pumps, home automation. No API key required.">
+  <title>Cheapest Electricity Hours Today — API &amp; AI Agent Signal | Elecz</title>
+  <meta name="description" content="Free API and AI agent tool for the cheapest electricity hours today across supported markets. Decision-ready signal for EV charging, heat pumps, home automation. No API key required.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elecz.com/cheapest-hours/">
-  <link rel="alternate" hreflang="en" href="https://elecz.com/cheapest-hours/">
-  <link rel="alternate" hreflang="de" href="https://elecz.com/de/">
-  <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
-  <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
-  <link rel="alternate" hreflang="ja" href="https://elecz.com/ja/">
-  <link rel="alternate" hreflang="fi" href="https://elecz.com/fi/">
-  <link rel="alternate" hreflang="sv" href="https://elecz.com/sv/">
-  <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <meta property="og:title" content="Cheapest Electricity Hours API — Real-Time Scheduling Signal | Elecz">
-  <meta property="og:description" content="API that returns the cheapest electricity hours for the next 24h. No API key. Works with Claude, Grok, Cursor, n8n, Home Assistant.">
+  <meta property="og:title" content="Cheapest Electricity Hours Today — API &amp; AI Agent Signal | Elecz">
+  <meta property="og:description" content="Free API and AI agent tool for the cheapest electricity hours today. No API key. Works with Claude, ChatGPT, Grok, Cursor, n8n, Home Assistant.">
   <meta property="og:url" content="https://elecz.com/cheapest-hours/">
   <meta property="og:type" content="website">
 
@@ -51,7 +43,11 @@
     .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 18px; }
     h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; }
     h1 .hl { color: var(--accent2); }
-    .hero-lead { font-size: 1.08rem; color: var(--text2); max-width: 620px; line-height: 1.75; margin-bottom: 32px; }
+    .hero-lead { font-size: 1.08rem; color: var(--text2); max-width: 620px; line-height: 1.75; margin-bottom: 16px; }
+    .hero-agent-line { font-size: 0.95rem; color: var(--text2); max-width: 620px; line-height: 1.7; margin-bottom: 16px; font-style: italic; }
+    .hero-cheapesthours-line { font-size: 0.9rem; color: var(--text2); max-width: 620px; line-height: 1.6; margin-bottom: 32px; }
+    .hero-cheapesthours-line a { color: var(--accent2); font-weight: 500; text-decoration: none; }
+    .hero-cheapesthours-line a:hover { text-decoration: underline; }
     .hero-stats { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 36px; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); max-width: 600px; }
     .stat { padding: 16px 24px; border-right: 1px solid var(--border); flex: 1; min-width: 120px; }
     .stat:last-child { border-right: none; }
@@ -66,6 +62,8 @@
     .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
     h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
     .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
+    .fact-line { font-size: 0.92rem; color: var(--text2); background: var(--bg2); border: 1px solid var(--border2); border-radius: 8px; padding: 16px 20px; margin-bottom: 32px; line-height: 1.7; }
+    .fact-line code { font-family: var(--mono); font-size: 0.85em; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
 
     .signal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); margin-bottom: 32px; }
     .signal-card { padding: 24px; border-right: 1px solid var(--border); }
@@ -106,10 +104,12 @@
     .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--border); }
     .kw { font-family: var(--mono); font-size: 0.78rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
 
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
     .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
     .cta-section h2 { margin-bottom: 14px; }
     .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
-    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cta-section .cta-row { justify-content: center; }
 
     footer { border-top: 2px solid var(--border); padding: 24px; text-align: center; }
     footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
@@ -133,7 +133,7 @@
     "operatingSystem": "Web/API",
     "url": "https://elecz.com/cheapest-hours/",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "API that returns the cheapest electricity hours for the next 24h. Decision-ready signal for EV charging, heat pumps, dishwashers, and batch jobs. No API key required."
+    "description": "API and AI agent tool that returns the cheapest electricity hours for the next 24h across supported day-ahead markets. Decision-ready signal for EV charging, heat pumps, dishwashers, and batch jobs. No API key required."
   }
   </script>
 
@@ -145,7 +145,7 @@
       {
         "@type": "Question",
         "name": "Is there a free API for finding the cheapest electricity hours?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes — Elecz provides a free cheapest_hours API for 40 countries. No API key or registration required. Returns ranked hours for today and tomorrow with scheduling signals." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — Elecz provides a free cheapest_hours API across supported day-ahead electricity markets. No API key or registration required. Returns ranked hours for today and tomorrow with scheduling signals. See the full market coverage table for which zones are supported." }
       },
       {
         "@type": "Question",
@@ -155,7 +155,7 @@
       {
         "@type": "Question",
         "name": "Can an AI agent use the cheapest hours API?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz exposes cheapest_hours as an MCP tool. Any MCP-compatible AI client (Claude, Grok, Cursor, Copilot) can call it directly. The response is structured for immediate decision-making — no custom logic needed." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Elecz exposes cheapest_hours as an MCP tool, and as three ChatGPT skills (find-best-electricity-time, optimize-ev-charging, optimize-workload-electricity-cost). Any MCP-compatible AI client (Claude, Grok, Cursor, Copilot) or ChatGPT can call it directly. The response is structured for immediate decision-making — no custom logic needed." }
       },
       {
         "@type": "Question",
@@ -165,7 +165,7 @@
       {
         "@type": "Question",
         "name": "I just want to know when to charge my EV — do I need to read all this?",
-        "acceptedAnswer": { "@type": "Answer", "text": "No — see Best Time to Charge Your EV Today at elecz.com/best-time-to-charge-ev/ for a plain-language, no-API-required answer. Come back here if you want to build something on top of the signal yourself." }
+        "acceptedAnswer": { "@type": "Answer", "text": "No — see Best Time to Charge Your EV Today at elecz.com/best-time-to-charge-ev/ for a plain-language, no-API-required answer, or cheapesthours.com for a quick yes/no verdict with no technical detail at all. Come back here if you want to build something on top of the signal yourself." }
       },
       {
         "@type": "Question",
@@ -181,6 +181,11 @@
         "@type": "Question",
         "name": "What is the cheapest 3-hour window today?",
         "acceptedAnswer": { "@type": "Answer", "text": "best_3h_window returns the cheapest consecutive 3-hour block in the response, with its start, end, and avg_price, useful for tasks that need to run uninterrupted, like a full EV charge or a dishwasher cycle." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which countries are supported?",
+        "acceptedAnswer": { "@type": "Answer", "text": "cheapest_hours is supported across roughly 35 countries with public day-ahead electricity data, including all ENTSO-E members, the UK, US (CAISO, NYISO), Canada (Ontario), Japan, and Mexico. Markets without public day-ahead data — AU, NZ, KR, US-TX (ERCOT), ZA, and PH — support spot_price only. Full zone-by-zone breakdown at elecz.com/docs/." }
       }
     ]
   }
@@ -205,8 +210,10 @@
   <p class="hero-lead">
     The <code style="font-family:'DM Mono',monospace;font-size:0.9em;color:var(--accent2);background:var(--accent-dim);padding:2px 8px;border-radius:3px">cheapest_hours</code> API returns ranked electricity hours for the next 24h — built on day-ahead market data, with a ready-to-use scheduling signal. No math, no custom logic. Just call it and act on the answer. Whether the question is the cheapest time to charge an EV, the best time to run a dishwasher or heat pump, or simply when electricity is cheapest today, the same endpoint answers all of it. Charging an EV tonight? See the <a href="/best-time-to-charge-ev/" style="color:var(--accent2);font-weight:500;">plain-language answer</a> instead of raw API output.
   </p>
+  <p class="hero-agent-line">Built for people, automations, and AI agents that need to decide when electricity is cheapest — not just view a price chart.</p>
+  <p class="hero-cheapesthours-line">Just want a quick yes/no answer, no API involved? <a href="https://cheapesthours.com">cheapesthours.com</a> answers that directly — this page is for developers and AI agents building on the signal.</p>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">40</div><div class="stat-label">countries</div></div>
+    <div class="stat"><div class="stat-num">35</div><div class="stat-label">countries</div></div>
     <div class="stat"><div class="stat-num">24h</div><div class="stat-label">look-ahead</div></div>
     <div class="stat"><div class="stat-num">hourly</div><div class="stat-label">updated</div></div>
     <div class="stat"><div class="stat-num">€0</div><div class="stat-label">no API key</div></div>
@@ -286,6 +293,9 @@
 <div class="section">
   <h2>How cheapest_hours is calculated</h2>
   <p class="section-sub">The ranking logic is the same in every supported zone, so the response behaves consistently regardless of market.</p>
+  <div class="fact-line">
+    <code>cheapest_hours</code> ranks the next 24 hours of day-ahead electricity prices and returns the current hour's relative signal (low/medium/high) plus the next cheap window — no threshold math required.
+  </div>
   <ul style="list-style:none;">
     <li style="padding:14px 0;border-top:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">Window:</strong> the next 24 hours from the current hour, extending into tomorrow once next-day prices are published.</li>
     <li style="padding:14px 0;border-top:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">Ranking:</strong> hours within the window are sorted by day-ahead (or spot) price, cheapest first. Ties share the same rank.</li>
@@ -295,7 +305,7 @@
     <li style="padding:14px 0;border-top:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">Timezone handling:</strong> every timestamp is returned in UTC (ISO 8601). Convert to the user's local timezone before displaying — don't apply a fixed hour offset, since that breaks around daylight saving transitions.</li>
     <li style="padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">Daylight saving:</strong> because the API always works in UTC internally, clock-change days don't cause duplicate or skipped hours in the ranking — that ambiguity only appears if you convert to local time before doing the ranking yourself.</li>
   </ul>
-  <p style="font-size:0.85rem;color:var(--text3);margin-top:16px;">Markets without public day-ahead data (AU, NZ, KR, US-TX, ZA, PH-*) can't use this ranking — see <a href="/electricity-price-api/#tools" style="color:var(--accent2)">the full market coverage table</a> for which zones support <code style="font-family:var(--mono);font-size:0.78rem">cheapest_hours</code>.</p>
+  <p style="font-size:0.85rem;color:var(--text3);margin-top:16px;">Markets without public day-ahead data (AU, NZ, KR, US-TX, ZA, PH-*) can't use this ranking — see <a href="/docs/" style="color:var(--accent2)">the full market coverage table</a> for which zones support <code style="font-family:var(--mono);font-size:0.78rem">cheapest_hours</code>.</p>
 </div>
 
 <div class="section">
@@ -357,6 +367,29 @@ starts at 23:00 tonight."</span></pre>
 </div>
 
 <div class="section">
+  <h2>ChatGPT skills built on this tool</h2>
+  <p class="section-sub">Elecz exposes six skills to ChatGPT — three of them run directly on <code style="font-family:var(--mono);font-size:0.88rem;color:var(--accent2)">cheapest_hours</code>.</p>
+  <div class="usecase-grid">
+    <div class="usecase-card">
+      <div class="usecase-title">find-best-electricity-time</div>
+      <div class="usecase-desc">"Should I run the dishwasher now or later tonight?" — decides now vs. wait and finds the cheapest window.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">optimize-ev-charging</div>
+      <div class="usecase-desc">"Should I charge my EV now or wait? I'm in Tokyo." — compares the current price against upcoming windows.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">optimize-workload-electricity-cost</div>
+      <div class="usecase-desc">"Run this 500 kW workload for four hours — cheapest time tonight?" — schedules compute or industrial loads.</div>
+    </div>
+  </div>
+  <div class="cta-row" style="margin-top:24px;">
+    <a href="https://chatgpt.com/plugins/plugin_asdk_app_6a24c971acc48191bb99f2a694d24fbf" class="btn-primary" target="_blank" rel="noopener">💬 Open Elecz in ChatGPT →</a>
+    <a href="/chatgpt/" class="btn-secondary">All 6 skills →</a>
+  </div>
+</div>
+
+<div class="section">
   <h2>Frequently asked questions</h2>
   <div class="faq-list">
     <div class="faq-item">
@@ -365,7 +398,7 @@ starts at 23:00 tonight."</span></pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Is there a free API for finding the cheapest electricity hours?</div>
-      <div class="faq-a">Yes — Elecz provides a free <code>cheapest_hours</code> API for 40 countries. No API key, no account, no registration. Call <code>GET /signal/cheapest-hours?zone=GB</code> and you get a ranked list of cheapest hours plus scheduling signals.</div>
+      <div class="faq-a">Yes — Elecz provides a free <code>cheapest_hours</code> API across supported day-ahead electricity markets — roughly 35 countries. No API key, no account, no registration. Call <code>GET /signal/cheapest-hours?zone=GB</code> and you get a ranked list of cheapest hours plus scheduling signals. See <a href="/docs/">full coverage</a> for the exact zone list.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">How many hours ahead does it look?</div>
@@ -377,7 +410,11 @@ starts at 23:00 tonight."</span></pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Which countries are supported?</div>
-      <div class="faq-a">40 countries across Europe (all ENTSO-E zones), UK, USA (CAISO, ERCOT, NYISO), Canada (Ontario), Australia, New Zealand, South Korea, and Japan. Note: AU, NZ, and KR do not publish day-ahead data, so <code>cheapest_hours</code> is not available for those zones.</div>
+      <div class="faq-a"><code>cheapest_hours</code> is supported across roughly 35 countries with public day-ahead data — all ENTSO-E members, the UK, US (CAISO, NYISO), Canada (Ontario), Japan, and Mexico. AU, NZ, and KR do not publish day-ahead data, so <code>cheapest_hours</code> is not available for those zones — <code>spot_price</code> still works. Full zone-by-zone breakdown: <a href="/docs/">elecz.com/docs</a>.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can an AI agent use the cheapest hours API?</div>
+      <div class="faq-a">Yes. <code>cheapest_hours</code> is available as an MCP tool and as three ChatGPT skills — <code>find-best-electricity-time</code>, <code>optimize-ev-charging</code>, and <code>optimize-workload-electricity-cost</code>. Any MCP-compatible client (Claude, Grok, Cursor, Copilot) or ChatGPT can call it directly with no custom logic needed.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Can I use this with Home Assistant or n8n?</div>
@@ -401,7 +438,7 @@ starts at 23:00 tonight."</span></pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">I just want to know when to charge my EV — do I need to read all this?</div>
-      <div class="faq-a">No — see <a href="/best-time-to-charge-ev/">Best Time to Charge Your EV Today</a> for a plain-language, no-API-required answer. Come back here if you want to build something on top of the signal yourself.</div>
+      <div class="faq-a">No — see <a href="/best-time-to-charge-ev/">Best Time to Charge Your EV Today</a> for a plain-language, no-API-required answer, or <a href="https://cheapesthours.com">cheapesthours.com</a> for a quick yes/no verdict with no technical detail at all. Come back here if you want to build something on top of the signal yourself.</div>
     </div>
   </div>
 
@@ -425,16 +462,16 @@ starts at 23:00 tonight."</span></pre>
     <span class="kw">cheapest time to use electricity</span>
     <span class="kw">cheapest time to charge EV</span>
     <span class="kw">best time to run dishwasher</span>
-    <span class="kw">best time to run washing machine</span>
-    <span class="kw">best time for heat pump</span>
-    <span class="kw">when electricity is cheapest today</span>
-    <span class="kw">lowest electricity price today</span>
+    <span class="kw">AI agent electricity scheduling</span>
+    <span class="kw">electricity price signal for AI agents</span>
+    <span class="kw">MCP electricity price tool</span>
+    <span class="kw">ChatGPT electricity price plugin</span>
   </div>
 </div>
 
 <div class="cta-section">
   <h2>Find the cheapest hours.<br>Act on them automatically.</h2>
-  <p>Free. No API key. 40 countries. Works via MCP or REST.</p>
+  <p>Free. No API key. 35 countries. Works via MCP, ChatGPT, or REST.</p>
   <div class="cta-row">
     <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
     <a href="/electricity-price-api/" class="btn-secondary">Full API overview</a>
