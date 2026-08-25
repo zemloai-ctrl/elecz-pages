@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compare Electricity Contracts with ChatGPT &amp; AI Agents | Elecz</title>
+  <meta name="description" content="Ask ChatGPT or another AI agent if you're overpaying for electricity. Elecz gives it an independent, structured contract comparison. No API key required.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://elecz.com/compare-electricity-contracts/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:title" content="Compare Electricity Contracts with ChatGPT &amp; AI Agents | Elecz">
+  <meta property="og:description" content="Ask ChatGPT or another AI agent if you're overpaying for electricity. Elecz gives it an independent, structured contract comparison. No API key required.">
+  <meta property="og:url" content="https://elecz.com/compare-electricity-contracts/">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f5f0; --bg2: #eeeee8; --bg3: #ffffff;
+      --border: #e0e0d8; --border2: #d0d0c8;
+      --text: #1a1a1a; --text2: #555550; --text3: #999990;
+      --accent: #f0a020; --accent2: #d88c10; --accent-dim: rgba(240,160,32,0.1);
+      --green: #1a7a40; --green-dim: rgba(26,122,64,0.08); --green-border: rgba(26,122,64,0.25);
+      --mono: 'DM Mono', monospace; --sans: 'DM Sans', -apple-system, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+    nav { background: var(--bg); border-bottom: 2px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 58px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-size: 1.3rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
+    .nav-logo .dot { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text2); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
+    .nav-cta:hover { background: var(--accent2) !important; }
+
+    .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 56px; border-bottom: 2px solid var(--border); }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 18px; }
+    h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; }
+    h1 .hl { color: var(--accent2); }
+    .hero-lead { font-size: 1.08rem; color: var(--text2); max-width: 620px; line-height: 1.75; margin-bottom: 16px; }
+    .hero-agent-line { font-size: 0.95rem; color: var(--text2); max-width: 620px; line-height: 1.7; margin-bottom: 32px; }
+    .hero-agent-line code { font-family: var(--mono); font-size: 0.9em; color: var(--accent2); background: var(--accent-dim); padding: 2px 8px; border-radius: 3px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 36px; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); max-width: 600px; }
+    .stat { padding: 16px 24px; border-right: 1px solid var(--border); flex: 1; min-width: 120px; }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; color: var(--text); line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-size: 0.75rem; color: var(--text3); font-weight: 500; }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { background: var(--accent); color: var(--text); font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
+    .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
+
+    .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
+    h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
+    .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
+
+    .fact-line { font-size: 0.92rem; color: var(--text); background: var(--green-dim); border: 1px solid var(--green-border); border-radius: 8px; padding: 18px 20px; margin-bottom: 24px; line-height: 1.75; }
+    .fact-line strong { color: var(--green); }
+    .fact-line code { font-family: var(--mono); font-size: 0.85em; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
+
+    .signal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); margin-bottom: 32px; }
+    .signal-card { padding: 24px; border-right: 1px solid var(--border); }
+    .signal-card:last-child { border-right: none; }
+    .signal-label { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; margin-bottom: 8px; display: inline-block; padding: 3px 10px; border-radius: 3px; }
+    .signal-label.spot { background: rgba(74,134,232,0.1); color: #2a5cb0; }
+    .signal-label.fixed { background: rgba(240,160,32,0.12); color: var(--accent2); }
+    .signal-label.recommended { background: rgba(26,122,64,0.1); color: var(--green); }
+    .signal-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.65; }
+
+    .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
+    .usecase-card { background: var(--bg3); padding: 22px 24px; }
+    .usecase-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
+    .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.65; }
+
+    .code-block { background: #1e1e1e; border-radius: 8px; overflow: hidden; margin: 24px 0; }
+    .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #2a2a2a; border-bottom: 1px solid #333; }
+    .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
+    .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
+    .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
+    .k { color: #7ec8e3; } .s { color: #a8d8a8; } .n { color: #f5a623; } .b { color: #4ec9b0; } .c { color: #666; font-style: italic; }
+
+    .fields-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .fields-table th { text-align: left; padding: 10px 16px; color: var(--text3); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; background: var(--bg2); border-bottom: 1px solid var(--border); font-weight: 600; }
+    .fields-table td { padding: 11px 16px; border-bottom: 1px solid #f0f0e8; color: var(--text2); vertical-align: top; }
+    .fields-table tr:last-child td { border-bottom: none; }
+    .fields-table td:first-child { font-family: var(--mono); font-size: 0.8rem; color: var(--accent2); white-space: nowrap; }
+    .fields-table td:nth-child(2) { font-family: var(--mono); font-size: 0.78rem; color: var(--text3); white-space: nowrap; }
+
+    .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+    .faq-a { font-size: 0.9rem; color: var(--text2); line-height: 1.75; max-width: 700px; }
+    .faq-a code { font-family: var(--mono); font-size: 0.82rem; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
+    .faq-a a { color: var(--accent2); text-decoration: none; }
+    .faq-a a:hover { text-decoration: underline; }
+
+    .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--border); }
+    .kw { font-family: var(--mono); font-size: 0.78rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
+
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
+    .cta-section h2 { margin-bottom: 14px; }
+    .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
+    .cta-section .cta-row { justify-content: center; }
+
+    footer { border-top: 2px solid var(--border); padding: 24px; text-align: center; }
+    footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
+    footer a { color: var(--text3); text-decoration: none; }
+    footer a:hover { color: var(--text2); }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .signal-grid { grid-template-columns: 1fr; }
+      .signal-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .signal-card:last-child { border-bottom: none; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Compare Electricity Contracts with ChatGPT and AI Agents",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web/API",
+    "url": "https://elecz.com/compare-electricity-contracts/",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "Independent electricity contract comparison for ChatGPT and AI agents, with the same structured comparison available through MCP and REST API. Returns the best spot contract, best fixed contract, and a recommendation based purely on estimated annual cost — never influenced by commission. No API key required."
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Am I on the best electricity contract?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Call best_energy_contract with your zone and annual consumption. It returns the best available spot contract, the best available fixed contract, and a recommendation with the estimated annual cost of each. This compares current market options against each other and against the market median — it doesn't know your existing contract terms, so pair it with your own bill to see the exact difference." }
+      },
+      {
+        "@type": "Question",
+        "name": "How much would I save by switching provider?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The response includes expected_savings_year, an estimate of annual savings versus the median provider in your market, based on your stated consumption. This is an estimate from available market data, not a guarantee — actual savings depend on your exact usage pattern and current contract terms." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Elecz earn commission from contract switches?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Elecz has no live affiliate partnerships as of August 2026. When commercial partnerships are added, they will only affect the switch link a user is sent to (the action_link) — never which contract is calculated as recommended. The ranking logic has no input for commission or affiliate status; it selects purely by estimated annual cost." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which countries does contract comparison support?",
+        "acceptedAnswer": { "@type": "Answer", "text": "best_energy_contract currently supports Finland, Sweden, Norway, Denmark, Germany, Great Britain, Australia, and New Zealand. spot_price and cheapest_hours cover a wider set of markets — see the full coverage table for details." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can an AI agent compare electricity contracts for me?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. best_energy_contract is available as an MCP tool and as the evaluate-electricity-contract ChatGPT skill. Any MCP-compatible AI client (Claude, Grok, Cursor, Copilot) or ChatGPT can call it directly with your zone and consumption to get a structured comparison." }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between spot and fixed electricity contracts?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A spot (dynamic) contract ties your price directly to the hourly wholesale market price. A fixed contract locks in a set rate for a contract period, usually with a small premium for that price certainty. best_energy_contract returns the best available option of each type plus a recommendation based on estimated annual cost for your consumption." }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
+  <div class="nav-links">
+    <a href="/cheapest-hours/">Cheapest Hours</a>
+    <a href="/docs/">Docs</a>
+    <a href="/electricity-price-api/">API Guide</a>
+    <a href="/for-agents/">For AI Agents</a>
+    <a href="https://elecz.com/mcp" class="nav-cta">Connect via MCP</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Electricity Contract Comparison — via ChatGPT &amp; AI Agents</div>
+  <h1>Are you overpaying<br>for electricity?<br><span class="hl">Ask your agent to check.</span></h1>
+  <p class="hero-lead">
+    Elecz helps ChatGPT and other AI agents compare electricity contracts for you. Ask whether you're overpaying or which contract to switch to, and it gets back the best available spot contract, the best available fixed contract, and a straight recommendation between them — with an estimated annual cost and savings figure attached. No spreadsheet, no manual comparison shopping.
+  </p>
+  <p class="hero-agent-line">Ask it directly in ChatGPT — Elecz is listed in the Plugin Directory as "Elecz — Electricity Prices," no setup required. Claude, Grok, Cursor, and any other MCP-compatible client can connect the same way via MCP. And it's independent: commission never influences which contract is calculated as best — see <a href="#independence" style="color:var(--accent2);">how that's enforced</a>.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">countries</div></div>
+    <div class="stat"><div class="stat-num">current</div><div class="stat-label">market data</div></div>
+    <div class="stat"><div class="stat-num">0%</div><div class="stat-label">commission-influenced ranking</div></div>
+    <div class="stat"><div class="stat-num">€0</div><div class="stat-label">no API key</div></div>
+  </div>
+  <div class="hero-ctas">
+    <a href="https://chatgpt.com/plugins/plugin_asdk_app_6a24c971acc48191bb99f2a694d24fbf" class="btn-primary" target="_blank" rel="noopener">💬 Open in ChatGPT →</a>
+    <a href="https://elecz.com/mcp" class="btn-secondary">Connect via MCP →</a>
+    <a href="/docs/" class="btn-secondary">REST API docs</a>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Ask ChatGPT — "Am I overpaying for electricity?"</h2>
+  <p class="section-sub">This is the fastest path for most people: no API, no setup. Ask ChatGPT directly and it routes the question through Elecz's <code style="font-family:var(--mono);font-size:0.88rem;color:var(--accent2)">evaluate-electricity-contract</code> skill automatically.</p>
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">In ChatGPT</span><span class="code-lang">example</span></div>
+    <pre><span class="c">User: "What's the best electricity contract in Australia? I use about 4,500 kWh per year."</span>
+
+<span class="c">ChatGPT (via Elecz):</span>
+<span class="s">Evaluates the available spot and fixed contracts for your zone
+and consumption, and answers with a specific recommendation and
+an estimated annual saving — the same comparison shown further
+down this page, without needing to know any of it exists.</span></pre>
+  </div>
+  <div class="cta-row" style="margin-top:24px;">
+    <a href="https://chatgpt.com/plugins/plugin_asdk_app_6a24c971acc48191bb99f2a694d24fbf" class="btn-primary" target="_blank" rel="noopener">💬 Open Elecz in ChatGPT →</a>
+    <a href="/chatgpt/" class="btn-secondary">All 6 Elecz skills →</a>
+  </div>
+</div>
+
+<div class="section">
+  <h2>The response tells you which available option looks best — not just prices</h2>
+  <p class="section-sub">Under the hood, that ChatGPT answer — and any other AI agent's — comes from the same <code style="font-family:var(--mono);font-size:0.88rem;color:var(--accent2)">best_energy_contract</code> tool, available via the Elecz plugin, MCP server, and REST API. It compares available market options against each other — it doesn't know your current contract unless you provide those terms separately.</p>
+  <div class="signal-grid">
+    <div class="signal-card">
+      <div class="signal-label spot">best_spot</div>
+      <div class="signal-desc">The lowest-cost dynamic/spot contract currently available in the market, with its estimated annual cost for your consumption.</div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-label fixed">best_fixed</div>
+      <div class="signal-desc">The lowest-cost fixed-rate contract currently available, with contract duration and estimated annual cost.</div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-label recommended">recommended</div>
+      <div class="signal-desc">Whichever of the two is cheaper for your specific consumption and season, plus a plain-language reason and expected annual savings.</div>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">REST — GET /signal/contract</span><span class="code-lang">cURL</span></div>
+    <pre>curl "https://elecz.com/signal/contract?zone=FI&consumption=2000"</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">Response example (zone: FI, 2000 kWh/year)</span><span class="code-lang">JSON</span></div>
+    <pre>{
+  <span class="k">"zone"</span>: <span class="s">"FI"</span>,
+  <span class="k">"currency"</span>: <span class="s">"EUR"</span>,
+  <span class="k">"best_spot"</span>: {
+    <span class="k">"provider"</span>: <span class="s">"cheap_energy"</span>,
+    <span class="k">"contract_type"</span>: <span class="s">"spot"</span>,
+    <span class="k">"annual_cost_estimate"</span>: <span class="n">111.46</span>,
+    <span class="k">"trust_score"</span>: <span class="n">100</span>
+  },
+  <span class="k">"best_fixed"</span>: {
+    <span class="k">"provider"</span>: <span class="s">"vare"</span>,
+    <span class="k">"contract_type"</span>: <span class="s">"fixed"</span>,
+    <span class="k">"contract_duration_months"</span>: <span class="n">24</span>,
+    <span class="k">"annual_cost_estimate"</span>: <span class="n">185.80</span>,
+    <span class="k">"trust_score"</span>: <span class="n">100</span>
+  },
+  <span class="k">"recommended"</span>: {
+    <span class="k">"contract"</span>: { <span class="k">"provider"</span>: <span class="s">"cheap_energy"</span>, <span class="k">"contract_type"</span>: <span class="s">"spot"</span> },
+    <span class="k">"reason"</span>: <span class="s">"Dynamic/spot historically cheaper outside winter. Review before winter."</span>
+  },
+  <span class="k">"action"</span>: {
+    <span class="k">"expected_savings_year"</span>: <span class="n">55.68</span>,
+    <span class="k">"savings_basis"</span>: <span class="s">"vs_median_provider"</span>,
+    <span class="k">"action_link"</span>: <span class="s">"https://elecz.com/go/cheap_energy?zone=FI&contract_id=8"</span>
+  }
+}</pre>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Response fields</h2>
+  <p class="section-sub">Every field is designed to be actionable — no post-processing required.</p>
+  <table class="fields-table">
+    <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>best_spot</td><td>object</td><td>Cheapest available dynamic/spot contract, with provider, pricing, and estimated annual cost</td></tr>
+      <tr><td>best_fixed</td><td>object</td><td>Cheapest available fixed-rate contract, with provider, duration, and estimated annual cost</td></tr>
+      <tr><td>recommended.contract</td><td>object</td><td>Whichever of best_spot/best_fixed is cheaper for your consumption — selected purely by annual_cost_estimate</td></tr>
+      <tr><td>recommended.reason</td><td>string</td><td>Plain-language explanation for the recommendation (e.g. seasonal spot/fixed guidance)</td></tr>
+      <tr><td>decision_hint</td><td>string</td><td><code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">switch_recommended</code> / <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">stay_spot</code> / <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">compare_options</code> — a ready-to-use decision signal</td></tr>
+      <tr><td>action.expected_savings_year</td><td>number</td><td>Estimated annual savings vs. the market median provider for your consumption</td></tr>
+      <tr><td>action.action_link</td><td>string</td><td>Direct link to switch to the recommended provider</td></tr>
+      <tr><td>action.confidence</td><td>number</td><td>0.95 when live spot data is available for the zone, lower otherwise — a simple heuristic, not a statistical measure</td></tr>
+      <tr><td>trust_score</td><td>integer</td><td>Data-quality/reliability score per contract entry (0–100)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section" id="independence">
+  <h2>How <code style="font-family:var(--mono);font-size:0.85em;color:var(--accent2)">recommended</code> is calculated</h2>
+  <p class="section-sub">The ranking logic is the same in every supported zone — and it has never had a path for commercial influence.</p>
+  <div class="fact-line">
+    <strong>Commission never influences which contract is calculated as recommended.</strong> As of August 2026, Elecz has no live affiliate partnerships — the ranking selects purely by lowest <code>annual_cost_estimate</code> for your stated consumption. If commercial partnerships are added in the future, they will only affect the <code>action_link</code> a user is sent to switch — never which contract is calculated as <code>recommended</code>. Recommendation logic and monetization are architecturally separate layers.
+  </div>
+  <ul style="list-style:none;">
+    <li style="padding:14px 0;border-top:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">Cost basis:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">annual_cost_estimate</code> is computed from each contract's pricing structure (spot margin, fixed rate, standing charge) against your stated annual consumption and heating type.</li>
+    <li style="padding:14px 0;border-top:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">Selection:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">recommended.contract</code> is whichever of <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">best_spot</code> / <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">best_fixed</code> has the lower estimated annual cost — no other factor is weighed in unless it affects reliability (see trust_score below).</li>
+    <li style="padding:14px 0;border-top:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">trust_score:</strong> a data-quality signal, not a commercial one — reflects how reliable a given data entry is, not whether Elecz has a business relationship with the provider.</li>
+    <li style="padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:0.92rem;color:var(--text2);line-height:1.7;"><strong style="color:var(--text)">Seasonal context:</strong> the <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">reason</code> field can note seasonal patterns (e.g. spot contracts historically cheaper outside winter) — this is market context, not a factor that overrides the cost comparison itself.</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>What developers build with it</h2>
+  <p class="section-sub">The contract comparison API is the core signal for any electricity-switching decision.</p>
+  <div class="usecase-grid">
+    <div class="usecase-card">
+      <div class="usecase-title">🤖 AI agent contract check</div>
+      <div class="usecase-desc">User asks "am I overpaying for electricity?" — agent calls <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">best_energy_contract</code>, answers with a concrete recommendation and savings estimate.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">💰 Personal finance apps</div>
+      <div class="usecase-desc">Surface a contract-switch opportunity alongside other savings recommendations, using live market data instead of a static rate table.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">📊 Comparison sites</div>
+      <div class="usecase-desc">Pull structured contract data into your own comparison UI instead of scraping provider sites yourself.</div>
+    </div>
+    <div class="usecase-card">
+      <div class="usecase-title">🔔 Switching reminders</div>
+      <div class="usecase-desc">Check periodically whether a better contract has appeared and notify the user only when the estimated saving is meaningful.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Via MCP — one line of config</h2>
+  <p class="section-sub">Under the hood, ChatGPT reaches <code style="font-family:var(--mono);font-size:0.88rem;color:var(--accent2)">best_energy_contract</code> through the Elecz plugin and its <code style="font-family:var(--mono);font-size:0.88rem;color:var(--accent2)">evaluate-electricity-contract</code> skill. The same tool is available directly via MCP for Claude, Grok, Cursor, and any other MCP-compatible client.</p>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">MCP config — Claude Desktop / Cursor / Grok</span><span class="code-lang">JSON</span></div>
+    <pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"elecz"</span>: {
+      <span class="k">"url"</span>: <span class="s">"https://elecz.com/mcp"</span>
+    }
+  }
+}</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">Example — agent response using best_energy_contract</span><span class="code-lang">natural language</span></div>
+    <pre><span class="c">User: "Am I overpaying for electricity? I use about 2000 kWh a year in Finland."</span>
+
+<span class="c">Agent (via Elecz MCP):</span>
+<span class="s">"You could be saving around €56 a year. The cheapest option right
+now is a spot contract from Cheap Energy at roughly €111/year for
+your usage, versus the market median. Spot tends to run cheaper
+than fixed outside winter — worth revisiting again before the
+colder months."</span></pre>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">Am I on the best electricity contract?</div>
+      <div class="faq-a">Call <code>best_energy_contract</code> with your zone and annual consumption. It returns the best available spot contract, the best available fixed contract, and a recommendation with the estimated annual cost of each. This compares current market options against each other and against the market median — it doesn't know your existing contract terms, so pair it with your own bill to see the exact difference.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How much would I save by switching provider?</div>
+      <div class="faq-a">The response includes <code>expected_savings_year</code>, an estimate of annual savings versus the median provider in your market, based on your stated consumption. This is an estimate from available market data, not a guarantee — actual savings depend on your exact usage pattern and current contract terms.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Does Elecz earn commission from contract switches?</div>
+      <div class="faq-a">Elecz has no live affiliate partnerships as of August 2026. When commercial partnerships are added, they will only affect the switch link a user is sent to (<code>action_link</code>) — never which contract is calculated as <code>recommended</code>. See <a href="#independence">how the ranking logic works</a> above.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Which countries does contract comparison support?</div>
+      <div class="faq-a"><code>best_energy_contract</code> currently supports Finland, Sweden, Norway, Denmark, Germany, Great Britain, Australia, and New Zealand. <code>spot_price</code> and <code>cheapest_hours</code> cover a much wider set of markets — see the <a href="/docs/">full coverage table</a> for details.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can an AI agent compare electricity contracts for me?</div>
+      <div class="faq-a">Yes. <code>best_energy_contract</code> is available as an MCP tool and as the <code>evaluate-electricity-contract</code> ChatGPT skill. Any MCP-compatible AI client (Claude, Grok, Cursor, Copilot) or ChatGPT can call it directly with your zone and consumption to get a structured comparison.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What's the difference between spot and fixed electricity contracts?</div>
+      <div class="faq-a">A spot (dynamic) contract ties your price directly to the hourly wholesale market price. A fixed contract locks in a set rate for a contract period, usually with a small premium for that price certainty. <code>best_energy_contract</code> returns the best available option of each type plus a recommendation based on estimated annual cost for your consumption.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What consumption figure should I use?</div>
+      <div class="faq-a">Your actual annual electricity consumption in kWh, from a past bill or meter reading. If you don't know it, a reasonable default is used, but the estimate is more accurate the closer your input is to your real usage.</div>
+    </div>
+  </div>
+
+  <div class="keyword-cloud">
+    <span class="kw">compare electricity contracts</span>
+    <span class="kw">AI agent electricity contract comparison</span>
+    <span class="kw">best energy contract API</span>
+    <span class="kw">switch electricity provider API</span>
+    <span class="kw">independent electricity contract comparison</span>
+    <span class="kw">agentic energy comparison</span>
+    <span class="kw">electricity contract comparison for AI agents</span>
+    <span class="kw">am I overpaying for electricity</span>
+    <span class="kw">should I switch electricity provider</span>
+    <span class="kw">spot vs fixed electricity contract</span>
+    <span class="kw">electricity contract API no commission</span>
+    <span class="kw">MCP electricity contract tool</span>
+    <span class="kw">ChatGPT electricity contract plugin</span>
+    <span class="kw">business-to-agent energy comparison</span>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Stop guessing. Ask what you should switch to.</h2>
+  <p>Free. No API key. Independent recommendation logic. Works via MCP, ChatGPT, or REST.</p>
+  <div class="cta-row">
+    <a href="https://elecz.com/mcp" class="btn-primary">Connect via MCP →</a>
+    <a href="/electricity-price-api/" class="btn-secondary">Full API overview</a>
+  </div>
+</div>
+
+<footer>
+  <p>
+    ⚡ <a href="/">Elecz.com</a> · Built by SKA Trading Oy / Zemlo AI, Kokkola, Finland ·
+    Data: ENTSO-E · Octopus Agile · AEMO · EM6 ·
+    <a href="/terms/">Terms</a> · <a href="/docs/">Docs</a> ·
+    <a href="/cheapest-hours/">Cheapest Hours</a> ·
+    <a href="/electricity-price-api/">API overview</a> ·
+    <a href="/electricity-price-mcp/">MCP server</a> ·
+    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a>
+  </p>
+</footer>
+
+</body>
+</html>
