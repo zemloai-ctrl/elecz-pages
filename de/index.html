@@ -247,7 +247,7 @@
         "name": "Gibt es ein Strompreis-Plugin für ChatGPT?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja. Elecz ist im offiziellen ChatGPT Plugin Directory gelistet als „Elecz — Electricity Prices“ — direkt verbinden, kein API-Key nötig."
+          "text": "Ja. Elecz ist im offiziellen ChatGPT Plugin Directory gelistet als „Elecz — Electricity Prices“ — direkt öffnen und verbinden, kein Entwicklermodus, keine manuelle MCP-Konfiguration und kein API-Key nötig."
         }
       },
       {
@@ -318,7 +318,7 @@
     <a href="/docs/" class="btn-secondary">REST API Dokumentation</a>
   </div>
   <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text2);">
-    Nur privater Nutzer und wollen einfach wissen, ob sich Warten lohnt? <a href="https://cheapesthours.com/" target="_blank" rel="noopener" style="color: var(--accent2); text-decoration: underline;">cheapesthours.com</a> beantwortet das ohne Technik-Kram — diese Seite hier ist für Entwickler und KI-Agenten.
+    Nur privater Nutzer und wollen einfach wissen, ob sich Warten lohnt? <a href="https://cheapesthours.com/germany/" target="_blank" rel="noopener" style="color: var(--accent2); text-decoration: underline;">cheapesthours.com/germany</a> beantwortet das ohne Technik-Kram — diese Seite hier ist für Entwickler und KI-Agenten.
   </p>
   <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
     Direkt zu: <a href="#integration" style="color: var(--text2);">KI verbinden</a> ·
@@ -395,7 +395,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     </div>
     <div class="integration-card">
       <div class="integration-title">ChatGPT</div>
-      <div class="integration-desc">Elecz ist im offiziellen ChatGPT Plugin Directory gelistet als „Elecz — Electricity Prices" — direkt öffnen und verbinden, keine Einrichtung, kein API-Key nötig. Eine eigene MCP-Verbindung ist zusätzlich über Einstellungen → Entwicklermodus möglich, sofern diese Funktion in Ihrem ChatGPT-Plan verfügbar ist — genau wie bei jedem anderen MCP-Server.</div>
+      <div class="integration-desc">Elecz ist im offiziellen ChatGPT Plugin Directory gelistet als „Elecz — Electricity Prices" — direkt öffnen und verbinden. Das erfordert keinen Entwicklermodus und keine manuelle MCP-Konfiguration, keinen API-Key. Der Entwicklermodus mit manueller MCP-Verbindung (siehe Code-Beispiel oben) ist ein separater Weg für Entwickler, die eigene Integrationen bauen — für die Nutzung des Plugins selbst wird er nicht benötigt.</div>
       <div class="integration-links">
         <a href="/chatgpt/">Mehr zu Elecz in ChatGPT →</a>
         <a href="/electricity-price-mcp/">MCP-Anleitung ansehen →</a>
@@ -510,7 +510,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
       <div class="dach-zone">AT</div>
       <div class="dach-status full">Vollständig liberalisiert</div>
       <div class="dach-price" id="dach-price-AT"><span class="dot"></span>Lädt Live-Preis…</div>
-      <div class="dach-desc">EU-Mitglied, gleiche Marktstruktur wie Deutschland. Etablierte Anbieter dynamischer Tarife: aWATTar, smartENERGY, Spotty. <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">spot_price</code> und <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">cheapest_hours</code> funktionieren identisch zur DE-Zone. <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">best_energy_contract</code> ist für AT noch nicht verfügbar.</div>
+      <div class="dach-desc">EU-Mitglied, gleiche Marktstruktur wie Deutschland. Etablierte Anbieter dynamischer Tarife: aWATTar, smartENERGY, Spotty. <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">spot_price</code> und <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">cheapest_hours</code> funktionieren identisch zur DE-Zone. <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2);background:var(--accent-dim);padding:1px 5px;border-radius:3px">best_energy_contract</code> ist für AT noch nicht verfügbar. Nur privater Nutzer? <a href="https://cheapesthours.com/austria/" target="_blank" rel="noopener" style="color: var(--accent2); text-decoration: underline;">cheapesthours.com/austria</a> beantwortet das ohne Technik-Kram.</div>
     </div>
     <div class="dach-card">
       <div class="dach-flag">🇨🇭</div>
@@ -609,7 +609,7 @@ curl "https://elecz.com/signal/contract?zone=DE&consumption=3500"</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Gibt es ein Strompreis-Plugin für ChatGPT?</div>
-      <div class="faq-a">Ja. Elecz ist im offiziellen ChatGPT Plugin Directory gelistet als „Elecz — Electricity Prices" — direkt verbinden, kein API-Key nötig. <a href="/chatgpt/">Mehr dazu →</a></div>
+      <div class="faq-a">Ja. Elecz ist im offiziellen ChatGPT Plugin Directory gelistet als „Elecz — Electricity Prices" — direkt öffnen und verbinden, kein Entwicklermodus, keine manuelle MCP-Konfiguration und kein API-Key nötig. <a href="/chatgpt/">Mehr dazu →</a></div>
     </div>
   </div>
 </div>
