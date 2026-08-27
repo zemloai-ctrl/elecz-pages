@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API prezzo elettricità in tempo reale — Italia | Elecz</title>
+  <meta name="description" content="API prezzo elettricità per agenti IA in Italia. Prezzi zonali in tempo reale, ore più economiche, dati per 6 zone. MCP-nativo, nessuna chiave API.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://elecz.com/it/">
+  <link rel="alternate" hreflang="en" href="https://elecz.com/electricity-price-api/">
+  <link rel="alternate" hreflang="de" href="https://elecz.com/de/">
+  <link rel="alternate" hreflang="fr" href="https://elecz.com/fr/">
+  <link rel="alternate" hreflang="es" href="https://elecz.com/es/">
+  <link rel="alternate" hreflang="it" href="https://elecz.com/it/">
+  <link rel="alternate" hreflang="ja" href="https://elecz.com/ja/">
+  <link rel="alternate" hreflang="fi" href="https://elecz.com/fi/">
+  <link rel="alternate" hreflang="sv" href="https://elecz.com/sv/">
+  <link rel="alternate" hreflang="x-default" href="https://elecz.com/electricity-price-api/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:title" content="API prezzo elettricità in tempo reale — Italia | Elecz">
+  <meta property="og:description" content="API gratuita del prezzo dell'elettricità per agenti IA. Prezzi zonali in tempo reale, ore più economiche. MCP-nativo, nessuna chiave API. 6 zone italiane.">
+  <meta property="og:url" content="https://elecz.com/it/">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f5f0; --bg2: #eeeee8; --bg3: #ffffff;
+      --border: #e0e0d8; --border2: #d0d0c8;
+      --text: #1a1a1a; --text2: #555550; --text3: #999990;
+      --accent: #f0a020; --accent2: #d88c10; --accent-dim: rgba(240,160,32,0.1);
+      --green: #1a7a40; --green-dim: rgba(26,122,64,0.08); --green-border: rgba(26,122,64,0.25);
+      --mono: 'DM Mono', monospace; --sans: 'DM Sans', -apple-system, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    nav { background: var(--bg); border-bottom: 2px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 58px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-size: 1.3rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
+    .nav-logo .dot { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text2); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-lang { font-size: 0.8rem; color: var(--text3); }
+    .nav-lang a { color: var(--text3); text-decoration: none; }
+    .nav-lang a:hover { color: var(--text2); }
+    .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
+    .nav-cta:hover { background: var(--accent2) !important; }
+    .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 56px; border-bottom: 2px solid var(--border); }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 18px; }
+    h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; }
+    h1 .hl { color: var(--accent2); }
+    .hero-lead { font-size: 1.08rem; color: var(--text2); max-width: 620px; line-height: 1.75; margin-bottom: 32px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 36px; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); max-width: 560px; }
+    .stat { padding: 16px 24px; border-right: 1px solid var(--border); flex: 1; min-width: 110px; }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; color: var(--text); line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-size: 0.75rem; color: var(--text3); font-weight: 500; }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { background: var(--accent); color: var(--text); font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
+    .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
+    .btn-chatgpt { background: #10a37f; color: #fff; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-chatgpt:hover { background: #0d8f6e; }
+    .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
+    h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
+    .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
+    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); }
+    .tool-card { padding: 24px; border-right: 1px solid var(--border); }
+    .tool-card:last-child { border-right: none; }
+    .tool-name { font-family: var(--mono); font-size: 0.82rem; font-weight: 500; color: var(--accent2); margin-bottom: 10px; background: var(--accent-dim); display: inline-block; padding: 3px 8px; border-radius: 3px; }
+    .tool-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.65; }
+    .code-block { background: #1e1e1e; border-radius: 8px; overflow: hidden; margin: 24px 0; }
+    .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #2a2a2a; border-bottom: 1px solid #333; }
+    .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
+    .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
+    .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
+    .k { color: #7ec8e3; } .s { color: #a8d8a8; } .c { color: #888; font-style: italic; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+    .faq-a { font-size: 0.9rem; color: var(--text2); line-height: 1.75; max-width: 700px; }
+    .faq-a code { font-family: var(--mono); font-size: 0.82rem; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
+    .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .kw { font-family: var(--mono); font-size: 0.78rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
+    .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
+    .cta-section h2 { margin-bottom: 14px; }
+    .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    footer { border-top: 2px solid var(--border); padding: 24px; text-align: center; }
+    footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
+    footer a { color: var(--text3); text-decoration: none; }
+    footer a:hover { color: var(--text2); }
+    .signal-banner { max-width: 860px; margin: 0 auto; padding: 36px 24px; border-bottom: 1px solid var(--border); background: var(--green-dim); }
+    .signal-banner-inner { max-width: 720px; }
+    .signal-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+    .signal-banner h2 { font-size: clamp(16px, 2.2vw, 21px); margin-bottom: 12px; }
+    .signal-banner p { font-size: 0.95rem; color: var(--text2); line-height: 1.75; }
+    .signal-flow { font-family: var(--mono); font-size: 0.95rem; color: var(--text); margin-top: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .signal-flow span { padding: 5px 12px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 5px; }
+    .signal-flow .arrow { color: var(--green); font-weight: 600; }
+    .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+    .usecase-item { background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 18px 20px; }
+    .usecase-icon { font-size: 1.2rem; margin-bottom: 8px; }
+    .usecase-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
+    .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+    .it-note { font-size: 0.86rem; color: var(--text2); line-height: 1.7; background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px; padding: 14px 16px; margin-top: 16px; }
+    .it-note strong { color: var(--text); }
+    .zone-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); margin-bottom: 20px; }
+    .zone-card { padding: 18px 20px; border-right: 1px solid var(--border); }
+    .zone-card:nth-child(3n) { border-right: none; }
+    .zone-card:nth-child(n+4) { border-top: 1px solid var(--border); }
+    .zone-code { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; color: var(--accent2); background: var(--accent-dim); display: inline-block; padding: 2px 7px; border-radius: 3px; margin-bottom: 8px; }
+    .zone-city { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+    .integration-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
+    .integration-card { background: var(--bg3); padding: 22px 24px; }
+    .integration-title { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+    .integration-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; margin-bottom: 12px; }
+    .integration-code { font-family: var(--mono); font-size: 0.76rem; color: var(--text2); background: var(--bg2); padding: 8px 12px; border-radius: 5px; border: 1px solid var(--border); word-break: break-all; margin-bottom: 10px; }
+    .integration-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .integration-links a { font-size: 0.8rem; color: var(--accent2); text-decoration: none; font-weight: 500; }
+    .integration-links a:hover { text-decoration: underline; }
+    .integration-test { font-size: 0.82rem; color: var(--text2); background: var(--green-dim); border: 1px solid var(--green-border); border-radius: 6px; padding: 10px 12px; margin-top: 10px; font-style: italic; }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .tools-grid, .zone-grid { grid-template-columns: 1fr; }
+      .tool-card, .zone-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .tool-card:last-child, .zone-card:last-child { border-bottom: none; }
+      .zone-card:nth-child(n+2) { border-top: 1px solid var(--border); }
+      .signal-flow { font-size: 0.85rem; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Elecz API prezzo elettricità",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web/API",
+    "url": "https://elecz.com/it/",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "API gratuita del prezzo dell'elettricità in tempo reale per l'Italia e l'Europa. Fornisce un segnale di decisione pronto all'uso — prezzo zonale, ore più economiche — invece di dati grezzi. Copre le sei zone di mercato italiane. MCP-nativo, nessuna chiave API.",
+    "inLanguage": "it"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Esiste un'API gratuita del prezzo dell'elettricità per l'Italia senza chiave API?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sì. Elecz è completamente gratuito per l'Italia — prezzo zonale e ore più economiche disponibili per tutte e sei le zone di mercato, senza chiave API, account o registrazione. Basta chiamare GET /signal/spot?zone=IT-NO (o un'altra zona)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Come si ottiene il prezzo zonale dell'elettricità in Italia tramite API?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Elecz fornisce i prezzi all'ingrosso ENTSO-E per le sei zone del mercato italiano (Nord, Centro-Nord, Centro-Sud, Sud, Sardegna, Sicilia), basati sulle aste del Mercato del Giorno Prima gestito da GME. Non serve accesso diretto a GME o ENTSO-E — Elecz normalizza i dati e li restituisce in ct/kWh senza autenticazione."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Cosa restituisce Elecz se si richiede la zona IT senza suffisso?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Il codice IT senza suffisso usa IT-NO (Nord) come zona predefinita e restituisce lo stesso prezzo di IT-NO. Elecz non calcola una media nazionale separata — per un'altra zona specifica va usato il relativo codice (IT-CNO, IT-CSO, IT-SO, IT-SAR, IT-SIC)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Il prezzo di Elecz corrisponde al PUN?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sono collegati ma non identici. Il PUN (Prezzo Unico Nazionale) è una media dei prezzi zonali pesata sui consumi, storicamente usata come riferimento nazionale unico, ad esempio per alcune offerte a prezzo indicizzato. Il mercato all'ingrosso italiano è però organizzato per zone, con prezzi che possono differire sensibilmente tra Nord e Sud o le isole in caso di congestione della rete. Elecz restituisce il prezzo della zona specifica richiesta, non la media nazionale PUN — un segnale più preciso per decisioni operative in una zona particolare."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Elecz confronta le offerte dei fornitori di energia elettrica in Italia?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Non ancora. Lo strumento best_energy_contract confronta attualmente contratti a prezzo variabile e fisso per FI, SE, NO, DK, DE, GB, AU e NZ. Per l'Italia, Elecz fornisce il prezzo zonale e le ore più economiche; il confronto dei contratti è nella roadmap."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Elecz funziona con Home Assistant o n8n?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sì. Tramite l'API REST o il node ufficiale n8n (n8n-nodes-elecz), Elecz si integra in qualsiasi piattaforma di automazione. Il campo current_hour_signal restituisce direttamente low, medium o high — nessuna logica personalizzata necessaria."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Cos'è MCP e perché è utile per i dati sul prezzo dell'elettricità?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MCP (Model Context Protocol) è uno standard aperto per collegare agenti IA a strumenti esterni. I prezzi cambiano ogni ora — un agente ha bisogno di una chiamata API in tempo reale, non di dati di addestramento. Connessione tramite https://elecz.com/mcp, nessuna configurazione richiesta. Funziona con Claude, ChatGPT, Grok, Cursor, Copilot e Mistral."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Cos'è un segnale di decisione per il prezzo dell'elettricità?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Un segnale di decisione è un valore già interpretato come current_hour_signal (low/medium/high) o recommendation, a differenza del prezzo grezzo che un agente dovrebbe valutare da solo. Elecz fornisce entrambi: il prezzo grezzo e il segnale pronto all'uso nella stessa risposta."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Esiste uno skill di Elecz per Claude?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sì. Elecz fornisce un file SKILL.md che segue lo standard aperto Agent Skills e funziona in Claude, Cursor, VS Code e oltre 30 altri strumenti."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Esiste un plugin del prezzo dell'elettricità per ChatGPT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sì. Elecz è elencato nella Plugin Directory ufficiale di ChatGPT come «Elecz — Electricity Prices» — si apre e si connette direttamente, senza modalità sviluppatore, senza configurazione manuale MCP e senza chiave API."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Esiste un'estensione Gemini per i prezzi dell'elettricità?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sì. Elecz è disponibile come estensione Gemini CLI tramite gemini-extension.json, oltre alla connessione MCP e all'API REST."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "L'elettricità è economica in questo momento?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Il campo energy_state nella risposta di cheapest_hours restituisce direttamente cheap, normal, expensive o negative — nessun calcolo di soglia necessario."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Conviene avviare un'attività adesso o aspettare?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Il campo recommendation nella risposta di cheapest_hours restituisce direttamente run_high_consumption_tasks, normal_usage o avoid."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual è la prossima ora più economica per l'elettricità?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "I campi next_cheap_hour (timestamp) e hours_until_next_cheap (0 significa immediatamente) nella risposta di cheapest_hours forniscono direttamente l'informazione."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual è la fascia oraria migliore per consumare elettricità oggi?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Il campo best_3h_window nella risposta di cheapest_hours fornisce inizio, fine e prezzo medio della finestra di tre ore più economica."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
+  <div class="nav-links">
+    <a href="/docs/">Docs</a>
+    <a href="/electricity-price-api/">API Guide</a>
+    <a href="/chatgpt/">Plugin ChatGPT</a>
+    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank">GitHub</a>
+    <span class="nav-lang"><a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a></span>
+    <a href="https://elecz.com/mcp" class="nav-cta">Connetti via MCP</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">API prezzo elettricità — Italia (6 zone) &amp; Europa</div>
+  <h1>L'IA indovina il prezzo dell'elettricità.<br><span class="hl">Elecz no.</span></h1>
+  <p class="hero-lead">
+    Elecz fornisce il prezzo zonale attuale dell'elettricità, le ore più economiche e — dove disponibile — le migliori opzioni contrattuali, per agenti IA, domotica e ricarica dei veicoli elettrici. Nessuna chiave API, nessuna registrazione — utilizzabile subito via REST, con copertura di tutte e sei le zone di mercato italiane.
+  </p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">zone italiane</div></div>
+    <div class="stat"><div class="stat-num">oraria</div><div class="stat-label">aggiornamento</div></div>
+    <div class="stat"><div class="stat-num">GME</div><div class="stat-label">mercato · dati via ENTSO-E</div></div>
+    <div class="stat"><div class="stat-num">€0</div><div class="stat-label">nessuna chiave API</div></div>
+  </div>
+  <div class="hero-ctas">
+    <a href="https://elecz.com/mcp" class="btn-primary">Connetti via MCP →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">Apri in ChatGPT →</a>
+    <a href="/docs/" class="btn-secondary">Documentazione REST API</a>
+  </div>
+  <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text2);">
+    Sei un privato e vuoi solo sapere se conviene aspettare? <a href="https://cheapesthours.com/italy/" target="_blank" rel="noopener" style="color: var(--accent2); text-decoration: underline;">cheapesthours.com</a> risponde a questa domanda senza complicazioni tecniche — questa pagina è pensata per sviluppatori e agenti IA.
+  </p>
+  <p style="margin-top: 28px; font-size: 0.85rem; color: var(--text3);">
+    Vai direttamente a: <a href="#integrazione" style="color: var(--text2);">Collega la tua IA</a> ·
+    <a href="#zone" style="color: var(--text2);">Zone italiane</a> ·
+    <a href="#italia" style="color: var(--text2);">Cosa sapere sull'Italia</a> ·
+    <a href="#faq" style="color: var(--text2);">Domande frequenti</a>
+  </p>
+</div>
+
+<div class="signal-banner">
+  <div class="signal-banner-inner">
+    <div class="signal-eyebrow">Non una fonte di dati — un livello di decisione</div>
+    <h2>Non solo prezzi. Segnali di decisione pronti all'uso.</h2>
+    <p>ENTSO-E e GME forniscono prezzi grezzi — valori orari (o a quarto d'ora, a seconda della zona) che un agente deve prima interpretare. Elecz fa già questo lavoro: nessuna logica da programmare, nessuna soglia da definire, nessun ricalcolo.</p>
+    <div class="signal-flow">
+      <span>9,8 ct/kWh</span>
+      <span class="arrow">→</span>
+      <span>low</span>
+      <span class="arrow">→</span>
+      <span>ricarica ora</span>
+    </div>
+    <p style="font-size: 0.88rem; color: var(--text2); line-height: 1.75; margin-top: 18px;">ENTSO-E e GME sono fonti di dati — non un'interfaccia per agenti, non MCP, non una raccomandazione pronta. Elecz si costruisce sopra di esse e restituisce il risultato, non solo il numero grezzo.</p>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Tre strumenti. Dal prezzo alla decisione.</h2>
+  <p class="section-sub">Elecz espone tre strumenti MCP — per il prezzo zonale attuale, la pianificazione delle ore più economiche e il confronto contrattuale dove disponibile. Riferimento completo dei campi nella <a href="/docs/" style="color: var(--accent2); text-decoration: underline;">documentazione API prezzo elettricità</a>.</p>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-name">spot_price</div>
+      <div class="tool-desc">Prezzo zonale attuale per <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">IT-NO</code>, <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">IT-SIC</code> e le altre quattro zone italiane. Prezzo, unità, timestamp, fonte.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">cheapest_hours</div>
+      <div class="tool-desc">Ore più economiche nelle prossime 24h con segnale in tempo reale. Ideale per pompa di calore, lavastoviglie, ricarica VE. Restituisce direttamente <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">current_hour_signal</code> (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">low / medium / high</code>) ed <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">energy_state</code> (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheap / normal / expensive / negative</code>) — nessuna logica personalizzata necessaria. <a href="/cheapest-hours/" style="color: var(--accent2); text-decoration: underline; font-size: 0.85rem;">Maggiori dettagli →</a></div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">best_energy_contract</div>
+      <div class="tool-desc">Opzioni contrattuali in tempo reale — disponibile per FI, SE, NO, DK, DE, GB, AU, NZ. Per le zone italiane, restituisce il prezzo zonale con lo stato del confronto contrattuale. Anche via REST: <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">Connessione MCP — Claude, ChatGPT, Grok, Cursor, Copilot, Mistral</span><span class="code-lang">JSON</span></div>
+    <pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"elecz"</span>: {
+      <span class="k">"url"</span>: <span class="s">"https://elecz.com/mcp"</span>
+    }
+  }
+}</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-title">REST API — esempi per l'Italia</span><span class="code-lang">cURL</span></div>
+    <pre>curl "https://elecz.com/signal/spot?zone=IT-NO"
+curl "https://elecz.com/signal/spot?zone=IT-CNO"
+curl "https://elecz.com/signal/spot?zone=IT-SIC"
+curl "https://elecz.com/signal/cheapest-hours?zone=IT-NO&hours=5"
+<span class="c"># → spot_price disponibile, contract_comparison: "not_available" per le zone IT
+# Zone con confronto contrattuale completo: FI, SE, NO, DK, DE, GB, AU, NZ</span></pre>
+  </div>
+</div>
+
+<div class="section" id="zone">
+  <h2>Le sei zone di mercato italiane</h2>
+  <p class="section-sub">Il mercato elettrico all'ingrosso italiano è organizzato per zone geografiche, non con un prezzo unico nazionale — Elecz espone tutte e sei le zone individualmente. Il codice <code style="font-family:var(--mono);font-size:0.85rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">IT</code> senza suffisso usa <code style="font-family:var(--mono);font-size:0.85rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">IT-NO</code> (Nord) come zona predefinita.</p>
+  <div class="zone-grid">
+    <div class="zone-card"><div class="zone-code">IT-NO</div><div class="zone-city">Nord</div></div>
+    <div class="zone-card"><div class="zone-code">IT-CNO</div><div class="zone-city">Centro-Nord</div></div>
+    <div class="zone-card"><div class="zone-code">IT-CSO</div><div class="zone-city">Centro-Sud</div></div>
+    <div class="zone-card"><div class="zone-code">IT-SO</div><div class="zone-city">Sud</div></div>
+    <div class="zone-card"><div class="zone-code">IT-SAR</div><div class="zone-city">Sardegna</div></div>
+    <div class="zone-card"><div class="zone-code">IT-SIC</div><div class="zone-city">Sicilia</div></div>
+  </div>
+  <p style="font-size: 0.88rem; color: var(--text2); line-height: 1.75;">I prezzi possono differire sensibilmente tra zone, soprattutto tra il continente e le isole, in caso di congestione della rete di trasmissione. Un agente che ottimizza il consumo a Milano non dovrebbe usare il prezzo di Palermo — vanno usati i codici di zona corretti.</p>
+</div>
+
+<div class="section" id="integrazione">
+  <h2>Collega Elecz alla tua IA</h2>
+  <p class="section-sub">Ogni piattaforma funziona in modo leggermente diverso — ecco i passaggi concreti invece di una configurazione generica.</p>
+  <div class="integration-grid">
+    <div class="integration-card">
+      <div class="integration-title">Claude</div>
+      <div class="integration-desc">Aggiungi Elecz come server MCP (Claude.ai: Impostazioni → Connettori, Claude Desktop: file di configurazione).</div>
+      <div class="integration-code">https://elecz.com/mcp</div>
+      <div class="integration-test">Domanda di prova: «Quali sono oggi le tre ore più economiche per ricaricare la mia auto elettrica nel Nord Italia?»</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">ChatGPT</div>
+      <div class="integration-desc">Elecz è elencato nella Plugin Directory ufficiale di ChatGPT come «Elecz — Electricity Prices» — si apre e si connette direttamente. Questo non richiede modalità sviluppatore né configurazione manuale di MCP, né chiave API. La modalità sviluppatore con connessione MCP manuale (vedi l'esempio di codice sopra) è un percorso separato, pensato per sviluppatori che costruiscono le proprie integrazioni — non è necessaria per usare il plugin in sé.</div>
+      <div class="integration-links">
+        <a href="/chatgpt/">Maggiori informazioni su Elecz in ChatGPT →</a>
+        <a href="/electricity-price-mcp/">Vedi la guida MCP →</a>
+      </div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">Cursor e altri client MCP</div>
+      <div class="integration-desc">Per Cursor, Copilot, Grok, Mistral e qualsiasi altro client compatibile con MCP — stesso URL, stessa configurazione.</div>
+      <div class="integration-code">https://elecz.com/mcp</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">n8n</div>
+      <div class="integration-desc">Installa il node ufficiale n8n e usa prezzi dell'elettricità in tempo reale, ore più economiche e segnali di decisione direttamente nei tuoi workflow.</div>
+      <div class="integration-code">n8n-nodes-elecz</div>
+      <div class="integration-links"><a href="https://www.npmjs.com/package/n8n-nodes-elecz" target="_blank" rel="noopener">Pacchetto npm →</a></div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">Home Assistant</div>
+      <div class="integration-desc">Nessuna estensione nativa ufficiale — collega Elecz tramite l'API REST o un sensore REST, e controlla le automazioni con <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">current_hour_signal</code> o <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">recommendation</code>.</div>
+      <div class="integration-code">GET /signal?zone=IT-NO&consumption=2700</div>
+    </div>
+    <div class="integration-card">
+      <div class="integration-title">API REST</div>
+      <div class="integration-desc">HTTP diretto, nessuna autenticazione. Funziona con qualsiasi linguaggio o piattaforma.</div>
+      <div class="integration-code">GET /signal/spot?zone=IT-NO</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Costruire agenti IA consapevoli del prezzo dell'elettricità</h2>
+  <p class="section-sub">Un LLM o agente IA non può dedurre il prezzo attuale dell'elettricità dai propri dati di addestramento — cambia ogni ora e può variare notevolmente da zona a zona in una singola giornata. Un agente consapevole dell'energia ha bisogno di una chiamata di strumento in tempo reale, non di una stima tratta dalla memoria del modello.</p>
+  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8; margin-bottom: 20px;">Elecz rende qualsiasi agente consapevole dell'energia, senza logica aggiuntiva:</p>
+  <ul style="padding-left: 20px; color: var(--text2); font-size: 0.92rem; line-height: 2; margin-bottom: 24px;">
+    <li><strong>Prima di un'azione:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">current_hour_signal</code> — l'attività deve partire ora o attendere?</li>
+    <li><strong>Pianificazione:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">cheapest_hours</code> — qual è la prossima finestra più economica?</li>
+    <li><strong>Decisione contrattuale:</strong> <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">best_energy_contract</code> — conviene cambiare adesso? (zone con confronto contrattuale)</li>
+  </ul>
+  <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.8;">Funziona con qualsiasi framework di agenti compatibile con MCP: Claude, ChatGPT, Cursor, Copilot, Grok — una chiamata di strumento invece di una logica di prezzo personalizzata. Dettagli sulla <a href="/electricity-price-mcp/" style="color: var(--accent2); text-decoration: underline;">configurazione del server MCP prezzo elettricità</a> e la <a href="/for-agents/" style="color: var(--accent2); text-decoration: underline;">guida completa per agenti IA</a>. Elecz fornisce anche un file <code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2);background:var(--accent-dim);padding:1px 6px;border-radius:3px">SKILL.md</code> che segue lo standard aperto Agent Skills. <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/SKILL.md" target="_blank" rel="noopener" style="color: var(--accent2); text-decoration: underline;">Vedi SKILL.md su GitHub →</a></p>
+</div>
+
+<div class="section">
+  <h2>Casi d'uso tipici</h2>
+  <p class="section-sub">Dall'automazione singola all'agente autonomo — gli stessi strumenti supportano diversi casi d'uso.</p>
+  <div class="usecase-grid">
+    <div class="usecase-item">
+      <div class="usecase-icon">🚗</div>
+      <div class="usecase-title">Ricarica veicolo elettrico</div>
+      <div class="usecase-desc">Trova le 3 ore più economiche di oggi e programma automaticamente la ricarica.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🌡️</div>
+      <div class="usecase-title">Controllo pompa di calore</div>
+      <div class="usecase-desc">Evita automaticamente le ore costose, sfrutta con precisione le ore economiche.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🔋</div>
+      <div class="usecase-title">Accumulo a batteria</div>
+      <div class="usecase-desc">Carica nel periodo più economico della giornata, scarica nelle ore costose.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🏠</div>
+      <div class="usecase-title">Home Assistant / n8n</div>
+      <div class="usecase-desc">Usa <code style="font-family:var(--mono);font-size:0.8rem;color:var(--accent2)">current_hour_signal</code> direttamente come condizione delle automazioni — nessuna logica di soglia da programmare.</div>
+    </div>
+    <div class="usecase-item">
+      <div class="usecase-icon">🤖</div>
+      <div class="usecase-title">Agenti IA</div>
+      <div class="usecase-desc">Decisioni ottimizzate per l'energia in automatico, senza logica di calcolo aggiuntiva.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="italia">
+  <h2>Italia — cosa devono sapere gli sviluppatori</h2>
+  <p class="section-sub">Elecz fornisce il prezzo all'ingrosso per le sei zone di mercato italiane in EUR ct/kWh, tramite la ENTSO-E Transparency Platform: la piattaforma su cui vengono pubblicati gli esiti del Mercato del Giorno Prima gestito da GME. I dati si aggiornano ogni ora; i prezzi del giorno successivo diventano disponibili nel primo pomeriggio, ora italiana, dopo la chiusura dell'asta MGP a mezzogiorno.</p>
+  <ul style="padding-left: 20px; color: var(--text2); font-size: 0.95rem; line-height: 2; margin-bottom: 24px;">
+    <li>Prezzo <strong>senza</strong> oneri di trasporto e gestione del contatore</li>
+    <li>Prezzo <strong>senza</strong> imposte e oneri di sistema (IVA, accise)</li>
+    <li>Prezzo all'ingrosso zonale — dato di mercato, distinto dal PUN usato come riferimento nazionale unico</li>
+    <li>Mercato gestito da GME (Gestore dei Mercati Energetici), dati via ENTSO-E Transparency Platform</li>
+    <li>Confronto contrattuale (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">best_energy_contract</code>): non ancora disponibile per le zone italiane — nella roadmap</li>
+  </ul>
+
+  <div class="it-note">
+    <strong>Sul PUN e i prezzi zonali:</strong> il PUN (Prezzo Unico Nazionale) è una media dei prezzi zonali pesata sui consumi, storicamente usata come riferimento unico a livello nazionale — ad esempio per alcune offerte a prezzo indicizzato sul mercato libero. Il mercato all'ingrosso vero e proprio, gestito da GME, è però organizzato per zone: Nord, Centro-Nord, Centro-Sud, Sud, Sardegna e Sicilia possono avere prezzi orari diversi tra loro, soprattutto in caso di congestione della rete tra continente e isole. Il segnale di Elecz riflette il prezzo della zona specifica richiesta, non la media nazionale PUN — più utile per decisioni operative legate a una zona particolare (es. quando caricare un'auto elettrica in una data città).
+  </div>
+
+  <div class="it-note" style="margin-top: 12px;">
+    <strong>Elecz non è un comparatore per consumatori.</strong> A seconda di cosa cerchi, la fonte giusta è diversa: un comparatore di offerte per scegliere un fornitore come consumatore; ARERA e GME per il quadro regolatorio e i dati ufficiali di mercato; ENTSO-E per i dati di mercato grezzi. Elecz fornisce un segnale in tempo reale — prezzo zonale, ore più economiche — pensato per essere richiamato da un agente IA o un'automazione, non per la sottoscrizione di un contratto di fornitura.
+  </div>
+
+  <p style="font-size: 0.88rem; color: var(--text2); margin-top: 20px;">Gli sviluppatori in Italia cercano anche:</p>
+  <div class="keyword-cloud">
+    <span class="kw">API prezzo elettricità Italia</span>
+    <span class="kw">prezzi zonali tempo reale</span>
+    <span class="kw">prezzo zonale elettricità API</span>
+    <span class="kw">tariffa dinamica elettricità API</span>
+    <span class="kw">prezzo elettricità oggi API JSON</span>
+    <span class="kw">ore più economiche elettricità API</span>
+    <span class="kw">API elettricità senza registrazione</span>
+    <span class="kw">server MCP elettricità</span>
+    <span class="kw">connettore MCP elettricità</span>
+    <span class="kw">agente IA consapevole energia</span>
+    <span class="kw">segnale di decisione prezzo elettricità</span>
+    <span class="kw">GME API prezzo</span>
+    <span class="kw">zone di mercato elettrico Italia</span>
+    <span class="kw">collegare Claude ChatGPT elettricità</span>
+    <span class="kw">skill elettricità Claude</span>
+    <span class="kw">node elettricità n8n</span>
+    <span class="kw">estensione Gemini elettricità</span>
+    <span class="kw">plugin elettricità ChatGPT</span>
+    <span class="kw">strumento IA elettricità</span>
+    <span class="kw">integrazione elettricità Home Assistant</span>
+  </div>
+</div>
+
+<div class="section" id="faq">
+  <h2>Domande frequenti</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">Esiste un'API gratuita del prezzo dell'elettricità per l'Italia senza chiave API?</div>
+      <div class="faq-a">Sì. Elecz è completamente gratuito per l'Italia — prezzo zonale e ore più economiche disponibili per tutte e sei le zone di mercato, senza chiave API, account o registrazione. Basta chiamare <code>GET /signal/spot?zone=IT-NO</code> (o un'altra zona).</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Come si ottiene il prezzo zonale dell'elettricità in Italia tramite API?</div>
+      <div class="faq-a">Elecz fornisce i prezzi all'ingrosso ENTSO-E per le sei zone del mercato italiano (Nord, Centro-Nord, Centro-Sud, Sud, Sardegna, Sicilia), basati sulle aste del Mercato del Giorno Prima gestito da GME. Non serve accesso diretto a GME o ENTSO-E — Elecz normalizza i dati e li restituisce in ct/kWh senza autenticazione.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Cosa restituisce Elecz se si richiede la zona IT senza suffisso?</div>
+      <div class="faq-a">Il codice <code>IT</code> senza suffisso usa <code>IT-NO</code> (Nord) come zona predefinita e restituisce lo stesso prezzo di <code>IT-NO</code>. Elecz non calcola una media nazionale separata — per un'altra zona specifica va usato il relativo codice (<code>IT-CNO</code>, <code>IT-CSO</code>, <code>IT-SO</code>, <code>IT-SAR</code>, <code>IT-SIC</code>).</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Il prezzo di Elecz corrisponde al PUN?</div>
+      <div class="faq-a">Sono collegati ma non identici. Il PUN (Prezzo Unico Nazionale) è una media dei prezzi zonali pesata sui consumi, storicamente usata come riferimento nazionale unico, ad esempio per alcune offerte a prezzo indicizzato. Il mercato all'ingrosso italiano è però organizzato per zone, con prezzi che possono differire sensibilmente tra Nord e Sud o le isole in caso di congestione della rete. Elecz restituisce il prezzo della zona specifica richiesta, non la media nazionale PUN — un segnale più preciso per decisioni operative in una zona particolare.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Elecz confronta le offerte dei fornitori di energia elettrica in Italia?</div>
+      <div class="faq-a">Non ancora. Lo strumento <code>best_energy_contract</code> confronta attualmente contratti a prezzo variabile e fisso per FI, SE, NO, DK, DE, GB, AU e NZ. Per l'Italia, Elecz fornisce il prezzo zonale e le ore più economiche (sei zone); il confronto dei contratti è nella roadmap.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Elecz funziona con Home Assistant o n8n?</div>
+      <div class="faq-a">Sì. Tramite l'API REST o il node ufficiale n8n (<code>n8n-nodes-elecz</code>), Elecz si integra in qualsiasi piattaforma di automazione. Il campo <code>current_hour_signal</code> restituisce direttamente <code>low</code>, <code>medium</code> o <code>high</code> — nessuna logica personalizzata necessaria.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Cos'è MCP e perché è utile per i dati sul prezzo dell'elettricità?</div>
+      <div class="faq-a">MCP (Model Context Protocol) è uno standard aperto per collegare agenti IA a strumenti esterni. I prezzi cambiano ogni ora — un agente ha bisogno di una chiamata API in tempo reale, non di dati di addestramento. Connessione tramite <code>https://elecz.com/mcp</code>, nessuna configurazione richiesta. Funziona con Claude, ChatGPT, Grok, Cursor, Copilot e Mistral.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Cos'è un segnale di decisione per il prezzo dell'elettricità?</div>
+      <div class="faq-a">Un segnale di decisione è un valore già interpretato come <code>current_hour_signal</code> (<code>low</code>/<code>medium</code>/<code>high</code>) o <code>recommendation</code>, a differenza del prezzo grezzo che un agente dovrebbe valutare da solo. Elecz fornisce entrambi: il prezzo grezzo e il segnale pronto all'uso nella stessa risposta.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Esiste uno skill di Elecz per Claude?</div>
+      <div class="faq-a">Sì. Elecz fornisce un file <code>SKILL.md</code> che segue lo standard aperto Agent Skills e funziona in Claude, Cursor, VS Code e oltre 30 altri strumenti. <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/SKILL.md" target="_blank" rel="noopener">Vedi SKILL.md su GitHub →</a></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Esiste un plugin del prezzo dell'elettricità per ChatGPT?</div>
+      <div class="faq-a">Sì. Elecz è elencato nella Plugin Directory ufficiale di ChatGPT come «Elecz — Electricity Prices» — si apre e si connette direttamente, senza modalità sviluppatore, senza configurazione manuale di MCP e senza chiave API. <a href="/chatgpt/">Maggiori informazioni →</a></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Esiste un'estensione Gemini per i prezzi dell'elettricità?</div>
+      <div class="faq-a">Sì. Elecz è disponibile come estensione Gemini CLI tramite <code>gemini-extension.json</code>, oltre alla connessione MCP e all'API REST. <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/gemini-extension.json" target="_blank" rel="noopener">Vedi gemini-extension.json su GitHub →</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Prezzo dell'elettricità in tempo reale<br>per la tua IA — in 60 secondi.</h2>
+  <p>Nessuna chiave API. Nessuna registrazione. MCP-nativo. Gratuito per l'Italia (6 zone) e altri 40+ paesi.</p>
+  <div class="cta-row">
+    <a href="https://elecz.com/mcp" class="btn-primary">Connetti via MCP →</a>
+    <a href="/chatgpt/" class="btn-chatgpt">Apri in ChatGPT →</a>
+    <a href="/docs/" class="btn-secondary">Leggi la documentazione</a>
+  </div>
+</div>
+
+<footer>
+  <p>
+    ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Finlandia ·
+    Dati: ENTSO-E · GME · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
+    <a href="/terms/">Termini di utilizzo</a> · <a href="/docs/">Docs</a> · <a href="/chatgpt/">Plugin ChatGPT</a> ·
+    <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
+    <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a>
+  </p>
+</footer>
+
+</body>
+</html>
