@@ -85,10 +85,21 @@ export default {
       "/docs",
       "/privacy",
       "/terms",
+      "/support",
       "/electricity-price-api",
+      "/electricity-price-mcp",
+      "/chatgpt",
+      "/compare-electricity-contracts",
+      "/cheapest-hours",
+      "/best-time-to-charge-ev",
+      "/for-agents",
       "/fi",
       "/ja",
-      "/for-agents",
+      "/de",
+      "/fr",
+      "/es",
+      "/it",
+      "/sv",
     ];
     if (NO_SLASH_REDIRECT.includes(path)) {
       const assetUrl = new URL(url);
