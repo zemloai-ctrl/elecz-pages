@@ -26,14 +26,14 @@ export default {
 
       const end = new Date();
       const start = new Date(end.getTime() - 24 * 60 * 60 * 1000);
-      const query = `query($zoneTag: string, $start: Time!, $end: Time!) {
+      const query = `query($zoneTag: string, $start: Time, $end: Time) {
         viewer {
           zones(filter: { zoneTag: $zoneTag }) {
-            httpRequests1dGroups(
-              limit: 2
-              filter: { datetime_geq: $start, datetime_leq: $end }
+            httpRequestsAdaptiveGroups(
+              limit: 1
+              filter: { datetime_geq: $start, datetime_lt: $end }
             ) {
-              sum { requests }
+              count
             }
           }
         }
@@ -58,8 +58,8 @@ export default {
         const payload = await cf.json();
         if (!cf.ok || payload.errors) throw new Error("Cloudflare analytics query failed");
 
-        const groups = payload?.data?.viewer?.zones?.[0]?.httpRequests1hGroups || [];
-        const requests = groups.reduce((total, group) => total + Number(group?.sum?.requests || 0), 0);
+        const groups = payload?.data?.viewer?.zones?.[0]?.httpRequestsAdaptiveGroups || [];
+        const requests = groups.reduce((total, group) => total + Number(group?.count || 0), 0);
         const body = JSON.stringify({
           requests_served_24h: requests,
           window: "rolling_24h",
