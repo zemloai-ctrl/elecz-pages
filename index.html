@@ -163,6 +163,9 @@
       <span class="badge green">No Auth Required</span>
       <span class="badge">Free</span>
     </div>
+    <div class="usage-live" id="usage-live" aria-live="polite">
+      <span id="usage-count">Live 24h request count loading…</span>
+    </div>
     <div class="platform-links">
       <a class="platform-link" href="/chatgpt/">
         <span class="icon">💬</span> ChatGPT Plugin
@@ -439,8 +442,22 @@ ZONES.forEach(z => {
   grid.appendChild(btn);
 });
 
-/* Single load on page open. No polling, no setInterval. */
+async function loadUsage() {
+  const el = document.getElementById("usage-count");
+  try {
+    const res = await fetch("/usage");
+    if (!res.ok) throw new Error("bad response");
+    const data = await res.json();
+    if (!Number.isFinite(data.requests_served_24h)) throw new Error("bad data");
+    el.innerHTML = `<strong>${Number(data.requests_served_24h).toLocaleString("en-US")} requests served</strong> · last 24 hours <span class="usage-meta">· updated hourly</span>`;
+  } catch {
+    el.textContent = "";
+  }
+}
+
+/* Single loads on page open. No polling, no setInterval. */
 loadZone(DEFAULT_ZONE);
+loadUsage();
 </script>
 </body>
 </html>
