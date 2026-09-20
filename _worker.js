@@ -9,6 +9,76 @@ export default {
     // stream alongside GET, which otherwise throws:
     // "TypeError: Request with a GET/HEAD method cannot have a body."
     const hasNoBody = request.method === "GET" || request.method === "HEAD";
+    // Public rolling 24h request counter. Cloudflare credentials stay server-side.
+    if (path === "/usage") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method not allowed", { status: 405, headers: { Allow: "GET, HEAD" } });
+      }
+
+      const cache = caches.default;
+      const cacheKey = new Request(url.origin + "/usage", { method: "GET" });
+      const cached = await cache.match(cacheKey);
+      if (cached) return cached;
+
+      if (!env.CF_API_TOKEN || !env.CF_ZONE_ID) {
+        return Response.json({ error: "Usage analytics unavailable" }, { status: 503 });
+      }
+
+      const end = new Date();
+      const start = new Date(end.getTime() - 24 * 60 * 60 * 1000);
+      const query = `query($zoneTag: string, $start: Time!, $end: Time!) {
+        viewer {
+          zones(filter: { zoneTag: $zoneTag }) {
+            httpRequests1dGroups(
+              limit: 2
+              filter: { datetime_geq: $start, datetime_leq: $end }
+            ) {
+              sum { requests }
+            }
+          }
+        }
+      }`;
+
+      try {
+        const cf = await fetch("https://api.cloudflare.com/client/v4/graphql", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${env.CF_API_TOKEN}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query,
+            variables: {
+              zoneTag: env.CF_ZONE_ID,
+              start: start.toISOString(),
+              end: end.toISOString(),
+            },
+          }),
+        });
+        const payload = await cf.json();
+        if (!cf.ok || payload.errors) throw new Error("Cloudflare analytics query failed");
+
+        const groups = payload?.data?.viewer?.zones?.[0]?.httpRequests1dGroups || [];
+        const requests = groups.reduce((total, group) => total + Number(group?.sum?.requests || 0), 0);
+        const body = JSON.stringify({
+          requests_served_24h: requests,
+          window: "rolling_24h",
+          updated_at: end.toISOString(),
+          source: "Cloudflare Analytics",
+        });
+        const response = new Response(body, {
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Cache-Control": "public, max-age=3600",
+          },
+        });
+        ctx.waitUntil(cache.put(cacheKey, response.clone()));
+        return request.method === "HEAD" ? new Response(null, response) : response;
+      } catch {
+        return Response.json({ error: "Usage analytics unavailable" }, { status: 502 });
+      }
+    }
+
     const cacheable =
       path.startsWith("/signal") ||
       path.startsWith("/spot");
