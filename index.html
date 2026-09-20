@@ -449,7 +449,7 @@ async function loadUsage() {
     if (!res.ok) throw new Error("bad response");
     const data = await res.json();
     if (!Number.isFinite(data.requests_served_24h)) throw new Error("bad data");
-    el.innerHTML = `<strong>${Number(data.requests_served_24h).toLocaleString("en-US")} requests served</strong> · last 24 hours <span class="usage-meta">· updated hourly</span>`;
+    el.innerHTML = `<strong>${Number(data.requests_served_24h).toLocaleString("en-US")} requests served</strong> · last 24 hours <span class="usage-meta">· updated hourly · <a href="/usage" style="color:inherit">live JSON</a></span>`;
   } catch {
     el.textContent = "";
   }
