@@ -58,7 +58,7 @@ export default {
         const payload = await cf.json();
         if (!cf.ok || payload.errors) throw new Error("Cloudflare analytics query failed");
 
-        const groups = payload?.data?.viewer?.zones?.[0]?.httpRequests1dGroups || [];
+        const groups = payload?.data?.viewer?.zones?.[0]?.httpRequests1hGroups || [];
         const requests = groups.reduce((total, group) => total + Number(group?.sum?.requests || 0), 0);
         const body = JSON.stringify({
           requests_served_24h: requests,
