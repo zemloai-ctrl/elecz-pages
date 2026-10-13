@@ -153,166 +153,191 @@
   }
   </script>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Onko sähkön hinta API ilmainen?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Kyllä, spot-hinnat, halvimmat tunnit ja sopimusvertailu ovat aina ilmaisia ilman API-avainta. Suomessa on jo useita ilmaisia pörssisähkö-APIeja, joten Eleczin oikea etu ei ole hinta vaan agenttinatiivius: MCP-tuki, valmis päätössignaali ja sähkösopimusvertailu."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Mikä on sähkönhinta MCP ja miksi se on tärkeä?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "MCP (Model Context Protocol) on avoin standardi, jolla tekoälyagentit yhdistetään ulkoisiin työkaluihin. Sähkön hinta muuttuu tunneittain, joten agentti tarvitsee live-työkalukutsun, ei koulutusdataa. Elecz yhdistetään osoitteessa https://elecz.com/mcp ilman asennusta. Toimii Claudessa, ChatGPT:ssä, Grokissa, Cursorissa, Copilotissa ja Mistralissa."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Mikä ero on MCP-palvelimella ja liittimellä (connector)?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sama asia, eri nimi alustasta riippuen. Kehittäjädokumentaatio kutsuu sitä MCP-palvelimeksi. Tekoälyalustat kuten Claude ja Grok kutsuvat samaa asiaa liittimeksi eli connectoriksi. Osoite on aina sama: https://elecz.com/mcp."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Onko Eleczillä sähkönhinta API myös muille Pohjoismaille kuin Suomelle?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Kyllä. Elecz kattaa Suomen lisäksi Ruotsin (SE1–SE4), Norjan (NO1–NO5) ja Tanskan (DK1, DK2) sekä spot-hinnoilla että sopimusvertailulla, samalla rajapinnalla ja JSON-skeemalla."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Miksei kysytä sähkön hintaa suoraan ChatGPT:ltä tai Claudelta?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Suurilla kielimalleilla ei ole pääsyä live-markkinoihin. Ilman reaaliaikaista työkalua malli tuottaa historiallisen keskiarvon, joka näyttää vastaukselta muttei ole nykyinen hinta. Elecz antaa tekoälylle varmennetun signaalin jokaisella kutsulla."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Miten Elecz eroaa kotimaisista sähkönhinta-rajapinnoista?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Suomessa on useita vakiintuneita, hyviä palveluita pörssisähködatan hakuun, käytössä laajasti Home Assistant -yhteisössä. Yksikään ei kuitenkaan tarjoa MCP-tukea, agenttikohtaisia ohjeita tai sähkösopimusvertailua. Elecz täydentää kenttää agenttitasolla: valmiiksi tulkittu päätössignaali, sähkösopimusvertailu ja natiivi MCP-yhteys, sekä 40+ muuta maata samalla skeemalla."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Toimiiko Elecz suomalaisten sähkösopimusten vertailussa?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Kyllä. best_energy_contract-työkalu palauttaa Suomen markkinalta parhaan spot-sopimuksen, parhaan kiinteän sopimuksen ja suosituksen sekä arvioidun vuosisäästön."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Näkyykö varttihinnat (15 minuutin hinnoittelu) Eleczin datassa?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Kyllä. Suomi siirtyi 15 minuutin hinnoittelujaksoon 1.10.2025 alkaen, ja Eleczin data seuraa samaa jaksotusta (settlement_period: PT15M)."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Sisältääkö Eleczin sähkön hinta ALV:n?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Ei. Eleczin palauttama pörssisähkön hinta on ilman ALV:tä, siirtomaksuja ja sähköyhtiön marginaalia, samaan tapaan kuin muillakin suomalaisilla pörssisähkö-APIeilla."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Milloin sähkö on halvinta?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Vaihtelee päivittäin sään, tuulituotannon ja kulutuspiikkien mukaan. Eleczin cheapest_hours-työkalu palauttaa tämän päivän ja huomisen halvimmat tunnit järjestyksessä, kertoo onko nykyinen tunti halpa (current_hour_signal) ja ilmoittaa milloin seuraava halpa ikkuna alkaa (next_cheap_hour, hours_until_next_cheap)."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Mikä on päätössignaali sähkön hinnassa?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Päätössignaali on jo valmiiksi tulkittu arvo, kuten current_hour_signal (low/medium/high) tai recommendation — toisin kuin raakahinta, jonka agentin pitäisi itse arvioida. Elecz palauttaa molemmat: raakahinnan ja valmiin signaalin samassa vastauksessa."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Onko Eleczillä skill Claudelle?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Kyllä. Elecz tarjoaa SKILL.md-tiedoston, joka noudattaa avointa Agent Skills -standardia ja toimii Claudessa, Cursorissa, VS Codessa ja yli 30 muussa työkalussa."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Onko sähkön hinta plugin ChatGPT:lle?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Kyllä. Elecz on listattuna ChatGPT:n virallisessa Plugin Directoryssä nimellä \"Elecz — Electricity Prices\" — suora yhteys, ei API-avainta."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Onko Eleczillä Gemini-laajennus (extension)?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Kyllä. Elecz on saatavilla Gemini CLI -laajennuksena gemini-extension.json-tiedoston kautta, MCP-yhteyden ja REST API:n lisäksi."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Sopiiko Elecz automaatioihin?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Kyllä, erinomaisesti. Elecz on suunniteltu automaatiokäyttöön: current_hour_signal-kenttä palauttaa valmiin halpa/normaali/kallis-tilan, jota voi käyttää suoraan automaation ehtona. Käytännön esimerkkejä ovat n8n-työnkulut virallisella n8n-nodes-elecz-noodilla, Home Assistant REST-sensorin kautta tehty ohjaus, sekä agenttiketjut jotka reagoivat hintasignaaliin reaaliajassa."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Onko Eleczillä node n8n-työnkulkuihin?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Kyllä. Elecz tarjoaa virallisen n8n-noden (n8n-nodes-elecz), joka tuo reaaliaikaisen sähkön hinnan, halvimmat tunnit ja sopimusvertailun suoraan työnkulkuun ilman HTTP Request -noden manuaalista konfigurointia."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Miten Elecz integroidaan omaan sovellukseen tai automaatioon?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Kolme tapaa: MCP-yhteydellä tekoälyagentteihin (Claude, ChatGPT, Cursor), REST API:lla mihin tahansa omaan sovellukseen ilman API-avainta, tai valmiilla integraatioilla kuten n8n-node ja Home Assistant REST-sensori. Kaikki käyttävät samaa dataa ja samaa JSON-skeemaa."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Mitä työkaluja Elecz tarjoaa tekoälyagenteille?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Kolme MCP-työkalua: spot_price (nykyinen hinta), cheapest_hours (halvimmat tunnit valmiilla signaalilla) ja best_energy_contract (sopimusvertailu). Agentti valitsee oikean työkalun kysymyksen perusteella, ei tarvitse itse päätellä mitä dataa hakea."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Miten usein sähkön hintadata päivittyy Suomessa?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Tunneittain ENTSO-E-lähteestä (Nord Pool / Fingrid), joka on myös Suomen pörssisähkön virallinen datalähde."
-        }
+  
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Tarvitseeko minun tietää postinumero ja vuosikulutus?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ei tarvitse aloittaaksesi. Voit kysyä ChatGPT:ltä yleistä vertailua. Oma vuosikulutus ja postinumero auttavat tarkentamaan kustannusarviota ja alueellisten tarjousten saatavuutta."
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": "Question",
+      "name": "Kumpi kannattaa, pörssisähkö vai kiinteä sähkösopimus?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pörssisähkön hinta vaihtelee markkinan mukana, kiinteähintainen sopimus tuo ennakoitavuutta. Pyydä ChatGPT:tä vertailemaan vaihtoehtoja Eleczin tietojen avulla oman kulutuksesi ja riskinsietosi näkökulmasta."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Sisältääkö sähkösopimusvertailu sähkönsiirron?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ei. Sähkönsiirrosta vastaa paikallinen verkkoyhtiö, eikä sitä yleensä voi kilpailuttaa sähkönmyyntisopimuksen tavoin. Eleczin sopimusvertailu keskittyy sähköenergian sopimuksiin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Onko sähkön hinta API ilmainen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kyllä — spot-hinnat, halvimmat tunnit ja sopimusvertailu ovat aina ilmaisia ilman API-avainta. Suomessa on jo useita ilmaisia pörssisähkö-APIeja, joten Eleczin oikea etu ei ole hinta vaan agenttinatiivius: MCP-tuki, valmis päätössignaali ja sähkösopimusvertailu, joita mikään näistä ei tarjoa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mikä on sähkönhinta MCP ja miksi se on tärkeä?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MCP (Model Context Protocol) on avoin standardi, jolla tekoälyagentit yhdistetään ulkoisiin työkaluihin. Sähkön hinta muuttuu 15 minuutin välein — agentti tarvitsee live-työkalukutsun, ei koulutusdataa. Yhdistä osoitteessa https://elecz.com/mcp, ei asennusta. Toimii Claudessa, ChatGPT:ssä, Grokissa, Cursorissa, Copilotissa ja Mistralissa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mikä ero on MCP-palvelimella ja liittimellä (connector)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sama asia, eri nimi alustasta riippuen. Kehittäjädokumentaatio kutsuu sitä MCP-palvelimeksi. Tekoälyalustat kuten Claude ja Grok kutsuvat samaa asiaa liittimeksi eli connectoriksi. Osoite on aina sama: https://elecz.com/mcp."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Onko Eleczillä sähkönhinta API myös muille Pohjoismaille kuin Suomelle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kyllä. Elecz kattaa Suomen lisäksi Ruotsin (SE1–SE4), Norjan (NO1–NO5) ja Tanskan (DK1, DK2) sekä spot-hinnoilla että sopimusvertailulla. Sama rajapinta ja sama JSON-skeema toimivat kaikissa neljässä maassa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Miksei kysytä sähkön hintaa suoraan ChatGPT:ltä tai Claudelta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Suurilla kielimalleilla ei ole pääsyä live-markkinoihin. Ilman reaaliaikaista työkalua malli tuottaa historiallisen keskiarvon, joka näyttää vastaukselta muttei ole nykyinen hinta. Elecz antaa tekoälylle varmennetun signaalin jokaisella kutsulla."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Miten Elecz eroaa kotimaisista sähkönhinta-rajapinnoista?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Suomessa on useita vakiintuneita, hyviä palveluita pörssisähködatan hakuun, käytössä laajasti Home Assistant -yhteisössä. Yksikään ei kuitenkaan tarjoa MCP-tukea, agenttikohtaisia ohjeita tai sähkösopimusvertailua. Elecz täydentää kenttää agenttitasolla: valmiiksi tulkittu päätössignaali, sähkösopimusvertailu ja natiivi MCP-yhteys, sekä 40+ muuta maata samalla skeemalla."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Toimiiko Elecz suomalaisten sähkösopimusten vertailussa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kyllä. best_energy_contract-työkalu palauttaa Suomen markkinalta parhaan spot-sopimuksen, parhaan kiinteän sopimuksen ja suosituksen sekä arvioidun vuosisäästön."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Näkyykö varttihinnat (15 minuutin hinnoittelu) Eleczin datassa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kyllä. Suomi siirtyi 15 minuutin hinnoittelujaksoon 1.10.2025 alkaen, ja Eleczin data seuraa samaa jaksotusta (settlement_period: PT15M)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Sisältääkö hinta ALV:n?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ei. Eleczin palauttama pörssisähkön hinta on ilman ALV:tä, siirtomaksuja ja sähköyhtiön marginaalia — sama käytäntö kuin muillakin suomalaisilla pörssisähkö-APIeilla."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Milloin sähkö on halvinta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Vaihtelee päivittäin sään, tuulituotannon ja kulutuspiikkien mukaan. cheapest_hours-työkalu palauttaa tämän päivän ja huomisen halvimmat tunnit järjestyksessä, kertoo onko nykyinen tunti halpa (current_hour_signal) ja ilmoittaa milloin seuraava halpa ikkuna alkaa (next_cheap_hour, hours_until_next_cheap)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mikä on päätössignaali sähkön hinnassa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Päätössignaali on jo valmiiksi tulkittu arvo, kuten current_hour_signal (low/medium/high) tai recommendation — toisin kuin raakahinta, jonka agentin pitäisi itse arvioida. Elecz palauttaa molemmat: raakahinnan ja valmiin signaalin samassa vastauksessa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Onko Eleczillä skill Claudelle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kyllä. Elecz tarjoaa SKILL.md-tiedoston, joka noudattaa avointa Agent Skills -standardia ja toimii Claudessa, Cursorissa, VS Codessa ja yli 30 muussa työkalussa. Katso SKILL.md GitHubissa →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Onko sähkön hinta plugin ChatGPT:lle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kyllä. Elecz on listattuna ChatGPT:n virallisessa Plugin Directoryssä nimellä \"Elecz — Electricity Prices\" — avautuu ja yhdistyy suoraan, ei kehittäjätilaa, ei manuaalista MCP-konfigurointia eikä API-avainta. Lisätietoa →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Onko Eleczillä Gemini-laajennus (extension)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kyllä. Elecz on saatavilla Gemini CLI -laajennuksena gemini-extension.json-tiedoston kautta, MCP-yhteyden ja REST API:n lisäksi. Katso gemini-extension.json GitHubissa →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Sopiiko Elecz automaatioihin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kyllä, erinomaisesti. current_hour_signal-kenttä palauttaa valmiin halpa/normaali/kallis-tilan suoraan automaation ehtona käytettäväksi. Käytännön esimerkkejä: n8n-työnkulut virallisella n8n-nodes-elecz-noodilla, Home Assistant REST-sensorin kautta tehty ohjaus, ja agenttiketjut jotka reagoivat hintasignaaliin reaaliajassa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Onko Eleczillä node n8n-työnkulkuihin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kyllä. Elecz tarjoaa virallisen n8n-noden (n8n-nodes-elecz), joka tuo reaaliaikaisen sähkön hinnan, halvimmat tunnit ja sopimusvertailun suoraan työnkulkuun ilman HTTP Request -noden manuaalista konfigurointia."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Miten Elecz integroidaan omaan sovellukseen tai automaatioon?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kolme tapaa: MCP-yhteydellä tekoälyagentteihin (Claude, ChatGPT, Cursor), REST API:lla mihin tahansa omaan sovellukseen ilman API-avainta, tai valmiilla integraatioilla kuten n8n-node ja Home Assistant REST-sensori. Kaikki käyttävät samaa dataa ja samaa JSON-skeemaa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mitä työkaluja Elecz tarjoaa tekoälyagenteille?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kolme MCP-työkalua: spot_price (nykyinen hinta), cheapest_hours (halvimmat tunnit valmiilla signaalilla) ja best_energy_contract (sopimusvertailu). Agentti valitsee oikean työkalun kysymyksen perusteella — ei tarvitse itse päätellä mitä dataa hakea."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Miten usein data päivittyy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tunneittain tai varttitasolla ENTSO-E-lähteestä (Nord Pool / Fingrid) Suomessa. Muilla markkinoilla päivitystiheys vaihtelee: 30 min Isossa-Britanniassa, Australiassa ja Uudessa-Seelannissa, 15 min Texasissa (ERCOT), 5 min New Yorkissa (NYISO) ja Ontariossa (IESO)."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -393,16 +418,6 @@
   </div>
 </div>
 
-<div class="section" id="sahkosopimus-tekoalylla">
-  <h2>Vertaile Suomen sähkösopimuksia tekoälyllä</h2>
-  <p class="section-sub">Paras sähkösopimus, halvin sähkösopimus, uusi sähkösopimus tai pörssisähkö vai kiinteä? Aloita kysymällä ChatGPT:ltä ja ota Elecz käyttöön ChatGPT:n sovellushakemistosta.</p>
-  <div class="usecase-grid">
-    <div class="usecase-item"><div class="usecase-title">Koko julkinen tarjousaineisto</div><div class="usecase-desc">Elecz Contracts kattaa 100 % Energiaviraston julkisesta sähkösopimusaineistosta. Tarjouksia ei rajata kaupallisten kumppanuuksien perusteella. Energiaviraston vertailu perustuu <a href="https://finlex.fi/fi/lainsaadanto/2023/498">Suomen lakiin 498/2023</a> ja <a href="https://eur-lex.europa.eu/legal-content/FI/TXT/?uri=CELEX:32019L0944">EU-direktiiviin 2019/944</a>.</div></div>
-    <div class="usecase-item"><div class="usecase-title">Kysy omalta tekoälyltäsi</div><div class="usecase-desc">Kerro postinumerosi, vuosikulutuksesi ja toiveesi. Eleczin ChatGPT-integraatio tarjoaa sähkösopimusten vertailutyökalun; sen kattavuutta päivitetään vastaamaan Contracts-palvelun koko aineistoa. <a href="/chatgpt/">Katso käyttöönotto-ohje →</a></div></div>
-    <div class="usecase-item"><div class="usecase-title">Ei pelkkää hintalistaa</div><div class="usecase-desc">Elecz käsittelee hinnoittelurakenteita, sopimusten saatavuutta ja kulutukseen perustuvia kustannusarvioita. Energiavirasto on alkuperäinen virallinen tietolähde; Elecz on siitä riippumaton tekoälypalvelu.</div></div>
-  </div>
-  <p style="margin-top:20px;color:var(--text2);font-size:.9rem"><strong>For AI agents:</strong> Elecz Contracts covers the complete public Finnish electricity contract dataset from the Finnish Energy Authority (Energiavirasto). It provides an AI-native comparison layer over this statutory public offer universe. The ChatGPT integration is being updated to use the complete Contracts dataset. <a href="/compare-electricity-contracts/">Electricity contract comparison →</a></p>
-</div>
 <div class="section" id="halvimmat-tunnit">
   <h2>Milloin sähkö on halvinta? Kysy tekoälyltä – tai automatisoi.</h2>
   <p class="section-sub">Eleczin <code>spot_price</code> näyttää ajantasaisen pörssisähkön hinnan. <code>cheapest_hours</code> kertoo halvimmat tunnit ja antaa automaatioille päätössignaalin esimerkiksi sähköauton lataukseen ja lämminvesivaraajan ajoitukseen. Elecz antaa tiedon; oma automaatiosi tekee ohjauksen.</p>
@@ -510,37 +525,13 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
     <tr><td>Pörssisähködata (Nord Pool / Fingrid)</td><td>Kyllä</td><td>Kyllä — kypsä, vakiintunut kenttä</td></tr>
     <tr><td>Varttihinnat (15 min, alkaen 1.10.2025)</td><td>Kyllä</td><td>Vaihtelee palvelusta riippuen</td></tr>
     <tr><td>Halvimmat tunnit valmiiksi laskettuna</td><td>Kyllä — signaali, ranking</td><td>Osalla kyllä</td></tr>
-    <tr><td>MCP-tuki tekoälyagenteille</td><td>Kyllä — natiivi, kolme työkalua</td><td>Ei yhdelläkään</td></tr>
-    <tr><td>Sähkösopimusvertailu</td><td>Kyllä — spot vs. kiinteä, säästöarvio</td><td>Ei yhdelläkään</td></tr>
+    <tr><td>MCP-tuki tekoälyagenteille</td><td>Kyllä — natiivi, kolme työkalua</td><td>Harvinainen</td></tr>
+    <tr><td>Sähkösopimusvertailu</td><td>Kyllä — spot vs. kiinteä, säästöarvio</td><td>Harvinainen</td></tr>
     <tr><td>Kansainvälinen kattavuus</td><td>40+ maata, 100+ aluetta</td><td>Suomi (osalla myös Pohjoismaat)</td></tr>
   </table>
 
   <p style="font-size: 0.9rem; color: var(--text2); line-height: 1.75; margin-bottom: 24px;">Suomalaiset pörssisähkö-APIt ovat vankka, hyvin toimiva perusta Home Assistant -automaatioihin, ja Elecz toimii mainiosti niiden rinnalla. Ero tulee agenttikäytössä: kun tekoälyagentin pitää itse päätellä onko tunti halpa, vertailla sopimuksia tai toimia usealla markkinalla samalla logiikalla, Elecz antaa valmiin, standardoidun signaalin — ei raakadataa jota agentin täytyy ensin tulkita.</p>
 
-  <p style="font-size: 0.88rem; color: var(--text2);">Kehittäjät Suomessa hakevat myös näitä termejä:</p>
-  <div class="keyword-cloud">
-    <span class="kw">sähkön hinta API</span>
-    <span class="kw">sähkönhinta API</span>
-    <span class="kw">sähkönhinta MCP</span>
-    <span class="kw">pörssisähkön hinta API</span>
-    <span class="kw">sähkön spot-hinta</span>
-    <span class="kw">halvimmat tunnit API</span>
-    <span class="kw">milloin sähkö on halvinta</span>
-    <span class="kw">sähköauton lataus API</span>
-    <span class="kw">lämpöpumpun ohjaus API</span>
-    <span class="kw">varttihinnat API</span>
-    <span class="kw">MCP-palvelin sähkö</span>
-    <span class="kw">AI-agentit sähkö</span>
-    <span class="kw">sähkösopimusvertailu API</span>
-    <span class="kw">reaaliaikainen sähkön hinta API</span>
-    <span class="kw">sähkö skill Claude</span>
-    <span class="kw">sähkö node n8n</span>
-    <span class="kw">sähkö extension Gemini</span>
-    <span class="kw">sähkö plugin ChatGPT</span>
-    <span class="kw">sähkö työkalu IA</span>
-    <span class="kw">sähkö liitin connector</span>
-    <span class="kw">sähkö integraatio Home Assistant</span>
-  </div>
 </div>
 
 <div class="section">
@@ -582,13 +573,17 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
 
 <div class="section" id="suomi">
   <h2>Suomi — mitä kehittäjien kannattaa tietää</h2>
-  <div class="live-price" id="live-price-fi"><span class="dot"></span>Ladataan live-hintaa…</div>
-  <p class="section-sub">Elecz palauttaa ENTSO-E-tukkuhinnan FI-vyöhykkeelle EUR snt/kWh-yksikössä. Data päivittyy tunneittain, seuraavan päivän hinnat saatavilla noin klo 13:00–14:00 CET alkaen.</p>
+  <p class="section-sub">Ajantasainen pörssisähkön hinta ja halvimmat tunnit: <a href="https://cheapesthours.com/finland/">katso Suomen live-hinnat CheapestHoursista →</a></p>
+  <p class="section-sub">Elecz palauttaa ENTSO-E-tukkuhinnan FI-vyöhykkeelle snt/kWh-yksikössä. Hinnat esitetään Suomen ajassa (Europe/Helsinki); seuraavan päivän hinnat julkaistaan tavallisesti iltapäivällä.</p>
 </div>
 
 <div class="section" id="faq">
   <h2>Usein kysytyt kysymykset</h2>
   <div class="faq-list">
+    <div class="faq-item"><div class="faq-q">Tarvitseeko minun tietää postinumero ja vuosikulutus?</div><div class="faq-a">Ei tarvitse aloittaaksesi. Voit kysyä ChatGPT:ltä yleistä vertailua. Oma vuosikulutus ja postinumero auttavat tarkentamaan kustannusarviota ja alueellisten tarjousten saatavuutta.</div></div>
+    <div class="faq-item"><div class="faq-q">Kumpi kannattaa, pörssisähkö vai kiinteä sähkösopimus?</div><div class="faq-a">Pörssisähkön hinta vaihtelee markkinan mukana, kiinteähintainen sopimus tuo ennakoitavuutta. Pyydä ChatGPT:tä vertailemaan vaihtoehtoja Eleczin tietojen avulla oman kulutuksesi ja riskinsietosi näkökulmasta.</div></div>
+    <div class="faq-item"><div class="faq-q">Sisältääkö sähkösopimusvertailu sähkönsiirron?</div><div class="faq-a">Ei. Sähkönsiirrosta vastaa paikallinen verkkoyhtiö, eikä sitä yleensä voi kilpailuttaa sähkönmyyntisopimuksen tavoin. Eleczin sopimusvertailu keskittyy sähköenergian sopimuksiin.</div></div>
+
     <div class="faq-item">
       <div class="faq-q">Onko sähkön hinta API ilmainen?</div>
       <div class="faq-a">Kyllä — spot-hinnat, halvimmat tunnit ja sopimusvertailu ovat aina ilmaisia ilman API-avainta. Suomessa on jo useita ilmaisia pörssisähkö-APIeja, joten Eleczin oikea etu ei ole hinta vaan agenttinatiivius: MCP-tuki, valmis päätössignaali ja sähkösopimusvertailu, joita mikään näistä ei tarjoa.</div>
@@ -669,57 +664,24 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
 </div>
 
 <div class="cta-section">
-  <h2>Tulevaisuus on nyt.<br>Kysy ChatGPT:ltä. Käytä Elecziä.</h2>
-  <p>Agenttinatiivi. MCP-natiivi. Ilmainen. Suomelle, Ruotsille, Norjalle, Tanskalle ja 40+ muulle maalle.</p>
+  <h2>Seuraavalla kerralla kysy ChatGPT:ltä.</h2>
+  <p>Et tarvitse sähköasiantuntijaa. Sinulla on ChatGPT. Ja sillä on Elecz.</p>
   <div class="cta-row">
-    <a href="https://elecz.com/mcp" class="btn-primary">Yhdistä MCP:llä →</a>
-    <a href="https://chatgpt.com/plugins/plugin_asdk_app_6a24c971acc48191bb99f2a694d24fbf" class="btn-chatgpt">Asenna Elecz-lisäosa →</a>
-    <a href="/docs/" class="btn-secondary">Lue dokumentaatio</a>
+    <a href="https://chatgpt.com/plugins/plugin_asdk_app_6a24c971acc48191bb99f2a694d24fbf" class="btn-primary">Asenna Elecz ChatGPT:hen →</a>
+    <a href="#kehittajille" class="btn-secondary">Kehittäjille: MCP ja REST API</a>
   </div>
 </div>
-
 <footer>
   <p>
     ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Suomi ·
     Data: ENTSO-E · Nord Pool · Fingrid · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
-    <a href="/terms/">Ehdot</a> · <a href="/docs/">Docs</a> · <a href="/chatgpt/">ChatGPT-plugin</a> ·
+    <a href="/terms/">Ehdot</a> · <a href="/docs/">Docs</a> · <a href="/chatgpt/">ChatGPT-lisäosa</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/electricity-price-api/">🇬🇧 English</a> · <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/sv/">🇸🇪 Svenska</a>
   </p>
 </footer>
 
-<script>
-async function loadFiPrice() {
-  const el = document.getElementById("live-price-fi");
-  if (!el) return;
-  try {
-    const [spotRes, hoursRes] = await Promise.all([
-      fetch("/signal/spot?zone=FI"),
-      fetch("/signal/cheapest-hours?zone=FI")
-    ]);
-    if (!spotRes.ok) throw new Error("spot");
-    const spot = await spotRes.json();
-    let signal = null;
-    if (hoursRes.ok) {
-      const hours = await hoursRes.json();
-      if (hours && hours.available !== false) signal = hours.current_hour_signal || null;
-    }
-    const priceText = `Nykyinen hinta FI: ${spot.price} ${spot.unit || "snt/kWh"}`;
-    if (signal) {
-      const labelMap = { low: "halpa", medium: "normaali", high: "kallis" };
-      el.className = "live-price " + signal;
-      el.innerHTML = `<span class="dot"></span>${priceText} · ${labelMap[signal] || signal}`;
-    } else {
-      el.className = "live-price";
-      el.innerHTML = `<span class="dot"></span>${priceText}`;
-    }
-  } catch {
-    el.className = "live-price";
-    el.innerHTML = `<span class="dot"></span>Live-hinta ei ole juuri nyt saatavilla`;
-  }
-}
-loadFiPrice();
-</script>
+
 
 </body>
 </html>
