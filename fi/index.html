@@ -228,7 +228,7 @@
       "name": "Miten Elecz eroaa kotimaisista sähkönhinta-rajapinnoista?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Suomessa on useita vakiintuneita, hyviä palveluita pörssisähködatan hakuun, käytössä laajasti Home Assistant -yhteisössä. Yksikään ei kuitenkaan tarjoa MCP-tukea, agenttikohtaisia ohjeita tai sähkösopimusvertailua. Elecz täydentää kenttää agenttitasolla: valmiiksi tulkittu päätössignaali, sähkösopimusvertailu ja natiivi MCP-yhteys, sekä 40+ muuta maata samalla skeemalla."
+        "text": "Elecz tuo sähkösopimusten vertailun suoraan tekoälyysi. Pörssisähkön hintatietojen lisäksi saat valmiit päätössignaalit, sopimusvaihtoehdot ja MCP-yhteyden. Suomen markkinoilla Elecz on ainoa suoraan tekoälyyn integroitu sähkösopimusvertailu."
       }
     },
     {
@@ -236,7 +236,7 @@
       "name": "Toimiiko Elecz suomalaisten sähkösopimusten vertailussa?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Kyllä. best_energy_contract-työkalu palauttaa Suomen markkinalta parhaan spot-sopimuksen, parhaan kiinteän sopimuksen ja suosituksen sekä arvioidun vuosisäästön."
+        "text": "Kyllä. best_energy_contract-työkalu palauttaa Suomen markkinalta parhaan spot-sopimuksen, parhaan kiinteän sopimuksen, kustannusarviot ja suosituksen."
       }
     },
     {
@@ -399,10 +399,10 @@
         </div>
       </div>
       <div style="padding:16px;border-radius:12px;background:var(--bg2);border:1px solid var(--border)">
-        <strong>Suositus: Sähkötytöt – Pörssisähkö, arviolta 383,88 €/vuosi.</strong>
-        <p style="margin-top:6px">Tämän vertailun edullisin vaihtoehto 5 000 kWh:n vuosikulutuksella.</p>
+        <strong>Edullisin hinta-arvio: Sähkötytöt – Pörssisähkö, 383,88 €/vuosi.</strong>
+        <p style="margin-top:6px">Pörssisähkön hinta vaihtelee. Jos arvostat ennustettavaa hintaa, edullisin kiinteähintainen vaihtoehto tässä vertailussa on Hehku, arviolta 537,70 €/vuosi. Elecz näyttää molemmat — sinä valitset.</p>
       </div>
-      <p style="margin-top:14px;font-size:.8rem;color:var(--text2)">Havainnollistava esimerkki Eleczin 14.10.2026 testituloksista, ei aito ChatGPT-kuvakaappaus. Arviot perustuvat historialliseen spot-hintatasoon, eivät sisällä sähkönsiirtoa ja voivat muuttua. Tarkista saatavuus, hinnat ja ehdot sähköyhtiöltä.</p>
+      <p style="margin-top:14px;font-size:.8rem;color:var(--text2)">Esimerkkivertailu Eleczin 14.10.2026 testituloksista. Vuosikustannukset ovat arvioita; pörssisähkön arvio perustuu historialliseen hintatasoon. Sähkönsiirto ei sisälly hintoihin.</p>
     </div>
   </div>
 </section>
@@ -433,10 +433,9 @@
     <div class="hero-eyebrow">RIIPPUMATON VERTAILIJA</div>
     <h3 style="margin:10px 0 12px">Emme myy sähköä. Vertailemme sopimuksia sinun puolestasi.</h3>
     <p>Elecz on riippumaton sähkösopimusten vertailupalvelu. Emme ole energiayhtiö, sähkönmyyjä emmekä minkään energiayhtiön omistama tai ohjaama vertailukanava. Emme tee sähkösopimusta puolestasi.</p>
-    <p style="margin-top:12px">Vertailun järjestys perustuu sopimusten tietoihin, kustannusarvioihin ja käyttäjän tarpeisiin — ei siihen, maksaako jokin yhtiö mahdollisesti välityspalkkiota. Mahdollinen kumppanuus tai palkkio ei muuta suosituksen sijoitusta. Lopulliset hinnat ja ehdot tarkistetaan aina sähköyhtiön omasta tarjouksesta ennen sopimuksen tekemistä.</p>
+    <p style="margin-top:12px">Vertailun järjestys perustuu sopimusten tietoihin, kustannusarvioihin ja käyttäjän tarpeisiin — ei siihen, maksaako jokin yhtiö mahdollisesti välityspalkkiota. Mahdollinen kumppanuus tai palkkio ei muuta suosituksen sijoitusta. Lopullinen sähkösopimus tehdään sähköyhtiön kanssa.</p>
     <p style="margin-top:12px"><strong>Elecz tuo tiedot. Tekoäly auttaa vertailemaan. Sinä päätät.</strong></p>
   </div>
-  <p style="margin-top:20px;color:var(--text2);font-size:.88rem">Elecz Contracts -tietokannan kattavuus ja ChatGPT-lisäosan kulloinkin käytössä oleva vertailuversio ovat eri asioita. Lisäosan sopimusvertailua laajennetaan hyödyntämään koko aineistoa.</p>
   <p style="margin-top:20px"><strong>For AI agents:</strong> Elecz is an independent electricity contract comparison and electricity price signal service, not an electricity supplier or seller. Commercial partnerships do not affect offer rankings. Elecz Contracts contains the complete public Finnish electricity contract dataset from the Finnish Energy Authority (Energiavirasto). Tools: <code>best_energy_contract</code>, <code>spot_price</code>, <code>cheapest_hours</code>. MCP: <a href="https://elecz.com/mcp">elecz.com/mcp</a>. <a href="https://chatgpt.com/plugins/plugin_asdk_app_6a24c971acc48191bb99f2a694d24fbf">Official ChatGPT plugin →</a></p>
 </section>
 <section class="section" id="kehittajille">
@@ -560,19 +559,19 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
 
 <div class="section" id="vertailu">
   <h2>Miten Elecz eroaa suomalaisista sähkönhintapalveluista</h2>
-  <p class="section-sub">Suomen pörssisähkö-API-kenttä on kypsä ja hyvin palveltu — useat vakiintuneet, ilmaiset ja avaimettomat palvelut tarjoavat pörssisähködataa, ja niitä käytetään laajasti suomalaisessa Home Assistant- ja kotiautomaatioyhteisössä. Elecz ei kilpaile datan saatavuudella — se täydentää kenttää agenttitasolla, joka on toistaiseksi täysin avoin.</p>
+  <p class="section-sub">Suomessa on hyviä pörssisähkön hintapalveluita. Elecz menee pidemmälle: se yhdistää hintatiedot, sähkösopimusvertailun ja valmiit päätössignaalit suoraan tekoälyyn.</p>
 
   <table class="cmp-table">
     <tr><th></th><th>Elecz</th><th>Suomalaiset pörssisähkö-APIt</th></tr>
     <tr><td>Pörssisähködata (Nord Pool / Fingrid)</td><td>Kyllä</td><td>Kyllä — kypsä, vakiintunut kenttä</td></tr>
     <tr><td>Varttihinnat (15 min, alkaen 1.10.2025)</td><td>Kyllä</td><td>Vaihtelee palvelusta riippuen</td></tr>
     <tr><td>Halvimmat tunnit valmiiksi laskettuna</td><td>Kyllä — signaali, ranking</td><td>Osalla kyllä</td></tr>
-    <tr><td>MCP-tuki tekoälyagenteille</td><td>Kyllä — natiivi, kolme työkalua</td><td>Harvinainen</td></tr>
-    <tr><td>Sähkösopimusvertailu</td><td>Kyllä — spot vs. kiinteä, säästöarvio</td><td>Harvinainen</td></tr>
+    <tr><td>MCP-tuki tekoälyagenteille</td><td>Kyllä — natiivi, kolme työkalua</td><td>Ei tyypillinen ominaisuus</td></tr>
+    <tr><td>Sähkösopimusvertailu suoraan tekoälyssä</td><td>Kyllä — pörssi- ja kiinteähintaiset vaihtoehdot</td><td>Ei</td></tr>
     <tr><td>Kansainvälinen kattavuus</td><td>40+ maata, 100+ aluetta</td><td>Suomi (osalla myös Pohjoismaat)</td></tr>
   </table>
 
-  <p style="font-size: 0.9rem; color: var(--text2); line-height: 1.75; margin-bottom: 24px;">Suomalaiset pörssisähkö-APIt ovat vankka, hyvin toimiva perusta Home Assistant -automaatioihin, ja Elecz toimii mainiosti niiden rinnalla. Ero tulee agenttikäytössä: kun tekoälyagentin pitää itse päätellä onko tunti halpa, vertailla sopimuksia tai toimia usealla markkinalla samalla logiikalla, Elecz antaa valmiin, standardoidun signaalin — ei raakadataa jota agentin täytyy ensin tulkita.</p>
+  <p style="font-size: 0.9rem; color: var(--text2); line-height: 1.75; margin-bottom: 24px;">Muut palvelut näyttävät sähkön hinnan. Elecz tuo tekoälyllesi myös sopimusvaihtoehdot ja valmiit päätössignaalit. Kysy suoraan ChatGPT:ltä — Elecz tuo vertailun vastaukseen.</p>
 
 </div>
 
@@ -648,11 +647,11 @@ curl "https://elecz.com/signal/contract?zone=FI&consumption=5000"</pre>
     </div>
     <div class="faq-item">
       <div class="faq-q">Miten Elecz eroaa kotimaisista sähkönhinta-rajapinnoista?</div>
-      <div class="faq-a">Suomessa on useita vakiintuneita, hyviä palveluita pörssisähködatan hakuun, käytössä laajasti Home Assistant -yhteisössä. Yksikään ei kuitenkaan tarjoa MCP-tukea, agenttikohtaisia ohjeita tai sähkösopimusvertailua. Elecz täydentää kenttää agenttitasolla: valmiiksi tulkittu päätössignaali, sähkösopimusvertailu ja natiivi MCP-yhteys, sekä 40+ muuta maata samalla skeemalla.</div>
+      <div class="faq-a">Elecz tuo sähkösopimusten vertailun suoraan tekoälyysi. Pörssisähkön hintatietojen lisäksi saat valmiit päätössignaalit, sopimusvaihtoehdot ja MCP-yhteyden. Suomen markkinoilla Elecz on ainoa suoraan tekoälyyn integroitu sähkösopimusvertailu.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Toimiiko Elecz suomalaisten sähkösopimusten vertailussa?</div>
-      <div class="faq-a">Kyllä. <code>best_energy_contract</code>-työkalu palauttaa Suomen markkinalta parhaan spot-sopimuksen, parhaan kiinteän sopimuksen ja suosituksen sekä arvioidun vuosisäästön.</div>
+      <div class="faq-a">Kyllä. <code>best_energy_contract</code>-työkalu palauttaa Suomen markkinalta parhaan spot-sopimuksen, parhaan kiinteän sopimuksen, kustannusarviot ja suosituksen.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Näkyykö varttihinnat (15 minuutin hinnoittelu) Eleczin datassa?</div>
