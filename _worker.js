@@ -100,9 +100,23 @@ export default {
       }
       return response;
     }
+    // Redirects must reach the browser; never follow supplier/affiliate links here.
+    if (path.startsWith("/go/")) {
+      const target = RENDER + path + url.search;
+      const upstream = await fetch(new Request(target, {
+        method: request.method,
+        headers: request.headers,
+        body: hasNoBody ? undefined : request.body,
+        redirect: "manual",
+        cache: "no-store",
+      }));
+      const response = new Response(upstream.body, upstream);
+      response.headers.set("Cache-Control", "no-store");
+      response.headers.set("CDN-Cache-Control", "no-store");
+      return response;
+    }
     if (
       path.startsWith("/mcp") ||
-      path.startsWith("/go/") ||
       path === "/health" ||
       path.startsWith("/.well-known/")
     ) {
