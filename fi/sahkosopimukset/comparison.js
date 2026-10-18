@@ -20,13 +20,23 @@
       return url.protocol === 'https:' && !url.username && !url.password ? url.href : null;
     } catch { return null; }
   }
+  function webExecutionUrl(value) {
+    const safe = safeUrl(value);
+    if (!safe) return null;
+    const url = new URL(safe);
+    if (url.origin !== 'https://elecz.com' || !url.pathname.startsWith('/go/')) return null;
+    url.searchParams.set('src', 'web');
+    return url.href;
+  }
   function offerLink(offer, data) {
-    // Only the recommended offer has an authoritative execution URL today.
+    const execution = webExecutionUrl(offer.go_url);
+    if (execution) return execution;
+    // Older responses expose an execution URL only for the recommended offer.
     // Never construct /go/ IDs from provider names, or reuse the winner's link.
     const recommended = data.recommended?.contract;
     if (recommended && JSON.stringify(offer) === JSON.stringify(recommended) && data.action?.available === true) {
-      const action = safeUrl(data.action.action_link);
-      if (action && new URL(action).origin === 'https://elecz.com' && new URL(action).pathname.startsWith('/go/')) return action;
+      const action = webExecutionUrl(data.action.action_link);
+      if (action) return action;
     }
     return safeUrl(offer.affiliate_url) || safeUrl(offer.direct_url);
   }
