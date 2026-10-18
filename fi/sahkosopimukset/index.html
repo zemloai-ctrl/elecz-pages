@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vertaa sähkösopimukset Suomessa | Elecz</title>
+<meta name="description" content="Vertaa pörssisähköä ja kiinteitä sähkösopimuksia omalla vuosikulutuksellasi. Riippumaton ja ilmainen Elecz-vertailu ilman rekisteröitymistä.">
+<link rel="canonical" href="https://elecz.com/fi/sahkosopimukset/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f5f0; --bg2: #eeeee8; --bg3: #ffffff;
+      --border: #e0e0d8; --border2: #d0d0c8;
+      --text: #1a1a1a; --text2: #555550; --text3: #999990;
+      --accent: #f0a020; --accent2: #d88c10; --accent-dim: rgba(240,160,32,0.1);
+      --green: #1a7a40; --green-dim: rgba(26,122,64,0.08); --green-border: rgba(26,122,64,0.25);
+      --mono: 'DM Mono', monospace; --sans: 'DM Sans', -apple-system, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    nav { background: var(--bg); border-bottom: 2px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 58px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-size: 1.3rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
+    .nav-logo .dot { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text2); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-lang { font-size: 0.8rem; color: var(--text3); }
+    .nav-lang a { color: var(--text3); text-decoration: none; }
+    .nav-lang a:hover { color: var(--text2); }
+    .nav-cta { background: var(--accent) !important; color: var(--text) !important; padding: 7px 16px; border-radius: 5px; font-weight: 600 !important; font-size: 0.85rem !important; }
+    .nav-cta:hover { background: var(--accent2) !important; }
+    .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 56px; border-bottom: 2px solid var(--border); }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 18px; }
+    h1 { font-size: clamp(24px, 4.5vw, 42px); font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; color: var(--text); margin-bottom: 22px; }
+    h1 .hl { color: var(--accent2); }
+    .hero-lead { font-size: 1.08rem; color: var(--text2); max-width: 620px; line-height: 1.75; margin-bottom: 32px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 36px; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); max-width: 560px; }
+    .stat { padding: 16px 24px; border-right: 1px solid var(--border); flex: 1; min-width: 110px; }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: var(--mono); font-size: 1.5rem; font-weight: 500; color: var(--text); line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-size: 0.75rem; color: var(--text3); font-weight: 500; }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { background: var(--accent); color: var(--text); font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-secondary { background: var(--bg3); color: var(--text2); font-weight: 500; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; border: 1px solid var(--border2); display: inline-block; }
+    .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
+    .btn-chatgpt { background: #10a37f; color: #fff; font-weight: 600; font-size: 0.9rem; padding: 12px 24px; border-radius: 6px; text-decoration: none; transition: background 0.15s; display: inline-block; }
+    .btn-chatgpt:hover { background: #0d8f6e; }
+    .section { max-width: 860px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
+    h2 { font-size: clamp(17px, 2.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
+    .section-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 32px; max-width: 580px; }
+    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); }
+    .tool-card { padding: 24px; border-right: 1px solid var(--border); }
+    .tool-card:last-child { border-right: none; }
+    .tool-name { font-family: var(--mono); font-size: 0.82rem; font-weight: 500; color: var(--accent2); margin-bottom: 10px; background: var(--accent-dim); display: inline-block; padding: 3px 8px; border-radius: 3px; }
+    .tool-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.65; }
+    .code-block { background: #1e1e1e; border-radius: 8px; overflow: hidden; margin: 24px 0; }
+    .code-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #2a2a2a; border-bottom: 1px solid #333; }
+    .code-title { font-family: var(--mono); font-size: 0.7rem; color: #888; }
+    .code-lang { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); background: rgba(240,160,32,0.12); padding: 2px 8px; border-radius: 2px; }
+    .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.75; color: #ccc; }
+    .k { color: #7ec8e3; } .s { color: #a8d8a8; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+    .faq-a { font-size: 0.9rem; color: var(--text2); line-height: 1.75; max-width: 700px; }
+    .faq-a code { font-family: var(--mono); font-size: 0.82rem; color: var(--accent2); background: var(--accent-dim); padding: 1px 6px; border-radius: 3px; }
+    .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .kw { font-family: var(--mono); font-size: 0.78rem; padding: 5px 12px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; color: var(--text2); }
+    .cta-section { max-width: 860px; margin: 0 auto; padding: 64px 24px 72px; text-align: center; }
+    .cta-section h2 { margin-bottom: 14px; }
+    .cta-section p { font-size: 1rem; color: var(--text2); margin-bottom: 32px; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    footer { border-top: 2px solid var(--border); padding: 24px; text-align: center; }
+    footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
+    footer a { color: var(--text3); text-decoration: none; }
+    footer a:hover { color: var(--text2); }
+    .cmp-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; margin-bottom: 20px; background: var(--bg3); font-size: 0.87rem; }
+    .cmp-table th, .cmp-table td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+    .cmp-table th { background: var(--bg2); font-weight: 600; color: var(--text); font-size: 0.8rem; }
+    .cmp-table td { color: var(--text2); }
+    .cmp-table tr:last-child td { border-bottom: none; }
+    .signal-banner { max-width: 860px; margin: 0 auto; padding: 36px 24px; border-bottom: 1px solid var(--border); background: var(--green-dim); }
+    .signal-banner-inner { max-width: 720px; }
+    .signal-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+    .signal-banner h2 { font-size: clamp(16px, 2.2vw, 21px); margin-bottom: 12px; }
+    .signal-banner p { font-size: 0.95rem; color: var(--text2); line-height: 1.75; }
+    .signal-flow { font-family: var(--mono); font-size: 0.95rem; color: var(--text); margin-top: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .signal-flow span { padding: 5px 12px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 5px; }
+    .signal-flow .arrow { color: var(--green); font-weight: 600; }
+    .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+    .usecase-item { background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 18px 20px; }
+    .usecase-icon { font-size: 1.2rem; margin-bottom: 8px; }
+    .usecase-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 6px; }
+    .usecase-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+    .live-price { font-family: var(--mono); font-size: 1.05rem; font-weight: 600; color: var(--text3); display: flex; align-items: center; gap: 8px; margin-bottom: 20px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 12px 18px; max-width: 340px; }
+    .live-price .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
+    .live-price.low { color: var(--green); }
+    .live-price.low .dot { background: var(--green); }
+    .live-price.medium { color: var(--accent2); }
+    .live-price.medium .dot { background: var(--accent2); }
+    .live-price.high { color: #c0300a; }
+    .live-price.high .dot { background: #c0300a; }
+    .integration-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
+    .integration-card { background: var(--bg3); padding: 22px 24px; }
+    .integration-title { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+    .integration-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; margin-bottom: 12px; }
+    .integration-code { font-family: var(--mono); font-size: 0.76rem; color: var(--text2); background: var(--bg2); padding: 8px 12px; border-radius: 5px; border: 1px solid var(--border); word-break: break-all; margin-bottom: 10px; }
+    .integration-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .integration-links a { font-size: 0.8rem; color: var(--accent2); text-decoration: none; font-weight: 500; }
+    .integration-links a:hover { text-decoration: underline; }
+    .integration-test { font-size: 0.82rem; color: var(--text2); background: var(--green-dim); border: 1px solid var(--green-border); border-radius: 6px; padding: 10px 12px; margin-top: 10px; font-style: italic; }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .tool-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .tool-card:last-child { border-bottom: none; }
+      .signal-flow { font-size: 0.85rem; }
+      .cmp-table { font-size: 0.78rem; }
+    }
+  
+main{max-width:1060px;margin:auto;padding:48px 24px} .intro{max-width:720px;margin-bottom:28px}.intro p,.note{color:var(--text2)}
+form{background:white;border:1px solid var(--border2);border-radius:8px;padding:24px;margin:24px 0}label{display:block;font-weight:600;margin-bottom:8px}.form-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}input{font:inherit;padding:12px;border:1px solid var(--border2);border-radius:6px;width:190px;max-width:100%}button{font:inherit;border:0;cursor:pointer}button:disabled{opacity:.65;cursor:wait}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--green);outline-offset:3px}.note{font-size:.88rem;margin-top:12px}
+.groups{display:grid;grid-template-columns:1fr 1fr;gap:24px}.offers{list-style:none;padding:0}.offer{background:white;border:1px solid var(--border2);border-radius:8px;padding:22px;margin:16px 0;overflow-wrap:anywhere}.offer h3{font-size:1.12rem}.product{color:var(--text2);margin:6px 0 16px}.price{font-family:var(--mono);font-size:1.7rem;line-height:1.3}.price-label{color:var(--text2);font-size:.8rem;margin-bottom:16px}dl{font-size:.88rem;margin-bottom:20px}dl div{display:flex;justify-content:space-between;gap:16px;padding:7px 0;border-bottom:1px solid var(--border)}dt{color:var(--text2)}dd{text-align:right;max-width:60%}.badge{display:inline-block;background:var(--accent-dim);padding:3px 8px;border-radius:4px;font-size:.8rem;margin-bottom:12px}.notice{border:1px solid var(--border2);border-radius:8px;padding:20px;margin:24px 0}.error{color:#a52b10}#status{margin:16px 0}#results[hidden]{display:none}.terms{margin-top:32px;border-top:1px solid var(--border);padding-top:24px}.terms p{margin:10px 0;color:var(--text2);font-size:.9rem}footer a{color:var(--text2)}@media(max-width:700px){.groups{grid-template-columns:1fr}main{padding:32px 16px}form{padding:18px}.form-row button{width:100%}.offer{padding:18px}}
+</style>
+<script src="comparison.js" defer></script>
+</head>
+<body>
+<nav aria-label="Päänavigaatio"><a class="nav-logo" href="/fi/">⚡ Elecz<span class="dot">.</span>com</a><a href="/fi/">Elecz ja ChatGPT →</a></nav>
+<main>
+<header class="intro"><p class="hero-eyebrow">ELECZ CONTRACTS · SUOMI</p><h1>Vertaa sähkösopimukset.<br><span class="hl">Sinä valitset.</span></h1><p>Pörssisähkö vai kiinteä hinta? Anna vuosikulutuksesi ja katso vertailun edullisimmat vaihtoehdot. Verkkosivu ja tekoälyt käyttävät samaa Eleczin vertailumoottoria.</p></header>
+<form id="comparison-form"><label for="consumption">Vuosikulutuksesi</label><div class="form-row"><input id="consumption" name="consumption" type="number" inputmode="numeric" min="1" step="1" value="5000" required aria-describedby="consumption-help"><span>kWh / vuosi</span><button class="btn-primary" type="submit">Vertaa sähkösopimukset →</button></div><p id="consumption-help" class="note">Löydät vuosikulutuksen sähkölaskulta tai sähköyhtiösi palvelusta.</p><p class="note">Ilmainen. Ei rekisteröitymistä eikä yhteystietojen keräämistä.</p></form>
+<noscript><p class="notice">Vertailun hakeminen tarvitsee JavaScriptin. Voit käyttää Elecziä myös <a href="/fi/">ChatGPT:n kautta</a>.</p></noscript>
+<p id="status" role="status" aria-live="polite">Anna vuosikulutuksesi ja käynnistä vertailu.</p>
+<section id="results" aria-label="Vertailun tulokset" hidden><h2 id="result-heading" tabindex="-1">Vertailun tulokset</h2><p id="result-meta" class="note"></p><div class="groups"><section aria-labelledby="spot-heading"><h2 id="spot-heading">Pörssisähkö</h2><p class="note">Hinta vaihtelee markkinan mukana.</p><ol id="spot-offers" class="offers"></ol></section><section aria-labelledby="fixed-heading"><h2 id="fixed-heading">Kiinteähintaiset sopimukset</h2><p class="note">Kiinteä energiahinta helpottaa ennakointia.</p><ol id="fixed-offers" class="offers"></ol></section></div></section>
+<section class="terms" aria-labelledby="basis"><h2 id="basis">Mitä vertailu kertoo?</h2><p>Vuosikulu on arvio ensimmäisille 12 sopimuskuukaudelle laskentahetkestä alkaen. Pörssisähkön osuus perustuu historialliseen hintatasoon, ei tulevan hinnan ennusteeseen tai omaan tuntikulutukseesi. Sähkönsiirto ei sisälly vertailuun.</p><p>Kuukausimaksu voi vaihdella kampanjan aikana. Jos yhtä kuukausisummaa ei ole saatavilla, sitä ei esitetä nollana. Tarkista lopulliset hinnat, kampanjajaksot ja sopimusehdot sähköyhtiöltä.</p><p>Lähteenä on Energiaviraston julkinen sopimusaineisto. Vertailussa ovat tarjoukset, joiden kelpoisuus ja kokonaiskustannus voidaan varmistaa. Yö-, kausi- ja hybridihinnoittelun tuki ei ole vielä täydellinen. Ilman postinumeroa alueellisia tarjouksia voi jäädä vertailun ulkopuolelle.</p><p>Affiliate-yhteistyö ei vaikuta tarjousten järjestykseen. Mahdollinen yhteistyö vaikuttaa vain tarjouslinkkiin. Sopimus tehdään sähköyhtiön kanssa.</p><p>Haluatko apua vaihtoehtojen ymmärtämiseen? <a href="/fi/">Käytä samaa vertailua ChatGPT:n kautta →</a></p></section>
+</main><footer><p>⚡ <a href="/fi/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Suomi · <a href="/terms/">Ehdot</a> · <a href="/privacy/">Tietosuoja</a></p></footer>
+</body></html>
