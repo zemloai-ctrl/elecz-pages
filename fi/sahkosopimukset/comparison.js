@@ -65,7 +65,8 @@
     button.disabled = true; input.disabled = true; results.hidden = true;
     results.setAttribute('aria-busy', 'true'); status.className = ''; status.textContent = 'Haetaan sähkösopimuksia…';
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 30000);
+    const slowMessage = setTimeout(() => { status.textContent = 'Haetaan sähkösopimuksia… Haku voi kestää hetken.'; }, 5000);
+    const timeout = setTimeout(() => controller.abort(), 60000);
     try {
       const query = new URLSearchParams({ zone: 'FI', consumption: String(consumption) });
       const response = await fetch(`/signal/contract?${query}`, { signal: controller.signal, headers: { Accept: 'application/json' } });
@@ -87,7 +88,7 @@
       status.className = 'error';
       status.textContent = error.name === 'AbortError' ? 'Haku kesti liian kauan. Yritä uudelleen vertailupainikkeella.' : 'Vertailua ei voitu hakea juuri nyt. Yritä uudelleen vertailupainikkeella.';
     } finally {
-      clearTimeout(timeout); button.disabled = false; input.disabled = false; results.setAttribute('aria-busy', 'false');
+      clearTimeout(timeout); clearTimeout(slowMessage); button.disabled = false; input.disabled = false; results.setAttribute('aria-busy', 'false');
     }
   });
   input.addEventListener('input', () => input.setCustomValidity(''));
