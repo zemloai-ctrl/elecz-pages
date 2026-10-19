@@ -78,7 +78,7 @@
     if (energyPeriod) row('Energiahinta', energyPeriod);
     else if (numeric(offer.fixed_price_ckwh)) row('Energiahinta', `${number(offer.fixed_price_ckwh)} snt/kWh`);
     row('Kuukausimaksu', feePeriod || (numeric(offer.basic_fee_eur_month) ? `${number(offer.basic_fee_eur_month)} €/kk` : 'Yhtä kuukausisummaa ei saatavilla'));
-    row('Sopimuksen kesto', offer.contract_terms_type === 'ongoing' ? 'Toistaiseksi voimassa' : numeric(offer.contract_duration_months) && offer.contract_duration_months > 0 ? `${number(offer.contract_duration_months, 0)} kk` : 'Ei saatavilla – tarkista ehdot');
+    row('Sopimuksen kesto', offer.contract_terms_type === 'ongoing' ? 'Toistaiseksi voimassa' : offer.duration_class === 'Over24' && offer.contract_terms_type === 'fixed_term' ? 'Määräaikainen, yli 24 kk – tarkista tarkka kesto ehdoista' : numeric(offer.contract_duration_months) && offer.contract_duration_months > 0 ? `${number(offer.contract_duration_months, 0)} kk` : offer.contract_terms_type === 'fixed_term' ? 'Määräaikainen – tarkista kesto ehdoista' : 'Ei saatavilla – tarkista ehdot');
     if (offer.price_includes_tax === true) row('Arvonlisävero', 'Sisältyy hintoihin');
     item.append(details);
     const url = offerLink(offer, data);
