@@ -67,7 +67,12 @@
   }
   form.addEventListener('submit', async event => {
     event.preventDefault();
-    if (!form.reportValidity()) return;
+    // Use 1,000 kWh spinner steps while accepting an exact typed consumption.
+    const spinnerStep = input.step;
+    input.step = '1';
+    const valid = form.reportValidity();
+    input.step = spinnerStep;
+    if (!valid) return;
     const consumption = Number(input.value);
     if (!Number.isSafeInteger(consumption) || consumption <= 0) {
       input.setCustomValidity('Anna vuosikulutus positiivisena kokonaislukuna.'); input.reportValidity(); return;
