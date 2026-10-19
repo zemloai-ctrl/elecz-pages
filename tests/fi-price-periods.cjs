@@ -44,5 +44,13 @@ async function run(offers) {
   assert(cards[1].some(r=>r[0]==='Kuukausimaksu' && r[1]==='2,97 €/kk ensimmäiset 12 kk, sen jälkeen 5,95 €/kk'));
   assert(cards[2].some(r=>r[0]==='Kuukausimaksu' && r[1].includes('31.12.2026 asti')));
   assert(cards.every(rows=>rows.some(r=>r[0]==='Sopimuksen kesto' && r[1]==='Toistaiseksi voimassa')));
-  console.log('PASS: month and absolute-date campaign card texts');
+  const terms=await run([
+    {...offer('Fixed unknown',[]),contract_terms_type:'fixed_term'},
+    {...offer('Over24',[]),contract_terms_type:'fixed_term',duration_class:'Over24'},
+    {...offer('Known 24',[]),contract_terms_type:'fixed_term',contract_duration_months:24}
+  ]);
+  assert(terms[0].some(r=>r[0]==='Sopimuksen kesto' && r[1]==='Määräaikainen – tarkista kesto ehdoista'));
+  assert(terms[1].some(r=>r[0]==='Sopimuksen kesto' && r[1]==='Määräaikainen, yli 24 kk – tarkista tarkka kesto ehdoista'));
+  assert(terms[2].some(r=>r[0]==='Sopimuksen kesto' && r[1]==='24 kk'));
+  console.log('PASS: month, calendar campaigns and contract durations');
 })().catch(e=>{console.error(e);process.exitCode=1});
