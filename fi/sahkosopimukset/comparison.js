@@ -53,7 +53,7 @@
     if (rows.length === 1 && !first.valid_until_contract_month && !first.valid_until) return fmt(first);
     if (rows.length === 2 && first.valid_from_contract_month === 1 &&
         first.valid_until_contract_month && rows[1].valid_from_contract_month === first.valid_until_contract_month + 1) {
-      return fmt(first) + ' ensimmäiset ' + first.valid_until_contract_month + ' kk, sen jälkeen ' + fmt(rows[1]);
+      return fmt(first) + (first.valid_until_contract_month === 1 ? ' ensimmäisen kuukauden, sen jälkeen ' : ' ensimmäiset ' + first.valid_until_contract_month + ' kk, sen jälkeen ') + fmt(rows[1]);
     }
     if (rows.length === 2 && first.valid_until && rows[1].valid_from &&
         new Date(rows[1].valid_from).getTime() > new Date(first.valid_until).getTime()) {
