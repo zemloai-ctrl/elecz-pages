@@ -40,6 +40,29 @@
     }
     return safeUrl(offer.affiliate_url) || safeUrl(offer.direct_url);
   }
+  function periodText(offer, component) {
+    const periods = offer.price_periods;
+    if (!Array.isArray(periods)) return null;
+    const rows = periods.filter(p => p && p.component === component && numeric(p.amount) &&
+      p.currency === 'EUR' && p.unit === (component === 'fixed_fee' ? 'PER_MONTH' : 'PER_KWH'));
+    if (!rows.length) return null;
+    const fmt = p => (component === 'fixed_fee'
+      ? number(p.amount) + ' €/kk'
+      : number(p.amount * 100, 4).replace(/0+$/, '').replace(/,$/, '') + ' snt/kWh');
+    const first = rows[0];
+    if (rows.length === 1 && !first.valid_until_contract_month && !first.valid_until) return fmt(first);
+    if (rows.length === 2 && first.valid_from_contract_month === 1 &&
+        first.valid_until_contract_month && rows[1].valid_from_contract_month === first.valid_until_contract_month + 1) {
+      return fmt(first) + (first.valid_until_contract_month === 1 ? ' ensimmäisen kuukauden, sen jälkeen ' : ' ensimmäiset ' + first.valid_until_contract_month + ' kk, sen jälkeen ') + fmt(rows[1]);
+    }
+    if (rows.length === 2 && first.valid_until && rows[1].valid_from &&
+        new Date(rows[1].valid_from).getTime() > new Date(first.valid_until).getTime()) {
+      const date = new Date(first.valid_until);
+      if (!Number.isNaN(date.getTime())) return fmt(first) + ' ' +
+        new Intl.DateTimeFormat('fi-FI', {timeZone: 'UTC'}).format(date) + ' asti, sen jälkeen ' + fmt(rows[1]);
+    }
+    return null;
+  }
   function card(offer, data) {
     const item = node('li', undefined, 'offer');
     item.append(node('h3', offer.provider || 'Toimittaja ei saatavilla'), node('p', offer.product_name || 'Tuotenimi ei saatavilla', 'product'));
@@ -47,10 +70,15 @@
     item.append(node('p', numeric(offer.annual_cost_estimate) ? `${number(offer.annual_cost_estimate)} €` : 'Arvio ei saatavilla', 'price'), node('p', 'Arvio / ensimmäiset 12 sopimuskuukautta', 'price-label'));
     const details = node('dl');
     const row = (label, value) => { const div = node('div'); div.append(node('dt', label), node('dd', value)); details.append(div); };
-    if (numeric(offer.spot_margin_ckwh)) row('Pörssimarginaali', `${number(offer.spot_margin_ckwh, 4).replace(/0+$/, '').replace(/,$/, '')} snt/kWh`);
-    if (numeric(offer.fixed_price_ckwh)) row('Energiahinta', `${number(offer.fixed_price_ckwh)} snt/kWh`);
-    row('Kuukausimaksu', numeric(offer.basic_fee_eur_month) ? `${number(offer.basic_fee_eur_month)} €/kk` : 'Yhtä kuukausisummaa ei saatavilla');
-    row('Sopimuksen kesto', numeric(offer.contract_duration_months) && offer.contract_duration_months > 0 ? `${number(offer.contract_duration_months, 0)} kk` : 'Ei saatavilla – tarkista ehdot');
+    const marginPeriod = periodText(offer, 'margin');
+    const energyPeriod = periodText(offer, 'energy');
+    const feePeriod = periodText(offer, 'fixed_fee');
+    if (marginPeriod) row('Pörssimarginaali', marginPeriod);
+    else if (numeric(offer.spot_margin_ckwh)) row('Pörssimarginaali', `${number(offer.spot_margin_ckwh, 4).replace(/0+$/, '').replace(/,$/, '')} snt/kWh`);
+    if (energyPeriod) row('Energiahinta', energyPeriod);
+    else if (numeric(offer.fixed_price_ckwh)) row('Energiahinta', `${number(offer.fixed_price_ckwh)} snt/kWh`);
+    row('Kuukausimaksu', feePeriod || (numeric(offer.basic_fee_eur_month) ? `${number(offer.basic_fee_eur_month)} €/kk` : 'Yhtä kuukausisummaa ei saatavilla'));
+    row('Sopimuksen kesto', offer.contract_terms_type === 'ongoing' ? 'Toistaiseksi voimassa' : offer.duration_class === 'Over24' && offer.contract_terms_type === 'fixed_term' ? 'Määräaikainen, yli 24 kk – tarkista tarkka kesto ehdoista' : numeric(offer.contract_duration_months) && offer.contract_duration_months > 0 ? `${number(offer.contract_duration_months, 0)} kk` : offer.contract_terms_type === 'fixed_term' ? 'Määräaikainen – tarkista kesto ehdoista' : 'Ei saatavilla – tarkista ehdot');
     if (offer.price_includes_tax === true) row('Arvonlisävero', 'Sisältyy hintoihin');
     item.append(details);
     const url = offerLink(offer, data);
