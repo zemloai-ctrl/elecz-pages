@@ -44,7 +44,7 @@ async function run(offers) {
   assert(cards[0].some(r=>r[0]==='Kuukausimaksu' && r[1]==='0,00 €/kk ensimmäiset 3 kk, sen jälkeen 4,65 €/kk'));
   assert(cards[1].some(r=>r[0]==='Kuukausimaksu' && r[1]==='0,00 €/kk ensimmäisen kuukauden, sen jälkeen 5,95 €/kk'));
   assert(cards[2].some(r=>r[0]==='Kuukausimaksu' && r[1]==='2,97 €/kk ensimmäiset 12 kk, sen jälkeen 5,95 €/kk'));
-  assert(cards[2].some(r=>r[0]==='Kuukausimaksu' && r[1].includes('31.12.2026 asti')));
+  assert(cards[3].some(r=>r[0]==='Kuukausimaksu' && r[1].includes('31.12.2026 asti')));
   assert(cards.every(rows=>rows.some(r=>r[0]==='Sopimuksen kesto' && r[1]==='Toistaiseksi voimassa')));
   const terms=await run([
     {...offer('Fixed unknown',[]),contract_terms_type:'fixed_term'},
