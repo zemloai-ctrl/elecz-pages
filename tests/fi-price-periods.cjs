@@ -36,12 +36,14 @@ async function run(offers) {
 (async()=>{
   const cards=await run([
     offer('Cheap Energy',[fee(0,1,3),fee(4.65,4,null)]),
+    offer('Aalto Huoleton',[fee(0,1,1),fee(5.95,2,null)]),
     offer('Vattenfall',[fee(2.97,1,12),fee(5.95,13,null)]),
     offer('Tyrsky',[fee(0,null,null,{valid_until:'2026-12-31T00:00:00+00:00'}),
       fee(2.53,null,null,{valid_from:'2027-01-01T00:00:00+00:00'})])
   ]);
   assert(cards[0].some(r=>r[0]==='Kuukausimaksu' && r[1]==='0,00 €/kk ensimmäiset 3 kk, sen jälkeen 4,65 €/kk'));
-  assert(cards[1].some(r=>r[0]==='Kuukausimaksu' && r[1]==='2,97 €/kk ensimmäiset 12 kk, sen jälkeen 5,95 €/kk'));
+  assert(cards[1].some(r=>r[0]==='Kuukausimaksu' && r[1]==='0,00 €/kk ensimmäisen kuukauden, sen jälkeen 5,95 €/kk'));
+  assert(cards[2].some(r=>r[0]==='Kuukausimaksu' && r[1]==='2,97 €/kk ensimmäiset 12 kk, sen jälkeen 5,95 €/kk'));
   assert(cards[2].some(r=>r[0]==='Kuukausimaksu' && r[1].includes('31.12.2026 asti')));
   assert(cards.every(rows=>rows.some(r=>r[0]==='Sopimuksen kesto' && r[1]==='Toistaiseksi voimassa')));
   const terms=await run([
