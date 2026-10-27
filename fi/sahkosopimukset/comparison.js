@@ -2,6 +2,7 @@
 (() => {
   const form = document.getElementById('comparison-form');
   const input = document.getElementById('consumption');
+  const fuseSelect = document.getElementById('fuse');
   const button = form.querySelector('button');
   const status = document.getElementById('status');
   const results = document.getElementById('results');
@@ -86,6 +87,23 @@
     else item.append(node('p', 'Tarjouslinkki ei ole vielä saatavilla.', 'note'));
     return item;
   }
+  const FUSE_RE = /^[13]x[1-9][0-9]*$/;
+  const fuseText = token => token.replace('x', '×') + ' A';
+  function selectedFuse() {
+    const value = fuseSelect && typeof fuseSelect.value === 'string' ? fuseSelect.value : '';
+    return FUSE_RE.test(value) ? value : null;
+  }
+  // Show exactly the main fuse the backend reports it priced with.
+  function fuseNotice(data, requested) {
+    const fuse = data.assumptions?.main_fuse;
+    const source = data.assumptions?.main_fuse_source;
+    if (typeof fuse === 'string' && FUSE_RE.test(fuse) && source === 'default' && !requested)
+      return `Vertailussa oletetaan pääsulakekooksi ${fuseText(fuse)}. Tarkista sulakekokosi, sillä se voi vaikuttaa hintaan.`;
+    if (typeof fuse === 'string' && source === 'user_provided' && fuse === requested)
+      return `Hinnat on verrattu pääsulakkeelle ${fuseText(fuse)}.`;
+    if (requested) return 'Valittua pääsulaketta ei voitu huomioida tässä vertailussa. Tarkista hinnat sähköyhtiöltä.';
+    return null;
+  }
   function renderGroup(id, offers, data) {
     const list = document.getElementById(id);
     list.replaceChildren();
@@ -105,13 +123,15 @@
     if (!Number.isSafeInteger(consumption) || consumption <= 0) {
       input.setCustomValidity('Anna vuosikulutus positiivisena kokonaislukuna.'); input.reportValidity(); return;
     }
-    button.disabled = true; input.disabled = true; results.hidden = true;
+    button.disabled = true; input.disabled = true; if (fuseSelect) fuseSelect.disabled = true; results.hidden = true;
     results.setAttribute('aria-busy', 'true'); status.className = ''; status.textContent = 'Haetaan sähkösopimuksia…';
     const controller = new AbortController();
     const slowMessage = setTimeout(() => { status.textContent = 'Haetaan sähkösopimuksia… Haku voi kestää hetken.'; }, 5000);
     const timeout = setTimeout(() => controller.abort(), 60000);
     try {
       const query = new URLSearchParams({ zone: 'FI', consumption: String(consumption) });
+      const requestedFuse = selectedFuse();
+      if (requestedFuse) query.set('fuse', requestedFuse);
       const response = await fetch(`/signal/contract?${query}`, { signal: controller.signal, headers: { Accept: 'application/json' } });
       if (!response.ok) throw new Error('http');
       const data = await response.json();
@@ -124,6 +144,10 @@
       const timestamp = new Date(data.timestamp);
       if (data.timestamp && Number.isFinite(timestamp.getTime())) meta += ` Vertailu laskettu ${new Intl.DateTimeFormat('fi-FI', { dateStyle: 'short', timeZone: 'Europe/Helsinki' }).format(timestamp)} klo ${new Intl.DateTimeFormat('fi-FI', { timeStyle: 'short', timeZone: 'Europe/Helsinki' }).format(timestamp)} (Suomen aikaa). Sopimusaineiston päivitysaika ei ole saatavilla tässä vastauksessa.`;
       document.getElementById('result-meta').textContent = meta;
+      const notice = document.getElementById('fuse-notice');
+      const noticeText = fuseNotice(data, requestedFuse);
+      notice.textContent = noticeText || '';
+      notice.hidden = !noticeText;
       results.hidden = false;
       status.textContent = data.top_spot_offers.length || data.top_fixed_offers.length ? 'Vertailu valmis.' : 'Vertailukelpoisia tarjouksia ei löytynyt. Voit yrittää myöhemmin uudelleen.';
       document.getElementById('result-heading').focus();
@@ -131,7 +155,7 @@
       status.className = 'error';
       status.textContent = error.name === 'AbortError' ? 'Haku kesti liian kauan. Yritä uudelleen vertailupainikkeella.' : 'Vertailua ei voitu hakea juuri nyt. Yritä uudelleen vertailupainikkeella.';
     } finally {
-      clearTimeout(timeout); clearTimeout(slowMessage); button.disabled = false; input.disabled = false; results.setAttribute('aria-busy', 'false');
+      clearTimeout(timeout); clearTimeout(slowMessage); button.disabled = false; input.disabled = false; if (fuseSelect) fuseSelect.disabled = false; results.setAttribute('aria-busy', 'false');
     }
   });
   input.addEventListener('input', () => input.setCustomValidity(''));
