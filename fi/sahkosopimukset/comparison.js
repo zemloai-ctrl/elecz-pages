@@ -2,6 +2,7 @@
 (() => {
   const form = document.getElementById('comparison-form');
   const input = document.getElementById('consumption');
+  const postcodeInput = document.getElementById('postcode');
   const fuseSelect = document.getElementById('fuse');
   const button = form.querySelector('button');
   const status = document.getElementById('status');
@@ -87,6 +88,10 @@
     else item.append(node('p', 'Tarjouslinkki ei ole vielä saatavilla.', 'note'));
     return item;
   }
+  function selectedPostcode() {
+    const value = typeof postcodeInput?.value === 'string' ? postcodeInput.value.trim() : '';
+    return /^[0-9]{5}$/.test(value) ? value : null;
+  }
   const FUSE_RE = /^[13]x[1-9][0-9]*$/;
   const fuseText = token => token.replace('x', '×') + ' A';
   function selectedFuse() {
@@ -124,12 +129,16 @@
       input.setCustomValidity('Anna vuosikulutus positiivisena kokonaislukuna.'); input.reportValidity(); return;
     }
     button.disabled = true; input.disabled = true; if (fuseSelect) fuseSelect.disabled = true; results.hidden = true;
+    if (postcodeInput) postcodeInput.disabled = true;
     results.setAttribute('aria-busy', 'true'); status.className = ''; status.textContent = 'Haetaan sähkösopimuksia…';
     const controller = new AbortController();
     const slowMessage = setTimeout(() => { status.textContent = 'Haetaan sähkösopimuksia… Haku voi kestää hetken.'; }, 5000);
     const timeout = setTimeout(() => controller.abort(), 60000);
     try {
       const query = new URLSearchParams({ zone: 'FI', consumption: String(consumption) });
+      // Empty and malformed postcodes use the existing national-only comparison.
+      const requestedPostcode = selectedPostcode();
+      if (requestedPostcode) query.set('postcode', requestedPostcode);
       const requestedFuse = selectedFuse();
       if (requestedFuse) query.set('fuse', requestedFuse);
       const response = await fetch(`/signal/contract?${query}`, { signal: controller.signal, headers: { Accept: 'application/json' } });
@@ -140,6 +149,9 @@
       renderGroup('spot-offers', data.top_spot_offers, data);
       renderGroup('fixed-offers', data.top_fixed_offers, data);
       document.getElementById('result-heading').textContent = `Vertailu: ${number(consumption, 0)} kWh / vuosi`;
+      const postcodeNotice = document.getElementById('postcode-notice');
+      postcodeNotice.textContent = requestedPostcode ? '' : 'Vertailussa ovat vain valtakunnalliset tarjoukset. Alueelliset tarjoukset eivät ole mukana ilman viisinumeroista postinumeroa.';
+      postcodeNotice.hidden = Boolean(requestedPostcode);
       let meta = 'Enintään kolme tarjousta kummassakin ryhmässä, vertailumoottorin järjestyksessä.';
       const timestamp = new Date(data.timestamp);
       if (data.timestamp && Number.isFinite(timestamp.getTime())) meta += ` Vertailu laskettu ${new Intl.DateTimeFormat('fi-FI', { dateStyle: 'short', timeZone: 'Europe/Helsinki' }).format(timestamp)} klo ${new Intl.DateTimeFormat('fi-FI', { timeStyle: 'short', timeZone: 'Europe/Helsinki' }).format(timestamp)} (Suomen aikaa). Sopimusaineiston päivitysaika ei ole saatavilla tässä vastauksessa.`;
@@ -156,6 +168,7 @@
       status.textContent = error.name === 'AbortError' ? 'Haku kesti liian kauan. Yritä uudelleen vertailupainikkeella.' : 'Vertailua ei voitu hakea juuri nyt. Yritä uudelleen vertailupainikkeella.';
     } finally {
       clearTimeout(timeout); clearTimeout(slowMessage); button.disabled = false; input.disabled = false; if (fuseSelect) fuseSelect.disabled = false; results.setAttribute('aria-busy', 'false');
+      if (postcodeInput) postcodeInput.disabled = false;
     }
   });
   input.addEventListener('input', () => input.setCustomValidity(''));
