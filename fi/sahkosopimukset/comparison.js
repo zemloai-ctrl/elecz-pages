@@ -2,6 +2,8 @@
 (() => {
   const form = document.getElementById('comparison-form');
   const input = document.getElementById('consumption');
+  const housingSelect = document.getElementById('housing-profile');
+  const consumptionHelp = document.getElementById('consumption-help');
   const postcodeInput = document.getElementById('postcode');
   const fuseSelect = document.getElementById('fuse');
   const button = form.querySelector('button');
@@ -9,6 +11,56 @@
   const results = document.getElementById('results');
   const number = (value, digits = 2) => new Intl.NumberFormat('fi-FI', { maximumFractionDigits: digits, minimumFractionDigits: digits }).format(value);
   const numeric = value => typeof value === 'number' && Number.isFinite(value);
+  // UI autofill only. Core resolves the submitted profile ID to the actual kWh.
+  const housingProfiles = Object.freeze({
+    fi_apartment_district_v1: 2000,
+    fi_small_house_non_electric_v1: 5500,
+    fi_terraced_electric_v1: 11000,
+    fi_detached_electric_v1: 18000,
+  });
+  let estimatedProfile = null;
+  function updateConsumptionHelp() {
+    if (estimatedProfile) consumptionHelp.textContent = 'Asumismuodosta tehty arvio, lähde: Energiaviraston Sähkönhinta.fi. Jos muokkaat lukua, vertailu käyttää sitä ilmoittamanasi kulutuksena.';
+    else if (housingSelect.value === 'other') consumptionHelp.textContent = 'Anna kohteen oma vuosikulutus sähkölaskulta tai sähköyhtiösi palvelusta ja tarkista pääsulake alta. Tälle kohteelle ei ole asumismuotoarviota. Tyhjä kenttä käyttää yleistä 2 000 kWh:n oletusta, joka ei ole arvio maatilan tai suuren kiinteistön kulutuksesta.';
+    else consumptionHelp.textContent = 'Löydät vuosikulutuksen sähkölaskulta tai sähköyhtiösi palvelusta. Voit myös valita asumismuotoarvion tai jättää kentän tyhjäksi: silloin käytetään 2 000 kWh:n oletusta.';
+  }
+  housingSelect.addEventListener('change', () => {
+    const id = housingSelect.value;
+    const wasEstimate = estimatedProfile !== null;
+    estimatedProfile = Object.hasOwn(housingProfiles, id) ? id : null;
+    if (estimatedProfile) input.value = String(housingProfiles[estimatedProfile]);
+    else if (wasEstimate) input.value = '';
+    input.setCustomValidity('');
+    updateConsumptionHelp();
+  });
+  input.addEventListener('input', () => {
+    // A real edit permanently makes this the user's number, even if changed back.
+    if (estimatedProfile) housingSelect.value = '';
+    estimatedProfile = null;
+    input.setCustomValidity('');
+    updateConsumptionHelp();
+  });
+  function consumptionSummary(data, requested) {
+    const assumptions = data.assumptions;
+    const kwh = assumptions?.annual_consumption_kwh;
+    const source = assumptions?.consumption_source;
+    const profile = assumptions?.housing_profile;
+    if (!Number.isSafeInteger(kwh) || kwh <= 0) throw new Error('consumption');
+    if (requested.profile) {
+      if (source !== 'estimated_from_housing_type' || profile?.profile_id !== requested.profile ||
+          profile.profile_version !== 1 || profile.annual_consumption_kwh !== kwh ||
+          kwh !== housingProfiles[requested.profile] || profile.source_url !== 'https://www.sahkonhinta.fi/' ||
+          typeof profile.label !== 'string' || !profile.label.trim()) throw new Error('profile');
+      return { text: `Arvio: ${profile.label} · ${number(kwh, 0)} kWh/vuosi`, sourceUrl: profile.source_url };
+    }
+    if (profile != null) throw new Error('profile');
+    if (requested.consumption !== null) {
+      if (source !== 'user_provided' || kwh !== requested.consumption) throw new Error('consumption');
+      return { text: `Ilmoittamasi kulutus: ${number(kwh, 0)} kWh/vuosi` };
+    }
+    if (source !== 'zone_default') throw new Error('consumption_source');
+    return { text: `Oletuskulutus: ${number(kwh, 0)} kWh/vuosi` };
+  }
   function node(tag, content, className) {
     const element = document.createElement(tag);
     if (content !== undefined) element.textContent = content;
@@ -124,18 +176,23 @@
     const valid = form.reportValidity();
     input.step = spinnerStep;
     if (!valid) return;
-    const consumption = Number(input.value);
-    if (!Number.isSafeInteger(consumption) || consumption <= 0) {
+    const rawConsumption = input.value.trim();
+    const consumption = rawConsumption === '' ? null : Number(rawConsumption);
+    if (consumption !== null && (!Number.isSafeInteger(consumption) || consumption <= 0)) {
       input.setCustomValidity('Anna vuosikulutus positiivisena kokonaislukuna.'); input.reportValidity(); return;
     }
     button.disabled = true; input.disabled = true; if (fuseSelect) fuseSelect.disabled = true; results.hidden = true;
+    housingSelect.disabled = true;
     if (postcodeInput) postcodeInput.disabled = true;
     results.setAttribute('aria-busy', 'true'); status.className = ''; status.textContent = 'Haetaan sähkösopimuksia…';
     const controller = new AbortController();
     const slowMessage = setTimeout(() => { status.textContent = 'Haetaan sähkösopimuksia… Haku voi kestää hetken.'; }, 5000);
     const timeout = setTimeout(() => controller.abort(), 60000);
     try {
-      const query = new URLSearchParams({ zone: 'FI', consumption: String(consumption) });
+      const query = new URLSearchParams({ zone: 'FI' });
+      const requested = { profile: estimatedProfile, consumption };
+      if (requested.profile) query.set('housing_profile', requested.profile);
+      else if (consumption !== null) query.set('consumption', String(consumption));
       // Empty and malformed postcodes use the existing national-only comparison.
       const requestedPostcode = selectedPostcode();
       if (requestedPostcode) query.set('postcode', requestedPostcode);
@@ -145,10 +202,18 @@
       if (!response.ok) throw new Error('http');
       const data = await response.json();
       if (data.zone !== 'FI' || data.currency !== 'EUR' || data.contract_comparison !== 'available' || !Array.isArray(data.top_spot_offers) || !Array.isArray(data.top_fixed_offers)) throw new Error('schema');
-      if (data.assumptions?.annual_consumption_kwh !== consumption) throw new Error('consumption');
+      const summary = consumptionSummary(data, requested);
       renderGroup('spot-offers', data.top_spot_offers, data);
       renderGroup('fixed-offers', data.top_fixed_offers, data);
-      document.getElementById('result-heading').textContent = `Vertailu: ${number(consumption, 0)} kWh / vuosi`;
+      document.getElementById('result-heading').textContent = summary.text;
+      const sourceLink = document.getElementById('consumption-source');
+      sourceLink.replaceChildren();
+      sourceLink.hidden = !summary.sourceUrl;
+      if (summary.sourceUrl) {
+        const link = node('a', 'Kulutusarvion lähde: Energiaviraston Sähkönhinta.fi');
+        link.href = summary.sourceUrl;
+        sourceLink.append(link);
+      }
       const postcodeNotice = document.getElementById('postcode-notice');
       postcodeNotice.textContent = requestedPostcode ? '' : 'Vertailussa ovat vain valtakunnalliset tarjoukset. Alueelliset tarjoukset eivät ole mukana ilman viisinumeroista postinumeroa.';
       postcodeNotice.hidden = Boolean(requestedPostcode);
@@ -169,7 +234,7 @@
     } finally {
       clearTimeout(timeout); clearTimeout(slowMessage); button.disabled = false; input.disabled = false; if (fuseSelect) fuseSelect.disabled = false; results.setAttribute('aria-busy', 'false');
       if (postcodeInput) postcodeInput.disabled = false;
+      housingSelect.disabled = false;
     }
   });
-  input.addEventListener('input', () => input.setCustomValidity(''));
 })();

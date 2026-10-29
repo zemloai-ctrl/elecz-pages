@@ -16,7 +16,7 @@ class Element {
 }
 const go='https://elecz.com/go/FI_EV_123?zone=FI&offer_id=00000000-0000-0000-0000-000000000001';
 const offer={provider:'Supplier',product_name:'Product',annual_cost_estimate:100,basic_fee_eur_month:null,contract_duration_months:null,direct_url:'https://supplier.fi/product',affiliate_url:null};
-const data=()=>({zone:'FI',currency:'EUR',contract_comparison:'available',assumptions:{annual_consumption_kwh:5000},top_spot_offers:[{...offer}],top_fixed_offers:[],recommended:{contract:{...offer}},action:{available:true,action_link:'https://elecz.com/go/FI_EV_123?zone=FI&offer=source-offer'},timestamp:'2026-10-18T17:25:00Z'});
+const data=()=>({zone:'FI',currency:'EUR',contract_comparison:'available',assumptions:{annual_consumption_kwh:5000,consumption_source:'user_provided'},top_spot_offers:[{...offer}],top_fixed_offers:[],recommended:{contract:{...offer}},action:{available:true,action_link:'https://elecz.com/go/FI_EV_123?zone=FI&offer=source-offer'},timestamp:'2026-10-18T17:25:00Z'});
 async function render(response) {
   const elements={}; const timers=[]; const cleared=[];
   const document={getElementById:id=>elements[id] ||=new Element(),createElement:()=>new Element()};

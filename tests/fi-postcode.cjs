@@ -40,7 +40,7 @@ function formHarness() {
       };
       return { ok: true, json: async () => ({
         zone: 'FI', currency: 'EUR', contract_comparison: 'available',
-        assumptions: { annual_consumption_kwh: 5000, main_fuse: '3x35', main_fuse_source: 'user_provided' },
+        assumptions: { annual_consumption_kwh: 5000, consumption_source: 'user_provided', main_fuse: '3x35', main_fuse_source: 'user_provided' },
         top_spot_offers: [offer], top_fixed_offers: [],
       }) };
     },
@@ -119,7 +119,7 @@ async function testPostcodeCacheIsolation() {
     const url = new URL(request.url);
     assert.equal(url.origin, 'https://elecz-api.onrender.com');
     upstream.push(url.href);
-    return Response.json({ postcode: url.searchParams.get('postcode'), consumption: url.searchParams.get('consumption') });
+    return Response.json({ postcode: url.searchParams.get('postcode'), consumption: url.searchParams.get('consumption'), housing_profile: url.searchParams.get('housing_profile') });
   };
   const env = { ASSETS: { fetch() { throw new Error('comparison must reach Core'); } } };
   async function compare(query) {
@@ -145,6 +145,16 @@ async function testPostcodeCacheIsolation() {
     assert.equal(upstream.length, 4, 'consumption remains part of the cache key');
     await compare(prefix + '&postcode=00100&fuse=3x63');
     assert.equal(upstream.length, 5, 'fuse remains part of the cache key');
+    const profile = 'zone=FI&housing_profile=fi_apartment_district_v1';
+    assert.equal((await compare(profile)).housing_profile, 'fi_apartment_district_v1');
+    assert.equal((await compare('zone=FI&consumption=2000')).housing_profile, null);
+    assert.equal((await compare('zone=FI')).consumption, null);
+    assert.equal(upstream.length, 8, 'estimate, own number, and default need distinct provenance cache entries even at the same kWh');
+    await compare(profile);
+    assert.equal(upstream.length, 8, 'cached estimates retain profile provenance');
+    await compare(profile + '&postcode=67100');
+    await compare(profile + '&fuse=3x63');
+    assert.equal(upstream.length, 10, 'postcode and fuse also isolate profile requests');
   } finally {
     globalThis.fetch = originalFetch;
     if (originalCaches) Object.defineProperty(globalThis, 'caches', originalCaches);

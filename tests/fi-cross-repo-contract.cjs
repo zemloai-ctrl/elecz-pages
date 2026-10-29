@@ -24,7 +24,7 @@ async function run(offers) {
   const elements={};
   const document={getElementById:id=>elements[id] ||=new Element(),createElement:()=>new Element()};
   const data={zone:'FI',currency:'EUR',contract_comparison:'available',
-    assumptions:{annual_consumption_kwh:5000},top_spot_offers:offers,top_fixed_offers:[]};
+    assumptions:{annual_consumption_kwh:5000,consumption_source:'user_provided'},top_spot_offers:offers,top_fixed_offers:[]};
   vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../fi/sahkosopimukset/comparison.js'),'utf8'),{
     document,Intl,URL,URLSearchParams,AbortController,setTimeout:()=>1,clearTimeout:()=>{},
     fetch:async()=>({ok:true,json:async()=>data})

@@ -20,7 +20,7 @@ async function run({selected='', assumptions={}}) {
   const elements={fuse:new Element(selected)};
   const document={getElementById:id=>elements[id] ||=new Element(),createElement:()=>new Element()};
   const data={zone:'FI',currency:'EUR',contract_comparison:'available',
-    assumptions:{annual_consumption_kwh:5000,...assumptions},top_spot_offers:[],top_fixed_offers:[]};
+    assumptions:{annual_consumption_kwh:5000,consumption_source:'user_provided',...assumptions},top_spot_offers:[],top_fixed_offers:[]};
   let requested;
   vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../fi/sahkosopimukset/comparison.js'),'utf8'),{
     document,Intl,URL,URLSearchParams,AbortController,setTimeout:()=>1,clearTimeout:()=>{},
