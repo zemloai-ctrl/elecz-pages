@@ -119,7 +119,7 @@ async function testPostcodeCacheIsolation() {
     const url = new URL(request.url);
     assert.equal(url.origin, 'https://elecz-api.onrender.com');
     upstream.push(url.href);
-    return Response.json({ postcode: url.searchParams.get('postcode'), consumption: url.searchParams.get('consumption'), housing_profile: url.searchParams.get('housing_profile') });
+    return Response.json({ postcode: url.searchParams.get('postcode'), consumption: url.searchParams.get('consumption'), housing_profile: url.searchParams.get('housing_profile'), offer_limit: url.searchParams.get('offer_limit') });
   };
   const env = { ASSETS: { fetch() { throw new Error('comparison must reach Core'); } } };
   async function compare(query) {
@@ -155,6 +155,13 @@ async function testPostcodeCacheIsolation() {
     await compare(profile + '&postcode=67100');
     await compare(profile + '&fuse=3x63');
     assert.equal(upstream.length, 10, 'postcode and fuse also isolate profile requests');
+    assert.equal((await compare(profile + '&offer_limit=20')).offer_limit, '20');
+    assert.equal(upstream.length, 11, 'extended and default responses have different cache keys');
+    assert.equal((await compare(profile)).offer_limit, null);
+    assert.equal((await compare(profile + '&offer_limit=20')).offer_limit, '20');
+    assert.equal(upstream.length, 11, 'both shapes keep their own cached response');
+    assert.equal((await compare(profile + '&offer_limit=3')).offer_limit, '3');
+    assert.equal(upstream.length, 12, 'requested list length is forwarded and isolates the cache');
   } finally {
     globalThis.fetch = originalFetch;
     if (originalCaches) Object.defineProperty(globalThis, 'caches', originalCaches);
