@@ -153,6 +153,22 @@ form{background:white;border:1px solid var(--border2);border-radius:8px;padding:
 }
 #housing-profile{width:100%;min-width:0}#result-heading{overflow-wrap:break-word}
 .more-button{width:100%;padding:13px 18px;border:1px solid var(--border2);border-radius:6px;background:white;color:var(--text);font-weight:600}.more-button:hover{background:var(--bg2)}.more-button[hidden],.more-count[hidden],.more-note[hidden]{display:none}.offer h3{scroll-margin-top:84px}.offer h3:focus{outline:3px solid var(--green);outline-offset:4px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Form controls: matching widths and exact 1,000 kWh step buttons. */
+.field-control{width:100%;max-width:400px;min-width:0}
+#postcode,#fuse{width:100%;max-width:400px}
+.consumption-control{position:relative}
+#consumption{width:100%;padding-right:132px;appearance:textfield;-moz-appearance:textfield}
+#consumption::-webkit-inner-spin-button,#consumption::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.consumption-unit{position:absolute;right:56px;top:50%;transform:translateY(-50%);font-size:.88rem;color:var(--text2);white-space:nowrap;pointer-events:none}
+.consumption-arrows{position:absolute;right:1px;top:1px;bottom:1px;width:44px;display:flex;flex-direction:column;border-left:1px solid var(--border2)}
+.consumption-arrows button{width:44px;min-height:24px;flex:1;background:var(--bg2);font-size:.75rem;line-height:1;color:var(--text);border-radius:0 5px 0 0}
+.consumption-arrows button:last-child{border-top:1px solid var(--border2);border-radius:0 0 5px 0}
+.consumption-arrows button:hover{background:var(--border)}
+#advanced-details{margin-top:20px;border-top:1px solid var(--border);padding-top:12px}
+#advanced-details summary{cursor:pointer;font-weight:600;padding:6px 0}
+#advanced-details summary:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.submit-row{margin-top:24px}.submit-row button{width:100%;max-width:400px;min-height:48px}
 </style>
 <script src="comparison.js" defer></script>
 </head>
@@ -162,8 +178,8 @@ form{background:white;border:1px solid var(--border2);border-radius:8px;padding:
 <header class="intro"><p class="hero-eyebrow">ELECZ CONTRACTS · SUOMI</p><h1>Vertaa sähkösopimukset. <br><span class="hl">Sinä valitset.</span></h1><p>Pörssisähkö vai kiinteä hinta? Anna vuosikulutuksesi tai valitse asumismuotoarvio ja katso vertailun edullisimmat vaihtoehdot. Voit vertailla myös ilman omia tietoja. Verkkosivu ja tekoälyt käyttävät samaa Eleczin vertailumoottoria.</p></header>
 <form id="comparison-form" novalidate>
 <label for="postcode">Postinumero <span class="note">(valinnainen)</span></label>
-<div class="form-row"><input id="postcode" name="postcode" type="text" inputmode="numeric" autocomplete="postal-code" aria-describedby="postcode-help"></div>
-<p id="postcode-help" class="note">Saat mukaan myös alueellisia tarjouksia antamalla viisinumeroisen postinumeron. Voit jättää kentän tyhjäksi.</p>
+<div class="form-row"><input id="postcode" class="field-control" name="postcode" type="text" inputmode="numeric" autocomplete="postal-code" aria-describedby="postcode-help"></div>
+<p id="postcode-help" class="note">Tuo mukaan myös alueesi tarjoukset.</p>
 <label for="housing-profile" class="field-gap">Asumismuotoarvio <span class="note">(valinnainen)</span></label>
 <div class="form-row"><select id="housing-profile" name="housing_profile" aria-describedby="housing-help consumption-help">
 <option value="" selected>En valitse arviota</option>
@@ -173,17 +189,24 @@ form{background:white;border:1px solid var(--border2);border-radius:8px;padding:
 <option value="fi_detached_electric_v1">Sähkölämmitteinen omakotitalo</option>
 <option value="other">Muu kohde (esim. maatila tai suuri kiinteistö)</option>
 </select></div>
-<p id="housing-help" class="note">Etkö tiedä kulutustasi? Valinta täyttää suuntaa antavan vuosikulutusarvion. Lähde: <a href="https://www.sahkonhinta.fi/">Energiaviraston Sähkönhinta.fi</a>.</p>
+<p id="housing-help" class="note">Suuntaa antava kulutusarvio. Lähde: <a href="https://www.sahkonhinta.fi/">Energiaviraston Sähkönhinta.fi</a>.</p>
 <label for="consumption" class="field-gap">Vuosikulutuksesi <span class="note">(valinnainen)</span></label>
-<div class="form-row"><input id="consumption" name="consumption" type="number" inputmode="numeric" min="1" step="1000" aria-describedby="consumption-help"><span>kWh / vuosi</span></div>
-<p id="consumption-help" class="note" aria-live="polite">Löydät vuosikulutuksen sähkölaskulta tai sähköyhtiösi palvelusta. Voit myös valita asumismuotoarvion tai jättää kentän tyhjäksi: silloin käytetään 2 000 kWh:n oletusta.</p>
+<div class="consumption-control field-control">
+<input id="consumption" name="consumption" type="number" inputmode="numeric" min="1" step="1" value="2000" aria-describedby="consumption-help consumption-unit">
+<span id="consumption-unit" class="consumption-unit">kWh/vuosi</span>
+<div class="consumption-arrows"><button id="consumption-increase" type="button" aria-label="Lisää vuosikulutusta 1 000 kWh" title="Lisää 1 000 kWh">▲</button><button id="consumption-decrease" type="button" aria-label="Vähennä vuosikulutusta 1 000 kWh" title="Vähennä 1 000 kWh">▼</button></div>
+</div>
+<p id="consumption-help" class="note" aria-live="polite">Oletus 2 000 kWh/vuosi. Voit muuttaa lukua.</p>
+<details id="advanced-details"><summary>Tarkenna tietoja</summary>
 <label for="fuse" class="field-gap">Pääsulake</label>
-<div class="form-row"><select id="fuse" name="fuse" aria-describedby="fuse-help"><option value="" selected>En tiedä – oletus 3×25 A</option><option value="1x25">1×25 A</option><option value="3x25">3×25 A</option><option value="3x35">3×35 A</option><option value="3x50">3×50 A</option><option value="3x63">3×63 A</option></select><button class="btn-primary" type="submit">Vertaa sähkösopimukset →</button></div>
-<p id="fuse-help" class="note">Pääsulakkeen koko voi vaikuttaa kuukausimaksuun. Sen löydät esimerkiksi sähköpääkeskuksesta tai verkkoyhtiösi palvelusta.</p>
+<select id="fuse" class="field-control" name="fuse" aria-describedby="fuse-help"><option value="" selected>En tiedä – oletus 3×25 A</option><option value="1x25">1×25 A</option><option value="3x25">3×25 A</option><option value="3x35">3×35 A</option><option value="3x50">3×50 A</option><option value="3x63">3×63 A</option></select>
+<p id="fuse-help" class="note">Tarkista koko verkkoyhtiösi palvelusta.</p>
+</details>
+<div class="submit-row"><button class="btn-primary" type="submit">Vertaa sähkösopimukset →</button></div>
 <p class="note">Ilmainen. Ei rekisteröitymistä eikä yhteystietojen keräämistä.</p>
 </form>
 <noscript><p class="notice">Vertailun hakeminen tarvitsee JavaScriptin. Voit käyttää Elecziä myös <a href="/fi/">ChatGPT:n kautta</a>.</p></noscript>
-<p id="status" role="status" aria-live="polite">Käynnistä vertailu omalla kulutuksella, asumismuotoarviolla tai 2 000 kWh:n oletuksella.</p>
+<p id="status" role="status" aria-live="polite">Käynnistä vertailu omalla kulutuksella, asumismuotoarviolla tai 2 000 kWh:n oletuksella.</p>
 <section id="results" aria-label="Vertailun tulokset" hidden><h2 id="result-heading" tabindex="-1">Vertailun tulokset</h2><p id="consumption-source" class="note" hidden></p><p id="fuse-notice" class="badge" hidden></p><p id="postcode-notice" class="notice" hidden></p><p id="result-meta" class="note"></p><div class="groups"><section aria-labelledby="spot-heading"><h2 id="spot-heading">Pörssisähkö</h2><p class="note">Hinta vaihtelee markkinan mukana.</p><ol id="spot-offers" class="offers"></ol><p id="spot-count" class="note more-count" hidden></p><p id="spot-more-note" class="note more-note" hidden></p><button id="spot-more" type="button" class="more-button" aria-label="Näytä lisää pörssisähkötarjouksia" aria-controls="spot-offers" aria-expanded="false" hidden>Näytä lisää</button><p id="spot-more-status" class="sr-only" role="status" aria-live="polite"></p></section><section aria-labelledby="fixed-heading"><h2 id="fixed-heading">Kiinteähintaiset sopimukset</h2><p class="note">Kiinteä energiahinta helpottaa ennakointia.</p><ol id="fixed-offers" class="offers"></ol><p id="fixed-count" class="note more-count" hidden></p><p id="fixed-more-note" class="note more-note" hidden></p><button id="fixed-more" type="button" class="more-button" aria-label="Näytä lisää kiinteähintaisia tarjouksia" aria-controls="fixed-offers" aria-expanded="false" hidden>Näytä lisää</button><p id="fixed-more-status" class="sr-only" role="status" aria-live="polite"></p></section></div></section>
 <section class="terms" aria-labelledby="basis"><h2 id="basis">Mitä vertailu kertoo?</h2><p>Vuosikulu on arvio ensimmäisille 12 sopimuskuukaudelle laskentahetkestä alkaen. Pörssisähkön osuus perustuu historialliseen hintatasoon, ei tulevan hinnan ennusteeseen tai omaan tuntikulutukseesi. Sähkönsiirto ei sisälly vertailuun.</p><p>Osa sähköyhtiöistä hinnoittelee kuukausimaksun pääsulakkeen koon mukaan. Jos et valitse kokoa, vertailu olettaa pääsulakkeeksi 3×25 A. Tarjous, jolle ei ole julkaistu hintaa valitulle sulakkeelle, jää vertailun ulkopuolelle.</p><p>Kuukausimaksu voi vaihdella kampanjan aikana. Jos yhtä kuukausisummaa ei ole saatavilla, sitä ei esitetä nollana. Tarkista lopulliset hinnat, kampanjajaksot ja sopimusehdot sähköyhtiöltä.</p><p>Lähteenä on Energiaviraston julkinen sopimusaineisto. Vertailussa ovat tarjoukset, joiden kelpoisuus ja kokonaiskustannus voidaan varmistaa. Yö-, kausi- ja hybridihinnoittelun tuki ei ole vielä täydellinen. Postinumerolla mukaan voidaan ottaa alueesi postinumeroon rajattuja tarjouksia. Pelkkään verkkoyhtiöön rajatut tarjoukset eivät vielä ole mukana vertailussa.</p><p>Tarjouslinkit voivat olla kaupallisia: Elecz voi saada palkkion niiden kautta tehdystä sopimuksesta. Affiliate-yhteistyö tai palkkio ei vaikuta tarjousten järjestykseen. Sopimus tehdään sähköyhtiön kanssa.</p><p>Haluatko apua vaihtoehtojen ymmärtämiseen? <a href="/fi/">Käytä samaa vertailua ChatGPT:n kautta →</a></p></section>
 <section class="terms" aria-labelledby="why-elecz">
@@ -194,7 +217,7 @@ form{background:white;border:1px solid var(--border2);border-radius:8px;padding:
 </section>
 <section class="terms" aria-labelledby="faq-heading">
 <h2 id="faq-heading">Usein kysyttyä sähkösopimusvertailusta</h2>
-<div class="faq-item"><h3 class="faq-q">Miten vertaan sähkösopimuksia Eleczillä?</h3><p class="faq-a">Anna vuosikulutuksesi kilowattitunteina, valitse asumismuotoarvio tai jätä molemmat tyhjäksi ja paina Vertaa sähkösopimukset. Tyhjä lomake käyttää 2 000 kWh:n oletusta. Tuloksesta näet, käytettiinkö ilmoittamaasi kulutusta, arviota vai oletusta. Elecz näyttää aluksi kolme edullisinta tarjousta kummastakin ryhmästä. Ryhmän Näytä lisää -painike avaa kaikki loput samalla haulla saadut tarjoukset, enintään 20 per ryhmä. Järjestys perustuu vertailumoottorin laskemaan vuosikustannukseen. Löydät vuosikulutuksesi sähkölaskulta tai sähköyhtiösi palvelusta.</p></div>
+<div class="faq-item"><h3 class="faq-q">Miten vertaan sähkösopimuksia Eleczillä?</h3><p class="faq-a">Anna vuosikulutuksesi kilowattitunteina, valitse asumismuotoarvio tai jätä molemmat tyhjäksi ja paina Vertaa sähkösopimukset. Kentän aloitusarvo on 2 000 kWh:n oletus. Nuolista muutat lukua 1 000 kWh kerrallaan; tarkan luvun voit kirjoittaa itse. Tuloksesta näet, käytettiinkö ilmoittamaasi kulutusta, arviota vai oletusta. Elecz näyttää aluksi kolme edullisinta tarjousta kummastakin ryhmästä. Ryhmän Näytä lisää -painike avaa kaikki loput samalla haulla saadut tarjoukset, enintään 20 per ryhmä. Järjestys perustuu vertailumoottorin laskemaan vuosikustannukseen. Löydät vuosikulutuksesi sähkölaskulta tai sähköyhtiösi palvelusta.</p></div>
 <div class="faq-item"><h3 class="faq-q">Onko pörssisähkö vai kiinteä sopimus parempi?</h3><p class="faq-a">Pörssisähkön hinta vaihtelee, kun taas kiinteä energiahinta helpottaa kulujen ennakointia. Eleczin pörssisähköarvio perustuu historialliseen hintatasoon, joten se ei takaa tulevaa hintaa tai säästöä. Vertaa kustannusarvion lisäksi sopimuksen kestoa ja sitä, kuinka paljon hinnan vaihtelua olet valmis hyväksymään.</p></div>
 <div class="faq-item"><h3 class="faq-q">Mitä arvioitu vuosikustannus sisältää?</h3><p class="faq-a">Arvio koskee ensimmäisiä 12 sopimuskuukautta ja huomioi vertailumoottorin käsittelemät energiahinnat, perusmaksut ja kampanjaehdot. Sähkönsiirto ei sisälly vertailuun. Kampanjasopimuksella ei aina ole yhtä kuukausimaksua, joten puuttuva kuukausimaksutieto ei tarkoita maksutonta sopimusta.</p></div>
 <div class="faq-item"><h3 class="faq-q">Maksaako vertailu ja vaikuttavatko palkkiot tuloksiin?</h3><p class="faq-a">Vertailu on ilmainen eikä edellytä rekisteröitymistä tai yhteystietoja. Elecz voi saada palkkion tarjouslinkin kautta tehdystä sopimuksesta. Palkkio tai affiliate-yhteistyö ei vaikuta tarjousten järjestykseen.</p></div>

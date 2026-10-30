@@ -36,19 +36,28 @@ function responseFor(url) {
   const offers = [1, 2, 3, 4].map(i => ({ provider: 'Server choice ' + i, product_name: 'Product', annual_cost_estimate: i * 100 }));
   return {zone:'FI',currency:'EUR',contract_comparison:'available',assumptions,top_spot_offers:offers,top_fixed_offers:offers};
 }
-function harness(transform = data => data) {
-  const elements = {}, requests = [];
+function harness(transform = data => data, options = {}) {
+  const elements = {}, requests = [], windowHandlers = {};
+  let historyState = options.state ?? null;
+  const window = { history: { get state() { return historyState; }, replaceState(next) { if (options.historyFails) throw Error('blocked'); historyState = next; } },
+    addEventListener(type, handler) { windowHandlers[type] = handler; } };
   const document = {getElementById:id => elements[id] ||= new Element(), createElement:() => new Element()};
+  for (const [id,value] of Object.entries(options.initial || {})) document.getElementById(id).value=value;
   let fail = false;
-  vm.runInNewContext(source, {document,Intl,URL,URLSearchParams,AbortController,setTimeout:()=>1,clearTimeout(){},
+  vm.runInNewContext(source, {document,window,Intl,URL,URLSearchParams,AbortController,setTimeout:(fn,ms)=>{if(ms===0)fn();return 1;},clearTimeout(){},
     fetch: async target => {
       const url = new URL(target, 'https://elecz.com'); requests.push(url);
       for (const id of ['housing-profile','consumption','postcode','fuse']) assert.equal(elements[id].disabled,true,id+' locked during request');
+      for (const id of ['consumption-increase','consumption-decrease']) assert.equal(elements[id].disabled,true,id+' locked during request');
       if (fail) throw new Error('offline');
       return {ok:true,json:async()=>transform(responseFor(url))};
     },
   });
   return {elements,requests,
+    state() { return historyState; },
+    back() { windowHandlers.pageshow(); },
+    arrow(direction) { elements['consumption-'+direction].handlers.click(); },
+    key(key) { let prevented=false; elements.consumption.handlers.keydown({key,preventDefault(){prevented=true;}}); return prevented; },
     fail() { fail = true; },
     select(id) { elements['housing-profile'].value = id; elements['housing-profile'].handlers.change(); },
     edit(value) { elements.consumption.value = value; elements.consumption.handlers.input(); },
@@ -60,7 +69,7 @@ function harness(transform = data => data) {
   };
 }
 const heading = h => h.elements['result-heading'].textContent.replace(/\s/g,' ');
-test('blank initial form sends neither value nor profile and discloses the server default', async () => {
+test('untouched visible 2000 sends neither value nor profile and discloses the server default', async () => {
   const h = harness(); const url = await h.submit();
   assert.equal(url.search,'?zone=FI&offer_limit=20');
   assert.equal(heading(h),'Oletuskulutus: 2 000 kWh/vuosi');
@@ -112,7 +121,8 @@ test('deselect clears autofill but preserves a manually edited number', async ()
 test('other property/farm has no invented estimate and keeps fuse selection', async () => {
   const h = harness(); h.elements.fuse.value='3x63'; h.select(profiles[3][0]); h.select('other');
   assert.equal(h.elements.consumption.value,'');
-  assert.match(h.elements['consumption-help'].textContent,/ei ole arvio maatilan/);
+  assert.match(h.elements['consumption-help'].textContent,/Ei asumismuotoarviota/);
+  assert.equal(h.elements['advanced-details'].open,true);
   let url = await h.submit();
   assert.equal(url.searchParams.has('consumption'),false); assert.equal(url.searchParams.has('housing_profile'),false);
   assert.equal(url.searchParams.get('fuse'),'3x63'); assert.match(heading(h),/^Oletuskulutus:/);
@@ -164,13 +174,72 @@ test('network failure hides stale offers and leaves the estimate available for r
   assert.equal(h.elements.results.hidden,true); assert.equal(h.elements.status.className,'error');
   assert.equal(h.elements.consumption.value,'18000'); assert.equal(h.elements['housing-profile'].value,profiles[3][0]);
 });
-test('accessible optional markup, four authority profiles, and visible fuse', () => {
+test('accessible optional markup, initial 2000, exact manual input and initially closed fuse disclosure', () => {
   const html=fs.readFileSync(path.join(__dirname,'../fi/sahkosopimukset/index.html'),'utf8');
   const input=html.match(/<input\b[^>]*id="consumption"[^>]*>/)[0];
-  assert.doesNotMatch(input,/\b(?:required|value)=?|5000/);
+  assert.doesNotMatch(input,/\brequired\b|5000/);
+  assert.match(input,/value="2000"/); assert.match(input,/step="1"/);
+  assert.match(html,/id="consumption-increase" type="button" aria-label="Lisää vuosikulutusta 1 000 kWh"/);
+  assert.match(html,/id="consumption-decrease" type="button"/);
   assert.match(html,/<label for="housing-profile"/); assert.match(html,/aria-describedby="housing-help consumption-help"/);
   for (const [id] of profiles) assert(html.includes(`value="${id}"`));
   assert.match(html,/Muu kohde \(esim\. maatila tai suuri kiinteistö\)/);
   assert.match(html,/<label for="fuse" class="field-gap">Pääsulake/);
-  assert.doesNotMatch(html,/<details/,'fuse relocation is a separate change');
+  assert.match(html,/<details id="advanced-details"><summary>Tarkenna tietoja<\/summary>[\s\S]*?<select id="fuse"[\s\S]*?<\/details>/);
+  assert.doesNotMatch(html,/<details[^>]*\bopen\b/);
+});
+
+
+test('initial visible default and focus alone remain default; arrow changes are own input', async () => {
+  const h=harness(); assert.equal(h.elements.consumption.value,'2000'); h.elements.consumption.focus();
+  assert.equal((await h.submit()).search,'?zone=FI&offer_limit=20');
+  h.arrow('increase'); assert.equal(h.elements.consumption.value,'3000');
+  h.arrow('decrease'); assert.equal(h.elements.consumption.value,'2000');
+  assert.equal((await h.submit()).searchParams.get('consumption'),'2000');
+  assert.match(heading(h),/^Ilmoittamasi kulutus:/);
+});
+test('arrows add and subtract exactly 1000 from off-grid profiles and exact own numbers', async () => {
+  const h=harness();h.select(profiles[1][0]);h.arrow('increase');
+  assert.equal(h.elements.consumption.value,'6500');assert.equal(h.elements['housing-profile'].value,'');
+  assert.equal((await h.submit()).searchParams.get('consumption'),'6500');
+  h.edit('6789');h.arrow('increase');assert.equal(h.elements.consumption.value,'7789');
+  h.arrow('decrease');assert.equal(h.elements.consumption.value,'6789');
+  assert.equal((await h.submit()).searchParams.get('consumption'),'6789');
+});
+test('keyboard arrows use exact 1000 increments and leave other keys alone', () => {
+  const h=harness();h.select(profiles[1][0]);assert.equal(h.key('ArrowUp'),true);
+  assert.equal(h.elements.consumption.value,'6500');h.key('ArrowDown');assert.equal(h.elements.consumption.value,'5500');
+  assert.equal(h.key('Tab'),false);assert.equal(h.elements.consumption.value,'5500');
+});
+test('decrement never makes consumption zero or negative, and arrows recover an empty field', () => {
+  const h=harness();h.arrow('decrease');assert.equal(h.elements.consumption.value,'1000');
+  assert.equal(h.elements['consumption-decrease'].disabled,true);h.key('ArrowDown');assert.equal(h.elements.consumption.value,'1000');
+  h.edit('789');h.arrow('decrease');assert.equal(h.elements.consumption.value,'789');
+  h.edit('');h.arrow('increase');assert.equal(h.elements.consumption.value,'3000');
+});
+test('advanced details stay closed initially, and open for other property or a restored selected fuse', () => {
+  const h=harness();assert.notEqual(h.elements['advanced-details'].open,true);h.select('other');
+  assert.equal(h.elements.consumption.value,'');assert.equal(h.elements['advanced-details'].open,true);
+  const f=harness(undefined,{initial:{fuse:'3x35'}});assert.equal(f.elements['advanced-details'].open,true);
+});
+for(const [origin,choice,value,expected] of [
+  ['default','','2000','?zone=FI&offer_limit=20'],
+  ['user','','2000','?zone=FI&offer_limit=20&consumption=2000'],
+  ['profile',profiles[1][0],'5500','?zone=FI&offer_limit=20&housing_profile='+profiles[1][0]],
+]) test('back navigation restores coherent '+origin+' state and provenance without fetching', async () => {
+  const h=harness();if(origin==='user')h.edit(value);if(origin==='profile')h.select(choice);
+  const saved=h.state();h.elements.consumption.value='18000';h.elements['housing-profile'].value=profiles[3][0];h.back();
+  assert.equal(h.requests.length,0);assert.equal(h.elements.consumption.value,value);assert.equal(h.elements['housing-profile'].value,choice);
+  assert.equal(h.state().eleczFiConsumption.origin,origin);assert.equal((await h.submit()).search,expected);
+  const reload=harness(undefined,{state:saved});assert.equal((await reload.submit()).search,expected);
+});
+test('invalid older restored profile is cleared and the visible number is treated as own', async () => {
+  const h=harness(undefined,{state:{eleczFiConsumption:{version:1,origin:'profile',choice:profiles[0][0],profile:profiles[0][0],value:'5500'}},
+    initial:{'housing-profile':profiles[0][0],consumption:'5500'}});
+  assert.equal(h.elements['housing-profile'].value,'');assert.equal((await h.submit()).searchParams.get('consumption'),'5500');
+});
+test('history preserves unrelated entry metadata and unavailable history does not break comparison', async () => {
+  const h=harness(undefined,{state:{router:'unchanged'}});h.edit('6000');assert.equal(h.state().router,'unchanged');
+  const denied=harness(undefined,{historyFails:true});denied.select(profiles[1][0]);
+  assert.equal((await denied.submit()).searchParams.get('housing_profile'),profiles[1][0]);
 });

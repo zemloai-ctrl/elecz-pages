@@ -109,7 +109,7 @@ if (process.argv.includes('--core-response')) {
     const h = await proveExpansion(data, process.env.QUERY || '');
     for (const model of ['spot', 'fixed']) {
       const meta = data.comparison_list_meta[model];
-      assert.equal(count(h, model), meta.truncated
+      assert.equal(count(h, model), meta.total_count === 0 ? '' : meta.truncated
         ? `Näytetään ${meta.returned_count} halvinta ${meta.total_count} tarjouksesta`
         : `Yhteensä ${meta.total_count} ${meta.total_count === 1 ? 'tarjous' : 'tarjousta'}`);
     }
@@ -137,9 +137,9 @@ if (process.argv.includes('--core-response')) {
     test(`${model}: ${total} eligible priced offers, truthful count and button visibility`, async () => {
       const group = payload(model === 'spot' ? total : 25, model === 'fixed' ? total : 27);
       const h = await proveExpansion(group);
-      assert.equal(count(h, model), total > 20 ? `Näytetään 20 halvinta ${total} tarjouksesta`
+      assert.equal(count(h, model), total === 0 ? '' : total > 20 ? `Näytetään 20 halvinta ${total} tarjouksesta`
         : `Yhteensä ${total} ${total === 1 ? 'tarjous' : 'tarjousta'}`);
-      if (!total) assert.match(h.elements[`${model}-offers`].children[0].textContent, /ei löytynyt/);
+      if (!total) { assert.match(h.elements[`${model}-offers`].children[0].textContent, /ei löytynyt/); assert.equal(h.elements[`${model}-count`].hidden,true); }
     });
   }
   const mutations = {
