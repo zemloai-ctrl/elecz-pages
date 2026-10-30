@@ -4,7 +4,7 @@
 <h2>2. What we process and why</h2>
 <p>Website use. We use Cloudflare Web Analytics, which collects aggregated usage data such as the page viewed, referring page, browser type and country. It does not use cookies. We use it to understand how the site is used and to improve it.</p>
 <p>Contract comparison. The details you enter in a comparison (such as postcode, housing type, annual consumption and main fuse size) are used to calculate prices and select suitable offers. We do not ask for your name, email address or other contact details in the comparison.</p>
-<p>Comparison inputs and results are also stored in Supabase as a decision audit record. This can include postcode, annual consumption and calculation assumptions. These records support reproducibility and troubleshooting; no name, email address or IP address is added to the decision record.</p>
+<p>Comparison inputs and results are also stored in Supabase as a decision audit record. This can include postcode, annual consumption and calculation assumptions. These records support reproducibility and troubleshooting; the decision record has no separate name, email or IP-address fields. A comparison query supplied through the API can also be stored; do not include personal details in it.</p>
 <p>Offer link clicks. When you leave a comparison for a supplier&#x27;s site, we record the offer, supplier, market and time. We do not attach your IP address, browser details or cookies to these records. We use them to see which offers interest users and to reconcile partner reports.</p>
 <p>API and MCP. When the Elecz API or MCP server is used, we store the function called, market, time and a truncated IP address. For MCP calls we also store the calling application&#x27;s identifier (user agent). Errors are logged with similar details. IP addresses are truncated before storage, but truncated data is not considered fully anonymous. We use this data to keep the service running, prevent abuse and overload, troubleshoot and produce usage statistics.</p>
 <p>Contacting us. If you email us, we process your name, email address and message to reply to you.</p>
@@ -26,7 +26,7 @@
 <tr><td>Google</td><td>Email</td></tr>
 </tbody></table>
 <p>Some providers are based in the United States or process data outside the EU/EEA. Such transfers rely on the EU–US Data Privacy Framework or the European Commission&#x27;s Standard Contractual Clauses.</p>
-<p>We do not sell personal data or share it for marketing.</p>
+<p>We do not sell personal data. Affiliate-link tracking is described in section 4.</p>
 <h2>7. Retention</h2>
 <p>Individual REST call logs are retained for approximately seven days. The retention period for individual MCP, click, error and comparison audit records is approximately 90 days, with scheduled cleanup. Aggregated usage figures that cannot identify an individual user may be kept longer. Emails are kept as long as needed to handle the matter and meet accounting obligations. Providers&#x27; technical logs are kept under their own policies.</p>
 <h2>8. Your rights</h2>
