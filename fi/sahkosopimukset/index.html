@@ -19,8 +19,8 @@
 <meta name="twitter:image:alt" content="Elecz – sähkön hintatiedot ja sopimusvertailu">
 <link rel="canonical" href="https://elecz.com/fi/sahkosopimukset/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/assets/fonts/83ecff577c02.css">
 <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -133,7 +133,7 @@
       .signal-flow { font-size: 0.85rem; }
       .cmp-table { font-size: 0.78rem; }
     }
-  
+
 main{max-width:1060px;margin:auto;padding:48px 24px} .intro{max-width:720px;margin-bottom:28px}.intro p,.note{color:var(--text2)}
 form{background:white;border:1px solid var(--border2);border-radius:8px;padding:24px;margin:24px 0}label{display:block;font-weight:600;margin-bottom:8px}.form-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}input,select{font:inherit;padding:12px;border:1px solid var(--border2);border-radius:6px;width:190px;max-width:100%;background:white}.field-gap{margin-top:16px}button{font:inherit;border:0;cursor:pointer}button:disabled{opacity:.65;cursor:wait}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--green);outline-offset:3px}.note{font-size:.88rem;margin-top:12px}
 .groups{display:grid;grid-template-columns:1fr 1fr;gap:24px}.offers{list-style:none;padding:0}.offer{background:white;border:1px solid var(--border2);border-radius:8px;padding:22px;margin:16px 0;overflow-wrap:anywhere}.offer h3{font-size:1.12rem}.product{color:var(--text2);margin:6px 0 16px}.price{font-family:var(--mono);font-size:1.7rem;line-height:1.3}.price-label{color:var(--text2);font-size:.8rem;margin-bottom:16px}dl{font-size:.88rem;margin-bottom:20px}dl div{display:flex;justify-content:space-between;gap:16px;padding:7px 0;border-bottom:1px solid var(--border)}dt{color:var(--text2)}dd{text-align:right;max-width:60%}.badge{display:inline-block;background:var(--accent-dim);padding:3px 8px;border-radius:4px;font-size:.8rem;margin-bottom:12px}.notice{border:1px solid var(--border2);border-radius:8px;padding:20px;margin:24px 0}.error{color:#a52b10}#status{margin:16px 0}#results[hidden]{display:none}.terms{margin-top:32px;border-top:1px solid var(--border);padding-top:24px}.terms p{margin:10px 0;color:var(--text2);font-size:.9rem}footer a{color:var(--text2)}@media(max-width:700px){.groups{grid-template-columns:1fr}main{padding:32px 16px}form{padding:18px}.form-row button{width:100%}.offer{padding:18px}}
@@ -154,7 +154,7 @@ form{background:white;border:1px solid var(--border2);border-radius:8px;padding:
 #housing-profile{width:100%;min-width:0}#result-heading{overflow-wrap:break-word}
 </style>
 <script src="comparison.js" defer></script>
-</head>
+<style>.legal-nav{display:flex;flex-wrap:wrap;gap:12px;font:14px/1.7 system-ui,sans-serif;padding:16px;max-width:1100px;margin:auto}.legal-nav a{color:inherit}.legal-nav button{font:inherit;color:inherit;background:none;border:0;text-decoration:underline;cursor:pointer;padding:0}</style></head>
 <body>
 <nav aria-label="Päänavigaatio"><a class="nav-logo" href="/fi/">⚡ Elecz<span class="dot">.</span>com</a><a href="/fi/">Elecz ja ChatGPT →</a></nav>
 <main>
@@ -183,7 +183,7 @@ form{background:white;border:1px solid var(--border2);border-radius:8px;padding:
 </form>
 <noscript><p class="notice">Vertailun hakeminen tarvitsee JavaScriptin. Voit käyttää Elecziä myös <a href="/fi/">ChatGPT:n kautta</a>.</p></noscript>
 <p id="status" role="status" aria-live="polite">Käynnistä vertailu omalla kulutuksella, asumismuotoarviolla tai 2 000 kWh:n oletuksella.</p>
-<section id="results" aria-label="Vertailun tulokset" hidden><h2 id="result-heading" tabindex="-1">Vertailun tulokset</h2><p id="consumption-source" class="note" hidden></p><p id="fuse-notice" class="badge" hidden></p><p id="postcode-notice" class="notice" hidden></p><p id="result-meta" class="note"></p><div class="groups"><section aria-labelledby="spot-heading"><h2 id="spot-heading">Pörssisähkö</h2><p class="note">Hinta vaihtelee markkinan mukana.</p><ol id="spot-offers" class="offers"></ol></section><section aria-labelledby="fixed-heading"><h2 id="fixed-heading">Kiinteähintaiset sopimukset</h2><p class="note">Kiinteä energiahinta helpottaa ennakointia.</p><ol id="fixed-offers" class="offers"></ol></section></div></section>
+<section id="results" aria-label="Vertailun tulokset" hidden><h2 id="result-heading" tabindex="-1">Vertailun tulokset</h2><p id="consumption-source" class="note" hidden></p><p id="fuse-notice" class="badge" hidden></p><p id="postcode-notice" class="notice" hidden></p><p id="result-meta" class="note"></p><p class="notice" id="affiliate-disclosure">Osa linkeistä on kaupallisia yhteistyölinkkejä. Jos teet sopimuksen niiden kautta, Elecz voi saada palkkion. Palkkio ei vaikuta vertailun järjestykseen. <a href="/fi/vertailuperiaatteet/">Lue vertailuperiaatteet</a></p><div class="groups"><section aria-labelledby="spot-heading"><h2 id="spot-heading">Pörssisähkö</h2><p class="note">Hinta vaihtelee markkinan mukana.</p><ol id="spot-offers" class="offers"></ol></section><section aria-labelledby="fixed-heading"><h2 id="fixed-heading">Kiinteähintaiset sopimukset</h2><p class="note">Kiinteä energiahinta helpottaa ennakointia.</p><ol id="fixed-offers" class="offers"></ol></section></div></section>
 <section class="terms" aria-labelledby="basis"><h2 id="basis">Mitä vertailu kertoo?</h2><p>Vuosikulu on arvio ensimmäisille 12 sopimuskuukaudelle laskentahetkestä alkaen. Pörssisähkön osuus perustuu historialliseen hintatasoon, ei tulevan hinnan ennusteeseen tai omaan tuntikulutukseesi. Sähkönsiirto ei sisälly vertailuun.</p><p>Osa sähköyhtiöistä hinnoittelee kuukausimaksun pääsulakkeen koon mukaan. Jos et valitse kokoa, vertailu olettaa pääsulakkeeksi 3×25 A. Tarjous, jolle ei ole julkaistu hintaa valitulle sulakkeelle, jää vertailun ulkopuolelle.</p><p>Kuukausimaksu voi vaihdella kampanjan aikana. Jos yhtä kuukausisummaa ei ole saatavilla, sitä ei esitetä nollana. Tarkista lopulliset hinnat, kampanjajaksot ja sopimusehdot sähköyhtiöltä.</p><p>Lähteenä on Energiaviraston julkinen sopimusaineisto. Vertailussa ovat tarjoukset, joiden kelpoisuus ja kokonaiskustannus voidaan varmistaa. Yö-, kausi- ja hybridihinnoittelun tuki ei ole vielä täydellinen. Postinumerolla mukaan voidaan ottaa alueesi postinumeroon rajattuja tarjouksia. Pelkkään verkkoyhtiöön rajatut tarjoukset eivät vielä ole mukana vertailussa.</p><p>Tarjouslinkit voivat olla kaupallisia: Elecz voi saada palkkion niiden kautta tehdystä sopimuksesta. Affiliate-yhteistyö tai palkkio ei vaikuta tarjousten järjestykseen. Sopimus tehdään sähköyhtiön kanssa.</p><p>Haluatko apua vaihtoehtojen ymmärtämiseen? <a href="/fi/">Käytä samaa vertailua ChatGPT:n kautta →</a></p></section>
 <section class="terms" aria-labelledby="why-elecz">
 <h2 id="why-elecz">Miksi Elecz?</h2>
@@ -199,5 +199,5 @@ form{background:white;border:1px solid var(--border2);border-radius:8px;padding:
 <div class="faq-item"><h3 class="faq-q">Maksaako vertailu ja vaikuttavatko palkkiot tuloksiin?</h3><p class="faq-a">Vertailu on ilmainen eikä edellytä rekisteröitymistä tai yhteystietoja. Elecz voi saada palkkion tarjouslinkin kautta tehdystä sopimuksesta. Palkkio tai affiliate-yhteistyö ei vaikuta tarjousten järjestykseen.</p></div>
 <div class="faq-item"><h3 class="faq-q">Miten teen sähkösopimuksen?</h3><p class="faq-a">Katso tarjous -painike vie sähköyhtiön tarjoukseen. Tarkista siellä lopullinen hinta, kampanjan ehdot ja sopimuksen kesto. Sopimus tehdään sähköyhtiön kanssa. Jos kaipaat apua vaihtoehtojen vertailuun, <a href="/fi/">voit käyttää Elecziä myös ChatGPT:n kautta</a>.</p></div>
 </section>
-</main><footer><p>⚡ <a href="/fi/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Suomi · <a href="/terms/">Ehdot</a> · <a href="/privacy/">Tietosuoja</a></p></footer>
+</main><footer><p>⚡ <a href="/fi/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Suomi · <a href="/fi/kayttoehdot/">Ehdot</a> · <a href="/fi/tietosuoja/">Tietosuoja</a></p><nav class="legal-nav" aria-label="Oikeudelliset tiedot"><a href="/fi/tietosuoja/">Tietosuoja</a> · <a href="/fi/kayttoehdot/">Käyttöehdot</a> · <a href="/fi/vertailuperiaatteet/">Vertailuperiaatteet</a> · <a href="mailto:partners@elecz.com">Yhteystiedot</a></nav></footer>
 </body></html>

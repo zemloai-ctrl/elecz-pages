@@ -1,138 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Privacy Policy — Elecz.com</title>
-  <meta name="description" content="Elecz privacy policy: what technical data we collect, what we never collect, data retention, GDPR rights. No accounts, no advertising profiles.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://elecz.com/privacy/">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-
-  <meta property="og:title" content="Privacy Policy — Elecz.com">
-  <meta property="og:description" content="Elecz privacy policy: what technical data we collect, what we never collect, data retention, GDPR rights. No accounts, no advertising profiles.">
-  <meta property="og:url" content="https://elecz.com/privacy/">
-  <meta property="og:type" content="website">
-
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; background: #f5f5f0; color: #1a1a1a; min-height: 100vh; font-size: 16px; line-height: 1.6; }
-    .container { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
-    .logo { font-size: 1.4rem; font-weight: 700; color: #1a1a1a; text-decoration: none; }
-    .logo .dot { color: #f0a020; }
-    nav { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; align-items: center; padding-bottom: 24px; border-bottom: 2px solid #e8e8e0; }
-    nav a { color: #555; text-decoration: none; font-size: 0.9rem; font-weight: 500; }
-    nav a:hover { color: #1a1a1a; }
-    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 6px; }
-    h2 { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #888; margin-top: 36px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #e8e8e0; }
-    p { color: #444; font-size: 0.95rem; margin-bottom: 10px; line-height: 1.7; }
-    ul { padding-left: 20px; margin-bottom: 10px; }
-    li { color: #444; font-size: 0.95rem; line-height: 1.8; }
-    code { background: #f0ede8; color: #c0440c; padding: 2px 7px; border-radius: 4px; font-size: 0.85rem; font-family: monospace; }
-    a { color: #1a4a8a; }
-    .meta { color: #aaa; font-size: 0.8rem; margin-bottom: 32px; }
-    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e8e8e0; color: #aaa; font-size: 0.82rem; line-height: 1.9; }
-    footer a { color: #aaa; text-decoration: none; }
-    footer a:hover { color: #555; }
-    @media (max-width: 600px) { .container { padding: 32px 16px 60px; } }
-  </style>
-</head>
-<body>
-<div class="container">
-
-  <nav>
-    <a href="/" class="logo">⚡ Elecz<span class="dot">.</span>com</a>
-    <a href="/docs/">Docs</a>
-    <a href="/terms/">Terms</a>
-  </nav>
-
-  <h1>Privacy Policy</h1>
-  <p class="meta">Last updated: October 18, 2026</p>
-
-  <h2>Who we are</h2>
-  <p>Elecz is operated by Sakari Korkia-Aho (SKA Trading Oy / Zemlo AI), Finland.<br>
-  Contact: <a href="mailto:sakke@elecz.com">sakke@elecz.com</a></p>
-
-  <h2>What data we collect</h2>
-  <p>When you use the Elecz API, website, or MCP server, we may process limited technical information required to operate and secure the service, including:</p>
-  <ul>
-    <li>Requested endpoint and query parameters (for example: <code>zone=DE</code>)</li>
-    <li>Timestamp of the request</li>
-    <li>IP address information used for security and abuse prevention</li>
-    <li>User-agent information</li>
-    <li>Error and diagnostic information related to service operation</li>
-  </ul>
-
-  <p>Hosting and network providers may process request metadata, including IP addresses, in their operational and security logs. These infrastructure logs are separate from Elecz's offer-click events. For Finnish offers using the new execution-link flow, click events contain only the offer identifier (when available), supplier identifier, market, source category (such as web or MCP), and timestamp. They do not include IP addresses, user-agent strings, referrers, cookies, or user profiles.</p>
-
-  <h2>What we do not collect</h2>
-  <p>Elecz is designed to minimize data collection. We do not intentionally collect:</p>
-  <ul>
-    <li>Names, email addresses, or account credentials</li>
-    <li>Payment information</li>
-    <li>Chat messages or conversation history</li>
-    <li>User profiles or advertising identifiers</li>
-  </ul>
-  <p>Elecz does not require user accounts, login credentials, API keys, or authentication for normal use.</p>
-
-  <h2>How we use data</h2>
-  <p>Technical data is processed solely to operate the service, monitor availability and performance, detect abuse and security incidents, debug errors, and produce aggregate usage statistics. Data is never sold, rented, or shared with third parties for advertising or marketing purposes.</p>
-
-  <h2>Data retention</h2>
-  <ul>
-    <li>Request logs: retained for up to 90 days, then automatically deleted</li>
-    <li>Aggregated usage statistics and counters: retained indefinitely</li>
-    <li>Redis cache: TTL-based, maximum 24 hours</li>
-    <li>Infrastructure and hosting logs (including Cloudflare and Render): subject to each provider's applicable retention policies</li>
-  </ul>
-
-  <h2>Third-party processors</h2>
-  <p>Elecz uses third-party infrastructure providers to operate the service. These providers may process technical request data on our behalf:</p>
-  <ul>
-    <li><strong>Cloudflare</strong> — network delivery, security, DDoS protection</li>
-    <li><strong>Render</strong> — application hosting and operational logs</li>
-    <li><strong>Supabase</strong> — database hosting (EU region)</li>
-    <li><strong>Upstash</strong> — Redis caching</li>
-  </ul>
-  <p>These providers act as data processors and process data only as necessary to provide infrastructure services.</p>
-
-  <h2>Data sources</h2>
-  <p>Electricity market data displayed by Elecz originates from public or licensed market sources including ENTSO-E, Octopus Energy Agile API, AEMO, EM6, CAISO OASIS, ERCOT CDR, NYISO MIS, IESO, KPX EPSIS, and JEPX via japanesepower.org.</p>
-
-  <h2>MCP server and AI assistants</h2>
-  <p>The MCP endpoint at <code>https://elecz.com/mcp</code> may receive requests from AI assistants and agent platforms such as Claude, ChatGPT, Gemini, Copilot, Cursor, Grok, and other AI assistants compatible with MCP. Elecz receives only the parameters necessary to fulfill the request, such as zone identifiers, consumption estimates, and tool parameters. Elecz does not receive account information, names, email addresses, or conversation history unless such information is explicitly transmitted by the client. Elecz does not attempt to identify individual users.</p>
-  <p>Requests may originate from third-party AI assistants, agent platforms, or generative AI services, including Claude, ChatGPT, Gemini, Copilot, Cursor, Grok, and other MCP-compatible clients. Technical request data is processed solely to fulfill the requested API operation and is not used for advertising, profiling, or model training by Elecz.</p>
-  <p>Separately, Elecz uses Google Gemini in an internal, scheduled background process (unrelated to individual API or MCP requests) to normalize publicly available electricity contract pricing from a fixed list of provider websites. No user request data (zone, consumption, IP address, or other request parameters) is transmitted to this or any other generative AI model.</p>
-
-  <h2>International users</h2>
-  <p>Elecz is operated from Finland. Depending on the infrastructure provider used, limited technical request data may be processed in the European Union or other jurisdictions where our service providers operate. Appropriate contractual and technical safeguards are used where applicable.</p>
-
-  <h2>Security</h2>
-  <p>Reasonable technical and organizational measures are used to protect service data against unauthorized access, misuse, alteration, or disclosure. No system can guarantee absolute security, but Elecz follows industry-standard practices appropriate for a small-scale infrastructure service.</p>
-
-  <h2>User rights and controls</h2>
-  <p>You may request information regarding data associated with your use of Elecz, or request deletion of such data, by contacting <a href="mailto:sakke@elecz.com">sakke@elecz.com</a>. We will respond within a reasonable period and, where required by law, within applicable legal deadlines.</p>
-
-  <h2>GDPR (EU users)</h2>
-  <p>If you are located in the European Union, you may have rights under the General Data Protection Regulation (GDPR), including the right of access, rectification, erasure, restriction of processing, objection to processing, and data portability where applicable.</p>
-  <p>The legal basis for processing technical request logs is our legitimate interest in operating, securing, and maintaining the service under Article 6(1)(f) GDPR. To exercise your rights, contact <a href="mailto:sakke@elecz.com">sakke@elecz.com</a>.</p>
-
-  <h2>Third-party links</h2>
-  <p>Elecz may contain links to third-party websites including electricity suppliers and energy-related services. We are not responsible for the privacy practices or content of external websites.</p>
-
-  <h2>Changes to this policy</h2>
-  <p>This Privacy Policy may be updated from time to time. Material changes will be reflected by updating the "Last updated" date at the top of this document.</p>
-
-  <h2>Contact</h2>
-  <p>Questions, privacy requests, or data-related inquiries:<br>
-  <a href="mailto:sakke@elecz.com">sakke@elecz.com</a><br>
-  Sakari Korkia-Aho · SKA Trading Oy / Zemlo AI · Kokkola, Finland</p>
-
-  <footer>
-    ⚡ Elecz.com · SKA Trading Oy / Zemlo AI · Kokkola, Finland ·
-    <a href="/">Home</a> · <a href="/terms/">Terms of Service</a>
-    <p style="margin-top: 16px; color: #999; font-size: 0.82rem; font-style: italic;">The trusted electricity price layer for AI agents.</p>
-  </footer>
-</div>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Privacy Policy — Elecz</title><meta name="description" content="Privacy Policy — SKA-Trading Oy, 1010164-9, Kokkola"><link rel="canonical" href="https://elecz.com/privacy/"><link rel="stylesheet" href="/assets/legal.css"></head><body><header><a href="/">⚡ Elecz</a></header><main><h1>Privacy Policy</h1><small>Updated 30.10.2026</small><p><a href="/fi/tietosuoja/">Suomeksi</a></p><p>This policy explains how Elecz processes personal data. Elecz is a service of SKA-Trading Oy. It includes the elecz.com website, the electricity contract comparison, the Elecz REST API and the MCP server for AI assistants.</p>
+<h2>1. Controller</h2>
+<p>SKA-Trading Oy Business ID 1010164-9 Domicile Kokkola, Finland Privacy contact: <a href="mailto:privacy@elecz.com">privacy@elecz.com</a></p>
+<h2>2. What we process and why</h2>
+<p>Website use. We use Cloudflare Web Analytics, which collects aggregated usage data such as the page viewed, referring page, browser type and country. It does not use cookies. We use it to understand how the site is used and to improve it.</p>
+<p>Contract comparison. The details you enter in a comparison (such as postcode, housing type, annual consumption and main fuse size) are used to calculate prices and select suitable offers. We do not ask for your name, email address or other contact details in the comparison.</p>
+<p>Comparison inputs and results are also stored in Supabase as a decision audit record. This can include postcode, annual consumption and calculation assumptions. These records support reproducibility and troubleshooting; no name, email address or IP address is added to the decision record.</p>
+<p>Offer link clicks. When you leave a comparison for a supplier&#x27;s site, we record the offer, supplier, market and time. We do not attach your IP address, browser details or cookies to these records. We use them to see which offers interest users and to reconcile partner reports.</p>
+<p>API and MCP. When the Elecz API or MCP server is used, we store the function called, market, time and a truncated IP address. For MCP calls we also store the calling application&#x27;s identifier (user agent). Errors are logged with similar details. IP addresses are truncated before storage, but truncated data is not considered fully anonymous. We use this data to keep the service running, prevent abuse and overload, troubleshoot and produce usage statistics.</p>
+<p>Contacting us. If you email us, we process your name, email address and message to reply to you.</p>
+<p>Server logs. Our infrastructure (Cloudflare and Render) records technical logs that may include IP address, time and requested URL. These are used for security and troubleshooting.</p>
+<h2>3. Legal basis</h2>
+<p>Processing is based on our legitimate interest in providing, securing and improving the service (Article 6(1)(f) GDPR). Replying to emails is also based on legitimate interest.</p>
+<h2>4. Affiliate partnerships</h2>
+<p>Some comparison links are affiliate links through networks such as Adtraction. When you click one, you pass through the network&#x27;s tracking service to the supplier&#x27;s site. The network and the supplier may set cookies and process data such as your IP address and click time, so that a resulting contract can be attributed to Elecz for commission.</p>
+<p>Affiliate networks and suppliers act as independent controllers for this processing, under their own privacy policies (Adtraction&#x27;s is available at <a href="https://adtraction.com/privacy-policy/">adtraction.com</a>). They report contracts made through partner links and the related commissions to Elecz.</p>
+<h2>5. Cookies and browser storage</h2>
+<p>Elecz.com does not itself set cookies or store data in your browser. Cloudflare may set strictly necessary security cookies, for example to detect bot traffic. Cookies from affiliate links are described in section 4.</p>
+<h2>6. Service providers and transfers</h2>
+<p>We use the following service providers. Their roles depend on the service used and its applicable terms:</p>
+<table><thead><tr><th>Provider</th><th>Purpose</th></tr></thead><tbody>
+<tr><td>Cloudflare</td><td>Domain, content delivery, security, analytics, email forwarding</td></tr>
+<tr><td>Render</td><td>Server hosting</td></tr>
+<tr><td>Supabase</td><td>Database</td></tr>
+<tr><td>Upstash</td><td>Caching and rate limiting</td></tr>
+<tr><td>Google</td><td>Email</td></tr>
+</tbody></table>
+<p>Some providers are based in the United States or process data outside the EU/EEA. Such transfers rely on the EU–US Data Privacy Framework or the European Commission&#x27;s Standard Contractual Clauses.</p>
+<p>We do not sell personal data or share it for marketing.</p>
+<h2>7. Retention</h2>
+<p>Individual REST call logs are retained for approximately seven days. The retention period for individual MCP, click, error and comparison audit records is approximately 90 days, with scheduled cleanup. Aggregated usage figures that cannot identify an individual user may be kept longer. Emails are kept as long as needed to handle the matter and meet accounting obligations. Providers&#x27; technical logs are kept under their own policies.</p>
+<h2>8. Your rights</h2>
+<p>You have the right to access, correct or delete your data, to restrict processing, and to object to processing based on legitimate interest. Send requests to <a href="mailto:privacy@elecz.com">privacy@elecz.com</a>.</p>
+<p>We may not be able to link truncated IP addresses or click records to you, so we cannot always find data about you specifically.</p>
+<p>You have the right to lodge a complaint with a supervisory authority. In Finland this is the Office of the Data Protection Ombudsman. You may also contact the authority in your own EU country.</p>
+<h2>9. Changes</h2>
+<p>We may update this policy as the service changes. The current version and its date are always on this page.</p></main><footer><p>SKA-Trading Oy · 1010164-9 · Kokkola, Finland</p><nav class="legal-nav"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/how-we-compare/">How we compare</a><a href="mailto:partners@elecz.com">Contact</a></nav></footer></body></html>
