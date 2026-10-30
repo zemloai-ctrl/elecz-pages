@@ -62,7 +62,7 @@ function harness(transform = data => data) {
 const heading = h => h.elements['result-heading'].textContent.replace(/\s/g,' ');
 test('blank initial form sends neither value nor profile and discloses the server default', async () => {
   const h = harness(); const url = await h.submit();
-  assert.equal(url.search,'?zone=FI');
+  assert.equal(url.search,'?zone=FI&offer_limit=20');
   assert.equal(heading(h),'Oletuskulutus: 2 000 kWh/vuosi');
   assert.equal(h.elements['consumption-source'].hidden,true);
   assert.equal(h.elements['postcode-notice'].hidden,false);
@@ -99,7 +99,7 @@ test('focus alone leaves an estimate untouched; editing back to the same number 
 test('clearing an estimate clears profile and returns to default', async () => {
   const h = harness(); h.select(profiles[3][0]); h.edit('');
   assert.equal(h.elements['housing-profile'].value,'');
-  assert.equal((await h.submit()).search,'?zone=FI');
+  assert.equal((await h.submit()).search,'?zone=FI&offer_limit=20');
   assert.match(heading(h),/^Oletuskulutus:/);
 });
 test('deselect clears autofill but preserves a manually edited number', async () => {

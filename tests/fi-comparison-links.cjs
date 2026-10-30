@@ -23,7 +23,7 @@ async function render(response) {
   vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../fi/sahkosopimukset/comparison.js'),'utf8'), {
     document,Intl,URL,URLSearchParams,AbortController,
     setTimeout:(fn,ms)=>{timers.push(ms);return timers.length;},clearTimeout:id=>cleared.push(id),
-    fetch:async url=>{assert.equal(url,'/signal/contract?zone=FI&consumption=5000');return {ok:true,json:async()=>response};}
+    fetch:async url=>{assert.equal(url,'/signal/contract?zone=FI&offer_limit=20&consumption=5000');return {ok:true,json:async()=>response};}
   });
   await elements['comparison-form'].handlers.submit({preventDefault(){}});
   assert.deepEqual(timers,[5000,60000]); assert.equal(cleared.length,2);

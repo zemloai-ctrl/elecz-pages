@@ -119,7 +119,9 @@
   }
   function card(offer, data) {
     const item = node('li', undefined, 'offer');
-    item.append(node('h3', offer.provider || 'Toimittaja ei saatavilla'), node('p', offer.product_name || 'Tuotenimi ei saatavilla', 'product'));
+    const heading = node('h3', offer.provider || 'Toimittaja ei saatavilla');
+    heading.tabIndex = -1;
+    item.append(heading, node('p', offer.product_name || 'Tuotenimi ei saatavilla', 'product'));
     if (offer.new_customers_only === true) item.append(node('p', 'Vain uusille asiakkaille', 'badge'));
     item.append(node('p', numeric(offer.annual_cost_estimate) ? `${number(offer.annual_cost_estimate)} €` : 'Arvio ei saatavilla', 'price'), node('p', 'Arvio / ensimmäiset 12 sopimuskuukautta', 'price-label'));
     const details = node('dl');
@@ -161,12 +163,92 @@
     if (requested) return 'Valittua pääsulaketta ei voitu huomioida tässä vertailussa. Tarkista hinnat sähköyhtiöltä.';
     return null;
   }
-  function renderGroup(id, offers, data) {
-    const list = document.getElementById(id);
+  const OFFER_LIMIT = 20;
+  const models = ['spot', 'fixed'];
+  function sameValue(a, b) {
+    if (a === b) return true;
+    if (!a || !b || typeof a !== 'object' || typeof b !== 'object' || Array.isArray(a) !== Array.isArray(b)) return false;
+    const keys = Object.keys(a);
+    return keys.length === Object.keys(b).length && keys.every(key => Object.hasOwn(b, key) && sameValue(a[key], b[key]));
+  }
+  function comparisonLists(data) {
+    // An optional extension is accepted as a whole; never repair or reorder it.
+    try {
+      const groups = data.comparison_offers;
+      const meta = data.comparison_list_meta;
+      if (data.comparison_list_status !== 'available' || !groups || !meta || meta.limit_per_group !== OFFER_LIMIT) return null;
+      const identities = new Set();
+      for (const model of models) {
+        const rows = groups[model], top = data[`top_${model}_offers`], counts = meta[model];
+        if (!Array.isArray(rows) || rows.length > OFFER_LIMIT || top.length > 3 || !sameValue(rows.slice(0, 3), top) || !counts ||
+            !Number.isSafeInteger(counts.returned_count) || !Number.isSafeInteger(counts.total_count) ||
+            counts.returned_count !== rows.length || counts.total_count < rows.length ||
+            rows.length !== Math.min(OFFER_LIMIT, counts.total_count) ||
+            counts.truncated !== (counts.total_count > rows.length)) return null;
+        let previous = -Infinity;
+        for (const offer of rows) {
+          if (!offer || offer.type !== model || !numeric(offer.annual_cost_estimate) || offer.annual_cost_estimate < previous ||
+              typeof offer.provider !== 'string' || !offer.provider.trim() ||
+              typeof offer.product_name !== 'string' || !offer.product_name.trim()) return null;
+          previous = offer.annual_cost_estimate;
+          if (offer.id != null) {
+            if (typeof offer.id !== 'string' || !offer.id || identities.has(offer.id)) return null;
+            const safe = safeUrl(offer.go_url);
+            if (!safe) return null;
+            const link = new URL(safe);
+            if (link.origin !== 'https://elecz.com' || !link.pathname.startsWith('/go/') ||
+                link.searchParams.get('offer_id') !== offer.id || link.searchParams.get('zone') !== 'FI') return null;
+            identities.add(offer.id);
+          } else if (offer.go_url != null) return null;
+        }
+      }
+      return { groups, meta };
+    } catch { return null; }
+  }
+  function resetGroups() {
+    for (const model of models) {
+      const more = document.getElementById(`${model}-more`);
+      more.hidden = true; more.disabled = true; more.onclick = null;
+      more.setAttribute('aria-expanded', 'false');
+      document.getElementById(`${model}-offers`).replaceChildren();
+      document.getElementById(`${model}-count`).textContent = '';
+      document.getElementById(`${model}-more-status`).textContent = '';
+      document.getElementById(`${model}-more-note`).hidden = true;
+    }
+  }
+  function renderGroup(model, offers, data, extension) {
+    const list = document.getElementById(`${model}-offers`);
+    const more = document.getElementById(`${model}-more`);
+    const count = document.getElementById(`${model}-count`);
+    const notice = document.getElementById(`${model}-more-note`);
+    const live = document.getElementById(`${model}-more-status`);
     list.replaceChildren();
-    // Preserve server order and eligibility; only cap the display at three.
-    offers.slice(0, 3).forEach(offer => list.append(card(offer, data)));
+    const initial = offers.slice(0, 3);
+    initial.forEach(offer => list.append(card(offer, data)));
     if (!offers.length) list.append(node('li', 'Vertailukelpoisia tarjouksia ei löytynyt tässä ryhmässä.', 'notice'));
+    count.hidden = !extension;
+    notice.hidden = Boolean(extension);
+    notice.textContent = extension ? '' : 'Lisätarjouksia ei juuri nyt saatavilla';
+    if (!extension) return;
+    const rows = extension.groups[model], meta = extension.meta[model];
+    const updateCount = shown => {
+      count.textContent = meta.truncated
+        ? `Näytetään ${number(shown, 0)} halvinta ${number(meta.total_count, 0)} tarjouksesta`
+        : `Yhteensä ${number(meta.total_count, 0)} ${meta.total_count === 1 ? 'tarjous' : 'tarjousta'}`;
+    };
+    updateCount(initial.length);
+    more.hidden = rows.length <= initial.length;
+    more.disabled = more.hidden;
+    if (!more.hidden) more.onclick = () => {
+      // These cards belong to the same response; this action never fetches.
+      const added = rows.slice(initial.length).map(offer => card(offer, data));
+      added.forEach(item => list.append(item));
+      more.hidden = true; more.disabled = true; more.onclick = null;
+      more.setAttribute('aria-expanded', 'true');
+      updateCount(rows.length);
+      live.textContent = `Näytettiin ${number(added.length, 0)} ${added.length === 1 ? 'lisätarjous' : 'lisätarjousta'}. ${count.textContent}.`;
+      added[0].children[0].focus();
+    };
   }
   form.addEventListener('submit', async event => {
     event.preventDefault();
@@ -181,6 +263,7 @@
     if (consumption !== null && (!Number.isSafeInteger(consumption) || consumption <= 0)) {
       input.setCustomValidity('Anna vuosikulutus positiivisena kokonaislukuna.'); input.reportValidity(); return;
     }
+    resetGroups();
     button.disabled = true; input.disabled = true; if (fuseSelect) fuseSelect.disabled = true; results.hidden = true;
     housingSelect.disabled = true;
     if (postcodeInput) postcodeInput.disabled = true;
@@ -189,7 +272,7 @@
     const slowMessage = setTimeout(() => { status.textContent = 'Haetaan sähkösopimuksia… Haku voi kestää hetken.'; }, 5000);
     const timeout = setTimeout(() => controller.abort(), 60000);
     try {
-      const query = new URLSearchParams({ zone: 'FI' });
+      const query = new URLSearchParams({ zone: 'FI', offer_limit: String(OFFER_LIMIT) });
       const requested = { profile: estimatedProfile, consumption };
       if (requested.profile) query.set('housing_profile', requested.profile);
       else if (consumption !== null) query.set('consumption', String(consumption));
@@ -203,8 +286,9 @@
       const data = await response.json();
       if (data.zone !== 'FI' || data.currency !== 'EUR' || data.contract_comparison !== 'available' || !Array.isArray(data.top_spot_offers) || !Array.isArray(data.top_fixed_offers)) throw new Error('schema');
       const summary = consumptionSummary(data, requested);
-      renderGroup('spot-offers', data.top_spot_offers, data);
-      renderGroup('fixed-offers', data.top_fixed_offers, data);
+      const extension = comparisonLists(data);
+      renderGroup('spot', data.top_spot_offers, data, extension);
+      renderGroup('fixed', data.top_fixed_offers, data, extension);
       document.getElementById('result-heading').textContent = summary.text;
       const sourceLink = document.getElementById('consumption-source');
       sourceLink.replaceChildren();
@@ -217,7 +301,7 @@
       const postcodeNotice = document.getElementById('postcode-notice');
       postcodeNotice.textContent = requestedPostcode ? '' : 'Vertailussa ovat vain valtakunnalliset tarjoukset. Alueelliset tarjoukset eivät ole mukana ilman viisinumeroista postinumeroa.';
       postcodeNotice.hidden = Boolean(requestedPostcode);
-      let meta = 'Enintään kolme tarjousta kummassakin ryhmässä, vertailumoottorin järjestyksessä.';
+      let meta = 'Tarjoukset ovat vertailumoottorin hintajärjestyksessä. Aluksi näytetään enintään kolme tarjousta kummastakin ryhmästä.';
       const timestamp = new Date(data.timestamp);
       if (data.timestamp && Number.isFinite(timestamp.getTime())) meta += ` Vertailu laskettu ${new Intl.DateTimeFormat('fi-FI', { dateStyle: 'short', timeZone: 'Europe/Helsinki' }).format(timestamp)} klo ${new Intl.DateTimeFormat('fi-FI', { timeStyle: 'short', timeZone: 'Europe/Helsinki' }).format(timestamp)} (Suomen aikaa). Sopimusaineiston päivitysaika ei ole saatavilla tässä vastauksessa.`;
       document.getElementById('result-meta').textContent = meta;
