@@ -154,6 +154,15 @@ export default {
         }
       );
     }
+    // ─── Language paths are lowercase; send /FI, /Fi/... to the real URL ───
+    // Without this, an uppercase path misses every asset and falls back to
+    // the English homepage with a 200 instead of the language page.
+    if (/^\/(fi|sv|de|fr|es|it|ja)(\/.*)?$/i.test(path) && path !== path.toLowerCase()) {
+      const target = new URL(url);
+      target.pathname = path.toLowerCase();
+      if (target.pathname.length === 3) target.pathname += "/";
+      return Response.redirect(target.toString(), 301);
+    }
     // ─── Avoid 301 trailing-slash redirects for these known content pages ──
     // Cloudflare Pages' default asset handling issues a 301 from
     // "/docs" -> "/docs/" (etc.) whenever the matching static file is
