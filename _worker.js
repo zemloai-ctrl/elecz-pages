@@ -2,6 +2,17 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname;
+    // Italy stays closed on every deployed host until launch is approved.
+    let assetPath = path;
+    try {
+      assetPath = decodeURIComponent(path).replace(/\\/g, "/").replace(/\/{2,}/g, "/");
+    } catch {
+      // Preserve existing handling of malformed encodings outside this route.
+    }
+    const normalizedAssetPath = new URL("https://elecz.com" + assetPath).pathname;
+    if (/^\/it\/confronto(?:\/|$)/i.test(normalizedAssetPath)) {
+      return new Response("Not found", { status: 404, headers: { "Cache-Control": "no-store" } });
+    }
     const RENDER = "https://elecz-api.onrender.com";
     const CACHE_TTL = 300;
     // GET/HEAD requests must never carry a body when constructing a new

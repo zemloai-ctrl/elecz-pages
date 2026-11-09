@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Confronta le offerte luce | Elecz</title>
+  <link rel="stylesheet" href="/assets/fonts/4252948cf250.css">
+  <link rel="stylesheet" href="./comparison.css">
+  <script src="./comparison.js" defer></script>
+</head>
+<body>
+  <header><a href="/it/" aria-label="Elecz Italia">Elecz<span>.</span></a></header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">Elecz · Italia</p>
+      <h1>Confronta le offerte luce</h1>
+      <p>Stima la spesa dei primi 12 mesi delle offerte domestiche a prezzo fisso con il tuo consumo.</p>
+    </section>
+    <form id="comparison">
+      <div class="fields">
+        <label>Consumo annuo (kWh)<input name="consumption" type="number" min="1" step="any" required></label>
+        <label>Potenza impegnata (kW)<input name="power" type="number" min="0.01" step="any" required></label>
+      </div>
+      <p>Trovi questi dati nella bolletta. La potenza serve per verificare i limiti dell’offerta e calcolare eventuali quote a kW.</p>
+      <label>Ripartizione dei consumi per fascia
+        <select id="profile">
+          <option value="default">Profilo di riferimento (F1 33%, F2 31%, F3 36%)</option>
+          <option value="custom">Usa le mie percentuali</option>
+        </select>
+      </label>
+      <fieldset id="bands" hidden disabled>
+        <legend>Percentuali per fascia (totale 100%)</legend>
+        <div class="fields">
+          <label>F1 (%)<input name="f1" type="number" min="0" max="100" step="any" value="33" required></label>
+          <label>F2 (%)<input name="f2" type="number" min="0" max="100" step="any" value="31" required></label>
+          <label>F3 (%)<input name="f3" type="number" min="0" max="100" step="any" value="36" required></label>
+        </div>
+      </fieldset>
+      <button type="submit">Confronta le offerte</button>
+    </form>
+    <section aria-labelledby="results-title">
+      <h2 id="results-title">Offerte confrontabili</h2>
+      <p id="status" role="status" aria-live="polite"></p>
+      <p id="snapshot"></p>
+      <ol id="offers"></ol>
+      <button type="button" id="more" hidden>Mostra altre offerte</button>
+    </section>
+    <section aria-labelledby="method-title">
+      <h2 id="method-title">Come calcoliamo la stima</h2>
+      <p>Ordiniamo le offerte per costo stimato della fornitura, al netto di imposte e oneri di rete. Quando disponibile e verificabile, annualizziamo il corrispettivo di dispacciamento osservato. L’importo in bolletta comprende anche altre voci.</p>
+      <p>Includiamo offerte a prezzo fisso monorarie o per fasce con dati sufficienti per il calcolo e condizioni verificabili. Le offerte indicizzate, le offerte con requisiti territoriali o contrattuali non verificabili e quelle con costi incompleti sono escluse dalla classifica.</p>
+      <p>Fonte delle offerte: <a href="https://www.arera.it/consumatori/il-portale-offerte">Portale Offerte ARERA</a>.</p>
+    </section>
+  </main>
+</body>
+</html>
