@@ -1,0 +1,32 @@
+body { font-family: 'DM Sans', system-ui, sans-serif; }
+.panel, .offer {
+  padding: clamp(16px, 4vw, 24px);
+  border: 1px solid #dce2e7;
+  border-radius: 8px;
+  background: #fff;
+}
+#comparison-form { margin-block: 24px; }
+#comparison-form label { display: block; font-weight: 700; margin-bottom: 8px; }
+.form-row, .offers { display: grid; gap: 12px; }
+.form-row { grid-template-columns: minmax(0, 1fr) auto; }
+.form-row input, .form-row button {
+  font: inherit;
+  padding: 10px 14px;
+  border: 1px solid #667573;
+  border-radius: 5px;
+}
+.form-row input { width: 100%; background: #fff; }
+.form-row button { background: #126645; color: #fff; font-weight: 700; text-decoration: none; }
+.form-row button:disabled { opacity: .7; cursor: wait; }
+.form-row input:focus-visible { outline: 3px solid #126645; outline-offset: 4px; }
+.panel p, .source { margin-bottom: 0; color: #526070; }
+.offers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.offer h4 { margin: 4px 0; overflow-wrap: anywhere; }
+.offer p { margin: 4px 0; }
+.offer .price { margin-top: 12px; font-weight: 700; }
+.coverage { margin-top: 16px; }
+.coverage summary { cursor: pointer; }
+.source { border-top: 1px solid #dce2e7; padding-top: 16px; }
+@media (max-width: 520px) {
+  .form-row, .offers { grid-template-columns: minmax(0, 1fr); }
+}
