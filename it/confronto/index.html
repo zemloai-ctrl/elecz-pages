@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confronta le offerte luce in Italia | Elecz</title>
+  <meta name="description" content="Confronta le offerte luce a prezzo fisso e indicizzate al PUN con il tuo consumo annuo.">
+  <link rel="canonical" href="https://elecz.com/it/confronto/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/assets/fonts/83ecff577c02.css">
+  <link rel="stylesheet" href="/assets/legal.css">
+  <link rel="stylesheet" href="./comparison.css">
+  <script src="./comparison.js" defer></script>
+</head>
+<body>
+  <header>
+    <nav aria-label="Navigazione principale"><a href="/it/">⚡ Elecz Italia</a><a href="/how-we-compare/#italy" hreflang="en">Metodologia (EN)</a></nav>
+  </header>
+  <main>
+    <h1>Confronta le offerte luce in Italia</h1>
+    <p>Confronta il prezzo fisso e le offerte indicizzate al PUN per la tua casa. Il PUN è un riferimento del prezzo all’ingrosso dell’elettricità in Italia.</p>
+    <form id="comparison-form" class="panel" hidden>
+      <label for="consumption">Consumo annuo (kWh)</label>
+      <div class="form-row">
+        <input id="consumption" name="consumption" type="number" inputmode="numeric" min="1" max="200000" step="1" required>
+        <button type="submit">Confronta offerte</button>
+      </div>
+      <p>Per un’utenza domestica che cambia fornitore, con potenza impegnata di 3 kW. Le condizioni legate alla residenza e la disponibilità locale non sono verificate.</p>
+    </form>
+    <noscript><p>Per usare il confronto, abilita JavaScript.</p></noscript>
+    <section aria-labelledby="result-title">
+      <h2 id="result-title">Risultato del confronto</h2>
+      <p id="comparison-status" role="status">Inserisci il consumo annuo per vedere il risultato, se disponibile.</p>
+      <div id="comparison-result"></div>
+      <p class="source">Fonte dei dati sulle offerte: <a href="https://www.ilportaleofferte.it/">Portale Offerte</a>. I venditori di energia elettrica sono responsabili dei dati delle proprie offerte. Elecz calcola autonomamente le stime della sola vendita di energia, escluse le tariffe di rete, gli oneri di sistema e le imposte.</p>
+    </section>
+  </main>
+  <footer>
+    <nav aria-label="Informazioni sul sito"><a href="/privacy/" hreflang="en">Privacy</a><a href="/terms/" hreflang="en">Condizioni d’uso</a><a href="/contact/" hreflang="en">Contatti</a></nav>
+  </footer>
+</body>
+</html>

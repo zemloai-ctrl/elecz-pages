@@ -191,7 +191,7 @@
         "name": "Elecz confronta le offerte dei fornitori di energia elettrica in Italia?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Non ancora. Lo strumento best_energy_contract confronta attualmente contratti a prezzo variabile e fisso per FI, SE, NO, DK, DE, GB, AU e NZ. Per l'Italia, Elecz fornisce il prezzo zonale e le ore più economiche; il confronto dei contratti è nella roadmap."
+          "text": "La pagina Confronta le offerte luce mostra le offerte italiane a prezzo fisso e indicizzate al PUN quando il confronto è disponibile. Inserisci il tuo consumo annuo per verificare la disponibilità."
         }
       },
       {
@@ -283,6 +283,7 @@
 <nav>
   <a href="/" class="nav-logo">⚡ Elecz<span class="dot">.</span>com</a>
   <div class="nav-links">
+    <a href="/it/confronto/">Offerte luce</a>
     <a href="/docs/">Docs</a>
     <a href="/electricity-price-api/">API Guide</a>
     <a href="/chatgpt/">Plugin ChatGPT</a>
@@ -296,7 +297,7 @@
   <div class="hero-eyebrow">API prezzo elettricità — Italia (6 zone) &amp; Europa</div>
   <h1>L'IA indovina il prezzo dell'elettricità.<br><span class="hl">Elecz no.</span></h1>
   <p class="hero-lead">
-    Elecz fornisce il prezzo zonale attuale dell'elettricità, le ore più economiche e — dove disponibile — le migliori opzioni contrattuali, per agenti IA, domotica e ricarica dei veicoli elettrici. Nessuna chiave API, nessuna registrazione — utilizzabile subito via REST, con copertura di tutte e sei le zone di mercato italiane.
+    Elecz fornisce il prezzo zonale attuale dell'elettricità e le ore più economiche per agenti IA, domotica e ricarica dei veicoli elettrici. Nessuna chiave API, nessuna registrazione — utilizzabile subito via REST, con copertura di tutte e sei le zone di mercato italiane.
   </p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">6</div><div class="stat-label">zone italiane</div></div>
@@ -307,6 +308,7 @@
   <div class="hero-ctas">
     <a href="https://elecz.com/mcp" class="btn-primary">Connetti via MCP →</a>
     <a href="/chatgpt/" class="btn-chatgpt">Apri in ChatGPT →</a>
+    <a href="/it/confronto/" class="btn-secondary">Confronta le offerte luce</a>
     <a href="/docs/" class="btn-secondary">Documentazione REST API</a>
   </div>
   <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text2);">
@@ -350,7 +352,7 @@
     </div>
     <div class="tool-card">
       <div class="tool-name">best_energy_contract</div>
-      <div class="tool-desc">Opzioni contrattuali in tempo reale — disponibile per FI, SE, NO, DK, DE, GB, AU, NZ. Per le zone italiane, restituisce il prezzo zonale con lo stato del confronto contrattuale. Anche via REST: <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
+      <div class="tool-desc">Confronto delle offerte luce dove disponibile. La risposta indica lo stato del confronto. Anche via REST: <code style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2)">GET /signal/contract</code></div>
     </div>
   </div>
 
@@ -370,9 +372,7 @@
     <pre>curl "https://elecz.com/signal/spot?zone=IT-NO"
 curl "https://elecz.com/signal/spot?zone=IT-CNO"
 curl "https://elecz.com/signal/spot?zone=IT-SIC"
-curl "https://elecz.com/signal/cheapest-hours?zone=IT-NO&hours=5"
-<span class="c"># → spot_price disponibile, contract_comparison: "not_available" per le zone IT
-# Zone con confronto contrattuale completo: FI, SE, NO, DK, DE, GB, AU, NZ</span></pre>
+curl "https://elecz.com/signal/cheapest-hours?zone=IT-NO&hours=5"</pre>
   </div>
 </div>
 
@@ -484,7 +484,6 @@ curl "https://elecz.com/signal/cheapest-hours?zone=IT-NO&hours=5"
     <li>Prezzo <strong>senza</strong> imposte e oneri di sistema (IVA, accise)</li>
     <li>Prezzo all'ingrosso zonale — dato di mercato, distinto dal PUN usato come riferimento nazionale unico</li>
     <li>Mercato gestito da GME (Gestore dei Mercati Energetici), dati via ENTSO-E Transparency Platform</li>
-    <li>Confronto contrattuale (<code style="font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">best_energy_contract</code>): non ancora disponibile per le zone italiane — nella roadmap</li>
   </ul>
 
   <div class="it-note">
@@ -492,7 +491,7 @@ curl "https://elecz.com/signal/cheapest-hours?zone=IT-NO&hours=5"
   </div>
 
   <div class="it-note" style="margin-top: 12px;">
-    <strong>Elecz non è un comparatore per consumatori.</strong> A seconda di cosa cerchi, la fonte giusta è diversa: un comparatore di offerte per scegliere un fornitore come consumatore; ARERA e GME per il quadro regolatorio e i dati ufficiali di mercato; ENTSO-E per i dati di mercato grezzi. Elecz fornisce un segnale in tempo reale — prezzo zonale, ore più economiche — pensato per essere richiamato da un agente IA o un'automazione, non per la sottoscrizione di un contratto di fornitura.
+    Per i contratti domestici, consulta il <a href="/it/confronto/">confronto delle offerte luce Elecz</a> per verificare la disponibilità e le stime. Per sottoscrivere un contratto, verifica il prezzo e le condizioni con il venditore.
   </div>
 
   <p style="font-size: 0.88rem; color: var(--text2); margin-top: 20px;">Gli sviluppatori in Italia cercano anche:</p>
@@ -541,7 +540,7 @@ curl "https://elecz.com/signal/cheapest-hours?zone=IT-NO&hours=5"
     </div>
     <div class="faq-item">
       <div class="faq-q">Elecz confronta le offerte dei fornitori di energia elettrica in Italia?</div>
-      <div class="faq-a">Non ancora. Lo strumento <code>best_energy_contract</code> confronta attualmente contratti a prezzo variabile e fisso per FI, SE, NO, DK, DE, GB, AU e NZ. Per l'Italia, Elecz fornisce il prezzo zonale e le ore più economiche (sei zone); il confronto dei contratti è nella roadmap.</div>
+      <div class="faq-a">La pagina <a href="/it/confronto/">Confronta le offerte luce</a> mostra le offerte italiane a prezzo fisso e indicizzate al PUN quando il confronto è disponibile. Inserisci il tuo consumo annuo per verificare la disponibilità.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Elecz funziona con Home Assistant o n8n?</div>
@@ -588,7 +587,7 @@ curl "https://elecz.com/signal/cheapest-hours?zone=IT-NO&hours=5"
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a>
   </p>
-<nav class="legal-nav" aria-label="Legal information"><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/how-we-compare/">How we compare</a> · <a href="/contact/">Contact</a></nav></footer>
+<nav class="legal-nav" aria-label="Legal information"><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/how-we-compare/#italy" hreflang="en">Metodologia (EN)</a> · <a href="/contact/">Contact</a></nav></footer>
 
 </body>
 </html>
