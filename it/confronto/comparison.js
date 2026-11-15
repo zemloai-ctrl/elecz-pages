@@ -37,6 +37,12 @@ const coverageReasons = {
   unidentified_supplier: 'Venditore non identificato',
 };
 
+const offerLinkLabels = {
+  offer_page: 'Pagina dell’offerta',
+  supplier_offers_page: 'Offerte del venditore',
+  supplier_homepage: 'Sito del venditore',
+};
+
 const disclosures = {
   security_deposit: 'Il venditore può richiedere un deposito cauzionale rimborsabile.',
   security_deposit_unless_direct_debit: 'È previsto un deposito cauzionale rimborsabile salvo pagamento con addebito diretto (SDD).',
@@ -51,6 +57,24 @@ function node(tag, text, className) {
 
 function isRange(value) {
   return value && Number.isFinite(value.min) && Number.isFinite(value.max) && value.min <= value.max;
+}
+
+function offerLink(link) {
+  if (!link || !Object.hasOwn(offerLinkLabels, link.kind) || typeof link.url !== 'string' ||
+      !link.url.startsWith('https://')) return null;
+  let url;
+  try {
+    url = new URL(link.url);
+  } catch {
+    return null;
+  }
+  if (url.protocol !== 'https:' || url.username || url.password) return null;
+
+  const anchor = node('a', offerLinkLabels[link.kind]);
+  anchor.href = url.href;
+  anchor.target = '_blank';
+  anchor.rel = 'noopener noreferrer nofollow';
+  return anchor;
 }
 
 function offerCard(offer) {
@@ -74,6 +98,12 @@ function offerCard(offer) {
   const conditions = Array.isArray(offer.conditions_to_disclose) ? offer.conditions_to_disclose : [];
   for (const condition of conditions) {
     if (Object.hasOwn(disclosures, condition?.code)) card.append(node('p', disclosures[condition.code]));
+  }
+  const link = offerLink(offer.link);
+  if (link) {
+    const action = node('p');
+    action.append(link);
+    card.append(action);
   }
   return card;
 }

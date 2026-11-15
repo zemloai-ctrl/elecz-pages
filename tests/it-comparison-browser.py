@@ -28,6 +28,15 @@ INDEXED = {
     "annual_supply_cost_eur": {"min": 360, "max": 510},
 }
 PAIR = {"best_fixed": FIXED, "best_indexed": INDEXED}
+LINK_CASES = (
+    ("offer_page", "https://seller.example/offers/fixed", "Pagina dell’offerta"),
+    ("supplier_offers_page", "https://seller.example/offers/", "Offerte del venditore"),
+    ("supplier_homepage", "https://seller.example/", "Sito del venditore"),
+    ("offer_page", "http://seller.example/offers/fixed", None),
+    ("offer_page", "javascript:alert(1)", None),
+    ("offer_page", "https://", None),
+    ("unknown_kind", "https://seller.example/", None),
+)
 COVERAGE = {
     "scope": "household_offers_in_snapshot",
     "household_offers": 40,
@@ -106,6 +115,7 @@ def run(browser, origin, width, height):
             expect(page.get_by_text("360,00", exact=False)).to_be_visible()
             expect(page.get_by_text("510,00", exact=False)).to_be_visible()
         if state == "recommended":
+            expect(page.locator(".offer a")).to_have_count(0)
             expect(page.get_by_text("420,25", exact=False)).to_be_visible()
             expect(page.get_by_text("deposito cauzionale", exact=False)).to_be_visible()
         if state == "partial_coverage":
@@ -114,6 +124,23 @@ def run(browser, origin, width, height):
         assert page.evaluate("document.documentElement.scrollWidth === window.innerWidth"), state
 
     assert requests == [("GET", {"zone": ["IT"], "consumption": ["2700"]})] * len(CASES)
+    response_status = 200
+    for kind, url, label in LINK_CASES:
+        response = {
+            **BASE,
+            "comparison_state": "recommended",
+            "recommended": {**FIXED, "link": {"kind": kind, "url": url}},
+        }
+        submit.click()
+        expect(page.locator(".offer")).to_have_count(1)
+        links = page.locator(".offer a")
+        expect(links).to_have_count(int(label is not None))
+        if label:
+            expect(links).to_have_text(label)
+            expect(links).to_have_attribute("href", url)
+            expect(links).to_have_attribute("target", "_blank")
+            expect(links).to_have_attribute("rel", "noopener noreferrer nofollow")
+
     page.get_by_role("link", name="Metodologia (EN)").click()
     expect(page.locator("#italy")).to_contain_text("ENTSO-E A44")
     expect(page.locator("#italy")).to_contain_text("takes precedence over the estimate")
