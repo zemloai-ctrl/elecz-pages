@@ -156,122 +156,50 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Esiste un'API gratuita del prezzo dell'elettricità per l'Italia senza chiave API?",
+        "name": "Qual è la migliore offerta luce per i miei consumi?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sì. Elecz è completamente gratuito per l'Italia — prezzo zonale e ore più economiche disponibili per tutte e sei le zone di mercato, senza chiave API, account o registrazione. Basta chiamare GET /signal/spot?zone=IT-NO (o un'altra zona)."
+          "text": "Indica il tuo consumo annuo in kWh. Elecz confronta le offerte valutabili con i dati del Portale Offerte e mostra le stime per il tuo profilo. Verifica la disponibilità al tuo indirizzo con il venditore."
         }
       },
       {
         "@type": "Question",
-        "name": "Come si ottiene il prezzo zonale dell'elettricità in Italia tramite API?",
+        "name": "Conviene il prezzo fisso o l’indicizzato al PUN?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Elecz fornisce i prezzi all'ingrosso ENTSO-E per le sei zone del mercato italiano (Nord, Centro-Nord, Centro-Sud, Sud, Sardegna, Sicilia), basati sulle aste del Mercato del Giorno Prima gestito da GME. Non serve accesso diretto a GME o ENTSO-E — Elecz normalizza i dati e li restituisce in ct/kWh senza autenticazione."
+          "text": "Il prezzo fisso rende più prevedibile il costo dell’energia. Con un’offerta indicizzata, il costo varia con il PUN. Elecz confronta la stima del fisso con un intervallo basato su scenari storici del PUN."
         }
       },
       {
         "@type": "Question",
-        "name": "Cosa restituisce Elecz se si richiede la zona IT senza suffisso?",
+        "name": "Come confrontare le offerte luce con ChatGPT?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Il codice IT senza suffisso usa IT-NO (Nord) come zona predefinita e restituisce lo stesso prezzo di IT-NO. Elecz non calcola una media nazionale separata — per un'altra zona specifica va usato il relativo codice (IT-CNO, IT-CSO, IT-SO, IT-SAR, IT-SIC)."
+          "text": "Aggiungi Elecz – Electricity Prices a ChatGPT e indica il tuo consumo annuo in kWh. ChatGPT può confrontare offerte a prezzo fisso e indicizzate al PUN e spiegarti le differenze."
         }
       },
       {
         "@type": "Question",
-        "name": "Il prezzo di Elecz corrisponde al PUN?",
+        "name": "Le stime includono oneri di rete e imposte?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sono collegati ma non identici. Il PUN (Prezzo Unico Nazionale) è una media dei prezzi zonali pesata sui consumi, storicamente usata come riferimento nazionale unico, ad esempio per alcune offerte a prezzo indicizzato. Il mercato all'ingrosso italiano è però organizzato per zone, con prezzi che possono differire sensibilmente tra Nord e Sud o le isole in caso di congestione della rete. Elecz restituisce il prezzo della zona specifica richiesta, non la media nazionale PUN — un segnale più preciso per decisioni operative in una zona particolare."
+          "text": "Le stime riguardano la sola vendita di energia. Tariffe di rete, oneri di sistema e imposte sono esclusi."
         }
       },
       {
         "@type": "Question",
-        "name": "Elecz confronta le offerte dei fornitori di energia elettrica in Italia?",
+        "name": "Elecz è gratuito?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "La pagina Confronta le offerte luce mostra le offerte italiane a prezzo fisso e indicizzate al PUN quando il confronto è disponibile. Inserisci il tuo consumo annuo per verificare la disponibilità."
+          "text": "Sì, Elecz è gratuito e non richiede un account Elecz. Per usare l’app in ChatGPT accedi con il tuo account ChatGPT."
         }
       },
       {
         "@type": "Question",
-        "name": "Elecz funziona con Home Assistant o n8n?",
+        "name": "Come faccio a sapere quando conviene usare l’elettricità?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sì. Tramite l'API REST o il node ufficiale n8n (n8n-nodes-elecz), Elecz si integra in qualsiasi piattaforma di automazione. Il campo current_hour_signal restituisce direttamente low, medium o high — nessuna logica personalizzata necessaria."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Cos'è MCP e perché è utile per i dati sul prezzo dell'elettricità?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "MCP (Model Context Protocol) è uno standard aperto per collegare agenti IA a strumenti esterni. I prezzi cambiano ogni ora — un agente ha bisogno di una chiamata API in tempo reale, non di dati di addestramento. Connessione tramite https://elecz.com/mcp, nessuna configurazione richiesta. Funziona con Claude, ChatGPT, Grok, Cursor, Copilot e Mistral."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Cos'è un segnale di decisione per il prezzo dell'elettricità?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Un segnale di decisione è un valore già interpretato come current_hour_signal (low/medium/high) o recommendation, a differenza del prezzo grezzo che un agente dovrebbe valutare da solo. Elecz fornisce entrambi: il prezzo grezzo e il segnale pronto all'uso nella stessa risposta."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Esiste uno skill di Elecz per Claude?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sì. Elecz fornisce un file SKILL.md che segue lo standard aperto Agent Skills e funziona in Claude, Cursor, VS Code e oltre 30 altri strumenti."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Esiste un plugin del prezzo dell'elettricità per ChatGPT?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sì. Elecz è elencato nella Plugin Directory ufficiale di ChatGPT come «Elecz — Electricity Prices» — si apre e si connette direttamente, senza modalità sviluppatore, senza configurazione manuale MCP e senza chiave API."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Esiste un'estensione Gemini per i prezzi dell'elettricità?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sì. Elecz è disponibile come estensione Gemini CLI tramite gemini-extension.json, oltre alla connessione MCP e all'API REST."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "L'elettricità è economica in questo momento?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Il campo energy_state nella risposta di cheapest_hours restituisce direttamente cheap, normal, expensive o negative — nessun calcolo di soglia necessario."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Conviene avviare un'attività adesso o aspettare?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Il campo recommendation nella risposta di cheapest_hours restituisce direttamente run_high_consumption_tasks, normal_usage o avoid."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Qual è la prossima ora più economica per l'elettricità?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "I campi next_cheap_hour (timestamp) e hours_until_next_cheap (0 significa immediatamente) nella risposta di cheapest_hours forniscono direttamente l'informazione."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Qual è la fascia oraria migliore per consumare elettricità oggi?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Il campo best_3h_window nella risposta di cheapest_hours fornisce inizio, fine e prezzo medio della finestra di tre ore più economica."
+          "text": "Indica la tua città e chiedi a Elecz il prezzo all’ingrosso della luce adesso o le ore più economiche per ricaricare l’auto, fare il bucato o avviare la lavastoviglie."
         }
       }
     ]
@@ -337,8 +265,14 @@
 
 <section class="section" id="faq" aria-labelledby="faq-consumatori">
   <h2 id="faq-consumatori">Domande frequenti</h2>
-  <h3>Come confronto le offerte luce con ChatGPT?</h3>
-  <p>Aggiungi <a href="https://chatgpt.com/plugins/plugin_asdk_app_6a24c971acc48191bb99f2a694d24fbf">Elecz – Electricity Prices</a> e indica quanti kWh consumi in un anno. ChatGPT può confrontare offerte a prezzo fisso e indicizzate al PUN e spiegarti le differenze. Puoi anche <a href="/it/confronto/">confrontare le offerte nel browser</a>.</p>
+  <h3>Qual è la migliore offerta luce per i miei consumi?</h3>
+  <p>Indica il tuo consumo annuo in kWh. Elecz confronta le offerte valutabili con i dati del Portale Offerte e mostra le stime per il tuo profilo. Verifica la disponibilità al tuo indirizzo con il venditore.</p>
+  <h3>Conviene il prezzo fisso o l’indicizzato al PUN?</h3>
+  <p>Il prezzo fisso rende più prevedibile il costo dell’energia. Con un’offerta indicizzata, il costo varia con il PUN. Elecz confronta la stima del fisso con un intervallo basato su scenari storici del PUN.</p>
+  <h3>Come confrontare le offerte luce con ChatGPT?</h3>
+  <p>Aggiungi <a href="https://chatgpt.com/plugins/plugin_asdk_app_6a24c971acc48191bb99f2a694d24fbf">Elecz – Electricity Prices</a> a ChatGPT e indica il tuo consumo annuo in kWh. ChatGPT può confrontare offerte a prezzo fisso e indicizzate al PUN e spiegarti le differenze.</p>
+  <h3>Le stime includono oneri di rete e imposte?</h3>
+  <p>Le stime riguardano la sola vendita di energia. Tariffe di rete, oneri di sistema e imposte sono esclusi.</p>
   <h3>Elecz è gratuito?</h3>
   <p>Sì, Elecz è gratuito e non richiede un account Elecz. Per usare l’app in ChatGPT accedi con il tuo account ChatGPT.</p>
   <h3>Come faccio a sapere quando conviene usare l’elettricità?</h3>
