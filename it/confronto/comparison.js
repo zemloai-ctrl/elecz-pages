@@ -83,17 +83,21 @@ function offerCard(offer) {
   const cost = offer.annual_supply_cost_eur;
   let label;
   let price;
+  let monthly;
   if (offer.contract_type === 'fixed' && Number.isFinite(cost) && cost >= 0) {
-    label = 'Prezzo fisso';
-    price = `${money.format(cost)} / anno · stima`;
+    label = 'Prezzo fisso (prezzo bloccato)';
+    price = `${money.format(cost)} / anno · spesa annua stimata (solo vendita)`;
+    monthly = `Circa ${money.format(Math.round(cost / 12))} / mese (media annua)`;
   } else if (offer.contract_type === 'pun_indexed' && isRange(cost) && cost.min >= 0) {
-    label = 'Prezzo indicizzato al PUN';
-    price = `${money.format(cost.min)} – ${money.format(cost.max)} / anno · scenari storici`;
+    label = 'Prezzo variabile (indicizzato al PUN)';
+    price = `${money.format(cost.min)} – ${money.format(cost.max)} / anno · spesa annua stimata (solo vendita) · scenari storici`;
+    monthly = `Circa ${money.format(Math.round(cost.min / 12))} – ${money.format(Math.round(cost.max / 12))} / mese (media annua)`;
   } else {
     return null;
   }
   const card = node('article', '', 'offer');
   card.append(node('p', label), node('h4', offer.name), node('p', offer.provider), node('p', price, 'price'));
+  card.append(node('p', monthly));
   if (typeof offer.offer_code === 'string' && offer.offer_code) card.append(node('p', `Codice offerta: ${offer.offer_code}`));
   const conditions = Array.isArray(offer.conditions_to_disclose) ? offer.conditions_to_disclose : [];
   for (const condition of conditions) {
