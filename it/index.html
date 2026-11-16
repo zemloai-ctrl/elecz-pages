@@ -296,6 +296,7 @@
 <div class="hero">
   <div class="hero-eyebrow">ELECZ · CONFRONTO OFFERTE LUCE IN ITALIA</div>
   <h1>Perché confrontare le offerte luce da solo?<br><span class="hl">Chiedi a ChatGPT con Elecz.</span></h1>
+  <p><strong>Un solo plugin per capire quanto costa la luce, quando usarla e quale offerta ti conviene.</strong></p>
   <p class="hero-lead">Aggiungi Elecz a ChatGPT, indica il tuo consumo annuo e lascia che confronti per te le offerte a prezzo fisso e indicizzate al PUN. Puoi anche chiedere quanto costa l’elettricità nella tua zona e quali sono le ore più economiche per usarla.</p>
   <div class="hero-ctas">
     <a href="https://chatgpt.com/plugins/plugin_asdk_app_6a24c971acc48191bb99f2a694d24fbf" class="btn-primary">Aggiungi Elecz a ChatGPT →</a>
@@ -306,11 +307,24 @@
 
 <section class="section" aria-labelledby="prova-elecz">
   <h2 id="prova-elecz">Cosa puoi chiedere a ChatGPT con Elecz?</h2>
-  <ul>
-    <li>«Qual è la migliore offerta luce in Italia per 2.700 kWh all’anno?»</li>
-    <li>«Quanto costa l’elettricità adesso nella mia zona?»</li>
-    <li>«Quali sono le tre ore più economiche per ricaricare l’auto stanotte a Milano?»</li>
-  </ul>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <h3>Confronto offerte luce con l’IA</h3>
+      <p>«Qual è la migliore offerta luce in Italia per 2.700 kWh all’anno?»</p>
+      <p>In un test del 15 novembre 2026, ChatGPT con Elecz ha mostrato una stima di 525 €/anno per un’offerta fissa e 411–756 €/anno per una indicizzata al PUN, secondo scenari storici.</p>
+      <p><small>Esempio per 3 kW. Stime della sola vendita di energia. Copertura parziale e disponibilità locale da verificare.</small></p>
+    </div>
+    <div class="tool-card">
+      <h3>Prezzo della luce adesso</h3>
+      <p>«Quanto costa l’elettricità adesso nella mia zona?»</p>
+      <p>Elecz recupera il prezzo all’ingrosso aggiornato per la tua zona di mercato.</p>
+    </div>
+    <div class="tool-card">
+      <h3>Quando conviene usare l’elettricità?</h3>
+      <p>«Quali sono le tre ore più economiche per ricaricare l’auto stanotte a Milano?»</p>
+      <p>Elecz trova le ore più economiche per ricaricare l’auto o fare il bucato.</p>
+    </div>
+  </div>
   <p style="margin-top: 16px;">Per consultare gli orari nel browser, <a href="https://cheapesthours.com/italy/">guarda le ore più economiche in Italia</a>. Per integrare Elecz in altri assistenti o automazioni, <a href="#integrazione">consulta le opzioni di collegamento</a>.</p>
 </section>
 
@@ -381,6 +395,13 @@ curl "https://elecz.com/signal/cheapest-hours?zone=IT-NO&hours=5"</pre>
   </div>
   <p style="font-size: 0.88rem; color: var(--text2); line-height: 1.75;">I prezzi possono differire sensibilmente tra zone, soprattutto tra il continente e le isole, in caso di congestione della rete di trasmissione. Un agente che ottimizza il consumo a Milano non dovrebbe usare il prezzo di Palermo — vanno usati i codici di zona corretti.</p>
 </div>
+
+<section class="section" aria-labelledby="elecz-strumenti-ia">
+  <h2 id="elecz-strumenti-ia">Plugin, connettore MCP e skill per i prezzi della luce</h2>
+  <p><strong>Quale plugin posso aggiungere a ChatGPT per confrontare le offerte luce in Italia?</strong> Cerca <strong>Elecz – Electricity Prices</strong>, aggiungilo a ChatGPT e indica il tuo consumo annuo.</p>
+  <p><strong>Come collego Elecz a Claude o a un altro assistente?</strong> Il connettore MCP permette agli assistenti compatibili di interrogare Elecz per i prezzi zonali, le ore più economiche e il confronto delle offerte nei mercati supportati. <a href="/electricity-price-mcp/">Guida al connettore MCP</a>.</p>
+  <p><strong>A cosa serve lo skill per i prezzi dell’elettricità?</strong> Lo skill spiega all’assistente quando cercare il prezzo attuale, come trovare le ore più economiche e quando confrontare le offerte. <a href="https://github.com/zemloai-ctrl/elecz-api/blob/main/SKILL.md" hreflang="en">Leggi lo skill Elecz in inglese</a>.</p>
+</section>
 
 <div class="section" id="integrazione">
   <h2>Collega Elecz alla tua IA</h2>
