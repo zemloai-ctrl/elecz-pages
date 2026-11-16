@@ -59,20 +59,11 @@ function italianCoverage(coverage) {
   return `Copertura: ${IT_NUMBER.format(coverage.compared_offers)} di ${IT_NUMBER.format(coverage.household_offers)} offerte domestiche nel dataset.`;
 }
 
-async function renderItalianOffers(origin, render, ctx) {
-  const now = new Date();
-  const day = IT_DAY.format(now);
-  const cache = caches.default;
-  const key = new URL("/__elecz-cache/it-offers-v1", origin);
-  key.searchParams.set("day", day);
-  const cached = await cache.match(key.href);
-  if (cached) return cached.text();
-
-  const signal = AbortSignal.timeout(4000);
-  const profiles = await Promise.all(IT_OFFER_CONSUMPTIONS.map(async consumption => {
+async function renderItalianOffers(render) {
+  const results = await Promise.allSettled(IT_OFFER_CONSUMPTIONS.map(async consumption => {
     const url = new URL("/signal/contract", render);
     url.search = new URLSearchParams({ zone: "IT", consumption });
-    const response = await fetch(url, { signal, redirect: "error" });
+    const response = await fetch(url, { signal: AbortSignal.timeout(25000), redirect: "error" });
     if (!response.ok) throw new Error("Italian contract API unavailable");
     const data = await response.json();
     if (data?.contract_comparison !== "available" || data.market !== "IT" ||
@@ -84,7 +75,11 @@ async function renderItalianOffers(origin, render, ctx) {
         .filter(Boolean),
     };
   }));
-  if (profiles.some(profile => !profile.offers.length)) return "";
+  const profiles = results.flatMap(result =>
+    result.status === "fulfilled" && result.value.offers.length ? [result.value] : []);
+  if (!profiles.length) return "";
+  const now = new Date();
+  const day = IT_DAY.format(now);
 
   const heading = `Le migliori offerte luce di ${IT_MONTH.format(now)}`;
   const items = [];
@@ -120,10 +115,38 @@ async function renderItalianOffers(origin, render, ctx) {
     <p><a href="/it/confronto/">Confronta le offerte con il tuo consumo</a></p>
     <script type="application/ld+json">${json}</script>
   </section>`;
-  ctx.waitUntil(cache.put(key.href, new Response(html, {
-    headers: { "Cache-Control": "public, max-age=3600" },
-  })).catch(() => {}));
   return html;
+}
+
+async function refreshItalianOffers(cache, freshKey, latestKey, render) {
+  const html = await renderItalianOffers(render);
+  if (html) {
+    await cache.put(latestKey, new Response(html, {
+      headers: { "Cache-Control": "public, max-age=86400" },
+    }));
+  }
+  // An empty refresh delays the next retry while preserving the last
+  // successful version with its original expiry.
+  await cache.put(freshKey, new Response(html, {
+    headers: { "Cache-Control": html ? "public, max-age=3600" : "public, max-age=60" },
+  }));
+}
+
+async function cachedItalianOffers(origin, render, ctx) {
+  const cache = caches.default;
+  const freshKey = new URL("/__elecz-cache/it-offers-v2/fresh", origin).href;
+  const latestKey = new URL("/__elecz-cache/it-offers-v2/latest", origin).href;
+  const fresh = await cache.match(freshKey);
+  if (fresh) {
+    const html = await fresh.text();
+    if (html) return html;
+  }
+
+  const latest = await cache.match(latestKey);
+  if (!fresh) {
+    ctx.waitUntil(refreshItalianOffers(cache, freshKey, latestKey, render).catch(() => {}));
+  }
+  return latest ? latest.text() : "";
 }
 
 async function italianHome(request, env, ctx, render) {
@@ -137,7 +160,7 @@ async function italianHome(request, env, ctx, render) {
 
   let html;
   try {
-    html = await renderItalianOffers(url.origin, render, ctx);
+    html = await cachedItalianOffers(url.origin, render, ctx);
   } catch {
     return response;
   }
