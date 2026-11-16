@@ -86,11 +86,11 @@ function offerCard(offer) {
   let monthly;
   if (offer.contract_type === 'fixed' && Number.isFinite(cost) && cost >= 0) {
     label = 'Prezzo fisso (prezzo bloccato)';
-    price = `${money.format(cost)} / anno · spesa annua stimata`;
+    price = `${money.format(cost)} / anno · spesa annua stimata (solo vendita)`;
     monthly = `Circa ${money.format(Math.round(cost / 12))} / mese (media annua)`;
   } else if (offer.contract_type === 'pun_indexed' && isRange(cost) && cost.min >= 0) {
     label = 'Prezzo variabile (indicizzato al PUN)';
-    price = `${money.format(cost.min)} – ${money.format(cost.max)} / anno · spesa annua stimata (scenari storici)`;
+    price = `${money.format(cost.min)} – ${money.format(cost.max)} / anno · spesa annua stimata (solo vendita) · scenari storici`;
     monthly = `Circa ${money.format(Math.round(cost.min / 12))} – ${money.format(Math.round(cost.max / 12))} / mese (media annua)`;
   } else {
     return null;
