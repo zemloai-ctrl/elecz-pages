@@ -39,6 +39,14 @@ No authentication required. Streamable HTTP transport.
 - `cheapest_hours` — cheapest hours next 24h for scheduling (EV charging, appliances, batch jobs)
 - `best_energy_contract` — contract comparison and savings estimate (FI, SE, NO, DK, DE, GB, IT, AU, NZ)
 
+## Finland electricity contract comparison
+
+Elecz compares fixed-price and spot-price household electricity contracts using the Finnish Energy Authority (Energiavirasto) public offer data and the user's annual consumption in kWh. Annual estimates cover electricity supply and exclude distribution charges.
+
+- [Elecz Finland](https://elecz.com/fi/) — compare electricity contracts in ChatGPT.
+- [Finnish browser comparison](https://elecz.com/fi/sahkosopimukset/)
+- [Finnish comparison methodology](https://elecz.com/fi/vertailuperiaatteet/)
+
 ## Italy electricity contract comparison
 
 Elecz compares eligible household fixed-price and PUN-indexed electricity offers it can evaluate from the public Portale Offerte data. Use annual consumption in kWh. Estimates cover electricity sales only, excluding network charges, system charges and taxes. Coverage is partial, and address-level availability should be verified with the supplier.
