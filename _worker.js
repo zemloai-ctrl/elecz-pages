@@ -125,8 +125,8 @@ async function refreshItalianOffers(cache, freshKey, latestKey, render) {
       headers: { "Cache-Control": "public, max-age=86400" },
     }));
   }
-  // An empty refresh hides the section until the next retry. Preserve the
-  // last successful version in its own cache entry with its original expiry.
+  // An empty refresh delays the next retry while preserving the last
+  // successful version with its original expiry.
   await cache.put(freshKey, new Response(html, {
     headers: { "Cache-Control": html ? "public, max-age=3600" : "public, max-age=60" },
   }));
@@ -137,10 +137,15 @@ async function cachedItalianOffers(origin, render, ctx) {
   const freshKey = new URL("/__elecz-cache/it-offers-v2/fresh", origin).href;
   const latestKey = new URL("/__elecz-cache/it-offers-v2/latest", origin).href;
   const fresh = await cache.match(freshKey);
-  if (fresh) return fresh.text();
+  if (fresh) {
+    const html = await fresh.text();
+    if (html) return html;
+  }
 
   const latest = await cache.match(latestKey);
-  ctx.waitUntil(refreshItalianOffers(cache, freshKey, latestKey, render).catch(() => {}));
+  if (!fresh) {
+    ctx.waitUntil(refreshItalianOffers(cache, freshKey, latestKey, render).catch(() => {}));
+  }
   return latest ? latest.text() : "";
 }
 
