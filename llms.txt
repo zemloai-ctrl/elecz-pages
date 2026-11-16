@@ -37,7 +37,7 @@ No authentication required. Streamable HTTP transport.
 
 - `spot_price` — current electricity price for any supported zone
 - `cheapest_hours` — cheapest hours next 24h for scheduling (EV charging, appliances, batch jobs)
-- `best_energy_contract` — contract comparison and savings estimate (FI, SE, NO, DK, DE, GB, IT, AU, NZ)
+- `best_energy_contract` — electricity contract comparison (FI, IT)
 
 ## Finland electricity contract comparison
 
@@ -60,7 +60,7 @@ Elecz compares eligible household fixed-price and PUN-indexed electricity offers
 
 - `GET /signal/spot?zone=FI` — current spot price
 - `GET /signal/cheapest-hours?zone=FI&hours=5` — cheapest hours next 24h
-- `GET /signal/contract?zone=GB&consumption=2700` — contract comparison and switching recommendation
+- `GET /signal/contract?zone=IT&consumption=2700` — Italian electricity contract comparison
 - `GET /signal?zone=FI` — full signal (spot + contracts combined)
 
 Base URL: https://elecz.com
@@ -88,7 +88,7 @@ Mexico: MX-AGS, MX-MTY, MX-GDL, MX-PUE, MX-VER, MX-CHH, MX-HMO, MX-MID, MX-CUL, 
 - ZA and PH: price_type: regulated — fixed tariff, not a live spot price
 - KR: regulated KEPCO retail market — no contract comparison
 - JP: JEPX day-ahead prices — no contract comparison
-- Contract comparison available for: FI, SE, NO, DK, DE, GB, AU, NZ
+- Contract comparison available for: FI, IT
 - best_energy_contract's `recommended` field is never influenced by commission or affiliate status — ranking is based purely on estimated annual cost
 
 ## Links
