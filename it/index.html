@@ -95,6 +95,8 @@
     footer p { font-size: 0.82rem; color: var(--text3); line-height: 1.9; }
     footer a { color: var(--text3); text-decoration: none; }
     footer a:hover { color: var(--text2); }
+    footer .legal-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; margin-top: 12px; font-size: 0.82rem; }
+    footer .legal-nav a { text-decoration: underline; text-underline-offset: 3px; }
     .signal-banner { max-width: 860px; margin: 0 auto; padding: 36px 24px; border-bottom: 1px solid var(--border); background: var(--green-dim); }
     .signal-banner-inner { max-width: 720px; }
     .signal-eyebrow { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
@@ -543,13 +545,19 @@ curl "https://elecz.com/signal/cheapest-hours?zone=IT-NO&hours=5"</pre>
 
 <footer>
   <p>
-    ⚡ <a href="/">Elecz.com</a> · SKA Trading Oy / Zemlo AI, Kokkola, Finlandia ·
+    ⚡ <a href="/">Elecz.com</a> · Kokkola, Finlandia ·
     Dati: ENTSO-E · GME · Octopus Agile · AEMO · EM6 · CAISO · ERCOT · NYISO · IESO · KPX · JEPX · CENACE · Eskom · Meralco ·
-    <a href="/terms/">Termini di utilizzo</a> · <a href="/docs/">Docs</a> · <a href="/chatgpt/">Plugin ChatGPT</a> ·
+    <a href="/docs/">Docs</a> · <a href="/chatgpt/">Plugin ChatGPT</a> ·
     <a href="https://github.com/zemloai-ctrl/elecz-api" target="_blank" rel="noopener">GitHub</a> ·
     <a href="/de/">🇩🇪 Deutsch</a> · <a href="/fr/">🇫🇷 Français</a> · <a href="/es/">🇪🇸 Español</a> · <a href="/ja/">🇯🇵 日本語</a> · <a href="/fi/">🇫🇮 Suomi</a> · <a href="/sv/">🇸🇪 Svenska</a>
   </p>
-<nav class="legal-nav" aria-label="Legal information"><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/how-we-compare/#italy" hreflang="en">Metodologia (EN)</a> · <a href="/contact/">Contact</a></nav></footer>
+  <nav class="legal-nav" aria-label="Informazioni sul sito">
+    <a href="/it/privacy/">Informativa sulla privacy</a>
+    <a href="/it/termini/">Condizioni d’uso</a>
+    <a href="/it/come-confrontiamo/">Come confrontiamo</a>
+    <a href="mailto:partners@elecz.com">Contatti</a>
+  </nav>
+</footer>
 
 </body>
 </html>
