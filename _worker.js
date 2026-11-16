@@ -63,7 +63,7 @@ async function renderItalianOffers(render) {
   const results = await Promise.allSettled(IT_OFFER_CONSUMPTIONS.map(async consumption => {
     const url = new URL("/signal/contract", render);
     url.search = new URLSearchParams({ zone: "IT", consumption });
-    const response = await fetch(url, { signal: AbortSignal.timeout(25000), redirect: "error" });
+    const response = await fetch(url, { signal: AbortSignal.timeout(25000), redirect: "manual" });
     if (!response.ok) throw new Error("Italian contract API unavailable");
     const data = await response.json();
     if (data?.contract_comparison !== "available" || data.market !== "IT" ||
