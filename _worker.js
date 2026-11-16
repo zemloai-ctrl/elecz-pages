@@ -1,3 +1,157 @@
+const IT_OFFER_CONSUMPTIONS = [1500, 2700, 4000];
+const IT_NUMBER = new Intl.NumberFormat("it-IT", { useGrouping: "always" });
+const IT_EUROS = new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR" });
+const IT_MONTH = new Intl.DateTimeFormat("it-IT", {
+  month: "long", year: "numeric", timeZone: "Europe/Rome",
+});
+const IT_DAY = new Intl.DateTimeFormat("it-IT", {
+  dateStyle: "long", timeZone: "Europe/Rome",
+});
+const IT_LINK_LABELS = {
+  offer_page: "Pagina dell’offerta",
+  supplier_offers_page: "Offerte del venditore",
+  supplier_homepage: "Sito del venditore",
+};
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, character => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  })[character]);
+}
+
+function italianOfferLink(link) {
+  if (!link || !Object.hasOwn(IT_LINK_LABELS, link.kind) ||
+      typeof link.url !== "string" || !link.url.startsWith("https://")) return null;
+  try {
+    const url = new URL(link.url);
+    if (url.protocol !== "https:" || url.username || url.password) return null;
+    return { url: url.href, label: IT_LINK_LABELS[link.kind] };
+  } catch {
+    return null;
+  }
+}
+
+function italianOffer(offer, type) {
+  if (offer?.contract_type !== type ||
+      typeof offer.name !== "string" || !offer.name.trim() ||
+      typeof offer.provider !== "string" || !offer.provider.trim()) return null;
+  const cost = offer.annual_supply_cost_eur;
+  const indexed = type === "pun_indexed";
+  const prices = indexed ? [cost?.min, cost?.max] : [cost];
+  if (!prices.every(price => Number.isFinite(price) && price >= 0) ||
+      (indexed && prices[0] > prices[1])) return null;
+  const yearly = prices.map(price => IT_EUROS.format(price)).join(" – ");
+  const monthly = prices.map(price => IT_EUROS.format(Math.round(price / 12))).join(" – ");
+  const label = indexed ? "Prezzo variabile (indicizzato al PUN)" : "Prezzo fisso";
+  const link = italianOfferLink(offer.link);
+  return {
+    name: offer.name,
+    description: `${offer.provider} · ${label} · ${yearly} / anno · spesa annua stimata (solo vendita)${indexed ? " · scenari storici PUN" : ""} · Circa ${monthly} / mese (media annua)`,
+    link,
+  };
+}
+
+function italianCoverage(coverage) {
+  if (coverage?.scope !== "household_offers_in_snapshot" ||
+      !Number.isInteger(coverage.compared_offers) || coverage.compared_offers < 0 ||
+      !Number.isInteger(coverage.household_offers) ||
+      coverage.household_offers < coverage.compared_offers) return "";
+  return `Copertura: ${IT_NUMBER.format(coverage.compared_offers)} di ${IT_NUMBER.format(coverage.household_offers)} offerte domestiche nel dataset.`;
+}
+
+async function renderItalianOffers(origin, render, ctx) {
+  const now = new Date();
+  const day = IT_DAY.format(now);
+  const cache = caches.default;
+  const key = new URL("/__elecz-cache/it-offers-v1", origin);
+  key.searchParams.set("day", day);
+  const cached = await cache.match(key.href);
+  if (cached) return cached.text();
+
+  const signal = AbortSignal.timeout(4000);
+  const profiles = await Promise.all(IT_OFFER_CONSUMPTIONS.map(async consumption => {
+    const url = new URL("/signal/contract", render);
+    url.search = new URLSearchParams({ zone: "IT", consumption });
+    const response = await fetch(url, { signal, redirect: "error" });
+    if (!response.ok) throw new Error("Italian contract API unavailable");
+    const data = await response.json();
+    if (data?.contract_comparison !== "available" || data.market !== "IT" ||
+        data.cost_scope !== "electricity_sales_only") throw new Error("Italian comparison unavailable");
+    return {
+      consumption,
+      coverage: italianCoverage(data.coverage),
+      offers: [italianOffer(data.best_fixed, "fixed"), italianOffer(data.best_indexed, "pun_indexed")]
+        .filter(Boolean),
+    };
+  }));
+  if (profiles.some(profile => !profile.offers.length)) return "";
+
+  const heading = `Le migliori offerte luce di ${IT_MONTH.format(now)}`;
+  const items = [];
+  const cards = profiles.map(({ consumption, coverage, offers }) => {
+    const profile = `${IT_NUMBER.format(consumption)} kWh/anno`;
+    const entries = offers.map(({ name, description, link }) => {
+      items.push({
+        "@type": "ListItem",
+        position: items.length + 1,
+        name,
+        description: `${profile} · ${description}`,
+        ...(link ? { url: link.url } : {}),
+      });
+      return `<li><strong>${escapeHtml(name)}</strong><br>${escapeHtml(description)}${link
+        ? `<br><a href="${escapeHtml(link.url)}" rel="nofollow">${escapeHtml(link.label)}</a>`
+        : ""}</li>`;
+    }).join("");
+    return `<section class="tool-card"><h3>${profile}</h3><ul>${entries}</ul>${coverage
+      ? `<p><small>${escapeHtml(coverage)}</small></p>`
+      : ""}</section>`;
+  }).join("");
+  const json = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: heading,
+    itemListElement: items,
+  }).replace(/</g, "\\u003c");
+  const html = `<section class="section" aria-labelledby="offerte-luce-mese">
+    <h2 id="offerte-luce-mese">${escapeHtml(heading)}</h2>
+    <p>Aggiornato il ${escapeHtml(day)} · Tra le offerte confrontate</p>
+    <div class="tools-grid">${cards}</div>
+    <p>Stime della sola vendita di energia. La disponibilità locale e le condizioni legate alla residenza vanno verificate con il venditore. Fonte dei dati: <a href="https://www.ilportaleofferte.it/">Portale Offerte</a>.</p>
+    <p><a href="/it/confronto/">Confronta le offerte con il tuo consumo</a></p>
+    <script type="application/ld+json">${json}</script>
+  </section>`;
+  ctx.waitUntil(cache.put(key.href, new Response(html, {
+    headers: { "Cache-Control": "public, max-age=3600" },
+  })).catch(() => {}));
+  return html;
+}
+
+async function italianHome(request, env, ctx, render) {
+  const url = new URL(request.url);
+  url.pathname = "/it/";
+  const headers = new Headers(request.headers);
+  headers.delete("If-None-Match");
+  headers.delete("If-Modified-Since");
+  const response = await env.ASSETS.fetch(new Request(url, { headers }));
+  if (!response.ok || !response.headers.get("Content-Type")?.includes("text/html")) return response;
+
+  let html;
+  try {
+    html = await renderItalianOffers(url.origin, render, ctx);
+  } catch {
+    return response;
+  }
+  if (!html) return response;
+  const transformed = new HTMLRewriter().on("#italian-offers-slot", {
+    element(element) { element.replace(html, { html: true }); },
+  }).transform(response);
+  transformed.headers.delete("ETag");
+  transformed.headers.delete("Last-Modified");
+  transformed.headers.delete("Content-Length");
+  transformed.headers.set("Cache-Control", "no-store");
+  return transformed;
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -194,6 +348,9 @@ export default {
       "/it",
       "/sv",
     ];
+    if (request.method === "GET" && (path === "/it/" || path === "/it")) {
+      return italianHome(request, env, ctx, RENDER);
+    }
     if (NO_SLASH_REDIRECT.includes(path)) {
       const assetUrl = new URL(url);
       assetUrl.pathname = path + "/";
