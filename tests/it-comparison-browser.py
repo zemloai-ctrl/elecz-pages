@@ -141,9 +141,21 @@ def run(browser, origin, width, height):
             expect(links).to_have_attribute("target", "_blank")
             expect(links).to_have_attribute("rel", "noopener noreferrer nofollow")
 
-    page.get_by_role("link", name="Metodologia (EN)").click()
-    expect(page.locator("#italy")).to_contain_text("ENTSO-E A44")
-    expect(page.locator("#italy")).to_contain_text("takes precedence over the estimate")
+    legal_paths = ("/it/privacy/", "/it/termini/", "/it/come-confrontiamo/")
+    for entry in ("/it/", "/it/confronto/"):
+        for path in legal_paths:
+            page.goto(origin + entry)
+            page.locator(f"footer a[href='{path}']").click()
+            assert page.url == origin + path
+            expect(page.locator("html")).to_have_attribute("lang", "it")
+            expect(page.locator("main h1")).to_be_visible()
+            assert page.evaluate("document.documentElement.scrollWidth === window.innerWidth"), path
+            for href in page.locator("a[href^='/']").evaluate_all(
+                "(links) => links.map((link) => link.getAttribute('href'))"
+            ):
+                assert page.request.get(origin + href).ok, href
+    expect(page.locator("main")).to_contain_text("ENTSO-E A44")
+    expect(page.locator("main")).to_contain_text("ha precedenza")
     assert not errors, errors
     context.close()
 
