@@ -77,6 +77,35 @@ function offerLink(link) {
   return anchor;
 }
 
+function executionLink(offer) {
+  const { go_url: href, elecz_offer_id: identity, link_target: target } = offer;
+  if (typeof href !== 'string' || typeof identity !== 'string' ||
+      !/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/.test(identity) ||
+      (target !== 'offer' && target !== 'supplier_home')) return null;
+
+  let url;
+  try {
+    url = new URL(href);
+  } catch {
+    return null;
+  }
+  if (!/^\/go\/IT_[A-Za-z0-9_-]+$/.test(url.pathname)) return null;
+  const query = new URLSearchParams({ zone: 'IT', offer_id: identity });
+  const disclosure = target === 'supplier_home' && typeof offer.link_disclosure === 'string'
+    ? offer.link_disclosure.trim() : '';
+  if (target === 'supplier_home') {
+    if (!disclosure) return null;
+    query.set('link_target', target);
+  }
+  if (href !== `https://elecz.com${url.pathname}?${query}`) return null;
+
+  const anchor = node('a', 'Vai all’offerta');
+  anchor.href = href;
+  anchor.target = '_blank';
+  anchor.rel = 'sponsored noopener noreferrer';
+  return { anchor, disclosure };
+}
+
 function offerCard(offer) {
   if (!offer || typeof offer.name !== 'string' || !offer.name.trim() ||
       typeof offer.provider !== 'string' || !offer.provider.trim()) return null;
@@ -103,7 +132,9 @@ function offerCard(offer) {
   for (const condition of conditions) {
     if (Object.hasOwn(disclosures, condition?.code)) card.append(node('p', disclosures[condition.code]));
   }
-  const link = offerLink(offer.link);
+  const execution = executionLink(offer);
+  const link = execution?.anchor ?? offerLink(offer.link);
+  if (execution?.disclosure) card.append(node('p', execution.disclosure));
   if (link) {
     const action = node('p');
     action.append(link);
@@ -155,12 +186,10 @@ function render(data, consumption) {
     offers = [data.best_fixed, data.best_indexed].filter(Boolean);
   }
   const cards = offers.map(offerCard).filter(Boolean);
-  if (!cards.length && state === 'recommended') {
-    status.textContent = messages.insufficient_data;
-    renderCoverage(data.coverage);
-    return;
-  }
-  status.textContent = messages[state];
+  const fixedCards = Array.isArray(data.offers)
+    ? data.offers.filter(offer => offer?.contract_type === 'fixed').map(offerCard).filter(Boolean)
+    : [];
+  status.textContent = state === 'recommended' && !cards.length ? messages.insufficient_data : messages[state];
   if (state === 'partial_coverage') {
     const reasons = new Set(Array.isArray(data.partial_reasons) ? data.partial_reasons : []);
     reasons.add(data.reason);
@@ -171,10 +200,12 @@ function render(data, consumption) {
     if (list.childElementCount) result.append(list);
   }
 
+  if (cards.length || fixedCards.length) {
+    result.append(node('p', 'Consumo considerato: ' + number.format(consumption) + ' kWh/anno.'));
+  }
   if (cards.length) {
     const grid = node('div', '', 'offers');
     grid.append(...cards);
-    result.append(node('p', 'Consumo considerato: ' + number.format(consumption) + ' kWh/anno.'));
     result.append(node('h3', state === 'recommended' ? 'Offerta consigliata' : 'Offerte nel confronto'), grid);
   }
   if (state === 'depends_on_pun' && cards.length === 2 && Number.isFinite(data.break_even_pun_eur_mwh)) {
@@ -186,6 +217,11 @@ function render(data, consumption) {
   if (cards.length && isRange(data.historical_pun_range_eur_mwh)) {
     const range = data.historical_pun_range_eur_mwh;
     result.append(node('p', `PUN negli scenari storici: ${number.format(range.min)} – ${number.format(range.max)} €/MWh.`));
+  }
+  if (fixedCards.length) {
+    const grid = node('div', '', 'offers');
+    grid.append(...fixedCards);
+    result.append(node('h3', 'Offerte a prezzo fisso'), grid);
   }
   renderCoverage(data.coverage);
 }
