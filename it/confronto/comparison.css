@@ -43,6 +43,20 @@ main > p { max-width: 64ch; color: var(--muted); }
 .offer p:first-child { color: var(--green); font-size: .9rem; font-weight: 700; }
 .offer .price { margin-top: 12px; color: var(--ink); font-size: 1.2rem; font-weight: 700; }
 .offer a { display: inline-block; padding-block: 8px; }
+.more-offers {
+  margin-top: 12px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--green);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--green);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.more-offers:hover { background: #eef5ef; }
+.more-offers:focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
 .coverage { margin-top: 16px; padding: 12px 16px; background: #fff; border: 1px solid var(--line); border-radius: 8px; }
 .coverage summary { cursor: pointer; font-weight: 700; }
 .source { border-top: 1px solid var(--line); padding-top: 16px; }

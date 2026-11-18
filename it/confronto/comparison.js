@@ -163,6 +163,42 @@ function renderCoverage(coverage) {
   result.append(details);
 }
 
+const INITIAL_FIXED_OFFERS = 3;
+const MAX_FIXED_OFFERS = 20;
+
+function fixedOfferCards(offers) {
+  const cards = [];
+  if (!Array.isArray(offers)) return cards;
+  for (const offer of offers) {
+    if (offer?.contract_type !== 'fixed') continue;
+    const card = offerCard(offer);
+    if (card) cards.push(card);
+    if (cards.length === MAX_FIXED_OFFERS) break;
+  }
+  return cards;
+}
+
+function renderFixedOffers(cards) {
+  const grid = node('div', '', 'offers');
+  grid.id = 'fixed-offers';
+  grid.append(...cards.slice(0, INITIAL_FIXED_OFFERS));
+  result.append(node('h3', 'Offerte a prezzo fisso'), grid);
+
+  const remaining = cards.slice(INITIAL_FIXED_OFFERS);
+  if (!remaining.length) return;
+  const more = node('button', 'Mostra altre offerte', 'more-offers');
+  more.type = 'button';
+  more.setAttribute('aria-controls', grid.id);
+  more.addEventListener('click', () => {
+    grid.append(...remaining);
+    const firstRevealed = remaining[0];
+    firstRevealed.tabIndex = -1;
+    firstRevealed.focus();
+    more.remove();
+  }, { once: true });
+  result.append(more);
+}
+
 function render(data, consumption) {
   if (data?.contract_comparison !== 'available') {
     status.textContent = data?.contract_comparison === 'not_available'
@@ -186,9 +222,7 @@ function render(data, consumption) {
     offers = [data.best_fixed, data.best_indexed].filter(Boolean);
   }
   const cards = offers.map(offerCard).filter(Boolean);
-  const fixedCards = Array.isArray(data.offers)
-    ? data.offers.filter(offer => offer?.contract_type === 'fixed').map(offerCard).filter(Boolean)
-    : [];
+  const fixedCards = fixedOfferCards(data.offers);
   status.textContent = state === 'recommended' && !cards.length ? messages.insufficient_data : messages[state];
   if (state === 'partial_coverage') {
     const reasons = new Set(Array.isArray(data.partial_reasons) ? data.partial_reasons : []);
@@ -218,11 +252,7 @@ function render(data, consumption) {
     const range = data.historical_pun_range_eur_mwh;
     result.append(node('p', `PUN negli scenari storici: ${number.format(range.min)} – ${number.format(range.max)} €/MWh.`));
   }
-  if (fixedCards.length) {
-    const grid = node('div', '', 'offers');
-    grid.append(...fixedCards);
-    result.append(node('h3', 'Offerte a prezzo fisso'), grid);
-  }
+  if (fixedCards.length) renderFixedOffers(fixedCards);
   renderCoverage(data.coverage);
 }
 
