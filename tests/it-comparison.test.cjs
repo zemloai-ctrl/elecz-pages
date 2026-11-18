@@ -14,7 +14,14 @@ const disclosure = 'Il link porta alla home page del venditore.';
 function element(tag) {
   return {
     tag, children: [], textContent: '',
-    append(...children) { this.children.push(...children); },
+    append(...children) {
+      for (const child of children) child.parent = this;
+      this.children.push(...children);
+    },
+    setAttribute(name, value) { this[name] = value; },
+    addEventListener(name, handler) { this[name] = handler; },
+    focus() { this.focused = true; },
+    remove() { this.parent.children = this.parent.children.filter(child => child !== this); },
     get childElementCount() { return this.children.length; },
   };
 }
@@ -80,4 +87,33 @@ test('missing or invalid execution metadata preserves the original ARERA action'
     assert.equal(anchor.textContent, 'Pagina dell’offerta');
     assert.equal(anchor.rel, 'noopener noreferrer nofollow');
   }
+});
+
+
+test('shows 3 fixed offers first and expands to at most 20 in API order', () => {
+  const { result, render } = comparison();
+  const offers = Array.from({ length: 25 }, (_, index) => ({ ...fixed, name: `Offerta ${index + 1}` }));
+  render({
+    contract_comparison: 'available', comparison_state: 'partial_coverage',
+    market: 'IT', cost_scope: 'electricity_sales_only', offers,
+  }, 2417);
+  const grid = result.children.find(node => node.id === 'fixed-offers');
+  const names = () => grid.children.map(card => card.children.find(node => node.tag === 'h4').textContent);
+  const more = result.children.find(node => node.tag === 'button');
+  assert.deepEqual(names(), offers.slice(0, 3).map(offer => offer.name));
+  assert.equal(more.textContent, 'Mostra altre offerte');
+  assert.equal(more['aria-controls'], grid.id);
+  more.click();
+  assert.deepEqual(names(), offers.slice(0, 20).map(offer => offer.name));
+  assert.equal(grid.children[3].focused, true);
+  assert.ok(!result.children.includes(more));
+});
+
+test('does not show an expand button when the list contains only three offers', () => {
+  const { result, render } = comparison();
+  render({
+    contract_comparison: 'available', comparison_state: 'insufficient_data',
+    market: 'IT', cost_scope: 'electricity_sales_only', offers: [fixed, fixed, fixed],
+  }, 2417);
+  assert.ok(!result.children.some(node => node.tag === 'button'));
 });
