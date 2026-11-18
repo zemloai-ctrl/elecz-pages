@@ -218,7 +218,15 @@
     if (offer.price_includes_tax === true) row('Arvonlisävero', 'Sisältyy hintoihin');
     item.append(details);
     const url = offerLink(offer, data);
-    if (url) { const link = node('a', 'Katso tarjous →', 'btn-primary'); link.href = url; link.rel = 'sponsored noopener'; link.setAttribute('aria-label', `Katso tarjous: ${offer.provider}, ${offer.product_name}`); item.append(link); }
+    if (url) {
+      const supplierLanding = offer.web_supplier_landing === true && webExecutionUrl(offer.go_url) === url;
+      const label = supplierLanding ? 'Katso yhtiön tarjoukset' : 'Katso tarjous';
+      const link = node('a', label + ' →', 'btn-primary');
+      link.href = url;
+      link.rel = 'sponsored noopener';
+      link.setAttribute('aria-label', supplierLanding ? `${label}: ${offer.provider}` : `${label}: ${offer.provider}, ${offer.product_name}`);
+      item.append(link);
+    }
     else item.append(node('p', 'Tarjouslinkki ei ole vielä saatavilla.', 'note'));
     return item;
   }

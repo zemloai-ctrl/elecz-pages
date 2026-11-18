@@ -33,6 +33,11 @@ const link=elements=>elements['spot-offers'].children[0].children.at(-1).href;
 (async()=>{
   let d=data();d.top_spot_offers[0].go_url=go;d.recommended.contract.go_url=go;
   let elements=await render(d);assert.equal(link(elements),go+'&src=web');
+  assert.equal(elements['spot-offers'].children[0].children.at(-1).textContent,'Katso tarjous →');
+  d.top_spot_offers[0].web_supplier_landing=true;
+  elements=await render(d);
+  assert.equal(link(elements),go+'&src=web');
+  assert.equal(elements['spot-offers'].children[0].children.at(-1).textContent,'Katso yhtiön tarjoukset →');
   d=data();elements=await render(d);assert.equal(link(elements),d.action.action_link+'&src=web');
   d=data();d.recommended.contract=null;d.top_spot_offers[0].go_url=go+'&src=mcp';
   elements=await render(d);assert.equal(link(elements),go+'&src=web');
