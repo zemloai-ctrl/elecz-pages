@@ -93,6 +93,8 @@ Mexico: MX-AGS, MX-MTY, MX-GDL, MX-PUE, MX-VER, MX-CHH, MX-HMO, MX-MID, MX-CUL, 
 
 ## Links
 
+- Agent discovery (ARD v0.91): https://elecz.com/.well-known/ard.json
+
 - Homepage: https://elecz.com
 - API overview: https://elecz.com/electricity-price-api/
 - Cheapest hours (cheapest_hours reference): https://elecz.com/cheapest-hours/
