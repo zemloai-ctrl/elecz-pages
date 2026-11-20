@@ -78,10 +78,10 @@ function offerLink(link) {
 }
 
 function executionLink(offer) {
-  const { go_url: href, elecz_offer_id: identity, link_target: target } = offer;
+  const { go_url: href, elecz_offer_id: identity, link_target: target = 'offer' } = offer;
   if (typeof href !== 'string' || typeof identity !== 'string' ||
       !/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/.test(identity) ||
-      (target !== 'offer' && target !== 'supplier_home')) return null;
+      !['offer', 'supplier_home', 'supplier_tariffs'].includes(target)) return null;
 
   let url;
   try {
@@ -91,9 +91,9 @@ function executionLink(offer) {
   }
   if (!/^\/go\/IT_[A-Za-z0-9_-]+$/.test(url.pathname)) return null;
   const query = new URLSearchParams({ zone: 'IT', offer_id: identity });
-  const disclosure = target === 'supplier_home' && typeof offer.link_disclosure === 'string'
+  const disclosure = target !== 'offer' && typeof offer.link_disclosure === 'string'
     ? offer.link_disclosure.trim() : '';
-  if (target === 'supplier_home') {
+  if (target !== 'offer') {
     if (!disclosure) return null;
     query.set('link_target', target);
   }

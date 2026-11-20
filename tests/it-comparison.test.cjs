@@ -55,21 +55,23 @@ test('fixed list follows API order whether or not a row has an affiliate link', 
   }
 });
 
-test('supplier homepage notice comes before the sponsored CTA on either card type', () => {
+test('supplier destination notice comes before the sponsored CTA on either card type', () => {
   const { card } = comparison();
-  const href = goUrl + '&link_target=supplier_home';
   for (const offer of [fixed, {
     ...fixed, contract_type: 'pun_indexed', annual_supply_cost_eur: { min: 360, max: 610 },
   }]) {
-    const rendered = card({
-      ...offer, link: originalLink, elecz_offer_id: identity, go_url: href,
-      link_target: 'supplier_home', link_disclosure: disclosure,
-    });
-    const beforeAction = rendered.children.at(-2);
-    const [anchor] = rendered.children.at(-1).children;
-    assert.equal(beforeAction.textContent, disclosure);
-    assert.equal(anchor.href, href);
-    assert.ok(anchor.rel.includes('sponsored'));
+    for (const target of ['supplier_home', 'supplier_tariffs']) {
+      const href = goUrl + '&link_target=' + target;
+      const rendered = card({
+        ...offer, link: originalLink, elecz_offer_id: identity, go_url: href,
+        link_target: target, link_disclosure: disclosure,
+      });
+      const beforeAction = rendered.children.at(-2);
+      const [anchor] = rendered.children.at(-1).children;
+      assert.equal(beforeAction.textContent, disclosure);
+      assert.equal(anchor.href, href);
+      assert.ok(anchor.rel.includes('sponsored'));
+    }
   }
 });
 
@@ -77,6 +79,9 @@ test('missing or invalid execution metadata preserves the original ARERA action'
   const { card } = comparison();
   for (const metadata of [
     {},
+    { elecz_offer_id: identity, go_url: goUrl, link_target: 'unknown' },
+    { elecz_offer_id: identity, go_url: goUrl + '&link_target=supplier_tariffs', link_target: 'supplier_tariffs' },
+    { elecz_offer_id: identity, go_url: goUrl + '&link_target=supplier_home', link_target: 'supplier_tariffs', link_disclosure: disclosure },
     { elecz_offer_id: identity, go_url: goUrl.replace('elecz.com', 'outside.example'), link_target: 'offer' },
     { elecz_offer_id: identity, go_url: goUrl + '&link_target=supplier_home', link_target: 'supplier_home' },
     { elecz_offer_id: identity, go_url: goUrl + '&offer_id=other', link_target: 'offer' },
@@ -116,4 +121,13 @@ test('does not show an expand button when the list contains only three offers', 
     market: 'IT', cost_scope: 'electricity_sales_only', offers: [fixed, fixed, fixed],
   }, 2417);
   assert.ok(!result.children.some(node => node.tag === 'button'));
+});
+
+
+test('a canonical offer URL without a target keeps the implicit offer action', () => {
+  const { card } = comparison();
+  const rendered = card({ ...fixed, elecz_offer_id: identity, go_url: goUrl });
+  const [anchor] = rendered.children.at(-1).children;
+  assert.equal(anchor.href, goUrl);
+  assert.ok(anchor.rel.includes('sponsored'));
 });
