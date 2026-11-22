@@ -99,8 +99,8 @@
   <p>Elecz turns real-time electricity prices into actionable signals — for AI agents, home automation, and anyone whose decisions depend on when they use electricity.</p>
   <p>A language model cannot know the current electricity price. It was trained on historical data. Without a real-time API call, any answer it gives is a guess. Elecz is that call.</p>
   <p><strong>Contract comparison:</strong> FI · SE · NO · DK · DE · GB · AU · NZ</p>
-  <p><strong>Spot price + cheapest hours:</strong> All of the above + NL · BE · AT · FR · IT · PL · CZ · HU · RO · ES · PT · HR · BG · SI · SK · GR · EE · LV · LT · CH · RS · BA · ME · MK · IE · US-CA · US-NY · CA-ON · JP (9 zones) · MX (14 zones)</p>
-  <p><strong>Spot price only:</strong> KR · KR-JEJU · ZA (regulated) · PH-LUZ · PH-VIS · PH-MIN (regulated) · US-TX (ERCOT — day-ahead data requires authenticated access, not yet integrated)</p>
+  <p><strong>Spot price + cheapest hours:</strong> All of the above (except AU and NZ) + NL · BE · AT · FR · IT · PL · CZ · HU · RO · ES · PT · HR · BG · SI · SK · GR · EE · LV · LT · CH · RS · BA · ME · MK · IE · US-CA · US-TX · US-NY · CA-ON · JP (9 zones) · MX (14 zones)</p>
+  <p><strong>Spot price only:</strong> KR · KR-JEJU · ZA (regulated) · PH-LUZ · PH-VIS · PH-MIN (regulated). AU and NZ have spot price and contract comparison, but no <code>cheapest_hours</code> (no public day-ahead prices).</p>
 
   <h2 id="connect">Connect in 30 seconds</h2>
   <h3>Claude / Claude Code / any MCP client</h3>
@@ -168,6 +168,24 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
     <tr><td class="deprecated"><code>GET /signal/optimize?zone=DE</code></td><td class="deprecated">Deprecated — use /signal</td></tr>
   </table>
 
+  <h2 id="signal">What the price signal means</h2>
+  <p>Read this before quoting an Elecz price to a user. The number is precise, but it is a specific kind of price.</p>
+  <ul>
+    <li><strong>Wholesale, not retail.</strong> <code>spot_price</code> returns the market price for the bidding zone. A household or business bill adds network charges, taxes and the supplier's margin on top, so the price a consumer pays is usually several times higher. Exceptions are marked per market below: GB (Octopus Agile, incl. 5% VAT), ZA (Eskom regulated tariff, excl. VAT) and PH (regulated tariffs, incl. VAT).</li>
+    <li><strong>Unit and currency.</strong> Prices are per kWh in the zone's own currency, usually in the minor unit: EUR c/kWh, GBP p/kWh, USD c/kWh, CAD c/kWh, NZD c/kWh. Mexico is the exception, quoted in MXN/kWh. Always read the <code>unit</code> and <code>currency</code> fields instead of assuming.</li>
+    <li><strong>Zone, not country.</strong> A price belongs to one bidding zone. Sweden, Norway, Denmark, Italy, the UK, Japan and the US markets have several zones with different prices — see the City → Zone Mapping below.</li>
+    <li><strong>Time.</strong> All timestamps are UTC. Convert to the user's local time before presenting hours.</li>
+    <li><strong>Resolution and refresh.</strong> European zones use ENTSO-E day-ahead prices, reported per hour (sub-hourly prices are averaged into the hour) and refreshed by Elecz every hour. Other markets have their own cadence, listed per market below.</li>
+  </ul>
+  <table>
+    <tr><th>Field</th><th>Meaning</th></tr>
+    <tr><td><code>source</code></td><td>Upstream data source, e.g. <code>ENTSO-E</code>, <code>CENACE_MDA</code></td></tr>
+    <tr><td><code>age_seconds</code></td><td>How old the price is, in seconds</td></tr>
+    <tr><td><code>stale</code></td><td><code>true</code> = the price is older than normal for this market. Say so if you quote it.</td></tr>
+    <tr><td><code>fallback</code></td><td><code>true</code> = served from Elecz's backup store because the live cache was unavailable. Still the latest stored price, but treat it with caution.</td></tr>
+  </table>
+  <p><strong>What Elecz does not provide:</strong> historical price archives, price forecasts beyond the published day-ahead prices, or trading and investment advice. Elecz is a read-only price signal; decisions and actions stay with the agent or the user.</p>
+
   <h2 id="markets">Supported Markets</h2>
   <table>
     <tr><th>Zone</th><th>Spot</th><th>Cheapest Hours</th><th>Contracts</th><th>Source</th></tr>
@@ -179,7 +197,7 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
     <tr><td>ES, PT, HR, BG, SI, SK, GR</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
     <tr><td>EE, LV, LT, CH, RS, BA, ME, MK</td><td>✓</td><td>✓</td><td>—</td><td>ENTSO-E</td></tr>
     <tr><td>US-CA-NP15, US-CA-SP15, US-CA-ZP26</td><td>✓</td><td>✓</td><td>—</td><td>CAISO OASIS</td></tr>
-    <tr><td>US-TX-HB_NORTH/HOUSTON/SOUTH/WEST/HUBAVG, US-TX-LZ_*</td><td>✓</td><td>—</td><td>—</td><td>ERCOT CDR</td></tr>
+    <tr><td>US-TX-HB_NORTH/HOUSTON/SOUTH/WEST/HUBAVG, US-TX-LZ_*</td><td>✓</td><td>✓</td><td>—</td><td>ERCOT CDR (spot) · ERCOT DAM (cheapest hours)</td></tr>
     <tr><td>US-NY-* (11 zones)</td><td>✓</td><td>✓</td><td>—</td><td>NYISO MIS</td></tr>
     <tr><td>CA-ON</td><td>✓</td><td>✓</td><td>—</td><td>IESO</td></tr>
     <tr><td>KR, KR-JEJU</td><td>✓</td><td>—</td><td>—</td><td>KPX EPSIS</td></tr>
@@ -249,7 +267,7 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
     <tr><td>San Antonio, Austin</td><td><code>US-TX-HB_SOUTH</code></td></tr>
     <tr><td>Midland, Odessa (wind zone — prices can go negative)</td><td><code>US-TX-HB_WEST</code></td></tr>
   </table>
-  <p><em><code>HB_*</code> = wholesale trading hub, <code>LZ_*</code> = utility load zone — use <code>HB_*</code> unless the user specifically asks about a load-zone settlement point. El Paso is on the Western Interconnection, not ERCOT — not supported. <code>cheapest_hours</code> is not available for any Texas zone yet — confirmed via live testing: ERCOT day-ahead data requires OAuth access, not yet integrated. Only <code>spot_price</code> works for Texas today.</em></p>
+  <p><em><code>HB_*</code> = wholesale trading hub, <code>LZ_*</code> = utility load zone — use <code>HB_*</code> unless the user specifically asks about a load-zone settlement point. El Paso is on the Western Interconnection, not ERCOT — not supported. Both <code>spot_price</code> and <code>cheapest_hours</code> work for Texas zones; <code>cheapest_hours</code> uses ERCOT day-ahead (DAM) prices.</em></p>
 
   <h3>United States — New York (NYISO, 11 zones)</h3>
   <table>
@@ -345,7 +363,7 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
   <p>Day-ahead market (DAM), updated daily after 22:00 UTC. Unit: USD c/kWh.</p>
   <p>Zones: <code>US-CA-NP15</code> (NorCal/PG&E) · <code>US-CA-SP15</code> (SoCal/SCE+SDG&E) · <code>US-CA-ZP26</code> (Desert/Central)</p>
   <h3>Texas — ERCOT</h3>
-  <p>Real-time 15-min data from public ERCOT CDR. <code>cheapest_hours</code> currently returns <code>available: false</code> — ERCOT's day-ahead market requires authenticated API access (OAuth token), which is not yet integrated. Unit: USD c/kWh.</p>
+  <p>Real-time 15-min data from public ERCOT CDR. <code>cheapest_hours</code> uses ERCOT day-ahead market (DAM) prices, published daily for the next day. Unit: USD c/kWh.</p>
   <p>HB_WEST is the wind zone — prices can go negative.</p>
   <p>Hubs: <code>US-TX-HB_NORTH/HOUSTON/SOUTH/WEST/HUBAVG</code> · Load zones: <code>US-TX-LZ_NORTH/HOUSTON/SOUTH/WEST</code></p>
   <h3>New York — NYISO</h3>
@@ -410,8 +428,10 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
   <p>No. Elecz is a free, public API with no authentication and no rate limit for reasonable use.</p>
   <h3>What's the difference between spot_price and cheapest_hours?</h3>
   <p><code>spot_price</code> returns the current electricity price right now. <code>cheapest_hours</code> returns the cheapest upcoming slots in the next 24 hours, for scheduling EV charging, appliances, or automation.</p>
-  <h3>Why doesn't cheapest_hours work for Texas (ERCOT)?</h3>
-  <p>ERCOT's day-ahead market requires authenticated API access (OAuth token) that Elecz hasn't integrated yet. Texas currently supports <code>spot_price</code> only.</p>
+  <h3>Does cheapest_hours work for Texas (ERCOT)?</h3>
+  <p>Yes. <code>cheapest_hours</code> works for all Texas hubs and load zones, using ERCOT day-ahead (DAM) prices. <code>spot_price</code> uses ERCOT real-time data.</p>
+  <h3>Is the Elecz price what I pay on my electricity bill?</h3>
+  <p>Usually not. Elecz returns the wholesale market price for a bidding zone. Your bill adds network charges, taxes and the supplier's margin, so the retail price is normally several times higher. A few markets are exceptions (GB Octopus Agile incl. VAT, and the regulated tariffs for South Africa and the Philippines) — see <a href="#signal">What the price signal means</a>.</p>
   <h3>How many countries and zones does Elecz cover?</h3>
   <p>40+ countries and 100+ zones across Europe, the Americas, Asia, and Africa — including sub-national markets like Sweden's 4 price zones, Italy's 6 zones, New York's 11 NYISO zones, and Mexico's 14 CENACE zones.</p>
   <h3>What is an electricity price skill?</h3>
@@ -481,10 +501,18 @@ curl "https://elecz.com/signal?zone=GB&consumption=2700"</pre>
         },
         {
           "@type": "Question",
-          "name": "Why doesn't cheapest_hours work for Texas (ERCOT)?",
+          "name": "Does cheapest_hours work for Texas (ERCOT)?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "ERCOT's day-ahead market requires authenticated API access (OAuth token) that Elecz hasn't integrated yet. Texas currently supports spot_price only."
+            "text": "Yes. cheapest_hours works for all Texas hubs and load zones, using ERCOT day-ahead (DAM) prices. spot_price uses ERCOT real-time data."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the Elecz price what I pay on my electricity bill?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Usually not. Elecz returns the wholesale market price for a bidding zone. Your bill adds network charges, taxes and the supplier's margin, so the retail price is normally several times higher. A few markets are exceptions: GB (Octopus Agile, incl. VAT), and the regulated tariffs for South Africa and the Philippines."
           }
         },
         {
