@@ -1,0 +1,59 @@
+name: AU NSW preview checks
+on:
+  pull_request:
+    branches: [main]
+    paths: ['au/**', 'tests/**', '.github/workflows/au-nsw-preview.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Existing offline regressions and AU tests
+        shell: bash
+        run: |
+          files=()
+          for file in tests/*.cjs; do
+            case "$file" in
+              tests/fi-core-consumption-response.cjs|tests/fi-cross-repo-contract.cjs) continue ;;
+            esac
+            files+=("$file")
+          done
+          node --test "${files[@]}"
+  browsers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install playwright
+      - run: python -m playwright install --with-deps chromium
+      - name: Select bundled test browser
+        run: |
+          python - <<'PY'
+          import os
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as p:
+              with open(os.environ['GITHUB_ENV'], 'a') as env:
+                  env.write('CHROMIUM_PATH=' + p.chromium.executable_path + '\n')
+          PY
+      - name: Italian browser regression (fixtures only)
+        run: python tests/it-comparison-browser.py
+      - name: AU mobile and desktop scenarios (fixtures only)
+        env:
+          SCREENSHOT_DIR: artifacts/au-screenshots
+        run: python tests/au-comparison-browser.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: au-nsw-screenshots
+          path: artifacts/au-screenshots
+          if-no-files-found: ignore
+          retention-days: 30

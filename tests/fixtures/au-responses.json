@@ -1,0 +1,7 @@
+{
+  "description": "SYNTHETIC TEST RESPONSES ONLY. Never imported by the website. Not live offers.",
+  "offer": {"supplier":"[TEST ONLY] Example Retailer","name":"Synthetic single-rate plan","source_offer_id":"TEST-PLAN-ONE","annual_supply_cost_aud":1976.54,"pricing_model":"fixed"},
+  "groups": ["Essential Energy","Essential Energy Far West","Essential Energy Standard"],
+  "notice": "Only offers verified as eligible with identical pricing and annual cost for every listed distributor option are compared. The recommendation is the cheapest in this common set, not necessarily the cheapest for your premises. Selecting your exact distributor may show additional offers or a cheaper option.",
+  "resolution": {"status":"user_confirmation_required","source_field":"geography.distributors","input_field":"distributor","message":"TEST RESPONSE: confirm the exact listed label with your retailer using premises information. Do not guess from similar names."}
+}
