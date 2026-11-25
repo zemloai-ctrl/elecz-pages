@@ -47,6 +47,13 @@ Elecz compares fixed-price and spot-price household electricity contracts using 
 - [Finnish browser comparison](https://elecz.com/fi/sahkosopimukset/)
 - [Finnish comparison methodology](https://elecz.com/fi/vertailuperiaatteet/)
 
+## Australia (NSW) electricity plan comparison
+
+Elecz compares eligible household electricity plans in New South Wales from public Australian Energy Regulator (Energy Made Easy) plan data. Use a four-digit NSW postcode and annual consumption in kWh. Estimates are annual supply costs in AUD including GST. Where several distributor options apply to a postcode and none is given, only plans eligible at identical prices for every listed option are compared. Other states are not yet covered.
+
+- [Elecz Australia](https://elecz.com/au/)
+- [NSW browser comparison](https://elecz.com/au/compare/)
+
 ## Italy electricity contract comparison
 
 Elecz compares eligible household fixed-price and PUN-indexed electricity offers it can evaluate from the public Portale Offerte data. Use annual consumption in kWh. Estimates cover electricity sales only, excluding network charges, system charges and taxes. Coverage is partial, and address-level availability should be verified with the supplier.
