@@ -49,6 +49,9 @@ function offerCard(offer, recommended, shared) {
   card.append(node('p', typeof offer.name === 'string' && offer.name.trim() ? offer.name : 'Plan name not provided'));
   card.append(node('p', money.format(offer.annual_supply_cost_aud) + ' / year', 'price'));
   card.append(node('p', 'Estimated annual supply cost · includes GST', 'estimate'));
+  if (Number.isSafeInteger(offer.variant_count) && offer.variant_count > 1) {
+    card.append(node('p', '+' + (offer.variant_count - 1) + ' identical-price plan variants', 'estimate'));
+  }
   return card;
 }
 

@@ -125,3 +125,20 @@ test('public AU pages are indexable, canonical, discoverable and carry no embedd
   assert.match(read('llms.txt'),/https:\/\/elecz\.com\/au\/compare\//);
   assert.equal((read('index.html').match(/href="\/au\/"/g)||[]).length,2);
 });
+
+
+test('collapsed variants show an additive label without changing price or scope',()=>{
+  const h=harness();const offer={...fixture.offer,variant_count:11};
+  h.render({...shared(),offers:[offer],recommended:offer});
+  assert.match(cards(h)[0].textContent,/\+10 identical-price plan variants/);
+  assert.match(cards(h)[0].textContent,/1,976\.54/);
+  assert.match(h.text(),/This comparison includes plans available across all listed distributor options/);
+});
+for(const count of [undefined,1,0,-1,1.5,true,'11','<img src=x onerror=alert(1)>']) {
+  test('legacy or invalid variant count does not invent variants: '+String(count),()=>{
+    const h=harness();const offer={...fixture.offer,variant_count:count};
+    h.render(available({offers:[offer],recommended:offer}));
+    assert.doesNotMatch(cards(h)[0].textContent,/identical-price plan variants/);
+    assert.match(cards(h)[0].textContent,/1,976\.54/);
+  });
+}

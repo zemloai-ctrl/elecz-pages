@@ -25,7 +25,8 @@ def payload(postcode='2650',network=None):
         'annual_consumption_kwh':4500,'freshness':'fresh',
         'distributor':None if common else network or 'Ausgrid',
         'distributors':FIXTURE['groups'] if postcode=='2650' else ['Ausgrid'],
-        'offers':[FIXTURE['offer']],'recommended':FIXTURE['offer'],
+        'offers':[{**FIXTURE['offer'],'variant_count':11}],
+        'recommended':{**FIXTURE['offer'],'variant_count':11},
         **({'distributor_scope':'all_listed','comparison_scope':'common_eligible_offers','distributor_notice':FIXTURE['notice']} if common else {})}
 
 
@@ -88,6 +89,7 @@ def run(browser,base,width,height,screenshots):
     expect(page.locator('.offer')).to_have_count(1)
     expect(page.locator('.scope')).to_contain_text(SHARED)
     expect(page.locator('.offer .price')).to_contain_text('1,976.54')
+    expect(page.locator('.offer')).to_contain_text('+10 identical-price plan variants')
     # Explicit test-only marking is screenshot harness code, never site code.
     page.evaluate("""() => { const note=document.createElement('div');note.textContent='SYNTHETIC TEST RESPONSE — NOT A LIVE OFFER';note.style.cssText='padding:12px;background:#17213b;color:white;text-align:center;font:700 14px system-ui';document.body.prepend(note); }""")
     if screenshots:page.screenshot(path=str(screenshots/f'nsw-common-{width}.png'),full_page=True)
@@ -138,3 +140,4 @@ def main():
 
 
 if __name__=='__main__':main()
+
