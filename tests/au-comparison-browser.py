@@ -71,7 +71,7 @@ def run(browser,base,width,height,screenshots):
     page.route('**/*',intercept)
     page.goto(base+'/au/compare/')
     expect(page.locator('#comparison-form')).to_be_visible()
-    expect(page.locator('.availability')).to_contain_text('not yet publicly available')
+    expect(page.locator('.availability')).to_have_count(0)
     # Native postcode validation cannot trigger a comparison.
     page.locator('#postcode').fill('abc')
     page.locator('#consumption').fill('4500')

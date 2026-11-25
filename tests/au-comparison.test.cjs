@@ -110,15 +110,18 @@ test('all API text uses literal text nodes, including malicious supplier and net
   h.render(shared());h.render(available({distributors:[evil],distributor:evil,offers:[{...fixture.offer,supplier:evil}],recommended:{...fixture.offer,supplier:evil}}));
   assert.ok(h.text().includes(evil));assert.doesNotMatch(source,/innerHTML|insertAdjacentHTML|document\.write/);
 });
-test('draft pages have noindex, no embedded sample price, and no discovery/worker changes are required',()=>{
-  for(const filename of ['au/index.html','au/compare/index.html']) {
+test('public AU pages are indexable, canonical, discoverable and carry no embedded sample price',()=>{
+  for(const [filename,canonical] of [['au/index.html','https://elecz.com/au/'],['au/compare/index.html','https://elecz.com/au/compare/']]) {
     const html=fs.readFileSync(path.join(__dirname,'..',filename),'utf8');
-    assert.match(html,/<html lang="en-AU">/);assert.match(html,/name="robots" content="noindex, nofollow"/);
-    assert.match(html,/NSW electricity plan comparison is not yet publicly available/);
+    assert.match(html,/<html lang="en-AU">/);assert.doesNotMatch(html,/noindex/);
+    assert.ok(html.includes(`<link rel="canonical" href="${canonical}">`));
+    assert.doesNotMatch(html,/not yet publicly available|\bpreview\b(?!-)/i);
     assert.ok(!html.includes(String(fixture.offer.annual_supply_cost_aud)));
   }
   assert.doesNotMatch(source,/fixtures|1976\.54|Example Retailer|https:\/\//);
-  for(const filename of ['sitemap.xml','llms.txt','index.html']) {
-    assert.doesNotMatch(fs.readFileSync(path.join(__dirname,'..',filename),'utf8'),/\/au\//);
-  }
+  const read=f=>fs.readFileSync(path.join(__dirname,'..',f),'utf8');
+  assert.match(read('sitemap.xml'),/<loc>https:\/\/elecz\.com\/au\/<\/loc>/);
+  assert.match(read('sitemap.xml'),/<loc>https:\/\/elecz\.com\/au\/compare\/<\/loc>/);
+  assert.match(read('llms.txt'),/https:\/\/elecz\.com\/au\/compare\//);
+  assert.equal((read('index.html').match(/href="\/au\/"/g)||[]).length,2);
 });
